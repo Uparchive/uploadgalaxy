@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Galaxy</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Upload Galaxy</h1>
+    </header>
+    
+    <main>
+        <section id="upload-section">
+            <h2>Envie seus Arquivos</h2>
+            <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+                <label for="file-input">Selecione um arquivo:</label>
+                <input type="file" id="file-input" name="file" required>
+                <button type="submit">Fazer Upload</button>
+            </form>
+        </section>
+        
+        <section id="file-list-section">
+            <h2>Seus Arquivos</h2>
+            <ul id="file-list">
+                <!-- Lista de arquivos enviados será inserida aqui -->
+            </ul>
+        </section>
+
+        <section id="preview-section">
+            <h2>Visualização de Arquivos</h2>
+            <div id="file-preview">
+                <!-- Visualização de vídeos e fotos será inserida aqui -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Upload Galaxy</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
