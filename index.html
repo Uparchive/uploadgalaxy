@@ -14,7 +14,7 @@
     <main>
         <section id="upload-section">
             <h2>Envie seus Arquivos</h2>
-            <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+            <form id="upload-form" enctype="multipart/form-data">
                 <label for="file-input">Selecione um arquivo:</label>
                 <input type="file" id="file-input" name="file" required>
                 <button type="submit">Fazer Upload</button>
@@ -26,13 +26,6 @@
             <ul id="file-list">
                 <!-- Lista de arquivos enviados será inserida aqui -->
             </ul>
-        </section>
-
-        <section id="preview-section">
-            <h2>Visualização de Arquivos</h2>
-            <div id="file-preview">
-                <!-- Visualização de vídeos e fotos será inserida aqui -->
-            </div>
         </section>
     </main>
 
