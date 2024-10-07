@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar Firebase usando CDN
+    // Inicializar Firebase
     const firebaseConfig = {
         apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
         authDomain: "armazene-acd30.firebaseapp.com",
