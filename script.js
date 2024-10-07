@@ -1,12 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar Firebase usando CDN
+    const firebaseConfig = {
+        apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
+        authDomain: "armazene-acd30.firebaseapp.com",
+        databaseURL: "https://armazene-acd30-default-rtdb.firebaseio.com",
+        projectId: "armazene-acd30",
+        storageBucket: "armazene-acd30.appspot.com",
+        messagingSenderId: "853849509051",
+        appId: "1:853849509051:web:ea6f96915c4d5c895b2d9e",
+        measurementId: "G-79TBH73QPT"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const storage = firebase.storage();
+
     const uploadForm = document.getElementById('upload-form');
     const fileListSection = document.getElementById('file-list');
-    const filePreviewSection = document.getElementById('file-preview');
 
     // Função para exibir a lista de arquivos enviados
     function displayFiles(files) {
         fileListSection.innerHTML = '';
-        filePreviewSection.innerHTML = '';
         files.forEach(file => {
             const listItem = document.createElement('li');
             listItem.textContent = file.name;
@@ -33,31 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
             listItem.appendChild(downloadButton);
             listItem.appendChild(shareButton);
             fileListSection.appendChild(listItem);
-
-            // Adicionar pré-visualização se for uma imagem ou vídeo
-            const previewItem = document.createElement('div');
-            previewItem.classList.add('file-preview-item');
-            if (file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
-                const img = document.createElement('img');
-                img.src = file.url;
-                img.alt = file.name;
-                previewItem.appendChild(img);
-            } else if (file.name.match(/\.(mp4|webm|ogg)$/i)) {
-                const video = document.createElement('video');
-                video.src = file.url;
-                video.controls = true;
-                previewItem.appendChild(video);
-            }
-            if (previewItem.hasChildNodes()) {
-                filePreviewSection.appendChild(previewItem);
-            }
         });
     }
 
     // Evento de envio do formulário
     uploadForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         const fileInput = document.getElementById('file-input');
         const files = fileInput.files;
 
@@ -67,31 +61,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const file = files[0];
-        const identifier = `upload-galaxy-${Date.now()}`;
-        const accessKey = 'Ww2J7uqy8bzaKAF8'; // Chave de Acesso do Archive.org
-        const secretKey = 'oS6UujdolI8hsV'; // Chave Secreta do Archive.org
+        const storageRef = storage.ref(`uploads/${file.name}`);
 
         try {
-            const response = await fetch(`https://s3.us.archive.org/${identifier}/${file.name}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `LOW ${accessKey}:${secretKey}`,
-                    'Content-Type': 'application/octet-stream',
-                    'x-amz-auto-make-bucket': '1',
-                    'x-archive-meta-title': file.name,
-                },
-                body: file
-            });
+            const snapshot = await storageRef.put(file);
+            const downloadURL = await snapshot.ref.getDownloadURL();
+            alert('Arquivo enviado com sucesso!');
 
-            if (response.ok) {
-                const archiveUrl = `https://archive.org/details/${identifier}`;
-                alert('Arquivo enviado com sucesso!');
-
-                // Adiciona o nome do arquivo à lista de arquivos enviados
-                displayFiles([{ name: file.name, url: archiveUrl }]);
-            } else {
-                throw new Error(`Erro ao enviar o arquivo: ${response.statusText}`);
-            }
+            // Adiciona o arquivo à lista de arquivos enviados
+            displayFiles([{ name: file.name, url: downloadURL }]);
         } catch (error) {
             console.error('Erro ao fazer upload:', error);
             alert('Erro ao fazer upload: ' + error.message);

@@ -5,23 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Galaxy</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
 </head>
 <body>
     <header>
-        <h1>Upload Galaxy</h1>
+        <nav class="navbar">
+            <div class="container">
+                <a href="#" class="logo">Upload Galaxy</a>
+                <ul class="nav-links">
+                    <li><a href="#upload-section">Upload</a></li>
+                    <li><a href="#file-list-section">Seus Arquivos</a></li>
+                    <li><a href="#">Sobre</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
     
     <main>
-        <section id="upload-section">
+        <section id="hero-section">
+            <div class="hero-content">
+                <h1>Armazene e Compartilhe Seus Arquivos com Facilidade</h1>
+                <p>Faça upload de seus arquivos e acesse-os a qualquer hora, em qualquer lugar. Segurança e conveniência ao seu alcance.</p>
+                <a href="#upload-section" class="cta-button">Começar Agora</a>
+            </div>
+        </section>
+
+        <section id="upload-section" class="container">
             <h2>Envie seus Arquivos</h2>
             <form id="upload-form" enctype="multipart/form-data">
-                <label for="file-input">Selecione um arquivo:</label>
-                <input type="file" id="file-input" name="file" required>
-                <button type="submit">Fazer Upload</button>
+                <div class="form-group">
+                    <label for="file-input"><i class="fas fa-file-upload"></i> Selecione um arquivo:</label>
+                    <input type="file" id="file-input" name="file" required>
+                </div>
+                <button type="submit" class="upload-button"><i class="fas fa-cloud-upload-alt"></i> Fazer Upload</button>
             </form>
         </section>
         
-        <section id="file-list-section">
+        <section id="file-list-section" class="container">
             <h2>Seus Arquivos</h2>
             <ul id="file-list">
                 <!-- Lista de arquivos enviados será inserida aqui -->
@@ -30,7 +54,14 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 - Upload Galaxy</p>
+        <div class="container">
+            <p>&copy; 2024 - Upload Galaxy. Todos os direitos reservados.</p>
+            <ul class="social-links">
+                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </div>
     </footer>
 
     <script src="script.js"></script>
