@@ -209,8 +209,6 @@ function displayFiles(files) {
     });
 }
 
-
-
 // Função para ordenar os arquivos
 function sortFiles(criteria) {
     const sortedFiles = [...allFiles];
@@ -239,62 +237,6 @@ function sortFiles(criteria) {
     }
 
     displayFiles(sortedFiles);
-}
-
-// Função para exibir os arquivos na lista
-function displayFiles(files) {
-    fileList.innerHTML = '';
-
-    files.forEach(file => {
-        const listItem = document.createElement('li');
-
-        // Nome e tamanho do arquivo
-        const fileNameSpan = document.createElement('span');
-        const fileSize = formatBytes(file.size);
-        fileNameSpan.textContent = `${file.name} (${fileSize})`;
-        listItem.appendChild(fileNameSpan);
-
-        // Container de botões
-        const buttonContainer = document.createElement('div');
-
-        // Botão de Download
-        const downloadButton = document.createElement('a');
-        downloadButton.textContent = 'Download';
-        downloadButton.href = file.url;
-        downloadButton.classList.add('download-button');
-        downloadButton.download = file.name;
-        buttonContainer.appendChild(downloadButton);
-
-        // Botão de Compartilhar (Copiar Link)
-        const shareButton = document.createElement('button');
-        shareButton.textContent = 'Copiar Link';
-        shareButton.classList.add('share-button');
-        shareButton.addEventListener('click', () => {
-            navigator.clipboard.writeText(file.url)
-                .then(() => {
-                    alert('Link copiado para a área de transferência!');
-                })
-                .catch(() => {
-                    alert('Falha ao copiar o link.');
-                });
-        });
-        buttonContainer.appendChild(shareButton);
-
-        // Botão de Excluir
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Excluir';
-        deleteButton.classList.add('delete-button');
-        deleteButton.addEventListener('click', () => {
-            const confirmDelete = confirm(`Tem certeza que deseja excluir o arquivo "${file.name}"?`);
-            if (confirmDelete) {
-                deleteFile(file.name);
-            }
-        });
-        buttonContainer.appendChild(deleteButton);
-
-        listItem.appendChild(buttonContainer);
-        fileList.appendChild(listItem);
-    });
 }
 
 // Função para excluir um arquivo
