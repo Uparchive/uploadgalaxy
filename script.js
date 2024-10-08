@@ -16,10 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const uploadForm = document.getElementById('upload-form');
     const fileListSection = document.getElementById('file-list');
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.getElementById('progress-container');
+    const progressText = document.getElementById('progress-text');
 
     // Função para exibir a lista de arquivos enviados
     function displayFiles(files) {
-        fileListSection.innerHTML = '';
         files.forEach(file => {
             const listItem = document.createElement('li');
             listItem.textContent = file.name;
@@ -62,20 +64,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const file = files[0];
         const storageRef = storage.ref(`uploads/${file.name}`);
+        const uploadTask = storageRef.put(file);
 
-        try {
-            const snapshot = await storageRef.put(file);
-            const downloadURL = await snapshot.ref.getDownloadURL();
-            alert('Arquivo enviado com sucesso!');
+        // Mostrar o container de progresso
+        progressContainer.style.display = 'block';
 
-            // Adiciona o arquivo à lista de arquivos enviados
-            displayFiles([{ name: file.name, url: downloadURL }]);
-        } catch (error) {
-            console.error('Erro ao fazer upload:', error);
-            alert('Erro ao fazer upload: ' + error.message);
-        }
+        // Monitorar o progresso do upload
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${progress.toFixed(2)}%`;
+            },
+            (error) => {
+                console.error('Erro ao fazer upload:', error);
+                alert('Erro ao fazer upload: ' + error.message);
+            },
+            async () => {
+                const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+                alert('Arquivo enviado com sucesso!');
 
-        // Limpar o campo de upload
-        fileInput.value = '';
+                // Adiciona o arquivo à lista de arquivos enviados
+                displayFiles([{ name: file.name, url: downloadURL }]);
+
+                // Limpar o campo de upload e progresso
+                fileInput.value = '';
+                progressBar.style.width = '0%';
+                progressText.textContent = '0%';
+            }
+        );
     });
 });
