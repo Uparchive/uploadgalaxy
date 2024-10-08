@@ -1,19 +1,19 @@
 // Importações do Firebase Modular SDK (Certifique-se de usar a versão mais recente disponível)
 import { initializeApp, setLogLevel } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { 
-    getAuth, 
-    signInWithPopup, 
-    GoogleAuthProvider, 
-    onAuthStateChanged 
+import {
+    getAuth,
+    signInWithPopup,
+    GoogleAuthProvider,
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { 
-    getStorage, 
-    ref, 
-    uploadBytesResumable, 
-    getDownloadURL, 
-    listAll, 
-    deleteObject, 
-    getMetadata 
+import {
+    getStorage,
+    ref,
+    uploadBytesResumable,
+    getDownloadURL,
+    listAll,
+    deleteObject,
+    getMetadata
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
 
@@ -144,15 +144,15 @@ async function startUpload() {
         async () => {
             try {
                 console.log('Tentando obter a URL de download para:', uploadTask.snapshot.ref.fullPath);
-                
+
                 // Tentativa de obter a URL do download
                 const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                
+
                 // Verifique a estrutura completa da URL
                 console.log('URL de download obtida com sucesso:', downloadURL);
 
                 alert('Arquivo enviado com sucesso!');
-                
+
                 // Atualiza a lista de arquivos exibidos
                 await fetchAllFiles();
 
@@ -166,7 +166,6 @@ async function startUpload() {
                 console.error('Erro ao obter URL de download:', error);
                 console.error('Código do erro:', error.code);
                 console.error('Mensagem do erro:', error.message);
-                
                 alert(`Erro ao obter URL de download: ${error.code} - ${error.message}`);
                 isUploading = false;
                 progressContainer.style.display = 'none';
@@ -197,7 +196,7 @@ async function fetchAllFiles() {
                             name: item.name,
                             url,
                             timeCreated: metadata.timeCreated,
-                            size: metadata.size
+                            size: Number(metadata.size) // Garantir que seja um número
                         };
                     } catch (error) {
                         console.error('Erro ao obter URL ou metadados do arquivo:', item.name, error);
@@ -211,22 +210,18 @@ async function fetchAllFiles() {
 
             if (allFiles.length > 0) {
                 sortFiles(sortSelect.value);
+                updateStorageUsage();
             } else {
                 console.log('Nenhum arquivo válido encontrado.');
                 fileList.innerHTML = ''; // Limpa a lista se não houver arquivos válidos
+                updateStorageUsage(); // Atualiza o uso de armazenamento mesmo que não haja arquivos válidos
             }
-            updateStorageUsage(); // Atualiza o uso de armazenamento, independentemente do número de arquivos
         } catch (error) {
             console.error('Erro ao listar arquivos:', error);
         }
     } else {
         console.log('Usuário não autenticado.');
     }
-}
-
-function showFileListSection() {
-    const fileListSection = document.getElementById('file-list-section');
-    fileListSection.style.display = 'block';
 }
 
 // Função para exibir a lista de arquivos
@@ -308,7 +303,11 @@ function updateStorageUsage() {
     const totalUsedBytes = allFiles.reduce((sum, file) => sum + Number(file.size || 0), 0);
     const totalUsedGB = totalUsedBytes / (1024 ** 3);
     const formattedUsedGB = totalUsedGB.toFixed(2);
-    storageUsageDisplay.textContent = `${formattedUsedGB} GB de Ilimitado`;
+    const formattedTotalGB = totalAvailableGB;
+    storageUsageDisplay.textContent = `${formattedUsedGB} GB de ${formattedTotalGB}`;
+    
+    // Opcional: Adicionar logs para depuração
+    console.log(`Total Usado: ${formattedUsedGB} GB de ${formattedTotalGB}`);
 }
 
 // Função para formatar bytes em unidades legíveis
@@ -337,3 +336,12 @@ function copyToClipboard(url) {
         alert('Erro ao copiar link. Tente novamente.');
     });
 }
+
+// Função para impedir o usuário de sair durante o upload
+window.addEventListener('beforeunload', function (e) {
+    if (isUploading) {
+        e.preventDefault();
+        // A maioria dos navegadores ignora a string retornada, mas é necessária para alguns
+        e.returnValue = '';
+    }
+});
