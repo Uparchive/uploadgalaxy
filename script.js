@@ -131,19 +131,26 @@ async function startUpload() {
     uploadTask.on('state_changed',
         (snapshot) => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `${progress.toFixed(2)}%`;
             console.log(`Upload em progresso: ${progress.toFixed(2)}%`);
         },
         (error) => {
             console.error('Erro ao fazer upload:', error);
             console.error('Payload do erro:', error.customData);
             alert(`Erro ao fazer upload: ${error.code} - ${error.message}`);
+            isUploading = false;
+            progressContainer.style.display = 'none';
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
         },
         async () => {
+            // Coloque o trecho aqui
             try {
+                console.log('Tentando obter a URL de download para:', uploadTask.snapshot.ref.fullPath);
                 const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
                 console.log('Upload concluído com sucesso. URL:', downloadURL);
                 alert('Arquivo enviado com sucesso!');
-                // Recarrega a lista de arquivos para incluir o novo
                 await fetchAllFiles();
                 // Limpar o campo de upload e progresso
                 fileInput.value = '';
@@ -153,7 +160,6 @@ async function startUpload() {
                 isUploading = false;
             } catch (error) {
                 console.error('Erro ao obter URL de download:', error);
-                console.error('Payload do erro:', error.customData);
                 alert(`Erro ao obter URL de download: ${error.code} - ${error.message}`);
                 isUploading = false;
                 progressContainer.style.display = 'none';
