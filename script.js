@@ -337,6 +337,10 @@ function copyToClipboard(url) {
     });
 }
 
+// Anexar funções ao objeto window para torná-las acessíveis globalmente
+window.copyToClipboard = copyToClipboard;
+window.deleteFile = deleteFile;
+
 // Função para impedir o usuário de sair durante o upload
 window.addEventListener('beforeunload', function (e) {
     if (isUploading) {
