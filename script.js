@@ -146,8 +146,20 @@ async function startUpload() {
         async () => {
             try {
                 console.log('Tentando obter a URL de download para:', uploadTask.snapshot.ref.fullPath);
+                
+                // Tentativa de obter a URL do download
                 const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                console.log('Upload concluído com sucesso. URL:', downloadURL);
+                
+                // Verifique a estrutura completa da URL
+                console.log('URL de download obtida com sucesso:', downloadURL);
+
+                // Verificar explicitamente se o token está presente na URL
+                if (downloadURL.includes("token=")) {
+                    console.log("Token de acesso encontrado na URL:", downloadURL.split("token=")[1]);
+                } else {
+                    console.error("A URL de download não contém um token de acesso válido!");
+                }
+                
                 alert('Arquivo enviado com sucesso!');
                 
                 // Atualiza a lista de arquivos exibidos
@@ -161,6 +173,9 @@ async function startUpload() {
                 isUploading = false;
             } catch (error) {
                 console.error('Erro ao obter URL de download:', error);
+                console.error('Código do erro:', error.code);
+                console.error('Mensagem do erro:', error.message);
+                
                 alert(`Erro ao obter URL de download: ${error.code} - ${error.message}`);
                 isUploading = false;
                 progressContainer.style.display = 'none';
@@ -170,6 +185,7 @@ async function startUpload() {
         }
     );
 }
+
 
 // Função para buscar todos os arquivos do usuário
 async function fetchAllFiles() {
