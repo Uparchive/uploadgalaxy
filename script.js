@@ -1,7 +1,8 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL, listAll, deleteObject, getMetadata } from "firebase/storage";
-import { getAnalytics } from "firebase/analytics";
+// Importações do Firebase Modular SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL, listAll, deleteObject, getMetadata } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
 
 // Configuração do Firebase
 const firebaseConfig = {
@@ -21,273 +22,299 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
 
-// Estado de autenticação do usuário
-document.addEventListener('DOMContentLoaded', () => {
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            console.log('Usuário logado:', user);
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('upload-section').style.display = 'block';
-            document.getElementById('file-list-section').style.display = 'block';
-            fetchAllFiles();
-        } else {
-            document.getElementById('login-section').style.display = 'block';
-            document.getElementById('upload-section').style.display = 'none';
-            document.getElementById('file-list-section').style.display = 'none';
-        }
-    });
+// Elementos do DOM
+const loginSection = document.getElementById('login-section');
+const uploadSection = document.getElementById('upload-section');
+const fileListSection = document.getElementById('file-list-section');
+const googleLoginButton = document.getElementById('google-login-button');
+const uploadForm = document.getElementById('upload-form');
+const progressContainer = document.getElementById('progress-container');
+const progressBar = document.getElementById('progress-bar');
+const progressText = document.getElementById('progress-text');
+const fileList = document.getElementById('file-list');
+const storageUsageDisplay = document.getElementById('storage-usage');
+const sortSelect = document.getElementById('sort-select');
+const searchInput = document.getElementById('search-input');
 
-    // Login com Google
-    document.getElementById('google-login-button').addEventListener('click', () => {
-        const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                console.log('Usuário logado:', result.user);
-            })
-            .catch((error) => {
-                console.error('Erro ao fazer login:', error);
-            });
-    });
+// Variáveis Globais
+const totalAvailableGB = 5; // Espaço total disponível em GB
+let allFiles = [];
+let isUploading = false;
 
-    // Inicializar a aplicação
-    initApp();
+// Monitorar o estado de autenticação do usuário
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log('Usuário logado:', user);
+        loginSection.style.display = 'none';
+        uploadSection.style.display = 'block';
+        fileListSection.style.display = 'block';
+        fetchAllFiles();
+    } else {
+        loginSection.style.display = 'block';
+        uploadSection.style.display = 'none';
+        fileListSection.style.display = 'none';
+        fileList.innerHTML = '';
+        storageUsageDisplay.textContent = '0.00 GB de 5.00 GB';
+    }
 });
 
-// Função para inicializar a aplicação
-function initApp() {
-    const uploadForm = document.getElementById('upload-form');
-    const fileListSection = document.getElementById('file-list');
-    const progressBar = document.getElementById('progress-bar');
-    const progressContainer = document.getElementById('progress-container');
-    const progressText = document.getElementById('progress-text');
-    const searchInput = document.getElementById('search-input');
-    const storageUsageDisplay = document.getElementById('storage-usage');
-    const sortSelect = document.getElementById('sort-select');
+// Função para login com Google
+googleLoginButton.addEventListener('click', () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            console.log('Usuário logado:', result.user);
+            // A interface será atualizada automaticamente pelo onAuthStateChanged
+        })
+        .catch((error) => {
+            console.error('Erro ao fazer login:', error);
+            alert(`Erro ao fazer login: ${error.code} - ${error.message}`);
+        });
+});
 
-    const totalAvailableGB = 5; // Defina aqui o total de espaço disponível em GB
-    let allFiles = [];
-    let isUploading = false;
+// Evento para o formulário de upload
+uploadForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!isUploading) {
+        startUpload();
+    }
+});
 
-    // Evento para o formulário de upload
-    uploadForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (!isUploading) {
-            startUpload();
-        }
-    });
+// Função para iniciar o upload
+async function startUpload() {
+    const fileInput = document.getElementById('file-input');
+    const file = fileInput.files[0];
+    const user = auth.currentUser;
 
-    async function startUpload() {
-        const fileInput = document.getElementById('file-input');
-        const files = fileInput.files;
+    if (!user) {
+        alert('Você precisa estar logado para fazer o upload de arquivos.');
+        return;
+    }
 
-        if (files.length === 0) {
-            alert('Por favor, selecione um arquivo antes de fazer o upload.');
-            return;
-        }
+    if (!file) {
+        alert('Por favor, selecione um arquivo antes de fazer o upload.');
+        return;
+    }
 
-        const file = files[0];
-        const user = auth.currentUser;
-        if (!user) {
-            alert('Você precisa estar logado para fazer o upload de arquivos.');
-            return;
-        }
+    const storageRefPath = `uploads/${user.uid}/${file.name}`;
+    const storageRef = ref(storage, storageRefPath);
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
-        try {
-            const storageRef = ref(storage, `uploads/${user.uid}/${file.name}`);
-            const uploadTask = uploadBytesResumable(storageRef, file);
+    // Mostrar o container de progresso
+    progressContainer.style.display = 'block';
+    isUploading = true;
 
-            // Mostrar o container de progresso
-            progressContainer.style.display = 'block';
-            isUploading = true;
-
-            // Monitorar o progresso do upload
-            uploadTask.on('state_changed',
-                (snapshot) => {
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    progressBar.style.width = `${progress}%`;
-                    progressText.textContent = `${progress.toFixed(2)}%`;
-                },
-                (error) => {
-                    console.error('Erro ao fazer upload:', error);
-                    alert('Erro ao fazer upload: ' + error.message);
-                    isUploading = false;
-                },
-                async () => {
-                    try {
-                        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                        alert('Arquivo enviado com sucesso!');
-
-                        // Recarrega a lista de arquivos para incluir o novo
-                        await fetchAllFiles();
-
-                        // Limpar o campo de upload e progresso
-                        fileInput.value = '';
-                        progressBar.style.width = '0%';
-                        progressText.textContent = '0%';
-                        isUploading = false;
-                    } catch (error) {
-                        console.error('Erro ao obter URL de download:', error);
-                        alert('Erro ao obter URL de download: ' + error.message);
-                    }
-                }
-            );
-        } catch (error) {
-            console.error('Erro inesperado ao fazer upload:', error);
-            alert('Erro inesperado ao fazer upload: ' + error.message);
+    // Monitorar o progresso do upload
+    uploadTask.on('state_changed',
+        (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `${progress.toFixed(2)}%`;
+        },
+        (error) => {
+            console.error('Erro ao fazer upload:', error);
+            alert(`Erro ao fazer upload: ${error.code} - ${error.message}`);
             isUploading = false;
-        }
-    }
-
-    async function fetchAllFiles() {
-        try {
-            const user = auth.currentUser;
-            if (!user) {
-                return;
+            progressContainer.style.display = 'none';
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
+        },
+        async () => {
+            try {
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                console.log('Upload concluído com sucesso. URL:', downloadURL);
+                alert('Arquivo enviado com sucesso!');
+                // Recarrega a lista de arquivos para incluir o novo
+                await fetchAllFiles();
+                // Limpar o campo de upload e progresso
+                fileInput.value = '';
+                progressBar.style.width = '0%';
+                progressText.textContent = '0%';
+                progressContainer.style.display = 'none';
+                isUploading = false;
+            } catch (error) {
+                console.error('Erro ao obter URL de download:', error);
+                alert(`Erro ao obter URL de download: ${error.code} - ${error.message}`);
+                isUploading = false;
+                progressContainer.style.display = 'none';
+                progressBar.style.width = '0%';
+                progressText.textContent = '0%';
             }
-            const storageRef = ref(storage, `uploads/${user.uid}`);
-            const filesSnapshot = await listAll(storageRef);
-            allFiles = await Promise.all(
-                filesSnapshot.items.map(async (item) => {
-                    try {
-                        const url = await getDownloadURL(item);
-                        const metadata = await getMetadata(item);
-                        return {
-                            name: item.name,
-                            url,
-                            timeCreated: metadata.timeCreated,
-                            size: metadata.size
-                        };
-                    } catch (error) {
-                        console.error('Erro ao obter informações do arquivo:', error);
-                        return null;
-                    }
-                })
-            );
-
-            allFiles = allFiles.filter(file => file !== null);
-            sortFiles(sortSelect.value);
-            updateStorageUsage();
-        } catch (error) {
-            console.error('Erro ao carregar os arquivos:', error);
         }
+    );
+}
+
+// Função para buscar todos os arquivos do usuário
+async function fetchAllFiles() {
+    try {
+        const user = auth.currentUser;
+        if (!user) return;
+
+        const storageRef = ref(storage, `uploads/${user.uid}`);
+        const filesSnapshot = await listAll(storageRef);
+
+        allFiles = await Promise.all(
+            filesSnapshot.items.map(async (item) => {
+                try {
+                    const url = await getDownloadURL(item);
+                    const metadata = await getMetadata(item);
+                    return {
+                        name: item.name,
+                        url,
+                        timeCreated: metadata.timeCreated,
+                        size: metadata.size
+                    };
+                } catch (error) {
+                    console.error('Erro ao obter informações do arquivo:', error);
+                    return null;
+                }
+            })
+        );
+
+        allFiles = allFiles.filter(file => file !== null);
+        sortFiles(sortSelect.value);
+        updateStorageUsage();
+    } catch (error) {
+        console.error('Erro ao carregar os arquivos:', error);
+        alert(`Erro ao carregar os arquivos: ${error.code} - ${error.message}`);
+    }
+}
+
+// Função para ordenar os arquivos
+function sortFiles(criteria) {
+    const sortedFiles = [...allFiles];
+
+    switch (criteria) {
+        case 'alphabetical':
+            sortedFiles.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        case 'alphabetical-desc':
+            sortedFiles.sort((a, b) => b.name.localeCompare(a.name));
+            break;
+        case 'newest':
+            sortedFiles.sort((a, b) => new Date(b.timeCreated) - new Date(a.timeCreated));
+            break;
+        case 'oldest':
+            sortedFiles.sort((a, b) => new Date(a.timeCreated) - new Date(b.timeCreated));
+            break;
+        case 'size-asc':
+            sortedFiles.sort((a, b) => a.size - b.size);
+            break;
+        case 'size-desc':
+            sortedFiles.sort((a, b) => b.size - a.size);
+            break;
+        default:
+            break;
     }
 
-    function sortFiles(criteria) {
-        const sortedFiles = [...allFiles];
+    displayFiles(sortedFiles);
+}
 
-        switch (criteria) {
-            case 'alphabetical':
-                sortedFiles.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            case 'alphabetical-desc':
-                sortedFiles.sort((a, b) => b.name.localeCompare(a.name));
-                break;
-            case 'newest':
-                sortedFiles.sort((a, b) => new Date(b.timeCreated) - new Date(a.timeCreated));
-                break;
-            case 'oldest':
-                sortedFiles.sort((a, b) => new Date(a.timeCreated) - new Date(b.timeCreated));
-                break;
-            case 'size-asc':
-                sortedFiles.sort((a, b) => a.size - b.size);
-                break;
-            case 'size-desc':
-                sortedFiles.sort((a, b) => b.size - a.size);
-                break;
-        }
+// Função para exibir os arquivos na lista
+function displayFiles(files) {
+    fileList.innerHTML = '';
 
-        displayFiles(sortedFiles);
-    }
+    files.forEach(file => {
+        const listItem = document.createElement('li');
 
-    function displayFiles(files) {
-        fileListSection.innerHTML = '';
-        files.forEach(file => {
-            const listItem = document.createElement('li');
-            listItem.style.display = 'flex';
-            listItem.style.flexDirection = 'row';
-            listItem.style.justifyContent = 'space-between';
-            listItem.style.alignItems = 'center';
-            listItem.style.flexWrap = 'wrap';
+        // Nome e tamanho do arquivo
+        const fileNameSpan = document.createElement('span');
+        const fileSize = formatBytes(file.size);
+        fileNameSpan.textContent = `${file.name} (${fileSize})`;
+        listItem.appendChild(fileNameSpan);
 
-            const fileNameSpan = document.createElement('span');
-            const fileSize = formatBytes(file.size);
-            fileNameSpan.textContent = `${file.name} (${fileSize})`;
+        // Container de botões
+        const buttonContainer = document.createElement('div');
 
-            listItem.appendChild(fileNameSpan);
+        // Botão de Download
+        const downloadButton = document.createElement('a');
+        downloadButton.textContent = 'Download';
+        downloadButton.href = file.url;
+        downloadButton.classList.add('download-button');
+        downloadButton.download = file.name;
+        buttonContainer.appendChild(downloadButton);
 
-            const buttonContainer = document.createElement('div');
-            buttonContainer.style.display = 'flex';
-            buttonContainer.style.gap = '0.5rem';
-
-            const downloadButton = document.createElement('a');
-            downloadButton.textContent = 'Download';
-            downloadButton.href = file.url;
-            downloadButton.classList.add('download-button');
-            downloadButton.download = file.name;
-
-            const shareButton = document.createElement('button');
-            shareButton.textContent = 'Copiar Link';
-            shareButton.classList.add('share-button');
-            shareButton.addEventListener('click', () => {
-                navigator.clipboard.writeText(file.url).then(() => {
+        // Botão de Compartilhar (Copiar Link)
+        const shareButton = document.createElement('button');
+        shareButton.textContent = 'Copiar Link';
+        shareButton.classList.add('share-button');
+        shareButton.addEventListener('click', () => {
+            navigator.clipboard.writeText(file.url)
+                .then(() => {
                     alert('Link copiado para a área de transferência!');
-                }).catch(() => {
+                })
+                .catch(() => {
                     alert('Falha ao copiar o link.');
                 });
-            });
-
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Excluir';
-            deleteButton.classList.add('delete-button');
-            deleteButton.addEventListener('click', () => {
-                const confirmDelete = confirm(`Tem certeza que deseja excluir o arquivo "${file.name}"?`);
-                if (confirmDelete) {
-                    deleteFile(file.name);
-                }
-            });
-
-            buttonContainer.appendChild(downloadButton);
-            buttonContainer.appendChild(shareButton);
-            buttonContainer.appendChild(deleteButton);
-
-            listItem.appendChild(buttonContainer);
-            fileListSection.appendChild(listItem);
         });
-    }
+        buttonContainer.appendChild(shareButton);
 
-    async function deleteFile(fileName) {
-        try {
-            const user = auth.currentUser;
-            if (!user) {
-                alert('Você precisa estar logado para excluir arquivos.');
-                return;
+        // Botão de Excluir
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Excluir';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', () => {
+            const confirmDelete = confirm(`Tem certeza que deseja excluir o arquivo "${file.name}"?`);
+            if (confirmDelete) {
+                deleteFile(file.name);
             }
-            const fileRef = ref(storage, `uploads/${user.uid}/${fileName}`);
-            await deleteObject(fileRef);
-            alert('Arquivo excluído com sucesso!');
-            fetchAllFiles();
-        } catch (error) {
-            console.error('Erro ao excluir o arquivo:', error);
-            alert('Erro ao excluir o arquivo: ' + error.message);
-        }
-    }
+        });
+        buttonContainer.appendChild(deleteButton);
 
-    function updateStorageUsage() {
-        const totalUsedBytes = allFiles.reduce((sum, file) => sum + file.size, 0);
-        const totalUsedGB = totalUsedBytes / (1024 ** 3);
-        const formattedUsedGB = totalUsedGB.toFixed(2);
-        const formattedTotalGB = totalAvailableGB.toFixed(2);
-        storageUsageDisplay.textContent = `${formattedUsedGB} GB de ${formattedTotalGB} GB`;
-    }
-
-    function formatBytes(bytes, decimals = 2) {
-        if (bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const dm = decimals < 0 ? 0 : decimals;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-    }
-
-    fetchAllFiles();
+        listItem.appendChild(buttonContainer);
+        fileList.appendChild(listItem);
+    });
 }
+
+// Função para excluir um arquivo
+async function deleteFile(fileName) {
+    try {
+        const user = auth.currentUser;
+        if (!user) {
+            alert('Você precisa estar logado para excluir arquivos.');
+            return;
+        }
+
+        const fileRef = ref(storage, `uploads/${user.uid}/${fileName}`);
+        await deleteObject(fileRef);
+        alert('Arquivo excluído com sucesso!');
+        fetchAllFiles();
+    } catch (error) {
+        console.error('Erro ao excluir o arquivo:', error);
+        alert(`Erro ao excluir o arquivo: ${error.code} - ${error.message}`);
+    }
+}
+
+// Função para atualizar o uso de armazenamento
+function updateStorageUsage() {
+    const totalUsedBytes = allFiles.reduce((sum, file) => sum + file.size, 0);
+    const totalUsedGB = totalUsedBytes / (1024 ** 3);
+    const formattedUsedGB = totalUsedGB.toFixed(2);
+    const formattedTotalGB = totalAvailableGB.toFixed(2);
+    storageUsageDisplay.textContent = `${formattedUsedGB} GB de ${formattedTotalGB} GB`;
+}
+
+// Função para formatar bytes em unidades legíveis
+function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+// Função para buscar e exibir arquivos com base na busca
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    const filteredFiles = allFiles.filter(file => file.name.toLowerCase().includes(query));
+    sortFiles(sortSelect.value);
+    displayFiles(filteredFiles);
+});
+
+// Inicializar a busca
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    const filteredFiles = allFiles.filter(file => file.name.toLowerCase().includes(query));
+    displayFiles(filteredFiles);
+});
