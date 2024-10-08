@@ -208,6 +208,7 @@ async function fetchAllFiles() {
                     };
                 } catch (error) {
                     console.error('Erro ao obter informações do arquivo:', error);
+                    console.error('Payload do erro:', error.customData);
                     return null;
                 }
             })
@@ -220,6 +221,7 @@ async function fetchAllFiles() {
 
     } catch (error) {
         console.error('Erro ao carregar os arquivos:', error);
+        console.error('Payload do erro:', error.customData);
         alert(`Erro ao carregar os arquivos: ${error.code} - ${error.message}`);
     }
 }
