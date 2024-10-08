@@ -137,7 +137,6 @@ async function startUpload() {
         },
         (error) => {
             console.error('Erro ao fazer upload:', error);
-            console.error('Payload do erro:', error.customData);
             alert(`Erro ao fazer upload: ${error.code} - ${error.message}`);
             isUploading = false;
             progressContainer.style.display = 'none';
@@ -145,13 +144,15 @@ async function startUpload() {
             progressText.textContent = '0%';
         },
         async () => {
-            // Coloque o trecho aqui
             try {
                 console.log('Tentando obter a URL de download para:', uploadTask.snapshot.ref.fullPath);
                 const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
                 console.log('Upload concluído com sucesso. URL:', downloadURL);
                 alert('Arquivo enviado com sucesso!');
+                
+                // Atualiza a lista de arquivos exibidos
                 await fetchAllFiles();
+
                 // Limpar o campo de upload e progresso
                 fileInput.value = '';
                 progressBar.style.width = '0%';
@@ -169,7 +170,6 @@ async function startUpload() {
         }
     );
 }
-
 
 // Função para buscar todos os arquivos do usuário
 async function fetchAllFiles() {
