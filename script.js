@@ -50,6 +50,7 @@ onAuthStateChanged(auth, (user) => {
         fileListSection.style.display = 'block';
         fetchAllFiles();
     } else {
+        console.log('Usuário deslogado');
         loginSection.style.display = 'block';
         uploadSection.style.display = 'none';
         fileListSection.style.display = 'none';
@@ -60,10 +61,11 @@ onAuthStateChanged(auth, (user) => {
 
 // Função para login com Google
 googleLoginButton.addEventListener('click', () => {
+    console.log('Botão de login clicado'); // Log adicionado
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
         .then((result) => {
-            console.log('Usuário logado:', result.user);
+            console.log('Usuário logado via popup:', result.user);
             // A interface será atualizada automaticamente pelo onAuthStateChanged
         })
         .catch((error) => {
@@ -76,6 +78,7 @@ googleLoginButton.addEventListener('click', () => {
 uploadForm.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!isUploading) {
+        console.log('Iniciando upload...');
         startUpload();
     }
 });
@@ -110,6 +113,7 @@ async function startUpload() {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             progressBar.style.width = `${progress}%`;
             progressText.textContent = `${progress.toFixed(2)}%`;
+            console.log(`Upload em progresso: ${progress.toFixed(2)}%`);
         },
         (error) => {
             console.error('Erro ao fazer upload:', error);
@@ -149,6 +153,8 @@ async function fetchAllFiles() {
     try {
         const user = auth.currentUser;
         if (!user) return;
+
+        console.log('Buscando arquivos para o usuário:', user.uid);
 
         const storageRef = ref(storage, `uploads/${user.uid}`);
         const filesSnapshot = await listAll(storageRef);
@@ -309,12 +315,5 @@ searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase();
     const filteredFiles = allFiles.filter(file => file.name.toLowerCase().includes(query));
     sortFiles(sortSelect.value);
-    displayFiles(filteredFiles);
-});
-
-// Inicializar a busca
-searchInput.addEventListener('input', () => {
-    const query = searchInput.value.toLowerCase();
-    const filteredFiles = allFiles.filter(file => file.name.toLowerCase().includes(query));
     displayFiles(filteredFiles);
 });
