@@ -73,7 +73,6 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-
 // Função para login com Google
 googleLoginButton.addEventListener('click', () => {
     console.log('Botão de login clicado');
@@ -87,7 +86,6 @@ googleLoginButton.addEventListener('click', () => {
             alert(`Erro ao fazer login: ${error.code} - ${error.message}`);
         });
 });
-
 
 // Evento para o formulário de upload
 uploadForm.addEventListener('submit', (e) => {
@@ -153,13 +151,6 @@ async function startUpload() {
                 // Verifique a estrutura completa da URL
                 console.log('URL de download obtida com sucesso:', downloadURL);
 
-                // Verificar explicitamente se o token está presente na URL
-                if (downloadURL.includes("token=")) {
-                    console.log("Token de acesso encontrado na URL:", downloadURL.split("token=")[1]);
-                } else {
-                    console.error("A URL de download não contém um token de acesso válido!");
-                }
-                
                 alert('Arquivo enviado com sucesso!');
                 
                 // Atualiza a lista de arquivos exibidos
@@ -197,7 +188,7 @@ async function fetchAllFiles() {
             const filesSnapshot = await listAll(storageRef);
             console.log('Arquivos encontrados:', filesSnapshot.items.length);
 
-            const allFiles = await Promise.all(
+            const allFilesFetched = await Promise.all(
                 filesSnapshot.items.map(async (item) => {
                     try {
                         const url = await getDownloadURL(item);
@@ -215,12 +206,12 @@ async function fetchAllFiles() {
                 })
             );
 
-            const validFiles = allFiles.filter(file => file !== null);
-            console.log('Arquivos válidos para exibição:', validFiles);
+            allFiles = allFilesFetched.filter(file => file !== null);
+            console.log('Arquivos válidos para exibição:', allFiles);
 
-            if (validFiles.length > 0) {
-                displayFiles(validFiles);
-                showFileListSection();
+            if (allFiles.length > 0) {
+                displayFiles(allFiles);
+                updateStorageUsage();
             } else {
                 console.log('Nenhum arquivo válido encontrado.');
             }
@@ -237,12 +228,7 @@ function showFileListSection() {
     fileListSection.style.display = 'block';
 }
 
-// Exibir a seção de arquivos após carregar os arquivos
-fetchAllFiles().then(() => {
-    showFileListSection();
-});
-
-
+// Função para exibir a lista de arquivos
 function displayFiles(files) {
     fileList.innerHTML = '';
     files.forEach(file => {
@@ -257,6 +243,7 @@ function displayFiles(files) {
         `;
         fileList.appendChild(listItem);
     });
+    updateStorageUsage();
 }
 
 // Função para ordenar os arquivos
@@ -334,6 +321,15 @@ function formatBytes(bytes, decimals = 2) {
 searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase();
     const filteredFiles = allFiles.filter(file => file.name.toLowerCase().includes(query));
-    sortFiles(sortSelect.value);
     displayFiles(filteredFiles);
 });
+
+// Função para copiar URL para a área de transferência
+function copyToClipboard(url) {
+    navigator.clipboard.writeText(url).then(() => {
+        alert('Link copiado para a área de transferência!');
+    }).catch((error) => {
+        console.error('Erro ao copiar link:', error);
+        alert('Erro ao copiar link. Tente novamente.');
+    });
+}
