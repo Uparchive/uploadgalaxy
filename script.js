@@ -53,7 +53,7 @@ const sortSelect = document.getElementById('sort-select');
 const searchInput = document.getElementById('search-input');
 
 // Variáveis Globais
-const totalAvailableGB = 5; // Espaço total disponível em GB
+const totalAvailableGB = 'Ilimitado'; // Espaço total disponível em GB
 let allFiles = [];
 let isUploading = false;
 
@@ -309,8 +309,8 @@ function updateStorageUsage() {
     const totalUsedBytes = allFiles.reduce((sum, file) => sum + (file.size || 0), 0);
     const totalUsedGB = totalUsedBytes / (1024 ** 3);
     const formattedUsedGB = totalUsedGB.toFixed(2);
-    const formattedTotalGB = totalAvailableGB.toFixed(2);
-    storageUsageDisplay.textContent = `${formattedUsedGB} GB de ${formattedTotalGB} GB`;
+    const formattedTotalGB = totalAvailableGB;
+    storageUsageDisplay.textContent = `${formattedUsedGB} GB de ${formattedTotalGB}`;
 }
 
 // Função para formatar bytes em unidades legíveis
