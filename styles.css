@@ -233,3 +233,423 @@ footer p {
 .social-links a:hover {
     color: #ffa500;
 }
+.password-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.password-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.password-box input {
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.password-box button {
+    background-color: #333;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+}
+
+.password-box button:hover {
+    background-color: #555;
+}
+/* Estilo para a lista de arquivos */
+#file-list-section {
+    background-color: #1e1e1e;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    color: #fff;
+}
+
+#file-list-section h2 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #ffa500;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ffa500;
+    padding-bottom: 0.5rem;
+}
+
+#file-list {
+    list-style: none;
+    padding: 0;
+}
+
+#file-list li {
+    background-color: #2c2c2c;
+    padding: 1rem;
+    border: 1px solid #444;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#file-list li:hover {
+    background-color: #3b3b3b;
+    transform: scale(1.02);
+}
+
+.download-button, .share-button {
+    background-color: #ffa500;
+    color: #000;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+.download-button:hover, .share-button:hover {
+    background-color: #ff8c00;
+    transform: scale(1.05);
+}
+
+.download-button:active, .share-button:active {
+    background-color: #ff6600;
+}
+
+#file-list li span {
+    font-size: 1.1rem;
+    flex: 1;
+    color: #fff;
+}
+#file-list li {
+    background-color: #2c2c2c;
+    padding: 1rem;
+    border: 1px solid #444;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#file-list li div {
+    display: flex;
+    gap: 0.5rem; /* Ajuste o valor para controlar a distância entre os botões */
+}
+
+.download-button, .share-button {
+    background-color: #ffa500;
+    color: #000;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.download-button:hover, .share-button:hover {
+    background-color: #ff8c00;
+    transform: scale(1.05);
+}
+
+.download-button:active, .share-button:active {
+    background-color: #ff6600;
+}
+.password-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.password-box {
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    max-width: 400px;
+    width: 100%;
+}
+
+.password-box h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #ffa500;
+}
+
+.password-box p {
+    margin-bottom: 1rem;
+}
+
+.password-box input {
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.password-box button {
+    background-color: #ffa500;
+    color: #000;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.password-box button:hover {
+    background-color: #ff8c00;
+}
+.search-bar {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+}
+.delete-button {
+    background-color: #ff4d4d;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+.delete-button:hover {
+    background-color: #ff1a1a;
+    transform: scale(1.05);
+}
+.sort-select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    background-color: #fff;
+}
+/* Estilo geral */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #333;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+}
+
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.hero-content {
+    text-align: center;
+    padding: 5rem 1rem;
+}
+
+.cta-button {
+    background-color: #ff8800;
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+.upload-button {
+    background-color: #ff8800;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+
+.progress-container {
+    display: none;
+    margin-top: 1rem;
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 20px;
+    width: 0;
+    background-color: #4caf50;
+}
+
+.progress-text {
+    text-align: right;
+    padding: 0.5rem;
+}
+
+.file-list-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.file-list-section li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f3f3f3;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+.file-list-section li span {
+    flex: 1;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .hero-content {
+        padding: 2rem 1rem;
+    }
+
+    .cta-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .upload-button {
+        width: 100%;
+    }
+
+    .sort-select, .search-bar {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .file-list-section li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .file-list-section li div {
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .progress-container {
+        height: auto;
+    }
+}
+
+/* Estilo para rodapé e links sociais */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.social-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-links li a {
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+}

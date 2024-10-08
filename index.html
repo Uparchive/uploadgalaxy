@@ -9,6 +9,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <div id="password-overlay" class="password-overlay">
+        <div class="password-box">
+            <h2>Acesso Restrito</h2>
+            <p>Por favor, digite a senha para acessar o site:</p>
+            <form id="password-form">
+                <input type="password" id="password-input" placeholder="Digite a senha">
+                <button type="submit">Entrar</button>
+            </form>
+            <p id="error-message" style="color: red; display: none;">Senha incorreta. Tente novamente.</p>
+        </div>
+    </div>
+
     <header>
         <nav class="navbar">
             <div class="container">
@@ -49,6 +61,18 @@
         
         <section id="file-list-section" class="container">
             <h2>Seus Arquivos</h2>
+            <p id="storage-usage">0.00 GB de 5.00 GB</p>
+            <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
+            
+            <select id="sort-select" class="sort-select" onchange="sortFiles()">
+                <option value="alphabetical">Ordem Alfabética (A-Z)</option>
+                <option value="alphabetical-desc">Ordem Alfabética (Z-A)</option>
+                <option value="newest">Mais Recentes Primeiro</option>
+                <option value="oldest">Mais Antigos Primeiro</option>
+                <option value="size-asc">Menor Tamanho Primeiro</option>
+                <option value="size-desc">Maior Tamanho Primeiro</option>
+            </select>
+            
             <ul id="file-list">
                 <!-- Lista de arquivos enviados será inserida aqui -->
             </ul>
@@ -66,9 +90,43 @@
         </div>
     </footer>
 
-    <!-- Firebase Configuração -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
     <script src="script.js"></script>
+    <script>
+        function sortFiles() {
+            const sortCriteria = document.getElementById('sort-select').value;
+            const fileList = document.getElementById('file-list');
+            let files = Array.from(fileList.children);
+
+            files.sort((a, b) => {
+                const aName = a.querySelector('span').textContent.trim().toLowerCase();
+                const bName = b.querySelector('span').textContent.trim().toLowerCase();
+                const aSize = parseFloat(a.getAttribute('data-size'));
+                const bSize = parseFloat(b.getAttribute('data-size'));
+                const aDate = new Date(a.getAttribute('data-time-created'));
+                const bDate = new Date(b.getAttribute('data-time-created'));
+
+                switch (sortCriteria) {
+                    case 'alphabetical':
+                        return aName.localeCompare(bName);
+                    case 'alphabetical-desc':
+                        return bName.localeCompare(aName);
+                    case 'newest':
+                        return bDate - aDate;
+                    case 'oldest':
+                        return aDate - bDate;
+                    case 'size-asc':
+                        return aSize - bSize;
+                    case 'size-desc':
+                        return bSize - aSize;
+                }
+            });
+
+            // Limpar a lista e adicionar os arquivos ordenados novamente
+            fileList.innerHTML = '';
+            files.forEach(file => fileList.appendChild(file));
+        }
+    </script>
 </body>
 </html>
