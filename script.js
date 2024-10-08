@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkPassword() {
         const input = document.getElementById('password-input').value;
-        if (input === 'GalaxySmartUploads') {
+        if (input === 'KJJ') {
             passwordOverlay.style.display = 'none';
             sessionStorage.setItem('authenticated', 'true');
             fetchAllFiles(); // Carregar a lista de arquivos após a autenticação

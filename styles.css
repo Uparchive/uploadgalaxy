@@ -653,3 +653,32 @@ footer {
     font-size: 1.5rem;
     text-decoration: none;
 }
+/* Estilo para lista de arquivos em dispositivos móveis */
+@media (max-width: 768px) {
+    #file-list li {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    #file-list span {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: 10px; /* Espaçamento entre o texto e os botões */
+    }
+
+    #file-list div {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .download-button, .share-button, .delete-button {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
+}
