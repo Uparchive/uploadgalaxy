@@ -1,172 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Galaxy</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="container">
-                <a href="#" class="logo">Upload Galaxy</a>
-                <ul class="nav-links">
-                    <li><a href="#upload-section">Upload</a></li>
-                    <li><a href="#file-list-section">Seus Arquivos</a></li>
-                    <li><a href="#">Sobre</a></li>
-                    <li><a href="#">Contato</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    
-    <main>
-        <section id="hero-section">
-            <div class="hero-content">
-                <h1>Armazene e Compartilhe Seus Arquivos com Facilidade</h1>
-                <p>Faça upload de seus arquivos e acesse-os a qualquer hora, em qualquer lugar. Segurança e conveniência ao seu alcance.</p>
-                <a href="#upload-section" class="cta-button">Começar Agora</a>
-            </div>
-        </section>
+    <div id="login-section">
+        <button id="google-login-button">Login with Google</button>
+    </div>
 
-        <section id="login-section" class="container">
-            <h2>Login com Google</h2>
-            <button id="google-login-button" class="upload-button"><i class="fab fa-google"></i> Fazer Login com Google</button>
-        </section>
-
-        <section id="upload-section" class="container" style="display: none;">
-            <h2>Envie seus Arquivos</h2>
-            <form id="upload-form" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="file-input"><i class="fas fa-file-upload"></i> Selecione um arquivo:</label>
-                    <input type="file" id="file-input" name="file" required>
-                </div>
-                <button type="submit" class="upload-button"><i class="fas fa-cloud-upload-alt"></i> Fazer Upload</button>
-            </form>
-            <div id="progress-container" class="progress-container">
-                <div id="progress-bar" class="progress-bar"></div>
-                <span id="progress-text" class="progress-text">0%</span>
-            </div>
-        </section>
-        
-        <section id="file-list-section" class="container" style="display: none;">
-            <h2>Seus Arquivos</h2>
-            <p id="storage-usage">0.00 GB de 5.00 GB</p>
-            <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
-            
-            <select id="sort-select" class="sort-select" onchange="sortFiles()">
-                <option value="alphabetical">Ordem Alfabética (A-Z)</option>
-                <option value="alphabetical-desc">Ordem Alfabética (Z-A)</option>
-                <option value="newest">Mais Recentes Primeiro</option>
-                <option value="oldest">Mais Antigos Primeiro</option>
-                <option value="size-asc">Menor Tamanho Primeiro</option>
-                <option value="size-desc">Maior Tamanho Primeiro</option>
-            </select>
-            
-            <ul id="file-list">
-                <!-- Lista de arquivos enviados será inserida aqui -->
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 - Upload Galaxy. Todos os direitos reservados.</p>
-            <ul class="social-links">
-                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-            </ul>
+    <div id="upload-section" style="display: none;">
+        <form id="upload-form">
+            <input type="file" id="file-input" />
+            <button type="submit">Fazer Upload</button>
+        </form>
+        <div id="progress-container" style="display: none;">
+            <div id="progress-bar" style="width: 0%;"></div>
+            <p id="progress-text">0%</p>
         </div>
-    </footer>
+    </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-    <script src="script.js"></script>
-    <script>
-        // Configuração do Firebase
-        const firebaseConfig = {
-        apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
-        authDomain: "armazene-acd30.firebaseapp.com",
-        databaseURL: "https://armazene-acd30-default-rtdb.firebaseio.com",
-        projectId: "armazene-acd30",
-        storageBucket: "armazene-acd30.appspot.com",
-        messagingSenderId: "853849509051",
-        appId: "1:853849509051:web:ea6f96915c4d5c895b2d9e",
-        measurementId: "G-79TBH73QPT"
-    };
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const storage = firebase.storage();
+    <div id="file-list-section" style="display: none;">
+        <h2>Seus Arquivos</h2>
+        <input type="text" id="search-input" placeholder="Pesquise por arquivos...">
+        <select id="sort-select">
+            <option value="alphabetical">Ordem Alfabética (A-Z)</option>
+            <option value="alphabetical-desc">Ordem Alfabética (Z-A)</option>
+            <option value="newest">Mais Recentes</option>
+            <option value="oldest">Mais Antigos</option>
+            <option value="size-asc">Menor Tamanho</option>
+            <option value="size-desc">Maior Tamanho</option>
+        </select>
+        <ul id="file-list"></ul>
+        <p id="storage-usage">0.00 GB de 5.00 GB</p>
+    </div>
 
-        // Login com Google
-        const googleLoginButton = document.getElementById('google-login-button');
-        googleLoginButton.addEventListener('click', () => {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider)
-                .then((result) => {
-                    console.log('Usuário logado:', result.user);
-                    document.getElementById('login-section').style.display = 'none';
-                    document.getElementById('upload-section').style.display = 'block';
-                    document.getElementById('file-list-section').style.display = 'block';
-                    fetchUserFiles();
-                })
-                .catch((error) => {
-                    console.error('Erro ao fazer login:', error);
-                });
-        });
-
-        // Função para buscar arquivos do usuário logado
-        function fetchUserFiles() {
-            const user = auth.currentUser;
-            if (user) {
-                const storageRef = storage.ref(`uploads/${user.uid}`);
-                storageRef.listAll().then((res) => {
-                    const fileList = document.getElementById('file-list');
-                    fileList.innerHTML = '';
-                    res.items.forEach((itemRef) => {
-                        itemRef.getDownloadURL().then((url) => {
-                            const listItem = document.createElement('li');
-                            listItem.innerHTML = `<span>${itemRef.name}</span> <a href="${url}" class="download-button">Baixar</a>`;
-                            fileList.appendChild(listItem);
-                        });
-                    });
-                });
-            }
-        }
-
-        // Upload de arquivos
-        const uploadForm = document.getElementById('upload-form');
-        uploadForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const fileInput = document.getElementById('file-input');
-            const file = fileInput.files[0];
-            const user = auth.currentUser;
-
-            if (user && file) {
-                const storageRef = storage.ref(`uploads/${user.uid}/${file.name}`);
-                const uploadTask = storageRef.put(file);
-
-                uploadTask.on('state_changed', 
-                    (snapshot) => {
-                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                        document.getElementById('progress-bar').style.width = progress + '%';
-                        document.getElementById('progress-text').textContent = progress.toFixed(2) + '%';
-                    }, 
-                    (error) => {
-                        console.error('Erro ao fazer upload:', error);
-                    }, 
-                    () => {
-                        console.log('Upload concluído com sucesso');
-                        fetchUserFiles();
-                    }
-                );
-            }
-        });
-    </script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>

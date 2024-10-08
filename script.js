@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL, listAll, deleteObject } from "firebase/storage";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL, listAll, deleteObject, getMetadata } from "firebase/storage";
 import { getAnalytics } from "firebase/analytics";
 
 // Configuração do Firebase
@@ -150,7 +150,7 @@ function initApp() {
                 filesSnapshot.items.map(async (item) => {
                     try {
                         const url = await getDownloadURL(item);
-                        const metadata = await item.getMetadata();
+                        const metadata = await getMetadata(item);
                         return {
                             name: item.name,
                             url,
