@@ -17,7 +17,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
 
-// Habilitar logs detalhados do Firebase para depuração (Opcional)
+// Habilitar logs detalhados do Firebase para depuração
 setLogLevel('debug');
 
 // Configuração do Firebase (Substitua pelas suas próprias credenciais)
@@ -184,13 +184,15 @@ async function fetchAllFiles() {
 
         const storageRef = ref(storage, `uploads/${user.uid}`);
         
-        // Fazer uma checagem antes de tentar listar todos os arquivos
+        // Log da referência de storage
         console.log('Referência de storage:', storageRef.fullPath);
+        
         const filesSnapshot = await listAll(storageRef);
         
         if (filesSnapshot.items.length === 0) {
             console.log('Nenhum arquivo encontrado no diretório');
             fileList.innerHTML = '<li>Nenhum arquivo encontrado</li>';
+            updateStorageUsage();
             return;
         }
 
