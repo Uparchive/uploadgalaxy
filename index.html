@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Galaxy</title>
+    <!-- Link para o arquivo de estilos CSS -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Fonte do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTTXqv5e0G7S9JZt6zKn+7D7bZ1Z5Qe5ITZT5Nlb6S3/YjZp9V2/3uyhtb5N8k1uJZw1urB37g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+    <!-- Cabeçalho com a barra de navegação -->
     <header>
         <nav class="navbar">
             <div class="container">
@@ -19,11 +23,17 @@
                     <li><a href="#">Sobre</a></li>
                     <li><a href="#">Contato</a></li>
                 </ul>
+                <!-- Botão para alternar o menu em dispositivos móveis -->
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
         </nav>
     </header>
 
+    <!-- Conteúdo Principal -->
     <main>
+        <!-- Seção Hero -->
         <section id="hero-section">
             <div class="hero-content">
                 <h1>Armazene e Compartilhe Seus Arquivos com Facilidade</h1>
@@ -32,11 +42,13 @@
             </div>
         </section>
 
+        <!-- Seção de Login -->
         <section id="login-section" class="container">
             <h2>Login com Google</h2>
             <button id="google-login-button" class="upload-button"><i class="fab fa-google"></i> Fazer Login com Google</button>
         </section>
 
+        <!-- Seção de Upload de Arquivos -->
         <section id="upload-section" class="container" style="display: none;">
             <h2>Envie seus Arquivos</h2>
             <form id="upload-form" enctype="multipart/form-data">
@@ -46,17 +58,21 @@
                 </div>
                 <button type="submit" class="upload-button"><i class="fas fa-cloud-upload-alt"></i> Fazer Upload</button>
             </form>
-            <div id="progress-container" class="progress-container">
+            <!-- Container da Barra de Progresso -->
+            <div id="progress-container" class="progress-container" style="display: none;">
                 <div id="progress-bar" class="progress-bar"></div>
                 <span id="progress-text" class="progress-text">0%</span>
             </div>
         </section>
-     
+
+        <!-- Seção de Lista de Arquivos -->
         <section id="file-list-section" class="container" style="display: none;">
             <h2>Seus Arquivos</h2>
             <p id="storage-usage">0.00 GB de 5.00 GB</p>
+            <!-- Barra de Pesquisa -->
             <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
-            <select id="sort-select" class="sort-select" onchange="sortFiles()">
+            <!-- Seleção de Ordenação -->
+            <select id="sort-select" class="sort-select">
                 <option value="alphabetical">Ordem Alfabética (A-Z)</option>
                 <option value="alphabetical-desc">Ordem Alfabética (Z-A)</option>
                 <option value="newest">Mais Recentes Primeiro</option>
@@ -64,12 +80,14 @@
                 <option value="size-asc">Menor Tamanho Primeiro</option>
                 <option value="size-desc">Maior Tamanho Primeiro</option>
             </select>
+            <!-- Lista de Arquivos -->
             <ul id="file-list">
-                <!-- Lista de arquivos enviados será inserida aqui -->
+                <!-- Os arquivos enviados serão inseridos aqui dinamicamente pelo script.js -->
             </ul>
         </section>
     </main>
 
+    <!-- Rodapé -->
     <footer>
         <div class="container">
             <p>© 2024 - Upload Galaxy. Todos os direitos reservados.</p>
@@ -81,9 +99,17 @@
         </div>
     </footer>
 
-    <!-- Removidos os scripts Compat do Firebase e o script inline de inicialização -->
-
     <!-- Inclusão do script.js como módulo ES6 -->
     <script type="module" src="script.js"></script>
+
+    <!-- Script para alternar o menu em dispositivos móveis -->
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>

@@ -1,10 +1,26 @@
-// Importações do Firebase Modular SDK
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL, listAll, deleteObject, getMetadata } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
+// Importações do Firebase Modular SDK (Certifique-se de usar a versão mais recente disponível)
+import { initializeApp, setLogLevel } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { 
+    getAuth, 
+    signInWithPopup, 
+    GoogleAuthProvider, 
+    onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { 
+    getStorage, 
+    ref, 
+    uploadBytesResumable, 
+    getDownloadURL, 
+    listAll, 
+    deleteObject, 
+    getMetadata 
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
 
-// Configuração do Firebase
+// Habilitar logs detalhados do Firebase para depuração (Opcional)
+setLogLevel('debug');
+
+// Configuração do Firebase (Substitua pelas suas próprias credenciais)
 const firebaseConfig = {
     apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
     authDomain: "armazene-acd30.firebaseapp.com",
@@ -61,7 +77,7 @@ onAuthStateChanged(auth, (user) => {
 
 // Função para login com Google
 googleLoginButton.addEventListener('click', () => {
-    console.log('Botão de login clicado'); // Log adicionado
+    console.log('Botão de login clicado');
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
         .then((result) => {
@@ -70,6 +86,7 @@ googleLoginButton.addEventListener('click', () => {
         })
         .catch((error) => {
             console.error('Erro ao fazer login:', error);
+            console.error('Payload do erro:', error.customData);
             alert(`Erro ao fazer login: ${error.code} - ${error.message}`);
         });
 });
@@ -90,22 +107,26 @@ async function startUpload() {
     const user = auth.currentUser;
 
     if (!user) {
+        console.log('Usuário não autenticado');
         alert('Você precisa estar logado para fazer o upload de arquivos.');
         return;
     }
 
     if (!file) {
+        console.log('Nenhum arquivo selecionado');
         alert('Por favor, selecione um arquivo antes de fazer o upload.');
         return;
     }
 
     const storageRefPath = `uploads/${user.uid}/${file.name}`;
-    const storageRef = ref(storage, storageRefPath);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    const storageRefObj = ref(storage, storageRefPath);
+    const uploadTask = uploadBytesResumable(storageRefObj, file);
 
     // Mostrar o container de progresso
     progressContainer.style.display = 'block';
     isUploading = true;
+
+    console.log(`Iniciando upload para: ${storageRefPath}`);
 
     // Monitorar o progresso do upload
     uploadTask.on('state_changed',
@@ -117,6 +138,7 @@ async function startUpload() {
         },
         (error) => {
             console.error('Erro ao fazer upload:', error);
+            console.error('Payload do erro:', error.customData);
             alert(`Erro ao fazer upload: ${error.code} - ${error.message}`);
             isUploading = false;
             progressContainer.style.display = 'none';
@@ -138,6 +160,7 @@ async function startUpload() {
                 isUploading = false;
             } catch (error) {
                 console.error('Erro ao obter URL de download:', error);
+                console.error('Payload do erro:', error.customData);
                 alert(`Erro ao obter URL de download: ${error.code} - ${error.message}`);
                 isUploading = false;
                 progressContainer.style.display = 'none';
@@ -152,7 +175,10 @@ async function startUpload() {
 async function fetchAllFiles() {
     try {
         const user = auth.currentUser;
-        if (!user) return;
+        if (!user) {
+            console.log('Usuário não autenticado para buscar arquivos');
+            return;
+        }
 
         console.log('Buscando arquivos para o usuário:', user.uid);
 
@@ -172,16 +198,19 @@ async function fetchAllFiles() {
                     };
                 } catch (error) {
                     console.error('Erro ao obter informações do arquivo:', error);
+                    console.error('Payload do erro:', error.customData);
                     return null;
                 }
             })
         );
 
+        // Filtrar arquivos que retornaram null devido a erros
         allFiles = allFiles.filter(file => file !== null);
         sortFiles(sortSelect.value);
         updateStorageUsage();
     } catch (error) {
         console.error('Erro ao carregar os arquivos:', error);
+        console.error('Payload do erro:', error.customData);
         alert(`Erro ao carregar os arquivos: ${error.code} - ${error.message}`);
     }
 }
@@ -277,16 +306,19 @@ async function deleteFile(fileName) {
     try {
         const user = auth.currentUser;
         if (!user) {
+            console.log('Usuário não autenticado para excluir arquivos');
             alert('Você precisa estar logado para excluir arquivos.');
             return;
         }
 
         const fileRef = ref(storage, `uploads/${user.uid}/${fileName}`);
         await deleteObject(fileRef);
+        console.log(`Arquivo "${fileName}" excluído com sucesso.`);
         alert('Arquivo excluído com sucesso!');
         fetchAllFiles();
     } catch (error) {
         console.error('Erro ao excluir o arquivo:', error);
+        console.error('Payload do erro:', error.customData);
         alert(`Erro ao excluir o arquivo: ${error.code} - ${error.message}`);
     }
 }
