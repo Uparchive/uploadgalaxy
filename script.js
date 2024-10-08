@@ -215,6 +215,7 @@ async function fetchAllFiles() {
             } else {
                 console.log('Nenhum arquivo válido encontrado.');
                 fileList.innerHTML = ''; // Limpa a lista se não houver arquivos válidos
+                updateStorageUsage(); // Atualiza o uso de armazenamento mesmo que não haja arquivos válidos
             }
         } catch (error) {
             console.error('Erro ao listar arquivos:', error);
