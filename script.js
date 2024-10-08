@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkPassword() {
         const input = document.getElementById('password-input').value;
-        if (input === 'KJJ') {
+        if (input === 'GalaxySmartUploads') {
             passwordOverlay.style.display = 'none';
             sessionStorage.setItem('authenticated', 'true');
             fetchAllFiles(); // Carregar a lista de arquivos após a autenticação
@@ -186,6 +186,11 @@ document.addEventListener('DOMContentLoaded', () => {
         fileListSection.innerHTML = '';
         files.forEach(file => {
             const listItem = document.createElement('li');
+            listItem.style.display = 'flex';
+            listItem.style.flexDirection = 'row';
+            listItem.style.justifyContent = 'space-between';
+            listItem.style.alignItems = 'center';
+            listItem.style.flexWrap = 'wrap';
 
             // Criar um elemento para exibir o nome do arquivo e seu tamanho
             const fileNameSpan = document.createElement('span');
