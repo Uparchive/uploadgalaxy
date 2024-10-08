@@ -69,7 +69,7 @@ onAuthStateChanged(auth, (user) => {
         uploadSection.style.display = 'none';
         fileListSection.style.display = 'none';
         fileList.innerHTML = '';
-        storageUsageDisplay.textContent = '0.00 GB de 5.00 GB';
+        storageUsageDisplay.textContent = '0.00 GB de Ilimitado';
     }
 });
 
