@@ -1,17 +1,60 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const firebaseConfig = {
-        apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
-        authDomain: "armazene-acd30.firebaseapp.com",
-        databaseURL: "https://armazene-acd30-default-rtdb.firebaseio.com",
-        projectId: "armazene-acd30",
-        storageBucket: "armazene-acd30.appspot.com",
-        messagingSenderId: "853849509051",
-        appId: "1:853849509051:web:ea6f96915c4d5c895b2d9e",
-        measurementId: "G-79TBH73QPT"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const storage = firebase.storage();
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL, listAll, deleteObject } from "firebase/storage";
+import { getAnalytics } from "firebase/analytics";
 
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
+    authDomain: "armazene-acd30.firebaseapp.com",
+    databaseURL: "https://armazene-acd30-default-rtdb.firebaseio.com",
+    projectId: "armazene-acd30",
+    storageBucket: "armazene-acd30.appspot.com",
+    messagingSenderId: "853849509051",
+    appId: "1:853849509051:web:ea6f96915c4d5c895b2d9e",
+    measurementId: "G-79TBH73QPT"
+};
+
+// Inicializar o Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
+
+// Estado de autenticação do usuário
+document.addEventListener('DOMContentLoaded', () => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            console.log('Usuário logado:', user);
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('upload-section').style.display = 'block';
+            document.getElementById('file-list-section').style.display = 'block';
+            fetchAllFiles();
+        } else {
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('upload-section').style.display = 'none';
+            document.getElementById('file-list-section').style.display = 'none';
+        }
+    });
+
+    // Login com Google
+    document.getElementById('google-login-button').addEventListener('click', () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                console.log('Usuário logado:', result.user);
+            })
+            .catch((error) => {
+                console.error('Erro ao fazer login:', error);
+            });
+    });
+
+    // Inicializar a aplicação
+    initApp();
+});
+
+// Função para inicializar a aplicação
+function initApp() {
     const uploadForm = document.getElementById('upload-form');
     const fileListSection = document.getElementById('file-list');
     const progressBar = document.getElementById('progress-bar');
@@ -20,31 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
     const storageUsageDisplay = document.getElementById('storage-usage');
     const sortSelect = document.getElementById('sort-select');
-    const passwordForm = document.getElementById('password-form');
-    const passwordOverlay = document.getElementById('password-overlay');
-    const errorMessage = document.getElementById('error-message');
 
     const totalAvailableGB = 5; // Defina aqui o total de espaço disponível em GB
     let allFiles = [];
     let isUploading = false;
-
-    // Limpar o sessionStorage durante o desenvolvimento (remover em produção)
-    sessionStorage.clear();
-
-    // Verificar se o usuário está autenticado na sessão
-    const isAuthenticated = sessionStorage.getItem('authenticated');
-    if (isAuthenticated === 'true') {
-        passwordOverlay.style.display = 'none';
-        fetchAllFiles(); // Carregar a lista de arquivos se autenticado
-    } else {
-        passwordOverlay.style.display = 'flex';
-    }
-
-    // Evento para o formulário de senha
-    passwordForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        checkPassword();
-    });
 
     // Evento para o formulário de upload
     uploadForm.addEventListener('submit', (e) => {
@@ -53,29 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
             startUpload();
         }
     });
-
-    // Bloquear atualização da página durante o upload
-    window.addEventListener('beforeunload', (e) => {
-        if (isUploading) {
-            e.preventDefault();
-            e.returnValue = 'Há um upload em andamento. Tem certeza de que deseja sair?';
-        }
-    });
-
-    searchInput.addEventListener('input', () => {
-        filterFiles(searchInput.value);
-    });
-
-    function checkPassword() {
-        const input = document.getElementById('password-input').value;
-        if (input === 'KJJ') {
-            passwordOverlay.style.display = 'none';
-            sessionStorage.setItem('authenticated', 'true');
-            fetchAllFiles(); // Carregar a lista de arquivos após a autenticação
-        } else {
-            errorMessage.style.display = 'block';
-        }
-    }
 
     async function startUpload() {
         const fileInput = document.getElementById('file-input');
@@ -87,8 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const file = files[0];
-        const storageRef = storage.ref(`uploads/${file.name}`);
-        const uploadTask = storageRef.put(file);
+        const user = auth.currentUser;
+        if (!user) {
+            alert('Você precisa estar logado para fazer o upload de arquivos.');
+            return;
+        }
+
+        const storageRef = ref(storage, `uploads/${user.uid}/${file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
         // Mostrar o container de progresso
         progressContainer.style.display = 'block';
@@ -107,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 isUploading = false;
             },
             async () => {
-                const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
                 alert('Arquivo enviado com sucesso!');
 
                 // Recarrega a lista de arquivos para incluir o novo
@@ -124,11 +129,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchAllFiles() {
         try {
-            const storageRef = storage.ref('uploads');
-            const filesSnapshot = await storageRef.listAll();
+            const user = auth.currentUser;
+            if (!user) {
+                return;
+            }
+            const storageRef = ref(storage, `uploads/${user.uid}`);
+            const filesSnapshot = await listAll(storageRef);
             allFiles = await Promise.all(
                 filesSnapshot.items.map(async (item) => {
-                    const url = await item.getDownloadURL();
+                    const url = await getDownloadURL(item);
                     const metadata = await item.getMetadata();
                     return {
                         name: item.name,
@@ -145,10 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Erro ao carregar os arquivos:', error);
         }
     }
-
-    sortSelect.addEventListener('change', () => {
-        sortFiles(sortSelect.value);
-    });
 
     function sortFiles(criteria) {
         const sortedFiles = [...allFiles];
@@ -177,11 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
         displayFiles(sortedFiles);
     }
 
-    function filterFiles(query) {
-        const filteredFiles = allFiles.filter(file => file.name.toLowerCase().includes(query.toLowerCase()));
-        displayFiles(filteredFiles);
-    }
-
     function displayFiles(files) {
         fileListSection.innerHTML = '';
         files.forEach(file => {
@@ -192,27 +192,22 @@ document.addEventListener('DOMContentLoaded', () => {
             listItem.style.alignItems = 'center';
             listItem.style.flexWrap = 'wrap';
 
-            // Criar um elemento para exibir o nome do arquivo e seu tamanho
             const fileNameSpan = document.createElement('span');
             const fileSize = formatBytes(file.size);
             fileNameSpan.textContent = `${file.name} (${fileSize})`;
 
-            listItem.setAttribute('data-size', file.size);
-            listItem.setAttribute('data-time-created', file.timeCreated);
+            listItem.appendChild(fileNameSpan);
 
-            // Container para os botões
             const buttonContainer = document.createElement('div');
             buttonContainer.style.display = 'flex';
             buttonContainer.style.gap = '0.5rem';
 
-            // Botão de Download
             const downloadButton = document.createElement('a');
             downloadButton.textContent = 'Download';
             downloadButton.href = file.url;
             downloadButton.classList.add('download-button');
             downloadButton.download = file.name;
 
-            // Botão de Copiar Link
             const shareButton = document.createElement('button');
             shareButton.textContent = 'Copiar Link';
             shareButton.classList.add('share-button');
@@ -224,7 +219,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            // Botão de Excluir
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Excluir';
             deleteButton.classList.add('delete-button');
@@ -235,13 +229,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Adicionar os botões ao container
             buttonContainer.appendChild(downloadButton);
             buttonContainer.appendChild(shareButton);
             buttonContainer.appendChild(deleteButton);
 
-            // Adicionar o nome e os botões ao item da lista
-            listItem.appendChild(fileNameSpan);
             listItem.appendChild(buttonContainer);
             fileListSection.appendChild(listItem);
         });
@@ -249,10 +240,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function deleteFile(fileName) {
         try {
-            const fileRef = storage.ref(`uploads/${fileName}`);
-            await fileRef.delete();
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Você precisa estar logado para excluir arquivos.');
+                return;
+            }
+            const fileRef = ref(storage, `uploads/${user.uid}/${fileName}`);
+            await deleteObject(fileRef);
             alert('Arquivo excluído com sucesso!');
-            fetchAllFiles(); // Atualiza a lista de arquivos após a exclusão
+            fetchAllFiles();
         } catch (error) {
             console.error('Erro ao excluir o arquivo:', error);
             alert('Erro ao excluir o arquivo: ' + error.message);
@@ -275,4 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const i = Math.floor(Math.log(bytes) / Math.log(k));
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
-});
+
+    fetchAllFiles();
+}

@@ -9,18 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div id="password-overlay" class="password-overlay">
-        <div class="password-box">
-            <h2>Acesso Restrito</h2>
-            <p>Por favor, digite a senha para acessar o site:</p>
-            <form id="password-form">
-                <input type="password" id="password-input" placeholder="Digite a senha">
-                <button type="submit">Entrar</button>
-            </form>
-            <p id="error-message" style="color: red; display: none;">Senha incorreta. Tente novamente.</p>
-        </div>
-    </div>
-
     <header>
         <nav class="navbar">
             <div class="container">
@@ -44,7 +32,12 @@
             </div>
         </section>
 
-        <section id="upload-section" class="container">
+        <section id="login-section" class="container">
+            <h2>Login com Google</h2>
+            <button id="google-login-button" class="upload-button"><i class="fab fa-google"></i> Fazer Login com Google</button>
+        </section>
+
+        <section id="upload-section" class="container" style="display: none;">
             <h2>Envie seus Arquivos</h2>
             <form id="upload-form" enctype="multipart/form-data">
                 <div class="form-group">
@@ -59,7 +52,7 @@
             </div>
         </section>
         
-        <section id="file-list-section" class="container">
+        <section id="file-list-section" class="container" style="display: none;">
             <h2>Seus Arquivos</h2>
             <p id="storage-usage">0.00 GB de 5.00 GB</p>
             <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
@@ -92,41 +85,88 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src="script.js"></script>
     <script>
-        function sortFiles() {
-            const sortCriteria = document.getElementById('sort-select').value;
-            const fileList = document.getElementById('file-list');
-            let files = Array.from(fileList.children);
+        // Configuração do Firebase
+        const firebaseConfig = {
+        apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
+        authDomain: "armazene-acd30.firebaseapp.com",
+        databaseURL: "https://armazene-acd30-default-rtdb.firebaseio.com",
+        projectId: "armazene-acd30",
+        storageBucket: "armazene-acd30.appspot.com",
+        messagingSenderId: "853849509051",
+        appId: "1:853849509051:web:ea6f96915c4d5c895b2d9e",
+        measurementId: "G-79TBH73QPT"
+    };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const storage = firebase.storage();
 
-            files.sort((a, b) => {
-                const aName = a.querySelector('span').textContent.trim().toLowerCase();
-                const bName = b.querySelector('span').textContent.trim().toLowerCase();
-                const aSize = parseFloat(a.getAttribute('data-size'));
-                const bSize = parseFloat(b.getAttribute('data-size'));
-                const aDate = new Date(a.getAttribute('data-time-created'));
-                const bDate = new Date(b.getAttribute('data-time-created'));
+        // Login com Google
+        const googleLoginButton = document.getElementById('google-login-button');
+        googleLoginButton.addEventListener('click', () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    console.log('Usuário logado:', result.user);
+                    document.getElementById('login-section').style.display = 'none';
+                    document.getElementById('upload-section').style.display = 'block';
+                    document.getElementById('file-list-section').style.display = 'block';
+                    fetchUserFiles();
+                })
+                .catch((error) => {
+                    console.error('Erro ao fazer login:', error);
+                });
+        });
 
-                switch (sortCriteria) {
-                    case 'alphabetical':
-                        return aName.localeCompare(bName);
-                    case 'alphabetical-desc':
-                        return bName.localeCompare(aName);
-                    case 'newest':
-                        return bDate - aDate;
-                    case 'oldest':
-                        return aDate - bDate;
-                    case 'size-asc':
-                        return aSize - bSize;
-                    case 'size-desc':
-                        return bSize - aSize;
-                }
-            });
-
-            // Limpar a lista e adicionar os arquivos ordenados novamente
-            fileList.innerHTML = '';
-            files.forEach(file => fileList.appendChild(file));
+        // Função para buscar arquivos do usuário logado
+        function fetchUserFiles() {
+            const user = auth.currentUser;
+            if (user) {
+                const storageRef = storage.ref(`uploads/${user.uid}`);
+                storageRef.listAll().then((res) => {
+                    const fileList = document.getElementById('file-list');
+                    fileList.innerHTML = '';
+                    res.items.forEach((itemRef) => {
+                        itemRef.getDownloadURL().then((url) => {
+                            const listItem = document.createElement('li');
+                            listItem.innerHTML = `<span>${itemRef.name}</span> <a href="${url}" class="download-button">Baixar</a>`;
+                            fileList.appendChild(listItem);
+                        });
+                    });
+                });
+            }
         }
+
+        // Upload de arquivos
+        const uploadForm = document.getElementById('upload-form');
+        uploadForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fileInput = document.getElementById('file-input');
+            const file = fileInput.files[0];
+            const user = auth.currentUser;
+
+            if (user && file) {
+                const storageRef = storage.ref(`uploads/${user.uid}/${file.name}`);
+                const uploadTask = storageRef.put(file);
+
+                uploadTask.on('state_changed', 
+                    (snapshot) => {
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        document.getElementById('progress-bar').style.width = progress + '%';
+                        document.getElementById('progress-text').textContent = progress.toFixed(2) + '%';
+                    }, 
+                    (error) => {
+                        console.error('Erro ao fazer upload:', error);
+                    }, 
+                    () => {
+                        console.log('Upload concluído com sucesso');
+                        fetchUserFiles();
+                    }
+                );
+            }
+        });
     </script>
 </body>
 </html>
