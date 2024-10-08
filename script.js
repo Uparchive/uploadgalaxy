@@ -92,39 +92,45 @@ function initApp() {
             return;
         }
 
-        const storageRef = ref(storage, `uploads/${user.uid}/${file.name}`);
-        const uploadTask = uploadBytesResumable(storageRef, file);
+        try {
+            const storageRef = ref(storage, `uploads/${user.uid}/${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
 
-        // Mostrar o container de progresso
-        progressContainer.style.display = 'block';
-        isUploading = true;
+            // Mostrar o container de progresso
+            progressContainer.style.display = 'block';
+            isUploading = true;
 
-        // Monitorar o progresso do upload
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                progressBar.style.width = `${progress}%`;
-                progressText.textContent = `${progress.toFixed(2)}%`;
-            },
-            (error) => {
-                console.error('Erro ao fazer upload:', error);
-                alert('Erro ao fazer upload: ' + error.message);
-                isUploading = false;
-            },
-            async () => {
-                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                alert('Arquivo enviado com sucesso!');
+            // Monitorar o progresso do upload
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    progressBar.style.width = `${progress}%`;
+                    progressText.textContent = `${progress.toFixed(2)}%`;
+                },
+                (error) => {
+                    console.error('Erro ao fazer upload:', error);
+                    alert('Erro ao fazer upload: ' + error.message);
+                    isUploading = false;
+                },
+                async () => {
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                    alert('Arquivo enviado com sucesso!');
 
-                // Recarrega a lista de arquivos para incluir o novo
-                fetchAllFiles();
+                    // Recarrega a lista de arquivos para incluir o novo
+                    await fetchAllFiles();
 
-                // Limpar o campo de upload e progresso
-                fileInput.value = '';
-                progressBar.style.width = '0%';
-                progressText.textContent = '0%';
-                isUploading = false;
-            }
-        );
+                    // Limpar o campo de upload e progresso
+                    fileInput.value = '';
+                    progressBar.style.width = '0%';
+                    progressText.textContent = '0%';
+                    isUploading = false;
+                }
+            );
+        } catch (error) {
+            console.error('Erro inesperado ao fazer upload:', error);
+            alert('Erro inesperado ao fazer upload: ' + error.message);
+            isUploading = false;
+        }
     }
 
     async function fetchAllFiles() {
