@@ -210,10 +210,11 @@ async function fetchAllFiles() {
             console.log('Arquivos válidos para exibição:', allFiles);
 
             if (allFiles.length > 0) {
-                displayFiles(allFiles);
+                sortFiles(sortSelect.value);
                 updateStorageUsage();
             } else {
                 console.log('Nenhum arquivo válido encontrado.');
+                fileList.innerHTML = ''; // Limpa a lista se não houver arquivos válidos
             }
         } catch (error) {
             console.error('Erro ao listar arquivos:', error);
@@ -247,6 +248,10 @@ function displayFiles(files) {
 }
 
 // Função para ordenar os arquivos
+sortSelect.addEventListener('change', () => {
+    sortFiles(sortSelect.value);
+});
+
 function sortFiles(criteria) {
     const sortedFiles = [...allFiles];
 
