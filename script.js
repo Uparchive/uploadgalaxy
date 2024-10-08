@@ -113,17 +113,22 @@ function initApp() {
                     isUploading = false;
                 },
                 async () => {
-                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                    alert('Arquivo enviado com sucesso!');
+                    try {
+                        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                        alert('Arquivo enviado com sucesso!');
 
-                    // Recarrega a lista de arquivos para incluir o novo
-                    await fetchAllFiles();
+                        // Recarrega a lista de arquivos para incluir o novo
+                        await fetchAllFiles();
 
-                    // Limpar o campo de upload e progresso
-                    fileInput.value = '';
-                    progressBar.style.width = '0%';
-                    progressText.textContent = '0%';
-                    isUploading = false;
+                        // Limpar o campo de upload e progresso
+                        fileInput.value = '';
+                        progressBar.style.width = '0%';
+                        progressText.textContent = '0%';
+                        isUploading = false;
+                    } catch (error) {
+                        console.error('Erro ao obter URL de download:', error);
+                        alert('Erro ao obter URL de download: ' + error.message);
+                    }
                 }
             );
         } catch (error) {
@@ -143,17 +148,23 @@ function initApp() {
             const filesSnapshot = await listAll(storageRef);
             allFiles = await Promise.all(
                 filesSnapshot.items.map(async (item) => {
-                    const url = await getDownloadURL(item);
-                    const metadata = await item.getMetadata();
-                    return {
-                        name: item.name,
-                        url,
-                        timeCreated: metadata.timeCreated,
-                        size: metadata.size
-                    };
+                    try {
+                        const url = await getDownloadURL(item);
+                        const metadata = await item.getMetadata();
+                        return {
+                            name: item.name,
+                            url,
+                            timeCreated: metadata.timeCreated,
+                            size: metadata.size
+                        };
+                    } catch (error) {
+                        console.error('Erro ao obter informações do arquivo:', error);
+                        return null;
+                    }
                 })
             );
 
+            allFiles = allFiles.filter(file => file !== null);
             sortFiles(sortSelect.value);
             updateStorageUsage();
         } catch (error) {
