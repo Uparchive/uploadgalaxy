@@ -174,53 +174,55 @@ async function startUpload() {
 // Função para buscar todos os arquivos do usuário
 async function fetchAllFiles() {
     try {
-      const user = auth.currentUser;
-      if (!user) {
-        console.log('Usuário não autenticado para buscar arquivos');
-        return;
-      }
-  
-      console.log('Buscando arquivos para o usuário:', user.uid);
-  
-      const storageRef = ref(storage, `uploads/${user.uid}`);
-      
-      // Fazer uma checagem antes de tentar listar todos os arquivos
-      const filesSnapshot = await listAll(storageRef);
-      
-      if (filesSnapshot.items.length === 0) {
-        console.log('Nenhum arquivo encontrado no diretório');
-        return;
-      }
-  
-      allFiles = await Promise.all(
-        filesSnapshot.items.map(async (item) => {
-          try {
-            const url = await getDownloadURL(item);
-            const metadata = await getMetadata(item);
-            return {
-              name: item.name,
-              url,
-              timeCreated: metadata.timeCreated,
-              size: metadata.size
-            };
-          } catch (error) {
-            console.error('Erro ao obter informações do arquivo:', error);
-            return null;
-          }
-        })
-      );
-  
-      // Filtrar arquivos que retornaram null devido a erros
-      allFiles = allFiles.filter(file => file !== null);
-      sortFiles(sortSelect.value);
-      updateStorageUsage();
-  
+        const user = auth.currentUser;
+        if (!user) {
+            console.log('Usuário não autenticado para buscar arquivos');
+            return;
+        }
+
+        console.log('Buscando arquivos para o usuário:', user.uid);
+
+        const storageRef = ref(storage, `uploads/${user.uid}`);
+        
+        // Fazer uma checagem antes de tentar listar todos os arquivos
+        console.log('Referência de storage:', storageRef.fullPath);
+        const filesSnapshot = await listAll(storageRef);
+        
+        if (filesSnapshot.items.length === 0) {
+            console.log('Nenhum arquivo encontrado no diretório');
+            fileList.innerHTML = '<li>Nenhum arquivo encontrado</li>';
+            return;
+        }
+
+        allFiles = await Promise.all(
+            filesSnapshot.items.map(async (item) => {
+                try {
+                    console.log('Obtendo URL e metadados do arquivo:', item.fullPath);
+                    const url = await getDownloadURL(item);
+                    const metadata = await getMetadata(item);
+                    return {
+                        name: item.name,
+                        url,
+                        timeCreated: metadata.timeCreated,
+                        size: metadata.size
+                    };
+                } catch (error) {
+                    console.error('Erro ao obter informações do arquivo:', error);
+                    return null;
+                }
+            })
+        );
+
+        // Filtrar arquivos que retornaram null devido a erros
+        allFiles = allFiles.filter(file => file !== null);
+        sortFiles(sortSelect.value);
+        updateStorageUsage();
+
     } catch (error) {
-      console.error('Erro ao carregar os arquivos:', error);
-      alert(`Erro ao carregar os arquivos: ${error.code} - ${error.message}`);
+        console.error('Erro ao carregar os arquivos:', error);
+        alert(`Erro ao carregar os arquivos: ${error.code} - ${error.message}`);
     }
-  }
-  
+}
 
 // Função para ordenar os arquivos
 function sortFiles(criteria) {
