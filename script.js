@@ -1,278 +1,339 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const firebaseConfig = {
-        apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
-        authDomain: "armazene-acd30.firebaseapp.com",
-        databaseURL: "https://armazene-acd30-default-rtdb.firebaseio.com",
-        projectId: "armazene-acd30",
-        storageBucket: "armazene-acd30.appspot.com",
-        messagingSenderId: "853849509051",
-        appId: "1:853849509051:web:ea6f96915c4d5c895b2d9e",
-        measurementId: "G-79TBH73QPT"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const storage = firebase.storage();
+// Importações do Firebase Modular SDK (Certifique-se de usar a versão mais recente disponível)
+import { initializeApp, setLogLevel } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { 
+    getAuth, 
+    signInWithPopup, 
+    GoogleAuthProvider, 
+    onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { 
+    getStorage, 
+    ref, 
+    uploadBytesResumable, 
+    getDownloadURL, 
+    listAll, 
+    deleteObject, 
+    getMetadata 
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
 
-    const uploadForm = document.getElementById('upload-form');
-    const fileListSection = document.getElementById('file-list');
-    const progressBar = document.getElementById('progress-bar');
-    const progressContainer = document.getElementById('progress-container');
-    const progressText = document.getElementById('progress-text');
-    const searchInput = document.getElementById('search-input');
-    const storageUsageDisplay = document.getElementById('storage-usage');
-    const sortSelect = document.getElementById('sort-select');
-    const passwordForm = document.getElementById('password-form');
-    const passwordOverlay = document.getElementById('password-overlay');
-    const errorMessage = document.getElementById('error-message');
+// Habilitar logs detalhados do Firebase para depuração
+setLogLevel('debug');
 
-    const totalAvailableGB = 5; // Defina aqui o total de espaço disponível em GB
-    let allFiles = [];
-    let isUploading = false;
+// Configuração do Firebase (Substitua pelas suas próprias credenciais)
+const firebaseConfig = {
+    apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
+    authDomain: "armazene-acd30.firebaseapp.com",
+    databaseURL: "https://armazene-acd30-default-rtdb.firebaseio.com",
+    projectId: "armazene-acd30",
+    storageBucket: "armazene-acd30.appspot.com",
+    messagingSenderId: "853849509051",
+    appId: "1:853849509051:web:ea6f96915c4d5c895b2d9e",
+    measurementId: "G-79TBH73QPT"
+};
 
-    // Limpar o sessionStorage durante o desenvolvimento (remover em produção)
-    sessionStorage.clear();
+// Inicializar o Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
 
-    // Verificar se o usuário está autenticado na sessão
-    const isAuthenticated = sessionStorage.getItem('authenticated');
-    if (isAuthenticated === 'true') {
-        passwordOverlay.style.display = 'none';
-        fetchAllFiles(); // Carregar a lista de arquivos se autenticado
+// Elementos do DOM
+const loginSection = document.getElementById('login-section');
+const uploadSection = document.getElementById('upload-section');
+const fileListSection = document.getElementById('file-list-section');
+const googleLoginButton = document.getElementById('google-login-button');
+const uploadForm = document.getElementById('upload-form');
+const progressContainer = document.getElementById('progress-container');
+const progressBar = document.getElementById('progress-bar');
+const progressText = document.getElementById('progress-text');
+const fileList = document.getElementById('file-list');
+const storageUsageDisplay = document.getElementById('storage-usage');
+const sortSelect = document.getElementById('sort-select');
+const searchInput = document.getElementById('search-input');
+
+// Variáveis Globais
+const totalAvailableGB = 5; // Espaço total disponível em GB
+let allFiles = [];
+let isUploading = false;
+
+// Monitorar o estado de autenticação do usuário
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        loginSection.style.display = 'none';
+        uploadSection.style.display = 'block';
+        fileListSection.style.display = 'block';
+        fetchAllFiles();
     } else {
-        passwordOverlay.style.display = 'flex';
+        loginSection.style.display = 'block';
+        uploadSection.style.display = 'none';
+        fileListSection.style.display = 'none';
+        fileList.innerHTML = '';
+        storageUsageDisplay.textContent = '0.00 GB de 5.00 GB';
+    }
+});
+
+
+// Função para login com Google
+googleLoginButton.addEventListener('click', () => {
+    console.log('Botão de login clicado');
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            console.log('Usuário logado via popup:', result.user);
+        })
+        .catch((error) => {
+            console.error('Erro ao fazer login:', error);
+            alert(`Erro ao fazer login: ${error.code} - ${error.message}`);
+        });
+});
+
+
+// Evento para o formulário de upload
+uploadForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!isUploading) {
+        console.log('Iniciando upload...');
+        startUpload();
+    }
+});
+
+// Função para iniciar o upload
+async function startUpload() {
+    const fileInput = document.getElementById('file-input');
+    const file = fileInput.files[0];
+    const user = auth.currentUser;
+
+    if (!user) {
+        console.log('Usuário não autenticado');
+        alert('Você precisa estar logado para fazer o upload de arquivos.');
+        return;
     }
 
-    // Evento para o formulário de senha
-    passwordForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        checkPassword();
-    });
-
-    // Evento para o formulário de upload
-    uploadForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (!isUploading) {
-            startUpload();
-        }
-    });
-
-    // Bloquear atualização da página durante o upload
-    window.addEventListener('beforeunload', (e) => {
-        if (isUploading) {
-            e.preventDefault();
-            e.returnValue = 'Há um upload em andamento. Tem certeza de que deseja sair?';
-        }
-    });
-
-    searchInput.addEventListener('input', () => {
-        filterFiles(searchInput.value);
-    });
-
-    function checkPassword() {
-        const input = document.getElementById('password-input').value;
-        if (input === 'KJJ') {
-            passwordOverlay.style.display = 'none';
-            sessionStorage.setItem('authenticated', 'true');
-            fetchAllFiles(); // Carregar a lista de arquivos após a autenticação
-        } else {
-            errorMessage.style.display = 'block';
-        }
+    if (!file) {
+        console.log('Nenhum arquivo selecionado');
+        alert('Por favor, selecione um arquivo antes de fazer o upload.');
+        return;
     }
 
-    async function startUpload() {
-        const fileInput = document.getElementById('file-input');
-        const files = fileInput.files;
+    // Definindo o caminho de upload para o diretório do usuário
+    const storageRefPath = `uploads/${user.uid}/${file.name}`;
+    const storageRefObj = ref(storage, storageRefPath);
+    const uploadTask = uploadBytesResumable(storageRefObj, file);
 
-        if (files.length === 0) {
-            alert('Por favor, selecione um arquivo antes de fazer o upload.');
-            return;
-        }
+    // Mostrar o container de progresso
+    progressContainer.style.display = 'block';
+    isUploading = true;
 
-        const file = files[0];
-        const storageRef = storage.ref(`uploads/${file.name}`);
-        const uploadTask = storageRef.put(file);
+    console.log(`Iniciando upload para: ${storageRefPath}`);
 
-        // Mostrar o container de progresso
-        progressContainer.style.display = 'block';
-        isUploading = true;
+    // Monitorar o progresso do upload
+    uploadTask.on('state_changed',
+        (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `${progress.toFixed(2)}%`;
+            console.log(`Upload em progresso: ${progress.toFixed(2)}%`);
+        },
+        (error) => {
+            console.error('Erro ao fazer upload:', error);
+            alert(`Erro ao fazer upload: ${error.code} - ${error.message}`);
+            isUploading = false;
+            progressContainer.style.display = 'none';
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
+        },
+        async () => {
+            try {
+                console.log('Tentando obter a URL de download para:', uploadTask.snapshot.ref.fullPath);
+                
+                // Tentativa de obter a URL do download
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                
+                // Verifique a estrutura completa da URL
+                console.log('URL de download obtida com sucesso:', downloadURL);
 
-        // Monitorar o progresso do upload
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                progressBar.style.width = `${progress}%`;
-                progressText.textContent = `${progress.toFixed(2)}%`;
-            },
-            (error) => {
-                console.error('Erro ao fazer upload:', error);
-                alert('Erro ao fazer upload: ' + error.message);
-                isUploading = false;
-            },
-            async () => {
-                const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+                // Verificar explicitamente se o token está presente na URL
+                if (downloadURL.includes("token=")) {
+                    console.log("Token de acesso encontrado na URL:", downloadURL.split("token=")[1]);
+                } else {
+                    console.error("A URL de download não contém um token de acesso válido!");
+                }
+                
                 alert('Arquivo enviado com sucesso!');
-
-                // Recarrega a lista de arquivos para incluir o novo
-                fetchAllFiles();
+                
+                // Atualiza a lista de arquivos exibidos
+                await fetchAllFiles();
 
                 // Limpar o campo de upload e progresso
                 fileInput.value = '';
                 progressBar.style.width = '0%';
                 progressText.textContent = '0%';
+                progressContainer.style.display = 'none';
                 isUploading = false;
+            } catch (error) {
+                console.error('Erro ao obter URL de download:', error);
+                console.error('Código do erro:', error.code);
+                console.error('Mensagem do erro:', error.message);
+                
+                alert(`Erro ao obter URL de download: ${error.code} - ${error.message}`);
+                isUploading = false;
+                progressContainer.style.display = 'none';
+                progressBar.style.width = '0%';
+                progressText.textContent = '0%';
             }
-        );
-    }
+        }
+    );
+}
 
-    async function fetchAllFiles() {
+// Função para buscar todos os arquivos do usuário
+async function fetchAllFiles() {
+    const user = auth.currentUser;
+    if (user) {
         try {
-            const storageRef = storage.ref('uploads');
-            const filesSnapshot = await storageRef.listAll();
-            allFiles = await Promise.all(
+            console.log('Usuário autenticado:', user.uid);
+            const storageRef = ref(storage, `uploads/${user.uid}/`);
+            console.log('Buscando arquivos no caminho:', storageRef.fullPath);
+            const filesSnapshot = await listAll(storageRef);
+            console.log('Arquivos encontrados:', filesSnapshot.items.length);
+
+            const allFiles = await Promise.all(
                 filesSnapshot.items.map(async (item) => {
-                    const url = await item.getDownloadURL();
-                    const metadata = await item.getMetadata();
-                    return {
-                        name: item.name,
-                        url,
-                        timeCreated: metadata.timeCreated,
-                        size: metadata.size
-                    };
+                    try {
+                        const url = await getDownloadURL(item);
+                        const metadata = await getMetadata(item);
+                        return {
+                            name: item.name,
+                            url,
+                            timeCreated: metadata.timeCreated,
+                            size: metadata.size
+                        };
+                    } catch (error) {
+                        console.error('Erro ao obter URL ou metadados do arquivo:', item.name, error);
+                        return null;
+                    }
                 })
             );
 
-            sortFiles(sortSelect.value);
-            updateStorageUsage();
-        } catch (error) {
-            console.error('Erro ao carregar os arquivos:', error);
-        }
-    }
+            const validFiles = allFiles.filter(file => file !== null);
+            console.log('Arquivos válidos para exibição:', validFiles);
 
-    sortSelect.addEventListener('change', () => {
-        sortFiles(sortSelect.value);
+            if (validFiles.length > 0) {
+                displayFiles(validFiles);
+                showFileListSection();
+            } else {
+                console.log('Nenhum arquivo válido encontrado.');
+            }
+        } catch (error) {
+            console.error('Erro ao listar arquivos:', error);
+        }
+    } else {
+        console.log('Usuário não autenticado.');
+    }
+}
+
+function showFileListSection() {
+    const fileListSection = document.getElementById('file-list-section');
+    fileListSection.style.display = 'block';
+}
+
+// Exibir a seção de arquivos após carregar os arquivos
+fetchAllFiles().then(() => {
+    showFileListSection();
+});
+
+
+function displayFiles(files) {
+    fileList.innerHTML = '';
+    files.forEach(file => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            <span>${file.name} (${formatBytes(file.size)})</span>
+            <div>
+                <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
+                <button class="share-button" onclick="copyToClipboard('${file.url}')">Copiar Link</button>
+                <button class="delete-button" onclick="deleteFile('${file.name}')">Excluir</button>
+            </div>
+        `;
+        fileList.appendChild(listItem);
     });
+}
 
-    function sortFiles(criteria) {
-        const sortedFiles = [...allFiles];
+// Função para ordenar os arquivos
+function sortFiles(criteria) {
+    const sortedFiles = [...allFiles];
 
-        switch (criteria) {
-            case 'alphabetical':
-                sortedFiles.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            case 'alphabetical-desc':
-                sortedFiles.sort((a, b) => b.name.localeCompare(a.name));
-                break;
-            case 'newest':
-                sortedFiles.sort((a, b) => new Date(b.timeCreated) - new Date(a.timeCreated));
-                break;
-            case 'oldest':
-                sortedFiles.sort((a, b) => new Date(a.timeCreated) - new Date(b.timeCreated));
-                break;
-            case 'size-asc':
-                sortedFiles.sort((a, b) => a.size - b.size);
-                break;
-            case 'size-desc':
-                sortedFiles.sort((a, b) => b.size - a.size);
-                break;
+    switch (criteria) {
+        case 'alphabetical':
+            sortedFiles.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        case 'alphabetical-desc':
+            sortedFiles.sort((a, b) => b.name.localeCompare(a.name));
+            break;
+        case 'newest':
+            sortedFiles.sort((a, b) => new Date(b.timeCreated) - new Date(a.timeCreated));
+            break;
+        case 'oldest':
+            sortedFiles.sort((a, b) => new Date(a.timeCreated) - new Date(b.timeCreated));
+            break;
+        case 'size-asc':
+            sortedFiles.sort((a, b) => a.size - b.size);
+            break;
+        case 'size-desc':
+            sortedFiles.sort((a, b) => b.size - a.size);
+            break;
+        default:
+            break;
+    }
+
+    displayFiles(sortedFiles);
+}
+
+// Função para excluir um arquivo
+async function deleteFile(fileName) {
+    try {
+        const user = auth.currentUser;
+        if (!user) {
+            console.log('Usuário não autenticado para excluir arquivos');
+            alert('Você precisa estar logado para excluir arquivos.');
+            return;
         }
 
-        displayFiles(sortedFiles);
+        const fileRef = ref(storage, `uploads/${user.uid}/${fileName}`);
+        await deleteObject(fileRef);
+        console.log(`Arquivo "${fileName}" excluído com sucesso.`);
+        alert('Arquivo excluído com sucesso!');
+        fetchAllFiles();
+    } catch (error) {
+        console.error('Erro ao excluir o arquivo:', error);
+        console.error('Payload do erro:', error.customData);
+        alert(`Erro ao excluir o arquivo: ${error.code} - ${error.message}`);
     }
+}
 
-    function filterFiles(query) {
-        const filteredFiles = allFiles.filter(file => file.name.toLowerCase().includes(query.toLowerCase()));
-        displayFiles(filteredFiles);
-    }
+// Função para atualizar o uso de armazenamento
+function updateStorageUsage() {
+    const totalUsedBytes = allFiles.reduce((sum, file) => sum + file.size, 0);
+    const totalUsedGB = totalUsedBytes / (1024 ** 3);
+    const formattedUsedGB = totalUsedGB.toFixed(2);
+    const formattedTotalGB = totalAvailableGB.toFixed(2);
+    storageUsageDisplay.textContent = `${formattedUsedGB} GB de ${formattedTotalGB} GB`;
+}
 
-    function displayFiles(files) {
-        fileListSection.innerHTML = '';
-        files.forEach(file => {
-            const listItem = document.createElement('li');
-            listItem.style.display = 'flex';
-            listItem.style.flexDirection = 'row';
-            listItem.style.justifyContent = 'space-between';
-            listItem.style.alignItems = 'center';
-            listItem.style.flexWrap = 'wrap';
+// Função para formatar bytes em unidades legíveis
+function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
 
-            // Criar um elemento para exibir o nome do arquivo e seu tamanho
-            const fileNameSpan = document.createElement('span');
-            const fileSize = formatBytes(file.size);
-            fileNameSpan.textContent = `${file.name} (${fileSize})`;
-
-            listItem.setAttribute('data-size', file.size);
-            listItem.setAttribute('data-time-created', file.timeCreated);
-
-            // Container para os botões
-            const buttonContainer = document.createElement('div');
-            buttonContainer.style.display = 'flex';
-            buttonContainer.style.gap = '0.5rem';
-
-            // Botão de Download
-            const downloadButton = document.createElement('a');
-            downloadButton.textContent = 'Download';
-            downloadButton.href = file.url;
-            downloadButton.classList.add('download-button');
-            downloadButton.download = file.name;
-
-            // Botão de Copiar Link
-            const shareButton = document.createElement('button');
-            shareButton.textContent = 'Copiar Link';
-            shareButton.classList.add('share-button');
-            shareButton.addEventListener('click', () => {
-                navigator.clipboard.writeText(file.url).then(() => {
-                    alert('Link copiado para a área de transferência!');
-                }).catch(() => {
-                    alert('Falha ao copiar o link.');
-                });
-            });
-
-            // Botão de Excluir
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Excluir';
-            deleteButton.classList.add('delete-button');
-            deleteButton.addEventListener('click', () => {
-                const confirmDelete = confirm(`Tem certeza que deseja excluir o arquivo "${file.name}"?`);
-                if (confirmDelete) {
-                    deleteFile(file.name);
-                }
-            });
-
-            // Adicionar os botões ao container
-            buttonContainer.appendChild(downloadButton);
-            buttonContainer.appendChild(shareButton);
-            buttonContainer.appendChild(deleteButton);
-
-            // Adicionar o nome e os botões ao item da lista
-            listItem.appendChild(fileNameSpan);
-            listItem.appendChild(buttonContainer);
-            fileListSection.appendChild(listItem);
-        });
-    }
-
-    async function deleteFile(fileName) {
-        try {
-            const fileRef = storage.ref(`uploads/${fileName}`);
-            await fileRef.delete();
-            alert('Arquivo excluído com sucesso!');
-            fetchAllFiles(); // Atualiza a lista de arquivos após a exclusão
-        } catch (error) {
-            console.error('Erro ao excluir o arquivo:', error);
-            alert('Erro ao excluir o arquivo: ' + error.message);
-        }
-    }
-
-    function updateStorageUsage() {
-        const totalUsedBytes = allFiles.reduce((sum, file) => sum + file.size, 0);
-        const totalUsedGB = totalUsedBytes / (1024 ** 3);
-        const formattedUsedGB = totalUsedGB.toFixed(2);
-        const formattedTotalGB = totalAvailableGB.toFixed(2);
-        storageUsageDisplay.textContent = `${formattedUsedGB} GB de ${formattedTotalGB} GB`;
-    }
-
-    function formatBytes(bytes, decimals = 2) {
-        if (bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const dm = decimals < 0 ? 0 : decimals;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-    }
+// Função para buscar e exibir arquivos com base na busca
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    const filteredFiles = allFiles.filter(file => file.name.toLowerCase().includes(query));
+    sortFiles(sortSelect.value);
+    displayFiles(filteredFiles);
 });
