@@ -440,3 +440,13 @@ footer p {
         font-size: 0.85rem;
     }
 }
+
+/* Estilos para Vídeos Convertidos */
+.converted-video {
+    margin-top: 0.5rem;
+}
+
+.converted-video video {
+    max-width: 100%;
+    border-radius: 4px;
+}
