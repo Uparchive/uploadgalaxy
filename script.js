@@ -306,7 +306,7 @@ async function deleteFile(fileName) {
 
 // Função para atualizar o uso de armazenamento
 function updateStorageUsage() {
-    const totalUsedBytes = allFiles.reduce((sum, file) => sum + file.size, 0);
+    const totalUsedBytes = allFiles.reduce((sum, file) => sum + (file.size || 0), 0);
     const totalUsedGB = totalUsedBytes / (1024 ** 3);
     const formattedUsedGB = totalUsedGB.toFixed(2);
     const formattedTotalGB = totalAvailableGB.toFixed(2);
