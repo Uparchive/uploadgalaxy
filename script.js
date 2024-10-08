@@ -131,18 +131,12 @@ async function startUpload() {
     uploadTask.on('state_changed',
         (snapshot) => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            progressBar.style.width = `${progress}%`;
-            progressText.textContent = `${progress.toFixed(2)}%`;
             console.log(`Upload em progresso: ${progress.toFixed(2)}%`);
         },
         (error) => {
             console.error('Erro ao fazer upload:', error);
             console.error('Payload do erro:', error.customData);
             alert(`Erro ao fazer upload: ${error.code} - ${error.message}`);
-            isUploading = false;
-            progressContainer.style.display = 'none';
-            progressBar.style.width = '0%';
-            progressText.textContent = '0%';
         },
         async () => {
             try {
