@@ -211,12 +211,11 @@ async function fetchAllFiles() {
 
             if (allFiles.length > 0) {
                 sortFiles(sortSelect.value);
-                updateStorageUsage();
             } else {
                 console.log('Nenhum arquivo válido encontrado.');
                 fileList.innerHTML = ''; // Limpa a lista se não houver arquivos válidos
-                updateStorageUsage(); // Atualiza o uso de armazenamento mesmo que não haja arquivos válidos
             }
+            updateStorageUsage(); // Atualiza o uso de armazenamento, independentemente do número de arquivos
         } catch (error) {
             console.error('Erro ao listar arquivos:', error);
         }
