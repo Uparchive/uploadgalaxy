@@ -155,7 +155,7 @@ async function startUpload() {
                 // Verifique a estrutura completa da URL
                 console.log('URL de download obtida com sucesso:', downloadURL);
 
-                alert('Arquivo enviado com sucesso!');
+                alert('Arquivo enviado com sucesso! Ele será convertido para .mp4 automaticamente.');
 
                 // Atualiza a lista de arquivos exibidos
                 await fetchAllFiles();
