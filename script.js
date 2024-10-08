@@ -3,6 +3,7 @@ import { initializeApp, setLogLevel } from "https://www.gstatic.com/firebasejs/9
 import {
     getAuth,
     signInWithPopup,
+    signOut, // Importar signOut para funcionalidade de logout
     GoogleAuthProvider,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
@@ -51,6 +52,7 @@ const fileList = document.getElementById('file-list');
 const storageUsageDisplay = document.getElementById('storage-usage');
 const sortSelect = document.getElementById('sort-select');
 const searchInput = document.getElementById('search-input');
+const logoutButton = document.getElementById('logout-button'); // Botão de Logout
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado'; // Espaço total disponível em GB
@@ -63,6 +65,7 @@ onAuthStateChanged(auth, (user) => {
         loginSection.style.display = 'none';
         uploadSection.style.display = 'block';
         fileListSection.style.display = 'block';
+        logoutButton.style.display = 'block'; // Exibir o botão de logout
         fetchAllFiles();
     } else {
         loginSection.style.display = 'block';
@@ -70,6 +73,7 @@ onAuthStateChanged(auth, (user) => {
         fileListSection.style.display = 'none';
         fileList.innerHTML = '';
         storageUsageDisplay.textContent = '0.00 GB de Ilimitado';
+        logoutButton.style.display = 'none'; // Ocultar o botão de logout
     }
 });
 
@@ -340,6 +344,23 @@ function copyToClipboard(url) {
 // Anexar funções ao objeto window para torná-las acessíveis globalmente
 window.copyToClipboard = copyToClipboard;
 window.deleteFile = deleteFile;
+
+// Função para logout (Desconectar o usuário)
+async function logout() {
+    try {
+        await signOut(auth);
+        console.log('Usuário desconectado com sucesso.');
+        alert('Você foi desconectado com sucesso.');
+    } catch (error) {
+        console.error('Erro ao desconectar:', error);
+        alert(`Erro ao desconectar: ${error.code} - ${error.message}`);
+    }
+}
+
+// Adicionar evento de clique ao botão de logout
+logoutButton.addEventListener('click', () => {
+    logout();
+});
 
 // Função para impedir o usuário de sair durante o upload
 window.addEventListener('beforeunload', function (e) {
