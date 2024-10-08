@@ -172,7 +172,6 @@ async function startUpload() {
     );
 }
 
-
 // Função para buscar todos os arquivos do usuário
 async function fetchAllFiles() {
     try {
@@ -182,18 +181,17 @@ async function fetchAllFiles() {
             return;
         }
 
-        console.log('Usuário autenticado:', user);
-        console.log('UID do usuário:', user.uid);
+        console.log('Buscando arquivos para o usuário:', user.uid);
 
         // Criar a referência ao diretório do usuário
         const storageRef = ref(storage, `uploads/${user.uid}`);
-        
+
         // Log da referência de storage
         console.log('Referência de storage:', storageRef.fullPath);
-        
+
         // Buscar todos os arquivos do diretório do usuário
         const filesSnapshot = await listAll(storageRef);
-        
+
         if (filesSnapshot.items.length === 0) {
             console.log('Nenhum arquivo encontrado no diretório');
             fileList.innerHTML = '<li>Nenhum arquivo encontrado</li>';
@@ -232,7 +230,6 @@ async function fetchAllFiles() {
         alert(`Erro ao carregar os arquivos: ${error.code} - ${error.message}`);
     }
 }
-
 
 // Função para ordenar os arquivos
 function sortFiles(criteria) {
