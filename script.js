@@ -81,14 +81,13 @@ googleLoginButton.addEventListener('click', () => {
     signInWithPopup(auth, provider)
         .then((result) => {
             console.log('Usuário logado via popup:', result.user);
-            // A interface será atualizada automaticamente pelo onAuthStateChanged
         })
         .catch((error) => {
             console.error('Erro ao fazer login:', error);
-            console.error('Payload do erro:', error.customData);
             alert(`Erro ao fazer login: ${error.code} - ${error.message}`);
         });
 });
+
 
 // Evento para o formulário de upload
 uploadForm.addEventListener('submit', (e) => {
