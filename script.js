@@ -233,12 +233,20 @@ function displayFiles(files) {
     fileList.innerHTML = '';
     files.forEach(file => {
         const listItem = document.createElement('li');
+        let embedButtonHTML = '';
+
+        // Verifica se o arquivo é um .mp4
+        if (file.name.toLowerCase().endsWith('.mp4')) {
+            embedButtonHTML = `<button class="embed-button" onclick="copyEmbedCode('${file.url}')"><i class="fas fa-code"></i> Embed</button>`;
+        }
+
         listItem.innerHTML = `
             <span>${file.name} (${formatBytes(file.size)})</span>
             <div>
-                <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
-                <button class="share-button" onclick="copyToClipboard('${file.url}')">Copiar Link</button>
-                <button class="delete-button" onclick="deleteFile('${file.name}')">Excluir</button>
+                <a href="${file.url}" class="download-button" download="${file.name}"><i class="fas fa-download"></i> Download</a>
+                <button class="share-button" onclick="copyToClipboard('${file.url}')"><i class="fas fa-share-alt"></i> Copiar Link</button>
+                ${embedButtonHTML}
+                <button class="delete-button" onclick="deleteFile('${file.name}')"><i class="fas fa-trash-alt"></i> Excluir</button>
             </div>
         `;
         fileList.appendChild(listItem);
@@ -341,9 +349,21 @@ function copyToClipboard(url) {
     });
 }
 
+// Função para copiar o código embed para a área de transferência
+function copyEmbedCode(url) {
+    const embedCode = `<video src="${url}" controls></video>`;
+    navigator.clipboard.writeText(embedCode).then(() => {
+        alert('Código embed copiado para a área de transferência!');
+    }).catch((error) => {
+        console.error('Erro ao copiar código embed:', error);
+        alert('Erro ao copiar código embed. Tente novamente.');
+    });
+}
+
 // Anexar funções ao objeto window para torná-las acessíveis globalmente
 window.copyToClipboard = copyToClipboard;
 window.deleteFile = deleteFile;
+window.copyEmbedCode = copyEmbedCode;
 
 // Função para logout (Desconectar o usuário)
 async function logout() {
