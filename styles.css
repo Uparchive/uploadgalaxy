@@ -330,7 +330,7 @@ body {
 }
 
 /* Botões na Lista de Arquivos */
-.download-button, .share-button, .delete-button {
+.download-button, .share-button, .delete-button, .embed-button {
     background-color: #ffa500;
     color: #fff;
     padding: 0.5rem 1rem;
@@ -342,12 +342,12 @@ body {
     font-size: 0.9rem;
 }
 
-.download-button:hover, .share-button:hover, .delete-button:hover {
+.download-button:hover, .share-button:hover, .delete-button:hover, .embed-button:hover {
     background-color: #ff8c00;
     transform: translateY(-2px);
 }
 
-.download-button i, .share-button i, .delete-button i {
+.download-button i, .share-button i, .delete-button i, .embed-button i {
     margin-right: 0.25rem;
 }
 
@@ -435,7 +435,7 @@ footer p {
         justify-content: flex-start;
     }
 
-    .download-button, .share-button, .delete-button {
+    .download-button, .share-button, .delete-button, .embed-button {
         padding: 0.4rem 0.75rem;
         font-size: 0.85rem;
     }
