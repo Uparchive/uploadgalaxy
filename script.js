@@ -233,11 +233,11 @@ function displayFiles(files) {
     fileList.innerHTML = '';
     files.forEach(file => {
         const listItem = document.createElement('li');
-        let embedButtonHTML = '';
+        let copyMp4UrlButtonHTML = '';
 
         // Verifica se o arquivo é um .mp4
         if (file.name.toLowerCase().endsWith('.mp4')) {
-            embedButtonHTML = `<button class="embed-button" onclick="copyEmbedCode('${file.url}')"><i class="fas fa-code"></i> Embed</button>`;
+            copyMp4UrlButtonHTML = `<button class="copy-mp4-url-button" onclick="copyMp4Url('${file.url}')"><i class="fas fa-copy"></i> Copiar URL MP4</button>`;
         }
 
         listItem.innerHTML = `
@@ -245,7 +245,7 @@ function displayFiles(files) {
             <div>
                 <a href="${file.url}" class="download-button" download="${file.name}"><i class="fas fa-download"></i> Download</a>
                 <button class="share-button" onclick="copyToClipboard('${file.url}')"><i class="fas fa-share-alt"></i> Copiar Link</button>
-                ${embedButtonHTML}
+                ${copyMp4UrlButtonHTML}
                 <button class="delete-button" onclick="deleteFile('${file.name}')"><i class="fas fa-trash-alt"></i> Excluir</button>
             </div>
         `;
@@ -349,21 +349,20 @@ function copyToClipboard(url) {
     });
 }
 
-// Função para copiar o código embed para a área de transferência
-function copyEmbedCode(url) {
-    const embedCode = `<video src="${url}" controls></video>`;
-    navigator.clipboard.writeText(embedCode).then(() => {
-        alert('Código embed copiado para a área de transferência!');
+// Função para copiar a URL MP4 para a área de transferência
+function copyMp4Url(url) {
+    navigator.clipboard.writeText(url).then(() => {
+        alert('URL MP4 copiada para a área de transferência!');
     }).catch((error) => {
-        console.error('Erro ao copiar código embed:', error);
-        alert('Erro ao copiar código embed. Tente novamente.');
+        console.error('Erro ao copiar URL MP4:', error);
+        alert('Erro ao copiar URL MP4. Tente novamente.');
     });
 }
 
 // Anexar funções ao objeto window para torná-las acessíveis globalmente
 window.copyToClipboard = copyToClipboard;
 window.deleteFile = deleteFile;
-window.copyEmbedCode = copyEmbedCode;
+window.copyMp4Url = copyMp4Url;
 
 // Função para logout (Desconectar o usuário)
 async function logout() {
