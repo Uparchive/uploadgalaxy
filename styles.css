@@ -114,6 +114,28 @@ body {
     font-size: 1rem;
 }
 
+/* Botão de Copiar URL MP4 */
+.copy-mp4-url-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 0.9rem;
+}
+
+.copy-mp4-url-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.copy-mp4-url-button i {
+    margin-right: 0.25rem;
+}
+
 /* Menu Toggle para Mobile */
 .menu-toggle {
     display: none;
@@ -330,7 +352,7 @@ body {
 }
 
 /* Botões na Lista de Arquivos */
-.download-button, .share-button, .delete-button, .embed-button {
+.download-button, .share-button, .delete-button, .copy-mp4-url-button {
     background-color: #ffa500;
     color: #fff;
     padding: 0.5rem 1rem;
@@ -342,12 +364,12 @@ body {
     font-size: 0.9rem;
 }
 
-.download-button:hover, .share-button:hover, .delete-button:hover, .embed-button:hover {
+.download-button:hover, .share-button:hover, .delete-button:hover, .copy-mp4-url-button:hover {
     background-color: #ff8c00;
     transform: translateY(-2px);
 }
 
-.download-button i, .share-button i, .delete-button i, .embed-button i {
+.download-button i, .share-button i, .delete-button i, .copy-mp4-url-button i {
     margin-right: 0.25rem;
 }
 
@@ -435,7 +457,7 @@ footer p {
         justify-content: flex-start;
     }
 
-    .download-button, .share-button, .delete-button, .embed-button {
+    .download-button, .share-button, .delete-button, .copy-mp4-url-button {
         padding: 0.4rem 0.75rem;
         font-size: 0.85rem;
     }
