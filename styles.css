@@ -14,195 +14,96 @@ body {
 
 /* Navbar */
 .navbar {
-    background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
-    padding: 0.75rem 1.5rem;
+    background-color: #333;
+    padding: 1rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     color: white;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar .logo {
     color: #fff;
-    font-size: 1.75rem;
-    text-decoration: none;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-}
-
-.navbar .logo i {
-    margin-right: 0.5rem;
     font-size: 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .navbar .nav-links {
     list-style: none;
     display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    justify-content: center;
+    gap: 2rem;
+    margin: 0;
 }
 
 .navbar .nav-links li {
-    position: relative;
+    margin: 0;
 }
 
 .navbar .nav-links a {
     color: #fff;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s, transform 0.3s;
-    padding: 0.5rem 0.75rem;
-    border-radius: 4px;
+    font-weight: 700;
+    transition: color 0.3s;
+    padding: 0.5rem 1rem;
 }
 
 .navbar .nav-links a:hover {
     color: #ffa500;
-    background-color: rgba(255, 165, 0, 0.1);
-    transform: translateY(-2px);
-}
-
-/* Botão de Logout */
-#logout-button {
-    background-color: #ffa500;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: background-color 0.3s, transform 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-#logout-button:hover {
-    background-color: #ff8c00;
-    transform: translateY(-2px);
-}
-
-#logout-button i {
-    font-size: 1rem;
-}
-
-/* Botão de Upload e Outros Botões */
-.upload-button {
-    background-color: #ffa500;
-    color: #fff;
-    padding: 0.5rem 1.25rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: background-color 0.3s, transform 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.upload-button:hover {
-    background-color: #ff8c00;
-    transform: translateY(-2px);
-}
-
-.upload-button i {
-    font-size: 1rem;
-}
-
-/* Botão de Copiar URL MP4 */
-.copy-mp4-url-button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: background-color 0.3s, transform 0.3s;
-    font-size: 0.9rem;
-}
-
-.copy-mp4-url-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
-
-.copy-mp4-url-button i {
-    margin-right: 0.25rem;
-}
-
-/* Menu Toggle para Mobile */
-.menu-toggle {
-    display: none;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: #fff;
-}
-
-/* Seções */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 /* Hero Section */
 #hero-section {
     background: linear-gradient(to right, #1e3c72, #2a5298);
     color: #fff;
-    padding: 5rem 1.5rem;
+    padding: 5rem 0;
     text-align: center;
 }
 
 #hero-section .hero-content {
-    max-width: 700px;
+    max-width: 600px;
     margin: 0 auto;
 }
 
 #hero-section h1 {
-    font-size: 2.75rem;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
 }
 
 #hero-section p {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     margin-bottom: 2rem;
 }
 
 .cta-button {
     background-color: #ffa500;
     color: #fff;
-    padding: 0.75rem 1.75rem;
+    padding: 0.75rem 1.5rem;
     text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s, transform 0.3s;
-    font-weight: 600;
-    display: inline-block;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 .cta-button:hover {
     background-color: #ff8c00;
-    transform: translateY(-2px);
 }
 
 /* Upload Section */
 #upload-section {
     background-color: #fff;
     padding: 2rem;
-    margin-top: 1.5rem;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    margin-top: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 #upload-section h2 {
     margin-bottom: 1rem;
-    font-size: 2rem;
-    color: #333;
+    font-size: 1.8rem;
 }
 
 .form-group {
@@ -211,139 +112,98 @@ body {
 
 .form-group label {
     display: block;
-    font-weight: 600;
+    font-weight: bold;
     margin-bottom: 0.5rem;
-    color: #555;
 }
 
 #file-input {
     display: block;
     width: 100%;
     padding: 0.5rem;
-    border: 2px dashed #ccc;
-    border-radius: 4px;
-    transition: border-color 0.3s;
-    cursor: pointer;
-}
-
-#file-input:hover {
-    border-color: #ffa500;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 .upload-button {
-    background-color: #ffa500;
+    background-color: #333;
     color: #fff;
     padding: 0.75rem 1.5rem;
     border: none;
     cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s, transform 0.3s;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    transition: background-color 0.3s;
+    border-radius: 5px;
 }
 
 .upload-button:hover {
-    background-color: #ff8c00;
-    transform: translateY(-2px);
+    background-color: #555;
 }
 
 /* Progress Bar */
-.progress-container {
+#progress-container {
+    display: none;
     margin-top: 1rem;
     width: 100%;
     height: 20px;
-    border-radius: 10px;
-    background-color: #eee;
+    border-radius: 5px;
+    background-color: #ddd;
     overflow: hidden;
-    position: relative;
 }
 
-.progress-bar {
-    height: 100%;
+#progress-bar {
+    height: 20px;
     width: 0;
     background-color: #4caf50;
-    transition: width 0.4s ease;
-}
-
-.progress-text {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.9rem;
-    color: #333;
 }
 
 /* File List Section */
 #file-list-section {
-    background-color: #fff;
+    background-color: #1e1e1e;
     padding: 2rem;
     margin-top: 2rem;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    color: #fff;
 }
 
 #file-list-section h2 {
     margin-bottom: 1rem;
     font-size: 2rem;
-    color: #333;
+    color: #ffa500;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ffa500;
+    padding-bottom: 0.5rem;
 }
 
-#storage-usage {
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-    color: #555;
-}
-
-/* Search Bar and Sort Select */
-.search-bar, .sort-select {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.search-bar:focus, .sort-select:focus {
-    border-color: #ffa500;
-    outline: none;
-}
-
-/* Lista de Arquivos */
 #file-list {
     list-style: none;
     padding: 0;
 }
 
 #file-list li {
-    background-color: #f9f9f9;
+    background-color: #2c2c2c;
     padding: 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid #444;
     margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: 4px;
-    transition: background-color 0.3s, transform 0.3s;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 #file-list li:hover {
-    background-color: #f1f1f1;
-    transform: translateY(-2px);
+    background-color: #3b3b3b;
+    transform: scale(1.02);
 }
 
 #file-list li span {
-    font-size: 1rem;
-    color: #333;
-    max-width: 60%;
+    font-size: 1.1rem;
+    flex: 1;
+    color: #fff;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-right: 10px;
 }
 
 #file-list li div {
@@ -351,41 +211,108 @@ body {
     gap: 0.5rem;
 }
 
-/* Botões na Lista de Arquivos */
-.download-button, .share-button, .delete-button, .copy-mp4-url-button {
+.download-button, .share-button, .delete-button {
     background-color: #ffa500;
-    color: #fff;
+    color: #000;
     padding: 0.5rem 1rem;
     border: none;
     cursor: pointer;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: background-color 0.3s, transform 0.3s;
-    font-size: 0.9rem;
+    transition: background-color 0.3s, transform 0.2s;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
-.download-button:hover, .share-button:hover, .delete-button:hover, .copy-mp4-url-button:hover {
+.download-button:hover, .share-button:hover, .delete-button:hover {
     background-color: #ff8c00;
-    transform: translateY(-2px);
+    transform: scale(1.05);
 }
 
-.download-button i, .share-button i, .delete-button i, .copy-mp4-url-button i {
-    margin-right: 0.25rem;
+.download-button:active, .share-button:active, .delete-button:active {
+    background-color: #ff6600;
+}
+
+/* Password Overlay */
+.password-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.password-box {
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    max-width: 400px;
+    width: 100%;
+}
+
+.password-box h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #ffa500;
+}
+
+.password-box p {
+    margin-bottom: 1rem;
+}
+
+.password-box input {
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.password-box button {
+    background-color: #ffa500;
+    color: #000;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.password-box button:hover {
+    background-color: #ff8c00;
+}
+
+/* Search Bar and Sort Select */
+.search-bar, .sort-select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    background-color: #fff;
 }
 
 /* Footer */
 footer {
     background-color: #333;
     color: #fff;
-    padding: 2rem 1.5rem;
+    padding: 2rem;
     text-align: center;
     margin-top: 2rem;
-    border-top: 4px solid #ffa500;
 }
 
 footer p {
     margin-bottom: 1rem;
-    font-size: 1rem;
 }
 
 .social-links {
@@ -393,6 +320,7 @@ footer p {
     display: flex;
     justify-content: center;
     gap: 1rem;
+    margin-top: 1rem;
 }
 
 .social-links li a {
@@ -402,63 +330,64 @@ footer p {
     transition: color 0.3s;
 }
 
-.social-links li a:hover {
+.social-links a:hover {
     color: #ffa500;
 }
 
 /* Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
     .navbar {
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .navbar .nav-links {
+    .nav-links {
         display: none;
         flex-direction: column;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
-        position: absolute;
-        top: 60px;
-        left: 0;
-        padding: 1rem 0;
     }
 
-    .navbar .nav-links.active {
+    .nav-links.active {
         display: flex;
-    }
-
-    .navbar .nav-links li {
-        margin: 0.5rem 0;
-        text-align: center;
     }
 
     .menu-toggle {
         display: block;
     }
 
-    #logout-button {
+    .hero-content {
+        padding: 2rem 1rem;
+    }
+
+    .cta-button, .upload-button {
         width: 100%;
-        justify-content: center;
-        margin-top: 0.5rem;
+        text-align: center;
     }
 
-    #file-list li {
-        flex-direction: column;
-        align-items: flex-start;
+    .file-list-section li {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
     }
 
-    #file-list li span {
-        max-width: 100%;
-        margin-bottom: 0.5rem;
+    .file-list-section li span {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: 10px;
     }
 
-    #file-list li div {
-        width: 100%;
-        justify-content: flex-start;
+    .file-list-section li div {
+        display: flex;
+        gap: 0.5rem;
     }
 
-    .download-button, .share-button, .delete-button, .copy-mp4-url-button {
-        padding: 0.4rem 0.75rem;
-        font-size: 0.85rem;
+    .download-button, .share-button, .delete-button {
+        padding: 5px 10px;
+        font-size: 0.9rem;
     }
 }
