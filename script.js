@@ -100,6 +100,26 @@ uploadForm.addEventListener('submit', (e) => {
     }
 });
 
+// Função para exibir mensagens personalizadas
+function showMessage(message, type = 'info') {
+    const messageContainer = document.getElementById('message-container');
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', type);
+    messageElement.innerHTML = `
+        <span>${message}</span>
+        <i class="fas fa-times" onclick="this.parentElement.remove()"></i>
+    `;
+    
+    messageContainer.appendChild(messageElement);
+
+    // Remover mensagem após alguns segundos
+    setTimeout(() => {
+        if (messageElement.parentElement) {
+            messageElement.remove();
+        }
+    }, 5000);
+}
+
 // Função para iniciar o upload
 async function startUpload() {
     const fileInput = document.getElementById('file-input');
