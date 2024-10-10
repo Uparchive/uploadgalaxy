@@ -440,3 +440,55 @@ footer p {
         font-size: 0.85rem;
     }
 }
+/* Container de Mensagens (Pop-up) */
+.message-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    max-width: 90%;
+    z-index: 2000;
+}
+
+.message {
+    background-color: #ffa500; /* Cor de fundo do alerta */
+    color: #fff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeInOut 5s ease-in-out;
+    font-weight: bold;
+}
+
+.message.success {
+    background-color: #4caf50; /* Verde para sucesso */
+}
+
+.message.error {
+    background-color: #f44336; /* Vermelho para erro */
+}
+
+.message i {
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+/* Animação para aparecer e desaparecer */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    10%, 90% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
