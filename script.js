@@ -290,6 +290,13 @@ async function deleteFile(fileName) {
             return;
         }
 
+        // Adiciona a confirmação de exclusão
+        const confirmDelete = confirm(`Tem certeza de que deseja excluir o arquivo "${fileName}"?`);
+        if (!confirmDelete) {
+            console.log('Exclusão cancelada pelo usuário.');
+            return;
+        }
+
         const fileRef = ref(storage, `uploads/${user.uid}/${fileName}`);
         await deleteObject(fileRef);
         console.log(`Arquivo "${fileName}" excluído com sucesso.`);
@@ -297,7 +304,6 @@ async function deleteFile(fileName) {
         fetchAllFiles();
     } catch (error) {
         console.error('Erro ao excluir o arquivo:', error);
-        console.error('Payload do erro:', error.customData);
         alert(`Erro ao excluir o arquivo: ${error.code} - ${error.message}`);
     }
 }
