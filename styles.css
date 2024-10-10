@@ -14,96 +14,173 @@ body {
 
 /* Navbar */
 .navbar {
-    background-color: #333;
-    padding: 1rem;
+    background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+    padding: 0.75rem 1.5rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     color: white;
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar .logo {
     color: #fff;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo i {
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
 }
 
 .navbar .nav-links {
     list-style: none;
     display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin: 0;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .navbar .nav-links li {
-    margin: 0;
+    position: relative;
 }
 
 .navbar .nav-links a {
     color: #fff;
     text-decoration: none;
-    font-weight: 700;
-    transition: color 0.3s;
-    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: color 0.3s, transform 0.3s;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
 }
 
 .navbar .nav-links a:hover {
     color: #ffa500;
+    background-color: rgba(255, 165, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Botão de Logout */
+#logout-button {
+    background-color: #ffa500;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#logout-button:hover {
+    background-color: #ff8c00;
+    transform: translateY(-2px);
+}
+
+#logout-button i {
+    font-size: 1rem;
+}
+
+/* Botão de Upload e Outros Botões */
+.upload-button {
+    background-color: #ffa500;
+    color: #fff;
+    padding: 0.5rem 1.25rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.upload-button:hover {
+    background-color: #ff8c00;
+    transform: translateY(-2px);
+}
+
+.upload-button i {
+    font-size: 1rem;
+}
+
+/* Menu Toggle para Mobile */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+/* Seções */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Hero Section */
 #hero-section {
     background: linear-gradient(to right, #1e3c72, #2a5298);
     color: #fff;
-    padding: 5rem 0;
+    padding: 5rem 1.5rem;
     text-align: center;
 }
 
 #hero-section .hero-content {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
 #hero-section h1 {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
     margin-bottom: 1rem;
 }
 
 #hero-section p {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     margin-bottom: 2rem;
 }
 
 .cta-button {
     background-color: #ffa500;
     color: #fff;
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 1.75rem;
     text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+    font-weight: 600;
+    display: inline-block;
 }
 
 .cta-button:hover {
     background-color: #ff8c00;
+    transform: translateY(-2px);
 }
 
 /* Upload Section */
 #upload-section {
     background-color: #fff;
     padding: 2rem;
-    margin-top: 2rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    margin-top: 1.5rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 #upload-section h2 {
     margin-bottom: 1rem;
-    font-size: 1.8rem;
+    font-size: 2rem;
+    color: #333;
 }
 
 .form-group {
@@ -112,182 +189,90 @@ body {
 
 .form-group label {
     display: block;
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 0.5rem;
+    color: #555;
 }
 
 #file-input {
     display: block;
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+    cursor: pointer;
+}
+
+#file-input:hover {
+    border-color: #ffa500;
 }
 
 .upload-button {
-    background-color: #333;
+    background-color: #ffa500;
     color: #fff;
     padding: 0.75rem 1.5rem;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s;
-    border-radius: 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .upload-button:hover {
-    background-color: #555;
+    background-color: #ff8c00;
+    transform: translateY(-2px);
 }
 
 /* Progress Bar */
-#progress-container {
-    display: none;
+.progress-container {
     margin-top: 1rem;
     width: 100%;
     height: 20px;
-    border-radius: 5px;
-    background-color: #ddd;
+    border-radius: 10px;
+    background-color: #eee;
     overflow: hidden;
+    position: relative;
 }
 
-#progress-bar {
-    height: 20px;
+.progress-bar {
+    height: 100%;
     width: 0;
     background-color: #4caf50;
+    transition: width 0.4s ease;
+}
+
+.progress-text {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    color: #333;
 }
 
 /* File List Section */
 #file-list-section {
-    background-color: #1e1e1e;
+    background-color: #fff;
     padding: 2rem;
     margin-top: 2rem;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 #file-list-section h2 {
     margin-bottom: 1rem;
     font-size: 2rem;
-    color: #ffa500;
-    text-transform: uppercase;
-    border-bottom: 2px solid #ffa500;
-    padding-bottom: 0.5rem;
+    color: #333;
 }
 
-#file-list {
-    list-style: none;
-    padding: 0;
-}
-
-#file-list li {
-    background-color: #2c2c2c;
-    padding: 1rem;
-    border: 1px solid #444;
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-#file-list li:hover {
-    background-color: #3b3b3b;
-    transform: scale(1.02);
-}
-
-#file-list li span {
+#storage-usage {
+    margin-bottom: 1.5rem;
     font-size: 1.1rem;
-    flex: 1;
-    color: #fff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-right: 10px;
-}
-
-#file-list li div {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.download-button, .share-button, .delete-button {
-    background-color: #ffa500;
-    color: #000;
-    padding: 0.5rem 1rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-.download-button:hover, .share-button:hover, .delete-button:hover {
-    background-color: #ff8c00;
-    transform: scale(1.05);
-}
-
-.download-button:active, .share-button:active, .delete-button:active {
-    background-color: #ff6600;
-}
-
-/* Password Overlay */
-.password-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.password-box {
-    background: #222;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    color: #fff;
-    max-width: 400px;
-    width: 100%;
-}
-
-.password-box h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    color: #ffa500;
-}
-
-.password-box p {
-    margin-bottom: 1rem;
-}
-
-.password-box input {
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.password-box button {
-    background-color: #ffa500;
-    color: #000;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-.password-box button:hover {
-    background-color: #ff8c00;
+    color: #555;
 }
 
 /* Search Bar and Sort Select */
@@ -295,24 +280,90 @@ body {
     width: 100%;
     padding: 0.75rem;
     margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
     font-size: 1rem;
-    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.search-bar:focus, .sort-select:focus {
+    border-color: #ffa500;
+    outline: none;
+}
+
+/* Lista de Arquivos */
+#file-list {
+    list-style: none;
+    padding: 0;
+}
+
+#file-list li {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#file-list li:hover {
+    background-color: #f1f1f1;
+    transform: translateY(-2px);
+}
+
+#file-list li span {
+    font-size: 1rem;
+    color: #333;
+    max-width: 60%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#file-list li div {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Botões na Lista de Arquivos */
+.download-button, .share-button, .delete-button {
+    background-color: #ffa500;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 0.9rem;
+}
+
+.download-button:hover, .share-button:hover, .delete-button:hover {
+    background-color: #ff8c00;
+    transform: translateY(-2px);
+}
+
+.download-button i, .share-button i, .delete-button i {
+    margin-right: 0.25rem;
 }
 
 /* Footer */
 footer {
     background-color: #333;
     color: #fff;
-    padding: 2rem;
+    padding: 2rem 1.5rem;
     text-align: center;
     margin-top: 2rem;
+    border-top: 4px solid #ffa500;
 }
 
 footer p {
     margin-bottom: 1rem;
+    font-size: 1rem;
 }
 
 .social-links {
@@ -320,7 +371,6 @@ footer p {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-top: 1rem;
 }
 
 .social-links li a {
@@ -330,64 +380,63 @@ footer p {
     transition: color 0.3s;
 }
 
-.social-links a:hover {
+.social-links li a:hover {
     color: #ffa500;
 }
 
 /* Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
     .navbar {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-wrap: wrap;
     }
 
-    .nav-links {
+    .navbar .nav-links {
         display: none;
         flex-direction: column;
         width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 1rem 0;
     }
 
-    .nav-links.active {
+    .navbar .nav-links.active {
         display: flex;
+    }
+
+    .navbar .nav-links li {
+        margin: 0.5rem 0;
+        text-align: center;
     }
 
     .menu-toggle {
         display: block;
     }
 
-    .hero-content {
-        padding: 2rem 1rem;
-    }
-
-    .cta-button, .upload-button {
+    #logout-button {
         width: 100%;
-        text-align: center;
+        justify-content: center;
+        margin-top: 0.5rem;
     }
 
-    .file-list-section li {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
+    #file-list li {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .file-list-section li span {
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin-right: 10px;
+    #file-list li span {
+        max-width: 100%;
+        margin-bottom: 0.5rem;
     }
 
-    .file-list-section li div {
-        display: flex;
-        gap: 0.5rem;
+    #file-list li div {
+        width: 100%;
+        justify-content: flex-start;
     }
 
     .download-button, .share-button, .delete-button {
-        padding: 5px 10px;
-        font-size: 0.9rem;
+        padding: 0.4rem 0.75rem;
+        font-size: 0.85rem;
     }
 }
