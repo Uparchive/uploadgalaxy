@@ -396,3 +396,14 @@ window.addEventListener('beforeunload', function (e) {
         e.returnValue = '';
     }
 });
+
+// Exibir/ocultar o botão de voltar ao topo com base no scroll
+const backToTopButton = document.getElementById('back-to-top');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 200) { // Se o scroll for maior que 200px, exibe o botão
+        backToTopButton.style.display = 'block';
+    } else {
+        backToTopButton.style.display = 'none';
+    }
+});
