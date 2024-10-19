@@ -587,3 +587,28 @@ footer p {
         height: 100%;
     }
 }
+/* Estilo para o botão de Voltar ao Topo */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background-color: #ffa500;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-to-top:hover {
+    background-color: #ff8c00;
+    transform: translateY(-5px);
+}
+
+.back-to-top i {
+    margin: 0;
+}
+
