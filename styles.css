@@ -611,4 +611,75 @@ footer p {
 .back-to-top i {
     margin: 0;
 }
+#logout-button {
+    background: linear-gradient(135deg, #ff8c00, #ff6600);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+#logout-button:hover {
+    background: linear-gradient(135deg, #ff6600, #ff3300);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.navbar .logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.navbar {
+    background: linear-gradient(90deg, #182848, #4b6cb7);
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.menu-toggle {
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.menu-toggle:hover {
+    color: #ffa500;
+    transform: rotate(90deg);
+    transition: all 0.5s ease;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+@media (max-width: 768px) {
+    #logout-button {
+        width: 100%;
+        padding: 1rem 0;
+        font-size: 1.25rem;
+    }
+
+    .navbar .logo {
+        font-size: 1.75rem;
+    }
+}
 
