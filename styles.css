@@ -812,3 +812,48 @@ body {
 #google-login-button:hover i {
     transform: rotate(360deg);
 }
+#login-section {
+    background-color: #fff;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centraliza o conteúdo dentro da seção */
+}
+
+#google-login-button {
+    background: linear-gradient(135deg, #ff8c00, #ff6600);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: inline-flex; /* Para garantir alinhamento de itens inline */
+    align-items: center; /* Centraliza o conteúdo dentro do botão */
+    justify-content: center; /* Centraliza o conteúdo dentro do botão */
+    gap: 0.5rem; /* Espaço entre o ícone e o texto */
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    width: auto; /* Garante que o tamanho do botão seja automático */
+    margin-top: 1rem; /* Espaçamento superior do botão */
+}
+
+#google-login-button:hover {
+    background: linear-gradient(135deg, #ff6600, #ff3300);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+#google-login-button i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+#google-login-button:hover i {
+    transform: rotate(360deg);
+}
+
