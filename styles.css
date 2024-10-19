@@ -1027,4 +1027,105 @@ body {
         padding: 0.5rem; /* Ajusta o padding para caber em telas pequenas */
     }
 }
+/* Estilo dos botões aprimorado */
+.download-button, .share-button, .delete-button {
+    background-color: #ff8c00;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px; /* Para deixar os botões com tamanhos semelhantes */
+}
+
+.download-button:hover, .share-button:hover, .delete-button:hover {
+    background-color: #ff6600;
+    border-color: #333; /* Adiciona borda ao passar o mouse */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px); /* Leve efeito de elevação ao passar o mouse */
+}
+
+/* Estilo adicional para o botão "Excluir" */
+.delete-button {
+    background-color: #ff3300;
+    border: 2px solid #ff3300;
+}
+
+.delete-button:hover {
+    background-color: #cc0000;
+    border-color: #990000;
+    transform: translateY(-3px);
+}
+/* Estilo da lista de arquivos */
+#file-list li {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+#file-list li:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Efeito ao passar o mouse */
+}
+
+#file-list li span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    max-width: 70%; /* Limita o espaço para o título */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#file-list li div {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+/* Responsividade e alinhamento aprimorado */
+@media (max-width: 768px) {
+    #file-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.2rem;
+    }
+
+    #file-list li div {
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .download-button, .share-button, .delete-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+}
+
+#file-list li span {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+}
+#file-list li:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
 
