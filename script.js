@@ -95,6 +95,7 @@ googleLoginButton.addEventListener('click', () => {
     signInWithPopup(auth, provider)
         .then((result) => {
             console.log('Usuário logado via popup:', result.user);
+            alert('Login realizado com sucesso!');
         })
         .catch((error) => {
             console.error('Erro ao fazer login:', error);
