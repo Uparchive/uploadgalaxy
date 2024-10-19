@@ -937,4 +937,50 @@ body {
     background-color: #ff6600;
     transform: translateY(-5px);
 }
+/* Lista de arquivos */
+#file-list li {
+    background-color: #fff;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Organiza conteúdo na vertical */
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+/* Botões ajustados */
+#file-list li div {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap; /* Permite que os botões quebrem linha se necessário */
+    justify-content: flex-start;
+}
+
+.download-button, .share-button, .delete-button {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.85rem;
+    border-radius: 20px;
+    flex: 1 1 auto; /* Faz com que os botões se ajustem ao tamanho da tela */
+    text-align: center;
+    transition: all 0.3s ease;
+}
+@media (max-width: 768px) {
+    #file-list li {
+        flex-direction: column; /* Empilha os itens na vertical em telas menores */
+        align-items: center; /* Centraliza os itens no celular */
+    }
+
+    #file-list li div {
+        justify-content: center; /* Centraliza os botões no celular */
+        width: 100%;
+    }
+
+    .download-button, .share-button, .delete-button {
+        flex: none; /* Garante que os botões mantenham um tamanho adequado */
+        width: 100%; /* Faz os botões ocuparem toda a largura */
+        margin-bottom: 0.5rem; /* Espaçamento entre botões */
+    }
+}
 
