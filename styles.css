@@ -711,4 +711,104 @@ footer p {
         width: auto;
     }
 }
+#google-login-button {
+    background: linear-gradient(135deg, #ff8c00, #ff6600);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
 
+#google-login-button:hover {
+    background: linear-gradient(135deg, #ff6600, #ff3300);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+#google-login-button i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+}
+#login-section {
+    background-color: #fff;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#login-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-weight: 700;
+}
+#google-login-button i {
+    transition: transform 0.3s ease;
+}
+
+#google-login-button:hover i {
+    transform: rotate(360deg);
+}
+body {
+    background: linear-gradient(to right, #4b6cb7, #182848);
+    font-family: 'Roboto', sans-serif;
+}
+#login-section {
+    background-color: #fff;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#login-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-weight: 700;
+}
+
+#google-login-button {
+    background: linear-gradient(135deg, #ff8c00, #ff6600);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+#google-login-button:hover {
+    background: linear-gradient(135deg, #ff6600, #ff3300);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+#google-login-button i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+#google-login-button:hover i {
+    transform: rotate(360deg);
+}
