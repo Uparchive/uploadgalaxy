@@ -54,12 +54,6 @@ const sortSelect = document.getElementById('sort-select');
 const searchInput = document.getElementById('search-input');
 const logoutButton = document.getElementById('logout-button'); // Botão de Logout
 const heroSection = document.getElementById('hero-section');
-const loginSection = document.getElementById('login-section');
-const uploadSection = document.getElementById('upload-section');
-const fileListSection = document.getElementById('file-list-section');
-const logoutButton = document.getElementById('logout-button');
-const storageUsageDisplay = document.getElementById('storage-usage');
-const fileList = document.getElementById('file-list');
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado'; // Espaço total disponível em GB
