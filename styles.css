@@ -682,4 +682,33 @@ footer p {
         font-size: 1.75rem;
     }
 }
+#logout-button {
+    padding: 0.5rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 20px; /* Deixar menos arredondado */
+}
+#logout-button {
+    margin-left: 1rem; /* Adiciona espaço entre o botão e o menu */
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+}
+
+.navbar .logo {
+    flex: 1;
+}
+
+.navbar .menu-toggle {
+    margin-right: 1rem;
+}
+@media (max-width: 768px) {
+    #logout-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        width: auto;
+    }
+}
 
