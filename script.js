@@ -53,6 +53,13 @@ const storageUsageDisplay = document.getElementById('storage-usage');
 const sortSelect = document.getElementById('sort-select');
 const searchInput = document.getElementById('search-input');
 const logoutButton = document.getElementById('logout-button'); // Botão de Logout
+const heroSection = document.getElementById('hero-section');
+const loginSection = document.getElementById('login-section');
+const uploadSection = document.getElementById('upload-section');
+const fileListSection = document.getElementById('file-list-section');
+const logoutButton = document.getElementById('logout-button');
+const storageUsageDisplay = document.getElementById('storage-usage');
+const fileList = document.getElementById('file-list');
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado'; // Espaço total disponível em GB
@@ -62,18 +69,22 @@ let isUploading = false;
 // Monitorar o estado de autenticação do usuário
 onAuthStateChanged(auth, (user) => {
     if (user) {
+        // Usuário autenticado
         loginSection.style.display = 'none';
         uploadSection.style.display = 'block';
         fileListSection.style.display = 'block';
-        logoutButton.style.display = 'block'; // Exibir o botão de logout
+        logoutButton.style.display = 'block';
+        heroSection.style.display = 'none'; // Ocultar a seção "Hero" após o login
         fetchAllFiles();
     } else {
+        // Usuário não autenticado
         loginSection.style.display = 'block';
         uploadSection.style.display = 'none';
         fileListSection.style.display = 'none';
         fileList.innerHTML = '';
         storageUsageDisplay.textContent = '0.00 GB de Ilimitado';
-        logoutButton.style.display = 'none'; // Ocultar o botão de logout
+        logoutButton.style.display = 'none';
+        heroSection.style.display = 'block'; // Exibir a seção "Hero" se não estiver logado
     }
 });
 
