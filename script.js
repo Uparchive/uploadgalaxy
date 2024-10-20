@@ -254,24 +254,6 @@ async function fetchAllFiles() {
     }
 }
 
-// Função para exibir a lista de arquivos
-function displayFiles(files) {
-    fileList.innerHTML = '';
-    files.forEach(file => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-            <span>${file.name} (${formatBytes(file.size)})</span>
-            <div>
-               <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
-                <button class="share-button" onclick="copyToClipboard('${file.url}')">Copiar Link</button>
-                <button class="delete-button" onclick="deleteFile('${file.name}')">Excluir</button>
-            </div>
-        `;
-        fileList.appendChild(listItem);
-    });
-    updateStorageUsage();
-}
-
 // Função para ordenar os arquivos
 sortSelect.addEventListener('change', () => {
     sortFiles(sortSelect.value);
@@ -286,8 +268,8 @@ function displayFiles(files) {
             <div>
                 <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
                 <button class="share-button" onclick="copyToClipboard('${file.url}')">Copiar Link</button>
+                <button class="watch-button" onclick="playVideo('${file.url}')">Assistir</button>
                 <button class="delete-button" onclick="deleteFile('${file.name}')">Excluir</button>
-                ${file.name.endsWith('.mp4') ? `<button class="watch-button" onclick="playVideo('${file.url}')">Assistir</button>` : ''}
             </div>
         `;
         fileList.appendChild(listItem);
@@ -299,9 +281,10 @@ function playVideo(url) {
     const videoPlayer = document.querySelector('#player');
     const source = videoPlayer.querySelector('source');
     source.src = url;
-    videoPlayer.load();
-    videoPlayer.play();
-    window.scrollTo(0, videoPlayer.offsetTop); // Rolagem até o player de vídeo
+    videoPlayer.style.display = 'block';  // Exibe o player
+    videoPlayer.load();                   // Carrega o novo vídeo
+    videoPlayer.play();                   // Reproduz o vídeo automaticamente
+    window.scrollTo(0, videoPlayer.offsetTop); // Rola a página até o player
 }
 
 function sortFiles(criteria) {
