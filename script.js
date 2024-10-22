@@ -52,7 +52,7 @@ const fileList = document.getElementById('file-list');
 const storageUsageDisplay = document.getElementById('storage-usage');
 const sortSelect = document.getElementById('sort-select');
 const searchInput = document.getElementById('search-input');
-const logoutButton = document.getElementById('logout-button'); // Botão de Logout
+const logoutButton = document.getElementById('logout-button');
 const heroSection = document.getElementById('hero-section');
 const videoPlayerSection = document.getElementById('video-player-section');
 const videoSource = document.getElementById('video-source');
@@ -62,7 +62,7 @@ const backButton = document.getElementById('back-button');
 const videoTitle = document.getElementById('video-title');
 
 // Variáveis Globais
-const totalAvailableGB = 'Ilimitado'; // Espaço total disponível em GB
+const totalAvailableGB = 'Ilimitado';
 let allFiles = [];
 let isUploading = false;
 
@@ -111,26 +111,6 @@ uploadForm.addEventListener('submit', (e) => {
         startUpload();
     }
 });
-
-// Função para exibir mensagens personalizadas
-function showMessage(message, type = 'info') {
-    const messageContainer = document.getElementById('message-container');
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('message', type);
-    messageElement.innerHTML = `
-        <span>${message}</span>
-        <i class="fas fa-times" onclick="this.parentElement.remove()"></i>
-    `;
-    
-    messageContainer.appendChild(messageElement);
-
-    // Remover mensagem após alguns segundos
-    setTimeout(() => {
-        if (messageElement.parentElement) {
-            messageElement.remove();
-        }
-    }, 5000);
-}
 
 // Função para iniciar o upload
 async function startUpload() {
@@ -220,7 +200,7 @@ async function fetchAllFiles() {
             const filesSnapshot = await listAll(storageRef);
             console.log('Arquivos encontrados:', filesSnapshot.items.length);
 
-            const allFilesFetched = await Promise.all(
+            const allFilesFetched = await Promise.allSettled(
                 filesSnapshot.items.map(async (item) => {
                     try {
                         const url = await getDownloadURL(item);
@@ -238,7 +218,9 @@ async function fetchAllFiles() {
                 })
             );
 
-            allFiles = allFilesFetched.filter(file => file !== null);
+            allFiles = allFilesFetched
+                .filter(result => result.status === 'fulfilled' && result.value !== null)
+                .map(result => result.value);
             console.log('Arquivos válidos para exibição:', allFiles);
 
             if (allFiles.length > 0) {
@@ -300,25 +282,89 @@ function playVideo(url, fileName) {
     videoPlayer.on('pause', function() {
         videoPlayer.getChild('BigPlayButton').show(); // Mostrar o botão grande de play quando o vídeo estiver pausado
     });
+
+    // Adiciona botões de controle de avançar e retroceder 10 segundos
+    addVideoControlButtons();
 }
 
-// Evento para o botão de voltar aos arquivos
-backButton.addEventListener('click', () => {
-    videoPlayerSection.style.display = 'none';
-    fileListSection.style.display = 'block';
-    uploadSection.style.display = 'block';
-    videoPlayer.pause();  // Pausar o vídeo ao voltar
-});
+function addVideoControlButtons() {
+    const controlBar = videoPlayer.getChild('ControlBar');
 
-function getMimeType(url) {
-    const extension = url.split('.').pop().toLowerCase();
-    switch (extension) {
-        case 'mkv': return 'video/x-matroska';
-        case 'mp4': return 'video/mp4';
-        case 'webm': return 'video/webm';
-        default: return 'video/mp4';
+    // Botão para retroceder 10 segundos
+    if (!controlBar.getChild('rewindButton')) {
+        const rewindButton = videojs.dom.createEl('button', {
+            className: 'vjs-control vjs-button',
+            innerHTML: '<i class="fas fa-undo"></i> 10s'
+        });
+        rewindButton.onclick = function () {
+            videoPlayer.currentTime(videoPlayer.currentTime() - 10);
+        };
+        rewindButton.id = 'rewindButton';
+        controlBar.el().insertBefore(rewindButton, controlBar.el().firstChild);
+    }
+
+    // Botão para avançar 10 segundos
+    if (!controlBar.getChild('forwardButton')) {
+        const forwardButton = videojs.dom.createEl('button', {
+            className: 'vjs-control vjs-button',
+            innerHTML: '10s <i class="fas fa-redo"></i>'
+        });
+        forwardButton.onclick = function () {
+            videoPlayer.currentTime(videoPlayer.currentTime() + 10);
+        };
+        forwardButton.id = 'forwardButton';
+        controlBar.el().appendChild(forwardButton);
     }
 }
+
+// Função para copiar URL para a área de transferência
+function copyToClipboard(url) {
+    navigator.clipboard.writeText(url).then(() => {
+        alert('Link copiado para a área de transferência!');
+    }).catch((error) => {
+        console.error('Erro ao copiar link:', error);
+        alert('Erro ao copiar link. Tente novamente.');
+    });
+}
+
+// Função para logout (Desconectar o usuário)
+async function logout() {
+    try {
+        await signOut(auth);
+        console.log('Usuário desconectado com sucesso.');
+        alert('Você foi desconectado com sucesso.');
+    } catch (error) {
+        console.error('Erro ao desconectar:', error);
+        alert(`Erro ao desconectar: ${error.code} - ${error.message}`);
+    }
+}
+
+// Adicionar evento de clique ao botão de logout
+logoutButton.addEventListener('click', () => {
+    logout();
+});
+
+// Função para impedir o usuário de sair durante o upload
+window.addEventListener('beforeunload', function (e) {
+    if (isUploading) {
+        e.preventDefault();
+        e.returnValue = '';
+    }
+});
+
+// Exibir/ocultar o botão de voltar ao topo com base no scroll
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 200) {
+        backToTopButton.style.display = 'block';
+    } else {
+        backToTopButton.style.display = 'none';
+    }
+});
+
+// Anexar funções ao objeto window para torná-las acessíveis globalmente
+window.copyToClipboard = copyToClipboard;
+window.deleteFile = deleteFile;
+window.playVideo = playVideo;
 
 // Função para ordenar os arquivos
 sortSelect.addEventListener('change', () => {
@@ -407,52 +453,3 @@ searchInput.addEventListener('input', () => {
     const filteredFiles = allFiles.filter(file => file.name.toLowerCase().includes(query));
     displayFiles(filteredFiles);
 });
-
-// Função para copiar URL para a área de transferência
-function copyToClipboard(url) {
-    navigator.clipboard.writeText(url).then(() => {
-        alert('Link copiado para a área de transferência!');
-    }).catch((error) => {
-        console.error('Erro ao copiar link:', error);
-        alert('Erro ao copiar link. Tente novamente.');
-    });
-}
-
-// Função para logout (Desconectar o usuário)
-async function logout() {
-    try {
-        await signOut(auth);
-        console.log('Usuário desconectado com sucesso.');
-        alert('Você foi desconectado com sucesso.');
-    } catch (error) {
-        console.error('Erro ao desconectar:', error);
-        alert(`Erro ao desconectar: ${error.code} - ${error.message}`);
-    }
-}
-
-// Adicionar evento de clique ao botão de logout
-logoutButton.addEventListener('click', () => {
-    logout();
-});
-
-// Função para impedir o usuário de sair durante o upload
-window.addEventListener('beforeunload', function (e) {
-    if (isUploading) {
-        e.preventDefault();
-        e.returnValue = '';
-    }
-});
-
-// Exibir/ocultar o botão de voltar ao topo com base no scroll
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 200) {
-        backToTopButton.style.display = 'block';
-    } else {
-        backToTopButton.style.display = 'none';
-    }
-});
-
-// Anexar funções ao objeto window para torná-las acessíveis globalmente
-window.copyToClipboard = copyToClipboard;
-window.deleteFile = deleteFile;
-window.playVideo = playVideo;
