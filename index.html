@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Video.js para reprodução de vídeos -->
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet">
 </head>
 <body>
     <!-- Cabeçalho com a barra de navegação -->
@@ -38,22 +40,21 @@
     <!-- Conteúdo Principal -->
     <main>
         <!-- Seção Hero -->
-<section id="hero-section">
-    <div class="hero-content">
-        <h1>Armazene e Compartilhe Seus Arquivos com Facilidade</h1>
-        <p>Faça upload de seus arquivos e acesse-os a qualquer hora, em qualquer lugar. Segurança e conveniência ao seu alcance.</p>
-        <a href="#upload-section" class="cta-button">Começar Agora</a>
-    </div>
-</section>
+        <section id="hero-section">
+            <div class="hero-content">
+                <h1>Armazene e Compartilhe Seus Arquivos com Facilidade</h1>
+                <p>Faça upload de seus arquivos e acesse-os a qualquer hora, em qualquer lugar. Segurança e conveniência ao seu alcance.</p>
+                <a href="#upload-section" class="cta-button">Começar Agora</a>
+            </div>
+        </section>
 
         <!-- Seção de Login -->
-<section id="login-section" class="container">
-    <h2>Login com Google</h2>
-    <button id="google-login-button" class="upload-button">
-        <i class="fab fa-google"></i> Fazer Login com Google
-    </button>
-</section>
-
+        <section id="login-section" class="container">
+            <h2>Login com Google</h2>
+            <button id="google-login-button" class="upload-button">
+                <i class="fab fa-google"></i> Fazer Login com Google
+            </button>
+        </section>
 
         <!-- Seção de Upload de Arquivos -->
         <section id="upload-section" class="container" style="display: none;">
@@ -92,12 +93,21 @@
                 <!-- Os arquivos enviados serão inseridos aqui dinamicamente pelo script.js -->
             </ul>
         </section>
+
+        <!-- Seção de Player de Vídeo -->
+        <section id="video-player-section" class="container" style="display: none;">
+            <h2>Reproduzir Vídeo</h2>
+            <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+                <source id="video-source" src="" type="video/mp4">
+                <p class="vjs-no-js">Para assistir a este vídeo, ative o JavaScript.</p>
+            </video>
+        </section>
     </main>
 
     <!-- Botão de Voltar ao Topo -->
-<a href="#" id="back-to-top" class="back-to-top">
-    <i class="fas fa-arrow-up"></i>
-</a>
+    <a href="#" id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
     <!-- Rodapé -->
     <footer>
@@ -110,12 +120,14 @@
             </ul>
         </div>
         <!-- Container de mensagens (pop-up) -->
-<div id="message-container" class="message-container"></div>
-
+        <div id="message-container" class="message-container"></div>
     </footer>
 
     <!-- Inclusão do script.js como módulo ES6 -->
     <script type="module" src="script.js"></script>
+
+    <!-- Inclusão do Video.js -->
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
 
     <!-- Script para alternar o menu em dispositivos móveis -->
     <script>

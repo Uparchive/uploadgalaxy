@@ -54,6 +54,10 @@ const sortSelect = document.getElementById('sort-select');
 const searchInput = document.getElementById('search-input');
 const logoutButton = document.getElementById('logout-button'); // Botão de Logout
 const heroSection = document.getElementById('hero-section');
+const videoPlayerSection = document.getElementById('video-player-section');
+const videoSource = document.getElementById('video-source');
+const videoPlayer = videojs('video-player');
+const backToTopButton = document.getElementById('back-to-top');
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado'; // Espaço total disponível em GB
@@ -178,7 +182,6 @@ async function startUpload() {
                 // Tentativa de obter a URL do download
                 const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
 
-                // Verifique a estrutura completa da URL
                 console.log('URL de download obtida com sucesso:', downloadURL);
 
                 alert('Arquivo enviado com sucesso!');
@@ -194,8 +197,6 @@ async function startUpload() {
                 isUploading = false;
             } catch (error) {
                 console.error('Erro ao obter URL de download:', error);
-                console.error('Código do erro:', error.code);
-                console.error('Mensagem do erro:', error.message);
                 alert(`Erro ao obter URL de download: ${error.code} - ${error.message}`);
                 isUploading = false;
                 progressContainer.style.display = 'none';
@@ -262,6 +263,7 @@ function displayFiles(files) {
         listItem.innerHTML = `
             <span>${file.name} (${formatBytes(file.size)})</span>
             <div>
+                <button class="play-button" onclick="playVideo('${file.url}')">Reproduzir</button>
                 <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
                 <button class="share-button" onclick="copyToClipboard('${file.url}')">Copiar Link</button>
                 <button class="delete-button" onclick="deleteFile('${file.name}')">Excluir</button>
@@ -270,6 +272,25 @@ function displayFiles(files) {
         fileList.appendChild(listItem);
     });
     updateStorageUsage();
+}
+
+// Função para reproduzir vídeo
+function playVideo(url) {
+    videoSource.src = url;
+    videoSource.type = getMimeType(url);
+    videoPlayerSection.style.display = 'block';
+    videoPlayer.src({ type: getMimeType(url), src: url });
+    videoPlayer.play();
+}
+
+function getMimeType(url) {
+    const extension = url.split('.').pop().toLowerCase();
+    switch (extension) {
+        case 'mkv': return 'video/x-matroska';
+        case 'mp4': return 'video/mp4';
+        case 'webm': return 'video/webm';
+        default: return 'video/mp4';
+    }
 }
 
 // Função para ordenar os arquivos
@@ -316,7 +337,6 @@ async function deleteFile(fileName) {
             return;
         }
 
-        // Adiciona a confirmação de exclusão
         const confirmDelete = confirm(`Tem certeza de que deseja excluir o arquivo "${fileName}"?`);
         if (!confirmDelete) {
             console.log('Exclusão cancelada pelo usuário.');
@@ -341,8 +361,6 @@ function updateStorageUsage() {
     const formattedUsedGB = totalUsedGB.toFixed(2);
     const formattedTotalGB = totalAvailableGB;
     storageUsageDisplay.textContent = `${formattedUsedGB} GB de ${formattedTotalGB}`;
-    
-    // Opcional: Adicionar logs para depuração
     console.log(`Total Usado: ${formattedUsedGB} GB de ${formattedTotalGB}`);
 }
 
@@ -373,10 +391,6 @@ function copyToClipboard(url) {
     });
 }
 
-// Anexar funções ao objeto window para torná-las acessíveis globalmente
-window.copyToClipboard = copyToClipboard;
-window.deleteFile = deleteFile;
-
 // Função para logout (Desconectar o usuário)
 async function logout() {
     try {
@@ -398,18 +412,20 @@ logoutButton.addEventListener('click', () => {
 window.addEventListener('beforeunload', function (e) {
     if (isUploading) {
         e.preventDefault();
-        // A maioria dos navegadores ignora a string retornada, mas é necessária para alguns
         e.returnValue = '';
     }
 });
 
 // Exibir/ocultar o botão de voltar ao topo com base no scroll
-const backToTopButton = document.getElementById('back-to-top');
-
 window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 200) { // Se o scroll for maior que 200px, exibe o botão
+    if (window.pageYOffset > 200) {
         backToTopButton.style.display = 'block';
     } else {
         backToTopButton.style.display = 'none';
     }
 });
+
+// Anexar funções ao objeto window para torná-las acessíveis globalmente
+window.copyToClipboard = copyToClipboard;
+window.deleteFile = deleteFile;
+window.playVideo = playVideo;
