@@ -1027,3 +1027,28 @@ body {
         padding: 0.5rem; /* Ajusta o padding para caber em telas pequenas */
     }
 }
+#video-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+#back-button {
+    display: block;
+    margin: 1rem auto;
+    background-color: #ffa500;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#back-button:hover {
+    background-color: #ff8c00;
+    transform: translateY(-2px);
+}
