@@ -284,20 +284,22 @@ function playVideo(url, fileName) {
     videoSource.type = getMimeType(url);
     videoPlayerSection.style.display = 'block';
     videoPlayer.src({ type: getMimeType(url), src: url });
-    videoPlayer.play();
-    videoPlayer.on('play', function() {
-        videoPlayer.getChild('BigPlayButton').hide(); // Esconder o botão grande de play quando o vídeo estiver sendo reproduzido
+    videoPlayer.ready(function() {
+        videoPlayer.play();
     });
-    videoPlayer.on('pause', function() {
-        videoPlayer.getChild('BigPlayButton').show(); // Mostrar o botão grande de play quando o vídeo estiver pausado
-    });
-
-    // Atualizar o título do vídeo
     videoTitle.textContent = `Reproduzindo: ${fileName}`;
 
     // Ocultar outras seções
     fileListSection.style.display = 'none';
     uploadSection.style.display = 'none';
+
+    videoPlayer.on('play', function() {
+        videoPlayer.getChild('BigPlayButton').hide(); // Esconder o botão grande de play quando o vídeo estiver sendo reproduzido
+    });
+
+    videoPlayer.on('pause', function() {
+        videoPlayer.getChild('BigPlayButton').show(); // Mostrar o botão grande de play quando o vídeo estiver pausado
+    });
 }
 
 // Evento para o botão de voltar aos arquivos
