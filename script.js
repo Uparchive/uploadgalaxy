@@ -54,9 +54,6 @@ const sortSelect = document.getElementById('sort-select');
 const searchInput = document.getElementById('search-input');
 const logoutButton = document.getElementById('logout-button'); // Botão de Logout
 const heroSection = document.getElementById('hero-section');
-const videoPlayerSection = document.getElementById('video-player-section');
-const videoSource = document.getElementById('video-source');
-const videoPlayer = videojs('video-player');
 const backToTopButton = document.getElementById('back-to-top');
 
 // Variáveis Globais
@@ -263,7 +260,7 @@ function displayFiles(files) {
         listItem.innerHTML = `
             <span>${file.name} (${formatBytes(file.size)})</span>
             <div>
-                <button class="play-button" onclick="playVideo('${file.url}')">Reproduzir</button>
+                <button class="play-button" onclick="openVideoInNewTab('${file.url}')">Reproduzir</button>
                 <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
                 <button class="share-button" onclick="copyToClipboard('${file.url}')">Copiar Link</button>
                 <button class="delete-button" onclick="deleteFile('${file.name}')">Excluir</button>
@@ -274,13 +271,30 @@ function displayFiles(files) {
     updateStorageUsage();
 }
 
-// Função para reproduzir vídeo
-function playVideo(url) {
-    videoSource.src = url;
-    videoSource.type = getMimeType(url);
-    videoPlayerSection.style.display = 'block';
-    videoPlayer.src({ type: getMimeType(url), src: url });
-    videoPlayer.play();
+// Função para reproduzir vídeo em uma nova guia
+function openVideoInNewTab(url) {
+    const newWindow = window.open('', '_blank');
+    newWindow.document.write(`
+        <html>
+            <head>
+                <title>Reproduzir Vídeo</title>
+                <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet">
+                <style>
+                    body, html { display: flex; justify-content: center; align-items: center; height: 100%; margin: 0; }
+                    video { width: 100%; max-width: 800px; height: auto; }
+                </style>
+            </head>
+            <body>
+                <video id="video-player" class="video-js vjs-default-skin" controls preload="auto">
+                    <source src="${url}" type="${getMimeType(url)}">
+                </video>
+                <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+                <script>
+                    const videoPlayer = videojs('video-player');
+                </script>
+            </body>
+        </html>
+    `);
 }
 
 function getMimeType(url) {
@@ -428,4 +442,4 @@ window.addEventListener('scroll', () => {
 // Anexar funções ao objeto window para torná-las acessíveis globalmente
 window.copyToClipboard = copyToClipboard;
 window.deleteFile = deleteFile;
-window.playVideo = playVideo;
+window.openVideoInNewTab = openVideoInNewTab;
