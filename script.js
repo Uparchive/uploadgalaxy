@@ -93,7 +93,7 @@ googleLoginButton.addEventListener('click', () => {
         })
         .catch((error) => {
             console.error('Erro ao fazer login:', error);
-            alert(`Erro ao fazer login: ${error.code} - ${error.message}`);
+            alert(Erro ao fazer login: ${error.code} - ${error.message});
         });
 });
 
@@ -111,10 +111,10 @@ function showMessage(message, type = 'info') {
     const messageContainer = document.getElementById('message-container');
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', type);
-    messageElement.innerHTML = `
+    messageElement.innerHTML = 
         <span>${message}</span>
         <i class="fas fa-times" onclick="this.parentElement.remove()"></i>
-    `;
+    ;
     
     messageContainer.appendChild(messageElement);
 
@@ -145,7 +145,7 @@ async function startUpload() {
     }
 
     // Definindo o caminho de upload para o diretório do usuário
-    const storageRefPath = `uploads/${user.uid}/${file.name}`;
+    const storageRefPath = uploads/${user.uid}/${file.name};
     const storageRefObj = ref(storage, storageRefPath);
     const uploadTask = uploadBytesResumable(storageRefObj, file);
 
@@ -153,19 +153,19 @@ async function startUpload() {
     progressContainer.style.display = 'block';
     isUploading = true;
 
-    console.log(`Iniciando upload para: ${storageRefPath}`);
+    console.log(Iniciando upload para: ${storageRefPath});
 
     // Monitorar o progresso do upload
     uploadTask.on('state_changed',
         (snapshot) => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            progressBar.style.width = `${progress}%`;
-            progressText.textContent = `${progress.toFixed(2)}%`;
-            console.log(`Upload em progresso: ${progress.toFixed(2)}%`);
+            progressBar.style.width = ${progress}%;
+            progressText.textContent = ${progress.toFixed(2)}%;
+            console.log(Upload em progresso: ${progress.toFixed(2)}%);
         },
         (error) => {
             console.error('Erro ao fazer upload:', error);
-            alert(`Erro ao fazer upload: ${error.code} - ${error.message}`);
+            alert(Erro ao fazer upload: ${error.code} - ${error.message});
             isUploading = false;
             progressContainer.style.display = 'none';
             progressBar.style.width = '0%';
@@ -196,7 +196,7 @@ async function startUpload() {
                 console.error('Erro ao obter URL de download:', error);
                 console.error('Código do erro:', error.code);
                 console.error('Mensagem do erro:', error.message);
-                alert(`Erro ao obter URL de download: ${error.code} - ${error.message}`);
+                alert(Erro ao obter URL de download: ${error.code} - ${error.message});
                 isUploading = false;
                 progressContainer.style.display = 'none';
                 progressBar.style.width = '0%';
@@ -212,7 +212,7 @@ async function fetchAllFiles() {
     if (user) {
         try {
             console.log('Usuário autenticado:', user.uid);
-            const storageRef = ref(storage, `uploads/${user.uid}/`);
+            const storageRef = ref(storage, uploads/${user.uid}/);
             console.log('Buscando arquivos no caminho:', storageRef.fullPath);
             const filesSnapshot = await listAll(storageRef);
             console.log('Arquivos encontrados:', filesSnapshot.items.length);
@@ -254,38 +254,28 @@ async function fetchAllFiles() {
     }
 }
 
-// Função para ordenar os arquivos
-sortSelect.addEventListener('change', () => {
-    sortFiles(sortSelect.value);
-});
-
+// Função para exibir a lista de arquivos
 function displayFiles(files) {
     fileList.innerHTML = '';
     files.forEach(file => {
         const listItem = document.createElement('li');
-        listItem.innerHTML = `
+        listItem.innerHTML = 
             <span>${file.name} (${formatBytes(file.size)})</span>
             <div>
                 <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
                 <button class="share-button" onclick="copyToClipboard('${file.url}')">Copiar Link</button>
-                <button class="watch-button" onclick="playVideo('${file.url}')">Assistir</button>
                 <button class="delete-button" onclick="deleteFile('${file.name}')">Excluir</button>
             </div>
-        `;
+        ;
         fileList.appendChild(listItem);
     });
+    updateStorageUsage();
 }
 
-// Função para abrir o vídeo no player
-function playVideo(url) {
-    const videoPlayer = document.querySelector('#player');
-    const source = videoPlayer.querySelector('source');
-    source.src = url;
-    videoPlayer.style.display = 'block';  // Exibe o player
-    videoPlayer.load();                   // Carrega o novo vídeo
-    videoPlayer.play();                   // Reproduz o vídeo automaticamente
-    window.scrollTo(0, videoPlayer.offsetTop); // Rola a página até o player
-}
+// Função para ordenar os arquivos
+sortSelect.addEventListener('change', () => {
+    sortFiles(sortSelect.value);
+});
 
 function sortFiles(criteria) {
     const sortedFiles = [...allFiles];
@@ -327,20 +317,20 @@ async function deleteFile(fileName) {
         }
 
         // Adiciona a confirmação de exclusão
-        const confirmDelete = confirm(`Tem certeza de que deseja excluir o arquivo "${fileName}"?`);
+        const confirmDelete = confirm(Tem certeza de que deseja excluir o arquivo "${fileName}"?);
         if (!confirmDelete) {
             console.log('Exclusão cancelada pelo usuário.');
             return;
         }
 
-        const fileRef = ref(storage, `uploads/${user.uid}/${fileName}`);
+        const fileRef = ref(storage, uploads/${user.uid}/${fileName});
         await deleteObject(fileRef);
-        console.log(`Arquivo "${fileName}" excluído com sucesso.`);
+        console.log(Arquivo "${fileName}" excluído com sucesso.);
         alert('Arquivo excluído com sucesso!');
         fetchAllFiles();
     } catch (error) {
         console.error('Erro ao excluir o arquivo:', error);
-        alert(`Erro ao excluir o arquivo: ${error.code} - ${error.message}`);
+        alert(Erro ao excluir o arquivo: ${error.code} - ${error.message});
     }
 }
 
@@ -350,10 +340,10 @@ function updateStorageUsage() {
     const totalUsedGB = totalUsedBytes / (1024 ** 3);
     const formattedUsedGB = totalUsedGB.toFixed(2);
     const formattedTotalGB = totalAvailableGB;
-    storageUsageDisplay.textContent = `${formattedUsedGB} GB de ${formattedTotalGB}`;
+    storageUsageDisplay.textContent = ${formattedUsedGB} GB de ${formattedTotalGB};
     
     // Opcional: Adicionar logs para depuração
-    console.log(`Total Usado: ${formattedUsedGB} GB de ${formattedTotalGB}`);
+    console.log(Total Usado: ${formattedUsedGB} GB de ${formattedTotalGB});
 }
 
 // Função para formatar bytes em unidades legíveis
@@ -395,7 +385,7 @@ async function logout() {
         alert('Você foi desconectado com sucesso.');
     } catch (error) {
         console.error('Erro ao desconectar:', error);
-        alert(`Erro ao desconectar: ${error.code} - ${error.message}`);
+        alert(Erro ao desconectar: ${error.code} - ${error.message});
     }
 }
 
