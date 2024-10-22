@@ -1080,6 +1080,7 @@ body {
     width: 100%;
     max-width: 100%;
     height: auto;
+    aspect-ratio: 16 / 9; /* Manter a proporção do vídeo */
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra no player de vídeo */
 }

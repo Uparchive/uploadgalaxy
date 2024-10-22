@@ -285,6 +285,12 @@ function playVideo(url, fileName) {
     videoPlayerSection.style.display = 'block';
     videoPlayer.src({ type: getMimeType(url), src: url });
     videoPlayer.play();
+    videoPlayer.on('play', function() {
+        videoPlayer.getChild('BigPlayButton').hide(); // Esconder o botão grande de play quando o vídeo estiver sendo reproduzido
+    });
+    videoPlayer.on('pause', function() {
+        videoPlayer.getChild('BigPlayButton').show(); // Mostrar o botão grande de play quando o vídeo estiver pausado
+    });
 
     // Atualizar o título do vídeo
     videoTitle.textContent = `Reproduzindo: ${fileName}`;
