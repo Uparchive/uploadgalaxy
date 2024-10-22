@@ -266,7 +266,7 @@ function displayFiles(files) {
         listItem.innerHTML = `
             <span>${file.name} (${formatBytes(file.size)})</span>
             <div>
-                ${fileType.startsWith('video/') ? `<button class="play-button" onclick="playVideo('${file.url}', '${file.name}')">Reproduzir</button>` : ''}
+                ${fileType.startsWith('video/') ? `\${fileType.startsWith('video/') ? '<button class="play-button" onclick="playVideo(\'' + file.url + '\', \'' + file.name + '\')">Reproduzir</button>' : ''}` : ''}
                 <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
                 <button class="share-button" onclick="copyToClipboard('${file.url}')">Copiar Link</button>
                 <button class="delete-button" onclick="deleteFile('${file.name}')">Excluir</button>
