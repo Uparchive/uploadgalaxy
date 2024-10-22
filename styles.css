@@ -1027,32 +1027,3 @@ body {
         padding: 0.5rem; /* Ajusta o padding para caber em telas pequenas */
     }
 }
-/* Estilo para a página de reprodução de vídeo */
-html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000;
-}
-
-video {
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    border-radius: 10px; /* Deixa as bordas do vídeo arredondadas */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adiciona uma sombra para destacar o vídeo */
-}
-
-/* Centraliza o conteúdo de vídeo em dispositivos móveis */
-body {
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Ajuste para quando o vídeo estiver em tela cheia */
-video-js.vjs-fullscreen {
-    width: 100% !important;
-    height: 100% !important;
-}
