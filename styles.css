@@ -1052,3 +1052,69 @@ body {
     background-color: #ff8c00;
     transform: translateY(-2px);
 }
+/* Estilo CSS personalizado para a área de reprodução de vídeo */
+#video-player-section {
+    background: linear-gradient(135deg, #1e3c72, #2a5298); /* Gradiente de fundo profissional */
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Sombra para dar profundidade */
+    max-width: 90%;
+    margin: 3rem auto;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#video-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #e0e0e0;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Sombra para destacar o título */
+}
+
+#video-player {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra no player de vídeo */
+}
+
+#back-button {
+    background-color: #ff9800;
+    color: #fff;
+    padding: 0.75rem 2rem;
+    margin-top: 2rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+#back-button:hover {
+    background-color: #ffb74d;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+}
+
+/* Responsividade para dispositivos menores */
+@media (max-width: 768px) {
+    #video-player-section {
+        padding: 2rem;
+    }
+
+    #video-title {
+        font-size: 1.5rem;
+    }
+
+    #back-button {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
