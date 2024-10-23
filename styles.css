@@ -1153,24 +1153,58 @@ body {
   .vjs-default-skin .vjs-playing .vjs-play-control .vjs-icon-placeholder:before {
     content: "\f104"; /* Ícone de pause */
   }
-  /* Ajuste da barra de controle do Video.js para dispositivos móveis */
+  /* Ajuste da barra de controle do Video.js para caber em uma linha em dispositivos móveis */
 @media (max-width: 768px) {
+    /* Reduz o tamanho da barra de controle */
     .video-js .vjs-control-bar {
-        flex-wrap: wrap;
-        justify-content: center;
+        height: 30px;
+        justify-content: space-between;
     }
+
+    /* Reduz o tamanho dos botões */
     .video-js .vjs-control-bar .vjs-control {
-        flex: 1 1 auto;
-        min-width: 40px;
-        margin: 2px;
+        padding: 0 4px;
+        margin: 0;
     }
-    /* Ajuste específico para os botões personalizados */
+
+    /* Ajusta o tamanho dos ícones nos botões */
+    .video-js .vjs-control-bar .vjs-control .vjs-icon-placeholder,
+    .video-js .vjs-control-bar .vjs-control .fas {
+        font-size: 14px;
+    }
+
+    /* Especificamente para os botões personalizados de avançar/retroceder */
     .video-js .vjs-control-bar .vjs-button {
-        flex: 1 1 auto;
-        min-width: 40px;
+        padding: 0 4px;
+        font-size: 12px;
     }
-    /* Ajuste do tamanho dos ícones nos botões */
-    .video-js .vjs-control-bar .vjs-button .fas {
-        font-size: 1rem;
+
+    /* Reduz o tamanho da fonte do tempo e da duração */
+    .video-js .vjs-current-time-display,
+    .video-js .vjs-duration-display {
+        font-size: 12px;
+    }
+
+    /* Ajusta a barra de progresso */
+    .video-js .vjs-progress-control {
+        flex: 1 1 auto;
+        margin: 0 4px;
+    }
+
+    /* Esconde o nome do botão de velocidade para economizar espaço */
+    .video-js .vjs-playback-rate-value {
+        display: none;
+    }
+}
+
+/* Esconder texto nos botões personalizados em telas muito pequenas */
+@media (max-width: 480px) {
+    .video-js .vjs-control-bar .vjs-button#forwardButton,
+    .video-js .vjs-control-bar .vjs-button#rewindButton {
+        font-size: 0;
+    }
+    .video-js .vjs-control-bar .vjs-button#forwardButton .fas,
+    .video-js .vjs-control-bar .vjs-button#rewindButton .fas {
+        font-size: 16px;
     }
 }
