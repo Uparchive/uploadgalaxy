@@ -1119,3 +1119,38 @@ body {
         font-size: 0.9rem;
     }
 }
+/* Assegure-se de que o Video.js tenha prioridade sobre os estilos personalizados */
+.video-js {
+    font-family: 'VideoJS', 'Open Sans', sans-serif;
+  }
+  
+  /* Corrige a exibição dos ícones dos controles do Video.js */
+  .vjs-control:before {
+    font-family: VideoJS;
+  }
+  
+  /* Evita que os estilos personalizados sobrescrevam os controles do Video.js */
+  .video-js .vjs-control {
+    color: #fff; /* Cor dos ícones dos controles */
+  }
+  
+  /* Se você tiver definido estilos globais para botões, certifique-se de que não afetem os controles do Video.js */
+  .video-js button {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  
+  /* Opcional: Customize a aparência dos controles */
+  .vjs-default-skin .vjs-play-control .vjs-icon-placeholder:before {
+    content: "\f101"; /* Ícone de play */
+  }
+  
+  .vjs-default-skin .vjs-paused .vjs-play-control .vjs-icon-placeholder:before {
+    content: "\f101"; /* Ícone de play */
+  }
+  
+  .vjs-default-skin .vjs-playing .vjs-play-control .vjs-icon-placeholder:before {
+    content: "\f104"; /* Ícone de pause */
+  }
+  
