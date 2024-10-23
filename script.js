@@ -233,7 +233,6 @@ async function fetchAllFiles() {
             }
         } catch (error) {
             console.error('Erro ao listar arquivos:', error);
-            alert('Erro ao listar arquivos. Verifique suas permissões e tente novamente.');
         }
     } else {
         console.log('Usuário não autenticado.');
@@ -263,10 +262,12 @@ function displayFiles(files) {
 // Função para reproduzir vídeo
 function playVideo(url, fileName) {
     // Atualizar a fonte do vídeo e o título
-    videoSource.src = url;
-    videoSource.type = getMimeType(url);
     videoPlayerSection.style.display = 'block';
-    videoPlayer.src({ type: getMimeType(url), src: url });
+
+    // Redefinir o player antes de definir a nova fonte
+    videoPlayer.reset();
+
+    videoPlayer.src({ type: getMimeType(fileName), src: url });
     videoPlayer.ready(function() {
         videoPlayer.play();
     });
@@ -317,6 +318,19 @@ function addVideoControlButtons() {
         controlBar.el().appendChild(forwardButton);
     }
 }
+
+// Event listener para o botão "Voltar aos Arquivos"
+backButton.addEventListener('click', function() {
+    // Mostrar as seções de lista de arquivos e upload
+    fileListSection.style.display = 'block';
+    uploadSection.style.display = 'block';
+    videoPlayerSection.style.display = 'none';
+
+    // Parar o vídeo e redefinir o player
+    videoPlayer.pause();
+    videoPlayer.currentTime(0);
+    videoPlayer.reset();
+});
 
 // Função para copiar URL para a área de transferência
 function copyToClipboard(url) {
