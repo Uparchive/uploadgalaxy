@@ -265,11 +265,10 @@ function playVideo(url, fileName) {
     // Atualizar a fonte do vídeo e o título
     videoPlayerSection.style.display = 'block';
 
-    // Definir a nova fonte sem resetar o player
+    // Definir a nova fonte e carregar o vídeo
     videoPlayer.src({ type: getMimeType(fileName), src: url });
-    videoPlayer.ready(function() {
-        videoPlayer.play();
-    });
+    videoPlayer.load();
+
     videoTitle.textContent = `Reproduzindo: ${fileName}`;
 
     // Ocultar outras seções
@@ -327,8 +326,6 @@ backButton.addEventListener('click', function() {
     videoPlayer.pause();
     videoPlayer.src({ type: '', src: '' });
     videoPlayer.load();
-
-    // Não resetar o player, para manter os controles padrão funcionando
 });
 
 // Função para copiar URL para a área de transferência
@@ -475,6 +472,9 @@ function getMimeType(fileName) {
         'mp4': 'video/mp4',
         'webm': 'video/webm',
         'ogg': 'video/ogg',
+        'avi': 'video/x-msvideo',
+        'mov': 'video/quicktime',
+        'mkv': 'video/x-matroska',
         // Adicione outros tipos MIME conforme necessário
     };
     return mimeTypes[extension] || 'application/octet-stream';
