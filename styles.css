@@ -1218,3 +1218,27 @@ body {
         display: none;
     }
 }
+/* Ajuste dos controles do player de vídeo para caber em uma linha no celular */
+.video-js .vjs-control-bar {
+    flex-wrap: nowrap; /* Evitar que os elementos se quebrem em várias linhas */
+    justify-content: space-between; /* Garantir espaçamento uniforme entre os elementos */
+    padding: 0 5px; /* Reduzir padding interno para que os controles não ultrapassem */
+}
+
+.video-js .vjs-button {
+    min-width: 32px; /* Definir uma largura mínima menor para os botões */
+    flex: 0 0 auto; /* Impedir que os botões cresçam para além do necessário */
+}
+
+.video-js .vjs-play-control, 
+.video-js .vjs-volume-panel, 
+.video-js .vjs-current-time, 
+.video-js .vjs-duration,
+.video-js .vjs-progress-control, 
+.video-js .vjs-fullscreen-control {
+    flex: 0 1 auto; /* Ajustar o espaço usado por cada controle para caber na tela */
+}
+
+.video-js .vjs-progress-control {
+    flex: 1 1 auto; /* Permitir que a barra de progresso use o espaço restante */
+}
