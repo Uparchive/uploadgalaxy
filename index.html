@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Galaxy</title>
-    <!-- Video.js para reprodução de vídeos -->
-    <link href="https://vjs.zencdn.net/7.20.3/video-js.min.css" rel="stylesheet">
+    <!-- Link para o arquivo de estilos CSS -->
+    <link rel="stylesheet" href="styles.css">
     <!-- Fonte do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Link para o arquivo de estilos CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- Video.js para reprodução de vídeos -->
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet">
 </head>
 <body>
     <!-- Cabeçalho com a barra de navegação -->
@@ -96,12 +96,11 @@
 
         <!-- Seção de Player de Vídeo -->
         <section id="video-player-section" class="container" style="display: none;">
-            <h2 id="video-title">Reproduzir Vídeo</h2>
-            <video id="video-player" class="video-js vjs-big-play-centered" controls preload="auto" width="640" height="360" playsinline>
+            <h2>Reproduzir Vídeo</h2>
+            <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
                 <source id="video-source" src="" type="video/mp4">
                 <p class="vjs-no-js">Para assistir a este vídeo, ative o JavaScript.</p>
             </video>
-            <button id="back-button" class="upload-button" style="margin-top: 1rem;">Voltar aos Meus Arquivos</button>
         </section>
     </main>
 
@@ -124,11 +123,11 @@
         <div id="message-container" class="message-container"></div>
     </footer>
 
-    <!-- Inclusão do Video.js -->
-    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
-
     <!-- Inclusão do script.js como módulo ES6 -->
     <script type="module" src="script.js"></script>
+
+    <!-- Inclusão do Video.js -->
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
 
     <!-- Script para alternar o menu em dispositivos móveis -->
     <script>
