@@ -1153,30 +1153,38 @@ body {
   .vjs-default-skin .vjs-playing .vjs-play-control .vjs-icon-placeholder:before {
     content: "\f104"; /* Ícone de pause */
   }
-  /* Ajuste da barra de controle do Video.js para caber em uma linha em dispositivos móveis */
+  /* Ajuste da barra de controle do Video.js para dispositivos móveis */
 @media (max-width: 768px) {
-    /* Reduz o tamanho da barra de controle */
+    /* Ajusta a altura e o espaçamento da barra de controle */
     .video-js .vjs-control-bar {
-        height: 30px;
+        height: 32px;
+        padding: 0;
         justify-content: space-between;
     }
 
-    /* Reduz o tamanho dos botões */
+    /* Ajusta os botões da barra de controle */
     .video-js .vjs-control-bar .vjs-control {
-        padding: 0 4px;
+        padding: 0 3px;
         margin: 0;
     }
 
-    /* Ajusta o tamanho dos ícones nos botões */
+    /* Reduz o tamanho dos ícones nos botões */
     .video-js .vjs-control-bar .vjs-control .vjs-icon-placeholder,
     .video-js .vjs-control-bar .vjs-control .fas {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     /* Especificamente para os botões personalizados de avançar/retroceder */
-    .video-js .vjs-control-bar .vjs-button {
-        padding: 0 4px;
-        font-size: 12px;
+    .video-js .vjs-control-bar .vjs-button#forwardButton,
+    .video-js .vjs-control-bar .vjs-button#rewindButton {
+        padding: 0 3px;
+        font-size: 0; /* Esconde o texto */
+    }
+
+    /* Ajusta o ícone nos botões personalizados */
+    .video-js .vjs-control-bar .vjs-button#forwardButton .fas,
+    .video-js .vjs-control-bar .vjs-button#rewindButton .fas {
+        font-size: 16px;
     }
 
     /* Reduz o tamanho da fonte do tempo e da duração */
@@ -1188,23 +1196,25 @@ body {
     /* Ajusta a barra de progresso */
     .video-js .vjs-progress-control {
         flex: 1 1 auto;
-        margin: 0 4px;
+        margin: 0 3px;
     }
 
-    /* Esconde o nome do botão de velocidade para economizar espaço */
-    .video-js .vjs-playback-rate-value {
+    /* Oculta o texto do botão de velocidade de reprodução */
+    .video-js .vjs-playback-rate .vjs-playback-rate-value {
         display: none;
+    }
+
+    /* Ajusta o tamanho dos botões de volume */
+    .video-js .vjs-volume-panel {
+        width: auto;
     }
 }
 
-/* Esconder texto nos botões personalizados em telas muito pequenas */
+/* Ajuste adicional para telas muito pequenas */
 @media (max-width: 480px) {
-    .video-js .vjs-control-bar .vjs-button#forwardButton,
-    .video-js .vjs-control-bar .vjs-button#rewindButton {
-        font-size: 0;
-    }
-    .video-js .vjs-control-bar .vjs-button#forwardButton .fas,
-    .video-js .vjs-control-bar .vjs-button#rewindButton .fas {
-        font-size: 16px;
+    /* Oculta controles menos essenciais para economizar espaço */
+    .video-js .vjs-fullscreen-control,
+    .video-js .vjs-playback-rate {
+        display: none;
     }
 }
