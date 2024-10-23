@@ -3,7 +3,7 @@ import { initializeApp, setLogLevel } from "https://www.gstatic.com/firebasejs/9
 import {
     getAuth,
     signInWithPopup,
-    signOut, // Importar signOut para funcionalidade de logout
+    signOut,
     GoogleAuthProvider,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
@@ -23,14 +23,14 @@ setLogLevel('debug');
 
 // Configuração do Firebase (Substitua pelas suas próprias credenciais)
 const firebaseConfig = {
-    apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
-    authDomain: "armazene-acd30.firebaseapp.com",
-    databaseURL: "https://armazene-acd30-default-rtdb.firebaseio.com",
-    projectId: "armazene-acd30",
-    storageBucket: "armazene-acd30.appspot.com",
-    messagingSenderId: "853849509051",
-    appId: "1:853849509051:web:ea6f96915c4d5c895b2d9e",
-    measurementId: "G-79TBH73QPT"
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID",
+    measurementId: "YOUR_MEASUREMENT_ID"
 };
 
 // Inicializar o Firebase
@@ -233,6 +233,7 @@ async function fetchAllFiles() {
             }
         } catch (error) {
             console.error('Erro ao listar arquivos:', error);
+            alert('Erro ao listar arquivos. Verifique suas permissões e tente novamente.');
         }
     } else {
         console.log('Usuário não autenticado.');
@@ -453,3 +454,15 @@ searchInput.addEventListener('input', () => {
     const filteredFiles = allFiles.filter(file => file.name.toLowerCase().includes(query));
     displayFiles(filteredFiles);
 });
+
+// Função para obter o tipo MIME do arquivo
+function getMimeType(fileName) {
+    const extension = fileName.split('.').pop().toLowerCase();
+    const mimeTypes = {
+        'mp4': 'video/mp4',
+        'webm': 'video/webm',
+        'ogg': 'video/ogg',
+        // Adicione outros tipos MIME conforme necessário
+    };
+    return mimeTypes[extension] || 'application/octet-stream';
+}
