@@ -283,7 +283,11 @@ function playVideo(url) {
     videoPlayerSection.style.display = 'block';
     videoPlayer.src({ type: getMimeType(url), src: url });
     videoPlayer.play();
+
+    // Adiciona o scroll automático até o player de vídeo
+    videoPlayerSection.scrollIntoView({ behavior: 'auto', block: 'center' });
 }
+
 
 function getMimeType(url) {
     const extension = url.split('.').pop().toLowerCase();
