@@ -3,7 +3,7 @@ import { initializeApp, setLogLevel } from "https://www.gstatic.com/firebasejs/9
 import {
     getAuth,
     signInWithPopup,
-    signOut,
+    signOut, // Importar signOut para funcionalidade de logout
     GoogleAuthProvider,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
@@ -52,20 +52,17 @@ const fileList = document.getElementById('file-list');
 const storageUsageDisplay = document.getElementById('storage-usage');
 const sortSelect = document.getElementById('sort-select');
 const searchInput = document.getElementById('search-input');
-const logoutButton = document.getElementById('logout-button');
+const logoutButton = document.getElementById('logout-button'); // Botão de Logout
 const heroSection = document.getElementById('hero-section');
 const videoPlayerSection = document.getElementById('video-player-section');
 const videoSource = document.getElementById('video-source');
 const videoPlayer = videojs('video-player');
 const backToTopButton = document.getElementById('back-to-top');
-const backButton = document.getElementById('back-button');
-const videoTitle = document.getElementById('video-title');
 
 // Variáveis Globais
-const totalAvailableGB = 'Ilimitado';
+const totalAvailableGB = 'Ilimitado'; // Espaço total disponível em GB
 let allFiles = [];
 let isUploading = false;
-let areVideoControlsAdded = false; // Flag para evitar adicionar controles múltiplas vezes
 
 // Monitorar o estado de autenticação do usuário
 onAuthStateChanged(auth, (user) => {
@@ -112,6 +109,26 @@ uploadForm.addEventListener('submit', (e) => {
         startUpload();
     }
 });
+
+// Função para exibir mensagens personalizadas
+function showMessage(message, type = 'info') {
+    const messageContainer = document.getElementById('message-container');
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', type);
+    messageElement.innerHTML = `
+        <span>${message}</span>
+        <i class="fas fa-times" onclick="this.parentElement.remove()"></i>
+    `;
+    
+    messageContainer.appendChild(messageElement);
+
+    // Remover mensagem após alguns segundos
+    setTimeout(() => {
+        if (messageElement.parentElement) {
+            messageElement.remove();
+        }
+    }, 5000);
+}
 
 // Função para iniciar o upload
 async function startUpload() {
@@ -201,7 +218,7 @@ async function fetchAllFiles() {
             const filesSnapshot = await listAll(storageRef);
             console.log('Arquivos encontrados:', filesSnapshot.items.length);
 
-            const allFilesFetched = await Promise.allSettled(
+            const allFilesFetched = await Promise.all(
                 filesSnapshot.items.map(async (item) => {
                     try {
                         const url = await getDownloadURL(item);
@@ -219,9 +236,7 @@ async function fetchAllFiles() {
                 })
             );
 
-            allFiles = allFilesFetched
-                .filter(result => result.status === 'fulfilled' && result.value !== null)
-                .map(result => result.value);
+            allFiles = allFilesFetched.filter(file => file !== null);
             console.log('Arquivos válidos para exibição:', allFiles);
 
             if (allFiles.length > 0) {
@@ -244,12 +259,11 @@ async function fetchAllFiles() {
 function displayFiles(files) {
     fileList.innerHTML = '';
     files.forEach(file => {
-        const fileType = getMimeType(file.name);
         const listItem = document.createElement('li');
         listItem.innerHTML = `
             <span>${file.name} (${formatBytes(file.size)})</span>
             <div>
-                ${fileType.startsWith('video/') ? `<button class="play-button" onclick="playVideo('${file.url}', '${file.name}')">Reproduzir</button>` : ''}
+                <button class="play-button" onclick="playVideo('${file.url}')">Reproduzir</button>
                 <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
                 <button class="share-button" onclick="copyToClipboard('${file.url}')">Copiar Link</button>
                 <button class="delete-button" onclick="deleteFile('${file.name}')">Excluir</button>
@@ -261,131 +275,23 @@ function displayFiles(files) {
 }
 
 // Função para reproduzir vídeo
-function playVideo(url, fileName) {
-    // Atualizar a fonte do vídeo e o título
+function playVideo(url) {
+    videoSource.src = url;
+    videoSource.type = getMimeType(url);
     videoPlayerSection.style.display = 'block';
-
-    // Definir a nova fonte e carregar o vídeo
-    videoPlayer.src({ type: getMimeType(fileName), src: url });
-    videoPlayer.currentTime(0);  // Reinicia a barra de progresso
-    videoPlayer.load();
-
-    videoTitle.textContent = `Reproduzindo: ${fileName}`;
-
-    // Ocultar outras seções
-    fileListSection.style.display = 'none';
-    uploadSection.style.display = 'none';
-
-    // Adiciona botões de controle de avançar e retroceder 10 segundos apenas uma vez
-    if (!areVideoControlsAdded) {
-        addVideoControlButtons();
-        areVideoControlsAdded = true;
-    }
-
-    // Atualizar o estado do ícone de play/pause
-    videoPlayer.on('play', () => {
-        videoPlayer.controlBar.playToggle.controlText_ = 'Pause';
-    });
-
-    videoPlayer.on('pause', () => {
-        videoPlayer.controlBar.playToggle.controlText_ = 'Play';
-    });
+    videoPlayer.src({ type: getMimeType(url), src: url });
+    videoPlayer.play();
 }
 
-// Função para adicionar botões de controle de vídeo
-function addVideoControlButtons() {
-    const controlBar = videoPlayer.getChild('controlBar');
-
-    // Botão para retroceder 10 segundos
-    if (!document.getElementById('rewindButton')) {
-        const rewindButton = videojs.dom.createEl('button', {
-            className: 'vjs-control vjs-button',
-            innerHTML: '<i class="fas fa-undo"></i> 10s',
-            id: 'rewindButton',
-            title: 'Retroceder 10 segundos'
-        });
-        rewindButton.onclick = function () {
-            videoPlayer.currentTime(videoPlayer.currentTime() - 10);
-        };
-        controlBar.el().insertBefore(rewindButton, controlBar.el().firstChild);
-    }
-
-    // Botão para avançar 10 segundos
-    if (!document.getElementById('forwardButton')) {
-        const forwardButton = videojs.dom.createEl('button', {
-            className: 'vjs-control vjs-button',
-            innerHTML: '10s <i class="fas fa-redo"></i>',
-            id: 'forwardButton',
-            title: 'Avançar 10 segundos'
-        });
-        forwardButton.onclick = function () {
-            videoPlayer.currentTime(videoPlayer.currentTime() + 10);
-        };
-        controlBar.el().appendChild(forwardButton);
+function getMimeType(url) {
+    const extension = url.split('.').pop().toLowerCase();
+    switch (extension) {
+        case 'mkv': return 'video/x-matroska';
+        case 'mp4': return 'video/mp4';
+        case 'webm': return 'video/webm';
+        default: return 'video/mp4';
     }
 }
-
-// Event listener para o botão "Voltar aos Arquivos"
-backButton.addEventListener('click', function() {
-    // Mostrar as seções de lista de arquivos e upload
-    fileListSection.style.display = 'block';
-    uploadSection.style.display = 'block';
-    videoPlayerSection.style.display = 'none';
-
-    // Pausar o vídeo e remover a fonte
-    videoPlayer.pause();
-    videoPlayer.src({ type: '', src: '' });
-    videoPlayer.load();
-});
-
-// Função para copiar URL para a área de transferência
-function copyToClipboard(url) {
-    navigator.clipboard.writeText(url).then(() => {
-        alert('Link copiado para a área de transferência!');
-    }).catch((error) => {
-        console.error('Erro ao copiar link:', error);
-        alert('Erro ao copiar link. Tente novamente.');
-    });
-}
-
-// Função para logout (Desconectar o usuário)
-async function logout() {
-    try {
-        await signOut(auth);
-        console.log('Usuário desconectado com sucesso.');
-        alert('Você foi desconectado com sucesso.');
-    } catch (error) {
-        console.error('Erro ao desconectar:', error);
-        alert(`Erro ao desconectar: ${error.code} - ${error.message}`);
-    }
-}
-
-// Adicionar evento de clique ao botão de logout
-logoutButton.addEventListener('click', () => {
-    logout();
-});
-
-// Função para impedir o usuário de sair durante o upload
-window.addEventListener('beforeunload', function (e) {
-    if (isUploading) {
-        e.preventDefault();
-        e.returnValue = '';
-    }
-});
-
-// Exibir/ocultar o botão de voltar ao topo com base no scroll
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 200) {
-        backToTopButton.style.display = 'block';
-    } else {
-        backToTopButton.style.display = 'none';
-    }
-});
-
-// Anexar funções ao objeto window para torná-las acessíveis globalmente
-window.copyToClipboard = copyToClipboard;
-window.deleteFile = deleteFile;
-window.playVideo = playVideo;
 
 // Função para ordenar os arquivos
 sortSelect.addEventListener('change', () => {
@@ -475,17 +381,51 @@ searchInput.addEventListener('input', () => {
     displayFiles(filteredFiles);
 });
 
-// Função para obter o tipo MIME do arquivo
-function getMimeType(fileName) {
-    const extension = fileName.split('.').pop().toLowerCase();
-    const mimeTypes = {
-        'mp4': 'video/mp4',
-        'webm': 'video/webm',
-        'ogg': 'video/ogg',
-        'avi': 'video/x-msvideo',
-        'mov': 'video/quicktime',
-        'mkv': 'video/x-matroska',
-        // Adicione outros tipos MIME conforme necessário
-    };
-    return mimeTypes[extension] || 'application/octet-stream';
+// Função para copiar URL para a área de transferência
+function copyToClipboard(url) {
+    navigator.clipboard.writeText(url).then(() => {
+        alert('Link copiado para a área de transferência!');
+    }).catch((error) => {
+        console.error('Erro ao copiar link:', error);
+        alert('Erro ao copiar link. Tente novamente.');
+    });
 }
+
+// Função para logout (Desconectar o usuário)
+async function logout() {
+    try {
+        await signOut(auth);
+        console.log('Usuário desconectado com sucesso.');
+        alert('Você foi desconectado com sucesso.');
+    } catch (error) {
+        console.error('Erro ao desconectar:', error);
+        alert(`Erro ao desconectar: ${error.code} - ${error.message}`);
+    }
+}
+
+// Adicionar evento de clique ao botão de logout
+logoutButton.addEventListener('click', () => {
+    logout();
+});
+
+// Função para impedir o usuário de sair durante o upload
+window.addEventListener('beforeunload', function (e) {
+    if (isUploading) {
+        e.preventDefault();
+        e.returnValue = '';
+    }
+});
+
+// Exibir/ocultar o botão de voltar ao topo com base no scroll
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 200) {
+        backToTopButton.style.display = 'block';
+    } else {
+        backToTopButton.style.display = 'none';
+    }
+});
+
+// Anexar funções ao objeto window para torná-las acessíveis globalmente
+window.copyToClipboard = copyToClipboard;
+window.deleteFile = deleteFile;
+window.playVideo = playVideo;
