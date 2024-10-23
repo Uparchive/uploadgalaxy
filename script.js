@@ -65,6 +65,7 @@ const videoTitle = document.getElementById('video-title');
 const totalAvailableGB = 'Ilimitado';
 let allFiles = [];
 let isUploading = false;
+let areVideoControlsAdded = false; // Flag para evitar adicionar controles múltiplas vezes
 
 // Monitorar o estado de autenticação do usuário
 onAuthStateChanged(auth, (user) => {
@@ -233,7 +234,6 @@ async function fetchAllFiles() {
             }
         } catch (error) {
             console.error('Erro ao listar arquivos:', error);
-            alert('Erro ao listar arquivos. Verifique suas permissões e tente novamente.');
         }
     } else {
         console.log('Usuário não autenticado.');
@@ -263,10 +263,10 @@ function displayFiles(files) {
 // Função para reproduzir vídeo
 function playVideo(url, fileName) {
     // Atualizar a fonte do vídeo e o título
-    videoSource.src = url;
-    videoSource.type = getMimeType(url);
     videoPlayerSection.style.display = 'block';
-    videoPlayer.src({ type: getMimeType(url), src: url });
+
+    // Definir a nova fonte sem resetar o player
+    videoPlayer.src({ type: getMimeType(fileName), src: url });
     videoPlayer.ready(function() {
         videoPlayer.play();
     });
@@ -276,47 +276,60 @@ function playVideo(url, fileName) {
     fileListSection.style.display = 'none';
     uploadSection.style.display = 'none';
 
-    videoPlayer.on('play', function() {
-        videoPlayer.getChild('BigPlayButton').hide(); // Esconder o botão grande de play quando o vídeo estiver sendo reproduzido
-    });
-
-    videoPlayer.on('pause', function() {
-        videoPlayer.getChild('BigPlayButton').show(); // Mostrar o botão grande de play quando o vídeo estiver pausado
-    });
-
-    // Adiciona botões de controle de avançar e retroceder 10 segundos
-    addVideoControlButtons();
+    // Adiciona botões de controle de avançar e retroceder 10 segundos apenas uma vez
+    if (!areVideoControlsAdded) {
+        addVideoControlButtons();
+        areVideoControlsAdded = true;
+    }
 }
 
+// Função para adicionar botões de controle de vídeo
 function addVideoControlButtons() {
-    const controlBar = videoPlayer.getChild('ControlBar');
+    const controlBar = videoPlayer.getChild('controlBar');
 
     // Botão para retroceder 10 segundos
-    if (!controlBar.getChild('rewindButton')) {
+    if (!document.getElementById('rewindButton')) {
         const rewindButton = videojs.dom.createEl('button', {
             className: 'vjs-control vjs-button',
-            innerHTML: '<i class="fas fa-undo"></i> 10s'
+            innerHTML: '<i class="fas fa-undo"></i> 10s',
+            id: 'rewindButton',
+            title: 'Retroceder 10 segundos'
         });
         rewindButton.onclick = function () {
             videoPlayer.currentTime(videoPlayer.currentTime() - 10);
         };
-        rewindButton.id = 'rewindButton';
         controlBar.el().insertBefore(rewindButton, controlBar.el().firstChild);
     }
 
     // Botão para avançar 10 segundos
-    if (!controlBar.getChild('forwardButton')) {
+    if (!document.getElementById('forwardButton')) {
         const forwardButton = videojs.dom.createEl('button', {
             className: 'vjs-control vjs-button',
-            innerHTML: '10s <i class="fas fa-redo"></i>'
+            innerHTML: '10s <i class="fas fa-redo"></i>',
+            id: 'forwardButton',
+            title: 'Avançar 10 segundos'
         });
         forwardButton.onclick = function () {
             videoPlayer.currentTime(videoPlayer.currentTime() + 10);
         };
-        forwardButton.id = 'forwardButton';
         controlBar.el().appendChild(forwardButton);
     }
 }
+
+// Event listener para o botão "Voltar aos Arquivos"
+backButton.addEventListener('click', function() {
+    // Mostrar as seções de lista de arquivos e upload
+    fileListSection.style.display = 'block';
+    uploadSection.style.display = 'block';
+    videoPlayerSection.style.display = 'none';
+
+    // Pausar o vídeo e remover a fonte
+    videoPlayer.pause();
+    videoPlayer.src({ type: '', src: '' });
+    videoPlayer.load();
+
+    // Não resetar o player, para manter os controles padrão funcionando
+});
 
 // Função para copiar URL para a área de transferência
 function copyToClipboard(url) {
