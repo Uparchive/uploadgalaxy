@@ -1218,27 +1218,51 @@ body {
         display: none;
     }
 }
-/* Ajuste dos controles do player de vídeo para caber em uma linha no celular */
+/* Ajustar a barra de controles do vídeo para manter os botões avançar e retroceder próximos e tudo em linha */
 .video-js .vjs-control-bar {
-    flex-wrap: nowrap; /* Evitar que os elementos se quebrem em várias linhas */
-    justify-content: space-between; /* Garantir espaçamento uniforme entre os elementos */
-    padding: 0 5px; /* Reduzir padding interno para que os controles não ultrapassem */
+    display: flex;
+    flex-wrap: nowrap; /* Manter todos os controles em uma única linha */
+    align-items: center;
+    justify-content: space-between; /* Garantir que os controles fiquem organizados */
+    padding: 0 8px; /* Ajustar o padding para que não fique apertado demais */
 }
 
 .video-js .vjs-button {
-    min-width: 32px; /* Definir uma largura mínima menor para os botões */
-    flex: 0 0 auto; /* Impedir que os botões cresçam para além do necessário */
+    min-width: 30px; /* Definir uma largura mínima menor para os botões */
+    flex: 0 0 auto; /* Não permitir que os botões cresçam para além do necessário */
+    margin: 0 2px; /* Adicionar um pequeno espaçamento entre os botões */
 }
 
-.video-js .vjs-play-control, 
-.video-js .vjs-volume-panel, 
-.video-js .vjs-current-time, 
-.video-js .vjs-duration,
-.video-js .vjs-progress-control, 
-.video-js .vjs-fullscreen-control {
-    flex: 0 1 auto; /* Ajustar o espaço usado por cada controle para caber na tela */
+.video-js .rewind-forward-buttons {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Espaçamento menor entre os botões de avançar e retroceder */
 }
 
 .video-js .vjs-progress-control {
     flex: 1 1 auto; /* Permitir que a barra de progresso use o espaço restante */
+    margin: 0 8px; /* Adicionar um espaçamento para não encostar em outros controles */
+}
+
+.video-js .vjs-control-bar .vjs-play-control, 
+.video-js .vjs-volume-panel, 
+.video-js .vjs-current-time, 
+.video-js .vjs-time-divider, 
+.video-js .vjs-duration, 
+.video-js .vjs-remaining-time, 
+.video-js .vjs-fullscreen-control {
+    flex: 0 0 auto; /* Impedir que esses elementos cresçam */
+}
+
+/* Garantir que a barra de controles fique proporcional em dispositivos móveis */
+@media (max-width: 768px) {
+    .video-js .vjs-control-bar {
+        padding: 0 5px;
+    }
+    .video-js .vjs-progress-control {
+        margin: 0 4px;
+    }
+    .video-js .vjs-button {
+        margin: 0 1px;
+    }
 }
