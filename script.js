@@ -58,6 +58,8 @@ const videoPlayerSection = document.getElementById('video-player-section');
 const videoSource = document.getElementById('video-source');
 const videoPlayer = videojs('video-player');
 const backToTopButton = document.getElementById('back-to-top');
+const backButton = document.getElementById('back-button');
+const videoTitle = document.getElementById('video-title');
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado'; // Espaço total disponível em GB
@@ -259,11 +261,12 @@ async function fetchAllFiles() {
 function displayFiles(files) {
     fileList.innerHTML = '';
     files.forEach(file => {
+        const fileType = getMimeType(file.name);
         const listItem = document.createElement('li');
         listItem.innerHTML = `
             <span>${file.name} (${formatBytes(file.size)})</span>
             <div>
-                <button class="play-button" onclick="playVideo('${file.url}')">Reproduzir</button>
+                ${fileType.startsWith('video/') ? `<button class="play-button" onclick="playVideo('${file.url}', '${file.name}')">Reproduzir</button>` : ''}
                 <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
                 <button class="share-button" onclick="copyToClipboard('${file.url}')">Copiar Link</button>
                 <button class="delete-button" onclick="deleteFile('${file.name}')">Excluir</button>
@@ -275,13 +278,35 @@ function displayFiles(files) {
 }
 
 // Função para reproduzir vídeo
-function playVideo(url) {
+function playVideo(url, fileName) {
+    // Atualizar a fonte do vídeo e o título
     videoSource.src = url;
     videoSource.type = getMimeType(url);
     videoPlayerSection.style.display = 'block';
     videoPlayer.src({ type: getMimeType(url), src: url });
     videoPlayer.play();
+    videoPlayer.on('play', function() {
+        videoPlayer.getChild('BigPlayButton').hide(); // Esconder o botão grande de play quando o vídeo estiver sendo reproduzido
+    });
+    videoPlayer.on('pause', function() {
+        videoPlayer.getChild('BigPlayButton').show(); // Mostrar o botão grande de play quando o vídeo estiver pausado
+    });
+
+    // Atualizar o título do vídeo
+    videoTitle.textContent = `Reproduzindo: ${fileName}`;
+
+    // Ocultar outras seções
+    fileListSection.style.display = 'none';
+    uploadSection.style.display = 'none';
 }
+
+// Evento para o botão de voltar aos arquivos
+backButton.addEventListener('click', () => {
+    videoPlayerSection.style.display = 'none';
+    fileListSection.style.display = 'block';
+    uploadSection.style.display = 'block';
+    videoPlayer.pause();  // Pausar o vídeo ao voltar
+});
 
 function getMimeType(url) {
     const extension = url.split('.').pop().toLowerCase();
