@@ -1,4 +1,4 @@
-// Importações do Firebase Modular SDK (Certifique-se de usar a versão mais recente disponível)
+// Importações do Firebase Modular SDK
 import { initializeApp, setLogLevel } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import {
     getAuth,
@@ -56,10 +56,16 @@ const logoutButton = document.getElementById('logout-button');
 const heroSection = document.getElementById('hero-section');
 const videoPlayerSection = document.getElementById('video-player-section');
 const videoSource = document.getElementById('video-source');
-const videoPlayer = videojs('video-player');
 const backToTopButton = document.getElementById('back-to-top');
 const backButton = document.getElementById('back-button');
 const videoTitle = document.getElementById('video-title');
+
+// Inicializar o player de vídeo
+const videoPlayer = videojs('video-player', {
+    controls: true,
+    preload: 'auto',
+    autoplay: false,
+});
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';

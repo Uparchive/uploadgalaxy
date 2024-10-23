@@ -1153,4 +1153,24 @@ body {
   .vjs-default-skin .vjs-playing .vjs-play-control .vjs-icon-placeholder:before {
     content: "\f104"; /* Ícone de pause */
   }
-  
+  /* Ajuste da barra de controle do Video.js para dispositivos móveis */
+@media (max-width: 768px) {
+    .video-js .vjs-control-bar {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .video-js .vjs-control-bar .vjs-control {
+        flex: 1 1 auto;
+        min-width: 40px;
+        margin: 2px;
+    }
+    /* Ajuste específico para os botões personalizados */
+    .video-js .vjs-control-bar .vjs-button {
+        flex: 1 1 auto;
+        min-width: 40px;
+    }
+    /* Ajuste do tamanho dos ícones nos botões */
+    .video-js .vjs-control-bar .vjs-button .fas {
+        font-size: 1rem;
+    }
+}
