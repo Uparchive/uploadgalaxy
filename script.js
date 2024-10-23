@@ -281,6 +281,15 @@ function playVideo(url, fileName) {
         addVideoControlButtons();
         areVideoControlsAdded = true;
     }
+
+    // Atualizar o estado do ícone de play/pause
+    videoPlayer.on('play', () => {
+        videoPlayer.controlBar.playToggle.controlText_ = 'Pause';
+    });
+
+    videoPlayer.on('pause', () => {
+        videoPlayer.controlBar.playToggle.controlText_ = 'Play';
+    });
 }
 
 // Função para adicionar botões de controle de vídeo
