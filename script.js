@@ -260,10 +260,12 @@ function displayFiles(files) {
     fileList.innerHTML = '';
     files.forEach(file => {
         const listItem = document.createElement('li');
+        const isVideo = file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm');
+
         listItem.innerHTML = `
             <span>${file.name} (${formatBytes(file.size)})</span>
             <div>
-                <button class="play-button" onclick="playVideo('${file.url}')">Reproduzir</button>
+                ${isVideo ? `<button class="play-button" onclick="playVideo('${file.url}')">Reproduzir</button>` : ''}
                 <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
                 <button class="share-button" onclick="copyToClipboard('${file.url}')">Copiar Link</button>
                 <button class="delete-button" onclick="deleteFile('${file.name}')">Excluir</button>
