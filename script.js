@@ -267,6 +267,7 @@ function playVideo(url, fileName) {
 
     // Definir a nova fonte e carregar o vídeo
     videoPlayer.src({ type: getMimeType(fileName), src: url });
+    videoPlayer.currentTime(0);  // Reinicia a barra de progresso
     videoPlayer.load();
 
     videoTitle.textContent = `Reproduzindo: ${fileName}`;
