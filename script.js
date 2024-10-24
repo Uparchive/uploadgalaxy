@@ -3,7 +3,7 @@ import { initializeApp, setLogLevel } from "https://www.gstatic.com/firebasejs/9
 import {
     getAuth,
     signInWithPopup,
-    signOut, // Importar signOut para funcionalidade de logout
+    signOut,
     GoogleAuthProvider,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
@@ -52,16 +52,17 @@ const fileList = document.getElementById('file-list');
 const storageUsageDisplay = document.getElementById('storage-usage');
 const sortSelect = document.getElementById('sort-select');
 const searchInput = document.getElementById('search-input');
-const logoutButton = document.getElementById('logout-button'); // Botão de Logout
+const logoutButton = document.getElementById('logout-button');
 const heroSection = document.getElementById('hero-section');
 const videoPlayerSection = document.getElementById('video-player-section');
 const videoSource = document.getElementById('video-source');
-const videoPlayer = videojs('video-player');
 const backToTopButton = document.getElementById('back-to-top');
-const playButton = document.querySelector('.vjs-play-control');
+
+// Inicializar o player de vídeo
+const videoPlayer = videojs('video-player');
 
 // Variáveis Globais
-const totalAvailableGB = 'Ilimitado'; // Espaço total disponível em GB
+const totalAvailableGB = 'Ilimitado';
 let allFiles = [];
 let isUploading = false;
 
@@ -73,7 +74,7 @@ onAuthStateChanged(auth, (user) => {
         uploadSection.style.display = 'block';
         fileListSection.style.display = 'block';
         logoutButton.style.display = 'block';
-        heroSection.style.display = 'none'; // Ocultar a seção "Hero" após o login
+        heroSection.style.display = 'none';
         fetchAllFiles();
     } else {
         // Usuário não autenticado
@@ -83,7 +84,7 @@ onAuthStateChanged(auth, (user) => {
         fileList.innerHTML = '';
         storageUsageDisplay.textContent = '0.00 GB de Ilimitado';
         logoutButton.style.display = 'none';
-        heroSection.style.display = 'block'; // Exibir a seção "Hero" se não estiver logado
+        heroSection.style.display = 'block';
     }
 });
 
@@ -120,10 +121,7 @@ function showMessage(message, type = 'info') {
         <span>${message}</span>
         <i class="fas fa-times" onclick="this.parentElement.remove()"></i>
     `;
-    
     messageContainer.appendChild(messageElement);
-
-    // Remover mensagem após alguns segundos
     setTimeout(() => {
         if (messageElement.parentElement) {
             messageElement.remove();
@@ -149,7 +147,6 @@ async function startUpload() {
         return;
     }
 
-    // Definindo o caminho de upload para o diretório do usuário
     const storageRefPath = `uploads/${user.uid}/${file.name}`;
     const storageRefObj = ref(storage, storageRefPath);
     const uploadTask = uploadBytesResumable(storageRefObj, file);
@@ -179,18 +176,10 @@ async function startUpload() {
         async () => {
             try {
                 console.log('Tentando obter a URL de download para:', uploadTask.snapshot.ref.fullPath);
-
-                // Tentativa de obter a URL do download
                 const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-
                 console.log('URL de download obtida com sucesso:', downloadURL);
-
                 alert('Arquivo enviado com sucesso!');
-
-                // Atualiza a lista de arquivos exibidos
                 await fetchAllFiles();
-
-                // Limpar o campo de upload e progresso
                 fileInput.value = '';
                 progressBar.style.width = '0%';
                 progressText.textContent = '0%';
@@ -228,7 +217,7 @@ async function fetchAllFiles() {
                             name: item.name,
                             url,
                             timeCreated: metadata.timeCreated,
-                            size: Number(metadata.size) // Garantir que seja um número
+                            size: Number(metadata.size)
                         };
                     } catch (error) {
                         console.error('Erro ao obter URL ou metadados do arquivo:', item.name, error);
@@ -245,8 +234,8 @@ async function fetchAllFiles() {
                 updateStorageUsage();
             } else {
                 console.log('Nenhum arquivo válido encontrado.');
-                fileList.innerHTML = ''; // Limpa a lista se não houver arquivos válidos
-                updateStorageUsage(); // Atualiza o uso de armazenamento mesmo que não haja arquivos válidos
+                fileList.innerHTML = '';
+                updateStorageUsage();
             }
         } catch (error) {
             console.error('Erro ao listar arquivos:', error);
@@ -279,42 +268,34 @@ function displayFiles(files) {
 
 // Função para reproduzir vídeo
 function playVideo(url) {
-    videoSource.src = url;
-    videoSource.type = getMimeType(url);
     videoPlayerSection.style.display = 'block';
     videoPlayer.src({ type: getMimeType(url), src: url });
     videoPlayer.load();
     videoPlayer.play();
 
-    // Atualizar o botão de play/pause
-    updatePlayButton();
+    // Forçar atualização inicial da barra de progresso
+    updateProgressBar();
 
-    // Atualizar a barra de progresso do vídeo
-    videoPlayer.on('timeupdate', updateProgressBar);
+    // Adicionar listener para 'timeupdate' se ainda não estiver registrado
+    if (!videoPlayer.hasStarted()) {
+        videoPlayer.on('timeupdate', updateProgressBar);
+    }
 
-    // Adiciona o scroll automático até o player de vídeo
+    // Definir o foco no player
+    videoPlayer.focus();
+
+    // Scroll automático até o player de vídeo
     videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-    // Se for dispositivo móvel, entra em tela cheia
+    // Entrar em tela cheia usando o método do Video.js
     if (window.innerWidth <= 768) {
-        const videoElement = document.getElementById('video-player');
-        if (videoElement.requestFullscreen) {
-            videoElement.requestFullscreen();
-        } else if (videoElement.webkitRequestFullscreen) { // Para navegadores que usam webkit
-            videoElement.webkitRequestFullscreen();
-        } else if (videoElement.msRequestFullscreen) { // Para IE/Edge
-            videoElement.msRequestFullscreen();
-        }
+        videoPlayer.requestFullscreen();
     }
 }
 
-// Adicionar evento 'timeupdate' após a inicialização do player
-videoPlayer.ready(function() {
-    videoPlayer.on('timeupdate', updateProgressBar);
-});
-
-// Função para atualizar o ícone do botão de play/pause
+// Atualizar o botão de play/pause
 function updatePlayButton() {
+    const playButton = document.querySelector('.vjs-play-control');
     videoPlayer.on('play', () => {
         playButton.innerHTML = '<i class="fas fa-pause"></i>';
     });
@@ -328,18 +309,29 @@ function updatePlayButton() {
 function updateProgressBar() {
     const currentTime = videoPlayer.currentTime();
     const duration = videoPlayer.duration();
-    if (duration > 0) {
-        const progress = (currentTime / duration) * 100;
+    const progress = (currentTime / duration) * 100;
+
+    // Atualizar a barra de progresso do Video.js
+    const progressBar = document.querySelector('.vjs-play-progress');
+    if (progressBar) {
         progressBar.style.width = `${progress}%`;
-        progressText.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
+
+    // Atualizar o texto de tempo decorrido
+    const timeDisplay = document.querySelector('.vjs-current-time-display');
+    const durationDisplay = document.querySelector('.vjs-duration-display');
+    if (timeDisplay && durationDisplay) {
+        timeDisplay.textContent = formatTime(currentTime);
+        durationDisplay.textContent = formatTime(duration);
     }
 }
 
 // Função para formatar o tempo em minutos e segundos
 function formatTime(time) {
+    if (isNaN(time) || time === Infinity) return '00:00';
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
 function getMimeType(url) {
@@ -351,6 +343,19 @@ function getMimeType(url) {
         default: return 'video/mp4';
     }
 }
+
+// Registrar o evento 'timeupdate' quando o player estiver pronto
+videoPlayer.ready(function() {
+    console.log('Video.js player está pronto');
+    videoPlayer.on('timeupdate', updateProgressBar);
+});
+
+// Forçar atualização da barra de progresso no evento 'play'
+videoPlayer.on('play', function() {
+    console.log('Vídeo iniciou a reprodução');
+    updateProgressBar();
+    videoPlayer.focus();
+});
 
 // Função para ordenar os arquivos
 sortSelect.addEventListener('change', () => {
