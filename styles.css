@@ -1121,3 +1121,29 @@ body {
 body {
     overflow-x: hidden; /* Impede que o conteúdo ultrapasse horizontalmente a tela */
 }
+/* Container do player de vídeo */
+#video-player-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Player de vídeo responsivo */
+#video-player {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 200px; /* Define uma altura mínima para o vídeo */
+    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+    object-fit: contain;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box; /* Garante que o padding e a largura sejam incluídos nas medidas do vídeo */
+}
+
+/* Ajuste específico para dispositivos móveis */
+@media (max-width: 768px) {
+    #video-player {
+        width: 100vw; /* O vídeo ocupará toda a largura da tela em dispositivos móveis */
+    }
+}
