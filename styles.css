@@ -1058,31 +1058,3 @@ body {
         aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
     }
 }
-/* Estilo responsivo para o player de vídeo e conteúdo da página */
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.container, header, footer {
-    width: 100%;
-    max-width: 800px; /* Define a largura máxima para o conteúdo da página */
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-
-#video-player {
-    width: 100%;
-    max-width: 800px; /* O player de vídeo terá a mesma largura máxima que o conteúdo */
-    height: auto;
-    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
-}
-
-@media (max-width: 768px) {
-    #video-player {
-        width: 100vw; /* Em dispositivos móveis, ocupa toda a largura da tela */
-        height: auto;
-        aspect-ratio: 16 / 9;
-    }
-}
