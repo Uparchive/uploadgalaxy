@@ -1042,3 +1042,42 @@ body {
     width: 100%;
     height: 100%;
 }
+/* Container do player de vídeo */
+#video-player-section {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centraliza o vídeo horizontalmente */
+    align-items: center; /* Centraliza o vídeo verticalmente */
+    overflow: hidden; /* Evita overflow horizontal */
+    padding: 0;
+    margin: 0 auto;
+    max-width: 100vw; /* Garante que o container não ultrapasse a largura da tela */
+}
+
+/* Player de vídeo responsivo */
+#video-player {
+    width: 100%;
+    max-width: 100%; /* Garante que o vídeo ocupe toda a largura do container pai */
+    height: auto;
+    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+    object-fit: contain; /* Ajusta o vídeo dentro do container, sem cortar */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ajuste específico para dispositivos móveis */
+@media (max-width: 768px) {
+    #video-player {
+        width: 100%;
+        max-width: 100vw; /* O vídeo ocupará toda a largura da viewport */
+        height: auto;
+    }
+}
+
+/* Ajuste específico para telas grandes */
+@media (min-width: 1024px) {
+    #video-player {
+        max-width: 1200px; /* Define um limite máximo para telas grandes */
+    }
+}
