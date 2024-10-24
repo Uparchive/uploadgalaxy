@@ -1206,7 +1206,11 @@ body {
         height: auto;
     }
 }
-/* Estilos para o botão de Play/Pause no player de vídeo */
+/* Estilo para o botão de Play/Pause no player de vídeo */
+#video-player-section {
+    position: relative;
+}
+
 #video-play-pause-button {
     position: absolute;
     bottom: 20px;
@@ -1217,15 +1221,9 @@ body {
     padding: 10px;
     border-radius: 50%;
     cursor: pointer;
+    z-index: 10;
 }
 
 #video-play-pause-button i {
     font-size: 20px;
-}
-#video-player-section {
-    position: relative;
-}
-
-#video-play-pause-button {
-    z-index: 10; /* Certifique-se de que o botão esteja acima do player */
 }
