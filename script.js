@@ -61,6 +61,18 @@ const backToTopButton = document.getElementById('back-to-top');
 // Inicializar o player de vídeo
 const videoPlayer = videojs('video-player');
 
+// Selecionar o botão de Play/Pause do player de vídeo
+const playPauseButton = document.getElementById('video-play-pause-button');
+
+// Adicionar evento de clique ao botão de Play/Pause
+playPauseButton.addEventListener('click', function() {
+    if (videoPlayer.paused()) {
+        videoPlayer.play();
+    } else {
+        videoPlayer.pause();
+    }
+});
+
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
 let allFiles = [];
@@ -288,17 +300,16 @@ function playVideo(url) {
     }
 }
 
-// Atualizar o estado do botão Play/Pause
+// Atualizar o ícone do botão com base no estado do vídeo
 function updatePlayPauseButton(isPlaying) {
-    const playPauseButton = document.querySelector('.play-button');
     if (isPlaying) {
-        playPauseButton.innerHTML = '<i class="fas fa-pause"></i> Pausar'; // Ícone de pausa
+        playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
     } else {
-        playPauseButton.innerHTML = '<i class="fas fa-play"></i> Reproduzir'; // Ícone de play
+        playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
     }
 }
 
-// Evento para o botão de play/pause
+// Eventos para atualizar o botão quando o vídeo é reproduzido ou pausado
 videoPlayer.on('play', function() {
     updatePlayPauseButton(true);
 });
