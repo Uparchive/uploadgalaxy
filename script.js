@@ -1,4 +1,3 @@
-// Parte 1 do código (97 linhas)
 // Importações do Firebase Modular SDK (Certifique-se de usar a versão mais recente disponível)
 import { initializeApp, setLogLevel } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import {
@@ -59,29 +58,25 @@ const videoPlayerSection = document.getElementById('video-player-section');
 const videoSource = document.getElementById('video-source');
 const backToTopButton = document.getElementById('back-to-top');
 
+// Inicializar o player de vídeo
+const videoPlayer = videojs('video-player');
+
+// Selecionar o botão de Play/Pause do player de vídeo
+const playPauseButton = document.getElementById('video-play-pause-button');
+
+// Adicionar evento de clique ao botão de Play/Pause
+playPauseButton.addEventListener('click', function() {
+    if (videoPlayer.paused()) {
+        videoPlayer.play();
+    } else {
+        videoPlayer.pause();
+    }
+});
+
 // Variáveis Globais
-let videoPlayer;
 const totalAvailableGB = 'Ilimitado';
 let allFiles = [];
 let isUploading = false;
-
-// Inicializar o player de vídeo após o carregamento do DOM
-document.addEventListener('DOMContentLoaded', () => {
-    videoPlayer = videojs('video-player');
-
-    // Registrar o evento 'timeupdate' quando o player estiver pronto
-    videoPlayer.ready(function() {
-        console.log('Video.js player está pronto');
-        videoPlayer.on('timeupdate', updateProgressBar);
-    });
-
-    // Forçar atualização da barra de progresso no evento 'play'
-    videoPlayer.on('play', function() {
-        console.log('Vídeo iniciou a reprodução');
-        updateProgressBar();
-        videoPlayer.focus();
-    });
-});
 
 // Monitorar o estado de autenticação do usuário
 onAuthStateChanged(auth, (user) => {
@@ -104,7 +99,7 @@ onAuthStateChanged(auth, (user) => {
         heroSection.style.display = 'block';
     }
 });
-// Parte 2 do código (97 linhas)
+
 // Função para login com Google
 googleLoginButton.addEventListener('click', () => {
     console.log('Botão de login clicado');
@@ -213,7 +208,7 @@ async function startUpload() {
         }
     );
 }
-// Parte 3 do código (97 linhas)
+
 // Função para buscar todos os arquivos do usuário
 async function fetchAllFiles() {
     const user = auth.currentUser;
@@ -285,16 +280,16 @@ function displayFiles(files) {
 
 // Função para reproduzir vídeo
 function playVideo(url) {
-    if (!videoPlayer) {
-        console.error('Player de vídeo não está inicializado');
-        return;
-    }
     videoPlayerSection.style.display = 'block';
     videoPlayer.src({ type: getMimeType(url), src: url });
-    videoPlayer.ready(() => {
-        videoPlayer.load();
-        videoPlayer.play();
-    });
+    videoPlayer.load();
+    videoPlayer.play();
+
+    // Forçar atualização inicial da barra de progresso
+    updateProgressBar();
+
+    // Definir o foco no player
+    videoPlayer.focus();
 
     // Scroll automático até o player de vídeo
     videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -305,12 +300,26 @@ function playVideo(url) {
     }
 }
 
+// Atualizar o ícone do botão com base no estado do vídeo
+function updatePlayPauseButton(isPlaying) {
+    if (isPlaying) {
+        playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+        playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+    }
+}
+
+// Eventos para atualizar o botão quando o vídeo é reproduzido ou pausado
+videoPlayer.on('play', function() {
+    updatePlayPauseButton(true);
+});
+
+videoPlayer.on('pause', function() {
+    updatePlayPauseButton(false);
+});
+
 // Função para atualizar a barra de progresso do vídeo
 function updateProgressBar() {
-    if (!videoPlayer) {
-        console.error('Player de vídeo não está inicializado');
-        return;
-    }
     const currentTime = videoPlayer.currentTime();
     const duration = videoPlayer.duration();
     const progress = (currentTime / duration) * 100;
@@ -329,7 +338,7 @@ function updateProgressBar() {
         durationDisplay.textContent = formatTime(duration);
     }
 }
-// Parte 4 do código (97 linhas)
+
 // Função para formatar o tempo em minutos e segundos
 function formatTime(time) {
     if (isNaN(time) || time === Infinity) return '00:00';
@@ -347,6 +356,21 @@ function getMimeType(url) {
         default: return 'video/mp4';
     }
 }
+
+// Registrar o evento 'timeupdate' quando o player estiver pronto
+videoPlayer.ready(function() {
+    console.log('Video.js player está pronto');
+    videoPlayer.on('timeupdate', updateProgressBar);
+});
+
+// Forçar atualização da barra de progresso no evento 'play'
+videoPlayer.on('play', function() {
+    console.log('Vídeo iniciou a reprodução');
+    updateProgressBar();
+    videoPlayer.focus();
+});
+
+// Removemos a função updatePlayButton() para evitar manipulação direta do botão de play/pause
 
 // Função para ordenar os arquivos
 sortSelect.addEventListener('change', () => {
@@ -392,7 +416,7 @@ async function deleteFile(fileName) {
             return;
         }
 
-        const confirmDelete = confirm(`Tem certeza de que deseja excluir o arquivo \"${fileName}\"?`);
+        const confirmDelete = confirm(`Tem certeza de que deseja excluir o arquivo "${fileName}"?`);
         if (!confirmDelete) {
             console.log('Exclusão cancelada pelo usuário.');
             return;
@@ -400,7 +424,7 @@ async function deleteFile(fileName) {
 
         const fileRef = ref(storage, `uploads/${user.uid}/${fileName}`);
         await deleteObject(fileRef);
-        console.log(`Arquivo \"${fileName}\" excluído com sucesso.`);
+        console.log(`Arquivo "${fileName}" excluído com sucesso.`);
         alert('Arquivo excluído com sucesso!');
         fetchAllFiles();
     } catch (error) {
@@ -429,7 +453,7 @@ function formatBytes(bytes, decimals = 2) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-// Função para buscar e exibir arquivos
+// Função para buscar e exibir arquivos com base na busca
 searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase();
     const filteredFiles = allFiles.filter(file => file.name.toLowerCase().includes(query));
@@ -445,7 +469,7 @@ function copyToClipboard(url) {
         alert('Erro ao copiar link. Tente novamente.');
     });
 }
-// Parte 5 do código (97 linhas)
+
 // Função para logout (Desconectar o usuário)
 async function logout() {
     try {
@@ -480,41 +504,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Função para voltar ao topo da página
-backToTopButton.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
 // Anexar funções ao objeto window para torná-las acessíveis globalmente
 window.copyToClipboard = copyToClipboard;
 window.deleteFile = deleteFile;
 window.playVideo = playVideo;
-
-// Função para obter a extensão MIME do vídeo
-function getMimeType(url) {
-    const extension = url.split('.').pop().toLowerCase();
-    switch (extension) {
-        case 'mkv': return 'video/x-matroska';
-        case 'mp4': return 'video/mp4';
-        case 'webm': return 'video/webm';
-        default: return 'video/mp4';
-    }
-}
-
-// Inicializar a barra de progresso do vídeo
-document.addEventListener('DOMContentLoaded', () => {
-    videoPlayer = videojs('video-player');
-
-    // Registrar o evento 'timeupdate' quando o player estiver pronto
-    videoPlayer.ready(function () {
-        console.log('Video.js player está pronto');
-        videoPlayer.on('timeupdate', updateProgressBar);
-    });
-
-    // Forçar atualização da barra de progresso no evento 'play'
-    videoPlayer.on('play', function () {
-        console.log('Vídeo iniciou a reprodução');
-        updateProgressBar();
-        videoPlayer.focus();
-    });
-});
