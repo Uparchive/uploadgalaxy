@@ -278,53 +278,24 @@ function displayFiles(files) {
 
 // Função para reproduzir vídeo
 function playVideo(url) {
-    const videoPlayer = document.getElementById('video-player');
-    const videoSource = document.getElementById('video-source');
-    const videoPlayerSection = document.getElementById('video-player-section');
-
-    if (!url) {
-        console.error('URL inválida para o vídeo');
-        alert('O vídeo não pode ser reproduzido porque a URL é inválida.');
-        return;
-    }
-
-    // Verificar se o tipo de vídeo é suportado
-    const mimeType = getMimeType(url);
-    if (!mimeType) {
-        console.error('Tipo de mídia não suportado para a URL fornecida:', url);
-        alert('O formato deste vídeo não é suportado pelo navegador.');
-        return;
-    }
-
-    // Atualiza a fonte do vídeo
     videoSource.src = url;
-    videoSource.type = mimeType;
-
-    // Torna o player de vídeo visível
+    videoSource.type = getMimeType(url);
     videoPlayerSection.style.display = 'block';
-
-    // Recarrega o vídeo e tenta reproduzir
-    videoPlayer.load(); // Garante que o vídeo seja recarregado com a nova fonte
-    videoPlayer.play().catch(error => {
-        console.error('Erro ao tentar reproduzir o vídeo:', error);
-        alert('Houve um problema ao reproduzir o vídeo.');
-    });
+    videoPlayer.src({ type: getMimeType(url), src: url });
+    videoPlayer.play();
 
     // Adiciona o scroll automático até o player de vídeo
-    videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    // Configura a proporção e as dimensões corretas do vídeo
-    videoPlayer.style.width = "100%";
-    videoPlayer.style.height = "auto";
+    videoPlayerSection.scrollIntoView({ behavior: 'auto', block: 'center' });
 
     // Se for dispositivo móvel, entra em tela cheia
     if (window.innerWidth <= 768) {
-        if (videoPlayer.requestFullscreen) {
-            videoPlayer.requestFullscreen();
-        } else if (videoPlayer.webkitRequestFullscreen) {
-            videoPlayer.webkitRequestFullscreen();
-        } else if (videoPlayer.msRequestFullscreen) {
-            videoPlayer.msRequestFullscreen();
+        const videoElement = document.getElementById('video-player');
+        if (videoElement.requestFullscreen) {
+            videoElement.requestFullscreen();
+        } else if (videoElement.webkitRequestFullscreen) { // Para navegadores que usam webkit
+            videoElement.webkitRequestFullscreen();
+        } else if (videoElement.msRequestFullscreen) { // Para IE/Edge
+            videoElement.msRequestFullscreen();
         }
     }
 }
