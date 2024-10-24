@@ -279,6 +279,9 @@ function displayFiles(files) {
 
 // Função para reproduzir vídeo
 function playVideo(url) {
+    // Resetar a barra de progresso antes de carregar o novo vídeo
+    resetProgressBar();
+
     videoSource.src = url;
     videoSource.type = getMimeType(url);
     videoPlayerSection.style.display = 'block';
@@ -494,3 +497,4 @@ window.addEventListener('scroll', () => {
 window.copyToClipboard = copyToClipboard;
 window.deleteFile = deleteFile;
 window.playVideo = playVideo;
+
