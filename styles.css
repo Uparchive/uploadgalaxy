@@ -1081,3 +1081,41 @@ body {
         max-width: 1200px; /* Define um limite máximo para telas grandes */
     }
 }
+/* Container do player de vídeo */
+#video-player-section {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centraliza o vídeo horizontalmente */
+    align-items: center; /* Centraliza o vídeo verticalmente */
+    overflow: hidden; /* Evita qualquer overflow do vídeo */
+    padding: 0;
+    margin: 0 auto;
+}
+
+/* Player de vídeo responsivo */
+#video-player {
+    width: 100%;
+    height: auto;
+    max-width: 100%; /* Garante que o vídeo ocupe toda a largura do container */
+    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+    object-fit: cover; /* Garante que o vídeo cubra todo o container sem cortes */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ajuste específico para dispositivos móveis */
+@media (max-width: 768px) {
+    #video-player {
+        width: 100vw; /* Garante que o vídeo ocupe toda a largura do viewport em dispositivos móveis */
+        height: auto;
+        aspect-ratio: 16 / 9; /* Mantém a proporção */
+    }
+}
+
+/* Ajuste específico para telas grandes */
+@media (min-width: 1024px) {
+    #video-player {
+        max-width: 1200px; /* Define um limite máximo para telas grandes */
+    }
+}
