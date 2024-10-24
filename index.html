@@ -116,12 +116,15 @@
         </section>
 
        <!-- Seção de Player de Vídeo -->
-<section id="video-player-section" class="container" style="display: none;">
+<!-- Seção de Player de Vídeo -->
+<section id="video-player-section" class="container" style="display: none; position: relative;">
     <video id="video-player" class="video-js vjs-default-skin" controls preload="auto">
         <source id="video-source" src="" type="video/mp4">
         <p class="vjs-no-js">Para assistir a este vídeo, ative o JavaScript.</p>
     </video>
-    <button id="video-play-pause-button"><i class="fas fa-play"></i></button>
+    <button id="video-play-pause-button" style="position: absolute; bottom: 20px; left: 20px;">
+        <i class="fas fa-play"></i>
+    </button>
 </section>
     </main>
 
