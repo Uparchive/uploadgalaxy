@@ -282,13 +282,20 @@ function playVideo(url) {
     // Resetar a barra de progresso antes de carregar o novo vídeo
     resetProgressBar();
 
-    // Atualizar a fonte do vídeo
+    // Remover a fonte de vídeo existente para reiniciar completamente o player
+    videoSource.removeAttribute('src');
+    videoPlayer.load();
+
+    // Adicionar a nova fonte e carregar o vídeo
     videoSource.src = url;
     videoSource.type = getMimeType(url);
+    videoPlayer.load();  // Garante que o player seja reiniciado
+
+    // Mostrar a seção do player
     videoPlayerSection.style.display = 'block';
-    videoPlayer.src({ type: getMimeType(url), src: url });
-    videoPlayer.load();  // Reinicia o vídeo para garantir o reset
-    videoPlayer.play();  // Inicia o vídeo
+
+    // Iniciar a reprodução do vídeo
+    videoPlayer.play();
 
     // Atualizar o botão de play/pause
     updatePlayButton();
@@ -301,17 +308,17 @@ function playVideo(url) {
     videoPlayer.on('timeupdate', updateProgressBar);
     videoPlayer.on('loadstart', resetProgressBar);
 
-    // Adiciona o scroll automático até o player de vídeo
+    // Scroll até o player de vídeo
     videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-    // Se for dispositivo móvel, entra em tela cheia
+    // Entrar em tela cheia em dispositivos móveis
     if (window.innerWidth <= 768) {
         const videoElement = document.getElementById('video-player');
         if (videoElement.requestFullscreen) {
             videoElement.requestFullscreen();
-        } else if (videoElement.webkitRequestFullscreen) { // Para navegadores que usam webkit
+        } else if (videoElement.webkitRequestFullscreen) {
             videoElement.webkitRequestFullscreen();
-        } else if (videoElement.msRequestFullscreen) { // Para IE/Edge
+        } else if (videoElement.msRequestFullscreen) {
             videoElement.msRequestFullscreen();
         }
     }
