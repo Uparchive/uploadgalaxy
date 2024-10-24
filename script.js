@@ -23,14 +23,14 @@ setLogLevel('debug');
 
 // Configuração do Firebase (Substitua pelas suas próprias credenciais)
 const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "SEU_AUTH_DOMAIN",
-    databaseURL: "SUA_DATABASE_URL",
-    projectId: "SEU_PROJECT_ID",
-    storageBucket: "SEU_STORAGE_BUCKET",
-    messagingSenderId: "SEU_MESSAGING_SENDER_ID",
-    appId: "SEU_APP_ID",
-    measurementId: "SEU_MEASUREMENT_ID"
+    apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
+    authDomain: "armazene-acd30.firebaseapp.com",
+    databaseURL: "https://armazene-acd30-default-rtdb.firebaseio.com",
+    projectId: "armazene-acd30",
+    storageBucket: "armazene-acd30.appspot.com",
+    messagingSenderId: "853849509051",
+    appId: "1:853849509051:web:ea6f96915c4d5c895b2d9e",
+    measurementId: "G-79TBH73QPT"
 };
 
 // Inicializar o Firebase
