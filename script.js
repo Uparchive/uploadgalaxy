@@ -283,8 +283,11 @@ function playVideo(url) {
     videoSource.type = mimeType;
     videoPlayerSection.style.display = 'block';
     videoPlayer.src({ type: mimeType, src: url });
-    videoPlayer.load(); // Certifique-se de carregar o novo vídeo
-    videoPlayer.play();
+    videoPlayer.load(); // Recarrega o vídeo
+    videoPlayer.play(); // Reproduz o vídeo
+
+    // Adiciona o scroll automático até o player de vídeo
+    videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function getMimeType(url) {
