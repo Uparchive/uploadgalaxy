@@ -1073,3 +1073,19 @@ body {
         max-width: 1200px; /* Limita o tamanho em telas grandes */
     }
 }
+/* Player de vídeo responsivo */
+#video-player {
+    width: 100%;
+    height: auto;
+    max-width: 100vw; /* Garante que o vídeo preencha a largura da tela */
+    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+    object-fit: cover; /* Ajusta o conteúdo do vídeo para cobrir todo o espaço do container */
+    margin: 0 auto; /* Centraliza o vídeo */
+}
+
+/* Ajuste adicional para dispositivos maiores */
+@media (min-width: 1024px) {
+    #video-player {
+        max-width: 1200px; /* Define um limite máximo para telas grandes */
+    }
+}
