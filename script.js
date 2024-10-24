@@ -288,6 +288,24 @@ function playVideo(url) {
 
     // Atualizar o botão de play/pause
     updatePlayButton();
+
+    // Atualizar a barra de progresso do vídeo
+    videoPlayer.on('timeupdate', updateProgressBar);
+
+    // Adiciona o scroll automático até o player de vídeo
+    videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Se for dispositivo móvel, entra em tela cheia
+    if (window.innerWidth <= 768) {
+        const videoElement = document.getElementById('video-player');
+        if (videoElement.requestFullscreen) {
+            videoElement.requestFullscreen();
+        } else if (videoElement.webkitRequestFullscreen) { // Para navegadores que usam webkit
+            videoElement.webkitRequestFullscreen();
+        } else if (videoElement.msRequestFullscreen) { // Para IE/Edge
+            videoElement.msRequestFullscreen();
+        }
+    }
 }
 
 // Adicionar evento 'timeupdate' após a inicialização do player
