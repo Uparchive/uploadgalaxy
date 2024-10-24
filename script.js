@@ -278,24 +278,53 @@ function displayFiles(files) {
 
 // Função para reproduzir vídeo
 function playVideo(url) {
-    videoSource.src = url;
-    videoSource.type = getMimeType(url);
-    videoPlayerSection.style.display = 'block';
-    videoPlayer.src({ type: getMimeType(url), src: url });
-    videoPlayer.play();
+    const videoPlayer = document.getElementById('video-player');
+    const videoSource = document.getElementById('video-source');
+    const videoPlayerSection = document.getElementById('video-player-section');
 
-    // Rolar até o player de vídeo
+    if (!url) {
+        console.error('URL inválida para o vídeo');
+        alert('O vídeo não pode ser reproduzido porque a URL é inválida.');
+        return;
+    }
+
+    // Verificar se o tipo de vídeo é suportado
+    const mimeType = getMimeType(url);
+    if (!mimeType) {
+        console.error('Tipo de mídia não suportado para a URL fornecida:', url);
+        alert('O formato deste vídeo não é suportado pelo navegador.');
+        return;
+    }
+
+    // Atualiza a fonte do vídeo
+    videoSource.src = url;
+    videoSource.type = mimeType;
+
+    // Torna o player de vídeo visível
+    videoPlayerSection.style.display = 'block';
+
+    // Recarrega o vídeo e tenta reproduzir
+    videoPlayer.load(); // Garante que o vídeo seja recarregado com a nova fonte
+    videoPlayer.play().catch(error => {
+        console.error('Erro ao tentar reproduzir o vídeo:', error);
+        alert('Houve um problema ao reproduzir o vídeo.');
+    });
+
+    // Adiciona o scroll automático até o player de vídeo
     videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-    // Entra em tela cheia em dispositivos móveis
+    // Configura a proporção e as dimensões corretas do vídeo
+    videoPlayer.style.width = "100%";
+    videoPlayer.style.height = "auto";
+
+    // Se for dispositivo móvel, entra em tela cheia
     if (window.innerWidth <= 768) {
-        const videoElement = document.getElementById('video-player');
-        if (videoElement.requestFullscreen) {
-            videoElement.requestFullscreen();
-        } else if (videoElement.webkitRequestFullscreen) {
-            videoElement.webkitRequestFullscreen();
-        } else if (videoElement.msRequestFullscreen) {
-            videoElement.msRequestFullscreen();
+        if (videoPlayer.requestFullscreen) {
+            videoPlayer.requestFullscreen();
+        } else if (videoPlayer.webkitRequestFullscreen) {
+            videoPlayer.webkitRequestFullscreen();
+        } else if (videoPlayer.msRequestFullscreen) {
+            videoPlayer.msRequestFullscreen();
         }
     }
 }
@@ -303,10 +332,14 @@ function playVideo(url) {
 function getMimeType(url) {
     const extension = url.split('.').pop().toLowerCase();
     switch (extension) {
-        case 'mkv': return 'video/x-matroska';
-        case 'mp4': return 'video/mp4';
-        case 'webm': return 'video/webm';
-        default: return 'video/mp4';
+        case 'mp4':
+            return 'video/mp4';
+        case 'webm':
+            return 'video/webm';
+        case 'mkv':
+            return 'video/x-matroska';
+        default:
+            return null; // Retorna null se não for um tipo suportado
     }
 }
 
