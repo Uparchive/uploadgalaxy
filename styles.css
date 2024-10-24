@@ -1107,3 +1107,17 @@ body {
     object-fit: contain;
     margin: 0;
 }
+/* Player de vídeo responsivo para ocupar a tela inteira */
+#video-player {
+    width: 100vw; /* Ocupa toda a largura da tela */
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+    object-fit: cover; /* Cobre todo o espaço disponível sem distorcer */
+    margin: 0;
+}
+
+/* Ajuste para garantir que não haja overflow em dispositivos móveis */
+body {
+    overflow-x: hidden; /* Impede que o conteúdo ultrapasse horizontalmente a tela */
+}
