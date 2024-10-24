@@ -278,35 +278,22 @@ function displayFiles(files) {
 
 // Função para reproduzir vídeo
 function playVideo(url) {
+    const mimeType = getMimeType(url);
     videoSource.src = url;
-    videoSource.type = getMimeType(url);
+    videoSource.type = mimeType;
     videoPlayerSection.style.display = 'block';
-    videoPlayer.src({ type: getMimeType(url), src: url });
+    videoPlayer.src({ type: mimeType, src: url });
+    videoPlayer.load(); // Certifique-se de carregar o novo vídeo
     videoPlayer.play();
-
-    // Adiciona o scroll automático até o player de vídeo
-    videoPlayerSection.scrollIntoView({ behavior: 'auto', block: 'center' });
-
-    // Se for dispositivo móvel, entra em tela cheia
-    if (window.innerWidth <= 768) {
-        const videoElement = document.getElementById('video-player');
-        if (videoElement.requestFullscreen) {
-            videoElement.requestFullscreen();
-        } else if (videoElement.webkitRequestFullscreen) { // Para navegadores que usam webkit
-            videoElement.webkitRequestFullscreen();
-        } else if (videoElement.msRequestFullscreen) { // Para IE/Edge
-            videoElement.msRequestFullscreen();
-        }
-    }
 }
 
 function getMimeType(url) {
     const extension = url.split('.').pop().toLowerCase();
     switch (extension) {
-        case 'mkv': return 'video/x-matroska';
         case 'mp4': return 'video/mp4';
         case 'webm': return 'video/webm';
-        default: return 'video/mp4';
+        case 'mkv': return 'video/x-matroska';
+        default: return 'video/mp4'; // Definição padrão
     }
 }
 
