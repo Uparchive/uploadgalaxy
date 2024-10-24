@@ -1027,3 +1027,25 @@ body {
         padding: 0.5rem; /* Ajusta o padding para caber em telas pequenas */
     }
 }
+/* Estilo para o vídeo em dispositivos móveis */
+@media (max-width: 768px) {
+    #video-player-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+
+    .video-js {
+        width: 100vw !important; /* Ocupa toda a largura da viewport */
+        height: auto !important;
+        aspect-ratio: 9 / 16; /* Mantém a proporção vertical */
+    }
+
+    video {
+        object-fit: cover; /* Garante que o vídeo toque as extremidades */
+    }
+}
