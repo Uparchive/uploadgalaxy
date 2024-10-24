@@ -1149,3 +1149,30 @@ body {
         height: auto;
     }
 }
+/* Player de vídeo responsivo para se ajustar em todos os dispositivos */
+#video-player-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Evita qualquer vazamento horizontal */
+}
+
+/* Player de vídeo */
+#video-player {
+    width: 100%;
+    height: auto;
+    max-width: 100vw; /* Garante que não ultrapasse a largura da tela */
+    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+    object-fit: contain; /* Mantém todo o conteúdo visível sem cortes */
+    padding: 0;
+    margin: 0 auto;
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 768px) {
+    #video-player {
+        width: 100%;
+        height: auto;
+    }
+}
