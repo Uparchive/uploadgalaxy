@@ -279,38 +279,33 @@ function displayFiles(files) {
 
 // Função para reproduzir vídeo
 function playVideo(url) {
-    // Resetar a barra de progresso antes de carregar o novo vídeo
-    resetProgressBar();
-
-    // Se o player já existe, destruí-lo antes de prosseguir
-    if (videoPlayer) {
-        videoPlayer.dispose();
-    }
-
-    // Recriar o player
-    videoPlayer = videojs('video-player', {
-        controls: true,
-        preload: 'auto',
-        aspectRatio: '16:9'
-    });
-
-    // Definir a nova fonte do vídeo
+    videoSource.src = url;
+    videoSource.type = getMimeType(url);
+    videoPlayerSection.style.display = 'block';
     videoPlayer.src({ type: getMimeType(url), src: url });
-    videoPlayer.load();  // Reiniciar o player
-    videoPlayer.play();  // Iniciar a reprodução
+    videoPlayer.load();
+    videoPlayer.play();
 
-    // Adicionar eventos ao player
+    // Atualizar o botão de play/pause
+    updatePlayButton();
+
+    // Atualizar a barra de progresso do vídeo
     videoPlayer.on('timeupdate', updateProgressBar);
-    videoPlayer.on('loadstart', resetProgressBar);
 
-    // Scroll até o player de vídeo
+    // Adiciona o scroll automático até o player de vídeo
     videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
 
-// Função para resetar a barra de progresso do vídeo
-function resetProgressBar() {
-    progressBar.style.width = '0%';
-    progressText.textContent = '0:00 / 0:00';
+    // Se for dispositivo móvel, entra em tela cheia
+    if (window.innerWidth <= 768) {
+        const videoElement = document.getElementById('video-player');
+        if (videoElement.requestFullscreen) {
+            videoElement.requestFullscreen();
+        } else if (videoElement.webkitRequestFullscreen) { // Para navegadores que usam webkit
+            videoElement.webkitRequestFullscreen();
+        } else if (videoElement.msRequestFullscreen) { // Para IE/Edge
+            videoElement.msRequestFullscreen();
+        }
+    }
 }
 
 // Função para atualizar o ícone do botão de play/pause
@@ -328,11 +323,9 @@ function updatePlayButton() {
 function updateProgressBar() {
     const currentTime = videoPlayer.currentTime();
     const duration = videoPlayer.duration();
-    if (duration > 0) {
-        const progress = (currentTime / duration) * 100;
-        progressBar.style.width = `${progress}%`;
-        progressText.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
-    }
+    const progress = (currentTime / duration) * 100;
+    progressBar.style.width = `${progress}%`;
+    progressText.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
 }
 
 // Função para formatar o tempo em minutos e segundos
@@ -488,4 +481,3 @@ window.addEventListener('scroll', () => {
 window.copyToClipboard = copyToClipboard;
 window.deleteFile = deleteFile;
 window.playVideo = playVideo;
-
