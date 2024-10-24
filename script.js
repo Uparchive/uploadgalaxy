@@ -284,17 +284,17 @@ function playVideo(url) {
     videoPlayer.src({ type: getMimeType(url), src: url });
     videoPlayer.play();
 
-    // Adiciona o scroll automático até o player de vídeo
-    videoPlayerSection.scrollIntoView({ behavior: 'auto', block: 'center' });
+    // Rolar até o player de vídeo
+    videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-    // Se for dispositivo móvel, entra em tela cheia
+    // Entra em tela cheia em dispositivos móveis
     if (window.innerWidth <= 768) {
         const videoElement = document.getElementById('video-player');
         if (videoElement.requestFullscreen) {
             videoElement.requestFullscreen();
-        } else if (videoElement.webkitRequestFullscreen) { // Para navegadores que usam webkit
+        } else if (videoElement.webkitRequestFullscreen) {
             videoElement.webkitRequestFullscreen();
-        } else if (videoElement.msRequestFullscreen) { // Para IE/Edge
+        } else if (videoElement.msRequestFullscreen) {
             videoElement.msRequestFullscreen();
         }
     }
