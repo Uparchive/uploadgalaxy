@@ -73,26 +73,6 @@ playPauseButton.addEventListener('click', function() {
     }
 });
 
-// Atualizar o ícone do botão baseado no estado do vídeo
-function updatePlayPauseButton(isPlaying) {
-    if (isPlaying) {
-        playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
-        playPauseButton.style.display = 'none'; // Esconde o botão durante a reprodução
-    } else {
-        playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
-        playPauseButton.style.display = 'block'; // Exibe o botão quando o vídeo está pausado
-    }
-}
-
-// Eventos para atualizar o botão quando o vídeo é reproduzido ou pausado
-videoPlayer.on('play', function() {
-    updatePlayPauseButton(true);
-});
-
-videoPlayer.on('pause', function() {
-    updatePlayPauseButton(false);
-});
-
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
 let allFiles = [];
@@ -119,6 +99,7 @@ onAuthStateChanged(auth, (user) => {
         heroSection.style.display = 'block';
     }
 });
+
 // Função para login com Google
 googleLoginButton.addEventListener('click', () => {
     console.log('Botão de login clicado');
@@ -227,6 +208,7 @@ async function startUpload() {
         }
     );
 }
+
 // Função para buscar todos os arquivos do usuário
 async function fetchAllFiles() {
     const user = auth.currentUser;
@@ -317,14 +299,13 @@ function playVideo(url) {
         videoPlayer.requestFullscreen();
     }
 }
+
 // Atualizar o ícone do botão com base no estado do vídeo
 function updatePlayPauseButton(isPlaying) {
     if (isPlaying) {
         playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
-        playPauseButton.style.display = 'none'; // Esconde o botão durante a reprodução
     } else {
         playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
-        playPauseButton.style.display = 'block'; // Exibe o botão quando o vídeo está pausado
     }
 }
 
@@ -388,6 +369,9 @@ videoPlayer.on('play', function() {
     updateProgressBar();
     videoPlayer.focus();
 });
+
+// Removemos a função updatePlayButton() para evitar manipulação direta do botão de play/pause
+
 // Função para ordenar os arquivos
 sortSelect.addEventListener('change', () => {
     sortFiles(sortSelect.value);
@@ -485,6 +469,7 @@ function copyToClipboard(url) {
         alert('Erro ao copiar link. Tente novamente.');
     });
 }
+
 // Função para logout (Desconectar o usuário)
 async function logout() {
     try {
