@@ -1073,3 +1073,35 @@ body {
         max-width: 1200px; /* Limita o tamanho em telas grandes */
     }
 }
+/* Container principal da página para centralizar tudo */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container para o player de vídeo */
+#video-player-section {
+    width: 100%;
+    max-width: 1200px; /* Limita o tamanho máximo em telas grandes */
+    margin: 0 auto; /* Centraliza o container horizontalmente */
+    padding: 0 15px; /* Adiciona um espaço nas laterais para evitar que o vídeo encoste nas bordas */
+}
+
+/* Player de vídeo responsivo */
+#video-player {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+    object-fit: contain;
+}
+
+/* Estilo específico para telas maiores (PC) */
+@media (min-width: 1024px) {
+    #video-player-section {
+        padding: 0 30px; /* Mais espaçamento em telas grandes */
+    }
+}
