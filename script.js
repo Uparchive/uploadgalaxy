@@ -288,6 +288,25 @@ function playVideo(url) {
     }
 }
 
+// Atualizar o estado do botão Play/Pause
+function updatePlayPauseButton(isPlaying) {
+    const playPauseButton = document.querySelector('.play-button');
+    if (isPlaying) {
+        playPauseButton.innerHTML = '<i class="fas fa-pause"></i> Pausar'; // Ícone de pausa
+    } else {
+        playPauseButton.innerHTML = '<i class="fas fa-play"></i> Reproduzir'; // Ícone de play
+    }
+}
+
+// Evento para o botão de play/pause
+videoPlayer.on('play', function() {
+    updatePlayPauseButton(true);
+});
+
+videoPlayer.on('pause', function() {
+    updatePlayPauseButton(false);
+});
+
 // Função para atualizar a barra de progresso do vídeo
 function updateProgressBar() {
     const currentTime = videoPlayer.currentTime();
