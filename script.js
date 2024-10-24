@@ -282,12 +282,13 @@ function playVideo(url) {
     // Resetar a barra de progresso antes de carregar o novo vídeo
     resetProgressBar();
 
+    // Atualizar a fonte do vídeo
     videoSource.src = url;
     videoSource.type = getMimeType(url);
     videoPlayerSection.style.display = 'block';
     videoPlayer.src({ type: getMimeType(url), src: url });
-    videoPlayer.load();
-    videoPlayer.play();
+    videoPlayer.load();  // Reinicia o vídeo para garantir o reset
+    videoPlayer.play();  // Inicia o vídeo
 
     // Atualizar o botão de play/pause
     updatePlayButton();
