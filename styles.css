@@ -1119,3 +1119,21 @@ body {
         max-width: 1200px; /* Define um limite máximo para telas grandes */
     }
 }
+/* Container do player de vídeo */
+#video-player-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-top: 56.25%; /* Mantém a proporção 16:9 */
+}
+
+/* Player de vídeo responsivo */
+#video-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz o vídeo ocupar o espaço inteiro sem distorção */
+    max-width: 100%;
+}
