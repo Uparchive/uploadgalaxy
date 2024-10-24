@@ -1131,19 +1131,15 @@ body {
 /* Player de vídeo responsivo */
 #video-player {
     width: 100%;
-    max-width: 100%;
     height: auto;
-    min-height: 200px; /* Define uma altura mínima para o vídeo */
-    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
-    object-fit: contain;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box; /* Garante que o padding e a largura sejam incluídos nas medidas do vídeo */
+    max-width: 100vw; /* Impede que ultrapasse a largura da viewport */
+    margin: 0 auto; /* Centraliza o vídeo horizontalmente */
+    display: block; /* Garante que o elemento seja tratado como bloco */
 }
 
-/* Ajuste específico para dispositivos móveis */
 @media (max-width: 768px) {
     #video-player {
-        width: 100vw; /* O vídeo ocupará toda a largura da tela em dispositivos móveis */
+        width: 100%;
+        height: auto;
     }
 }
