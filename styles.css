@@ -1206,8 +1206,3 @@ body {
         height: auto;
     }
 }
-/* Supondo que o texto "Reproduzir Vídeo" tenha uma classe ou ID identificável */
-.reproduzir-video {
-    display: none; /* Oculta o elemento */
-}
-
