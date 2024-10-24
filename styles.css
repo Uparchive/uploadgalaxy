@@ -1141,11 +1141,10 @@ body {
 #video-player-section {
     width: 100%;
     max-width: 800px; /* Limita a largura máxima do vídeo em telas maiores */
-    margin: 2rem auto; /* Centraliza o vídeo horizontalmente e adiciona espaçamento superior e inferior */
-    padding: 1rem; /* Espaço interno para evitar que o vídeo encoste nas bordas */
+    margin: 2rem auto; /* Centraliza horizontalmente e adiciona espaçamento superior e inferior */
+    padding: 0; /* Remove o padding para evitar cortes */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma leve sombra para destaque */
     border-radius: 8px; /* Bordas arredondadas para suavizar o design */
-    background-color: #fff; /* Fundo branco para destacar o vídeo */
     overflow: hidden; /* Evita qualquer transbordamento */
 }
 
@@ -1153,15 +1152,14 @@ body {
 #video-player {
     width: 100%;
     height: auto;
-    object-fit: contain; /* Ajusta o vídeo dentro do container sem distorção */
-    max-height: 450px; /* Define uma altura máxima para evitar vídeos muito grandes */
+    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+    max-height: 450px; /* Limite máximo de altura */
 }
 
 /* Ajuste específico para dispositivos móveis */
 @media (max-width: 768px) {
     #video-player-section {
         margin: 1rem auto; /* Reduz o espaçamento em dispositivos móveis */
-        padding: 0.5rem; /* Espaço interno menor em dispositivos móveis */
     }
 
     #video-player {
