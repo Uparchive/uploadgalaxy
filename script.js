@@ -292,6 +292,9 @@ function playVideo(url) {
     // Atualizar a barra de progresso do vídeo
     videoPlayer.on('timeupdate', updateProgressBar);
 
+    // Resetar a barra de progresso quando um novo vídeo for carregado
+    videoPlayer.on('loadstart', resetProgressBar);
+
     // Adiciona o scroll automático até o player de vídeo
     videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
@@ -306,6 +309,12 @@ function playVideo(url) {
             videoElement.msRequestFullscreen();
         }
     }
+}
+
+// Função para resetar a barra de progresso do vídeo
+function resetProgressBar() {
+    progressBar.style.width = '0%';
+    progressText.textContent = '0:00 / 0:00';
 }
 
 // Função para atualizar o ícone do botão de play/pause
