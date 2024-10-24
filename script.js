@@ -323,9 +323,11 @@ function updatePlayButton() {
 function updateProgressBar() {
     const currentTime = videoPlayer.currentTime();
     const duration = videoPlayer.duration();
-    const progress = (currentTime / duration) * 100;
-    progressBar.style.width = `${progress}%`;
-    progressText.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    if (duration > 0) {
+        const progress = (currentTime / duration) * 100;
+        progressBar.style.width = `${progress}%`;
+        progressText.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
 }
 
 // Função para formatar o tempo em minutos e segundos
