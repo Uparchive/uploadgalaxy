@@ -1041,3 +1041,20 @@ body {
         aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
     }
 }
+/* Player de vídeo para telas maiores (desktop) */
+#video-player {
+    width: 100%;
+    max-width: 800px; /* Aumentar o limite máximo do player em telas maiores */
+    min-width: 640px; /* Define um tamanho mínimo para evitar o player muito pequeno */
+    height: auto;
+    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+}
+
+/* Player de vídeo para dispositivos móveis */
+@media (max-width: 768px) {
+    #video-player {
+        width: 100vw; /* Em dispositivos móveis, ocupa toda a largura da tela */
+        height: auto;
+        aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+    }
+}
