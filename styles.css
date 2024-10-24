@@ -1174,28 +1174,30 @@ body {
     #video-player-section {
         margin-top: 2rem; /* Espaçamento superior */
         margin-bottom: 2rem; /* Espaçamento inferior */
-        max-width: 800px; /* Largura máxima do player no desktop */
+        max-width: 90%; /* Define um tamanho semelhante ao da lista de arquivos */
+        width: 100%;
         margin-left: auto;
-        margin-right: auto; /* Garante a centralização horizontal */
+        margin-right: auto; /* Centraliza horizontalmente */
         display: flex;
         justify-content: center; /* Centraliza o vídeo horizontalmente */
         align-items: center; /* Centraliza o vídeo verticalmente */
     }
-}
 
-/* Player de vídeo responsivo */
-#video-player {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: contain; /* Ajusta o vídeo sem cortar */
+    #video-player {
+        max-width: 100%; /* O vídeo ocupa toda a largura do container pai */
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: contain; /* Ajusta o vídeo sem cortar */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
+        border-radius: 8px; /* Bordas arredondadas para suavizar o design */
+    }
 }
 
 /* Ajuste específico para dispositivos móveis (telas menores que 768px) */
 @media (max-width: 768px) {
     #video-player-section {
         margin: 1rem auto; /* Reduz o espaçamento em dispositivos móveis */
-        display: block; /* Remove centralização para manter o layout simples em telas pequenas */
+        display: block; /* Layout mais simples em telas menores */
     }
 
     #video-player {
@@ -1204,3 +1206,4 @@ body {
         height: auto;
     }
 }
+
