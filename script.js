@@ -289,10 +289,12 @@ function playVideo(url) {
     // Atualizar o botão de play/pause
     updatePlayButton();
 
-    // Atualizar a barra de progresso do vídeo
-    videoPlayer.on('timeupdate', updateProgressBar);
+    // Remover todos os eventos anteriores para evitar acumulação
+    videoPlayer.off('timeupdate', updateProgressBar);
+    videoPlayer.off('loadstart', resetProgressBar);
 
-    // Resetar a barra de progresso quando um novo vídeo for carregado
+    // Adicionar eventos ao player
+    videoPlayer.on('timeupdate', updateProgressBar);
     videoPlayer.on('loadstart', resetProgressBar);
 
     // Adiciona o scroll automático até o player de vídeo
