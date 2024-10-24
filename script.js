@@ -282,27 +282,22 @@ function playVideo(url) {
     // Resetar a barra de progresso antes de carregar o novo vídeo
     resetProgressBar();
 
-    // Remover a fonte de vídeo existente para reiniciar completamente o player
-    videoSource.removeAttribute('src');
-    videoPlayer.load();
+    // Se o player já existe, destruí-lo antes de prosseguir
+    if (videoPlayer) {
+        videoPlayer.dispose();
+    }
 
-    // Adicionar a nova fonte e carregar o vídeo
-    videoSource.src = url;
-    videoSource.type = getMimeType(url);
-    videoPlayer.load();  // Garante que o player seja reiniciado
+    // Recriar o player
+    videoPlayer = videojs('video-player', {
+        controls: true,
+        preload: 'auto',
+        aspectRatio: '16:9'
+    });
 
-    // Mostrar a seção do player
-    videoPlayerSection.style.display = 'block';
-
-    // Iniciar a reprodução do vídeo
-    videoPlayer.play();
-
-    // Atualizar o botão de play/pause
-    updatePlayButton();
-
-    // Remover todos os eventos anteriores para evitar acumulação
-    videoPlayer.off('timeupdate', updateProgressBar);
-    videoPlayer.off('loadstart', resetProgressBar);
+    // Definir a nova fonte do vídeo
+    videoPlayer.src({ type: getMimeType(url), src: url });
+    videoPlayer.load();  // Reiniciar o player
+    videoPlayer.play();  // Iniciar a reprodução
 
     // Adicionar eventos ao player
     videoPlayer.on('timeupdate', updateProgressBar);
@@ -310,18 +305,6 @@ function playVideo(url) {
 
     // Scroll até o player de vídeo
     videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    // Entrar em tela cheia em dispositivos móveis
-    if (window.innerWidth <= 768) {
-        const videoElement = document.getElementById('video-player');
-        if (videoElement.requestFullscreen) {
-            videoElement.requestFullscreen();
-        } else if (videoElement.webkitRequestFullscreen) {
-            videoElement.webkitRequestFullscreen();
-        } else if (videoElement.msRequestFullscreen) {
-            videoElement.msRequestFullscreen();
-        }
-    }
 }
 
 // Função para resetar a barra de progresso do vídeo
