@@ -58,6 +58,7 @@ const videoPlayerSection = document.getElementById('video-player-section');
 const videoSource = document.getElementById('video-source');
 const videoPlayer = videojs('video-player');
 const backToTopButton = document.getElementById('back-to-top');
+const playButton = document.querySelector('.vjs-play-control');
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado'; // Espaço total disponível em GB
@@ -285,6 +286,12 @@ function playVideo(url) {
     videoPlayer.load();
     videoPlayer.play();
 
+    // Atualizar o botão de play/pause
+    updatePlayButton();
+
+    // Atualizar a barra de progresso do vídeo
+    videoPlayer.on('timeupdate', updateProgressBar);
+
     // Adiciona o scroll automático até o player de vídeo
     videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
@@ -299,6 +306,33 @@ function playVideo(url) {
             videoElement.msRequestFullscreen();
         }
     }
+}
+
+// Função para atualizar o ícone do botão de play/pause
+function updatePlayButton() {
+    videoPlayer.on('play', () => {
+        playButton.innerHTML = '<i class="fas fa-pause"></i>';
+    });
+
+    videoPlayer.on('pause', () => {
+        playButton.innerHTML = '<i class="fas fa-play"></i>';
+    });
+}
+
+// Função para atualizar a barra de progresso do vídeo
+function updateProgressBar() {
+    const currentTime = videoPlayer.currentTime();
+    const duration = videoPlayer.duration();
+    const progress = (currentTime / duration) * 100;
+    progressBar.style.width = `${progress}%`;
+    progressText.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+}
+
+// Função para formatar o tempo em minutos e segundos
+function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
 function getMimeType(url) {
