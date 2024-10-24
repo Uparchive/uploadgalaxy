@@ -55,28 +55,109 @@ const searchInput = document.getElementById('search-input');
 const logoutButton = document.getElementById('logout-button');
 const heroSection = document.getElementById('hero-section');
 const videoPlayerSection = document.getElementById('video-player-section');
-const videoSource = document.getElementById('video-source');
 const backToTopButton = document.getElementById('back-to-top');
-
-// Inicializar o player de vídeo
-const videoPlayer = videojs('video-player');
-
-// Selecionar o botão de Play/Pause do player de vídeo
-const playPauseButton = document.getElementById('video-play-pause-button');
-
-// Adicionar evento de clique ao botão de Play/Pause
-playPauseButton.addEventListener('click', function() {
-    if (videoPlayer.paused()) {
-        videoPlayer.play();
-    } else {
-        videoPlayer.pause();
-    }
-});
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
 let allFiles = [];
 let isUploading = false;
+
+// Inicializar o player de vídeo quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar o player de vídeo
+    const videoPlayer = videojs('video-player');
+
+    // Selecionar o botão de Play/Pause do player de vídeo
+    const playPauseButton = document.getElementById('video-play-pause-button');
+
+    // Adicionar evento de clique ao botão de Play/Pause
+    playPauseButton.addEventListener('click', function () {
+        if (videoPlayer.paused()) {
+            videoPlayer.play();
+        } else {
+            videoPlayer.pause();
+        }
+    });
+
+    // Atualizar o ícone do botão com base no estado do vídeo
+    function updatePlayPauseButton(isPlaying) {
+        if (isPlaying) {
+            playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+        }
+    }
+
+    // Eventos para atualizar o botão quando o vídeo é reproduzido ou pausado
+    videoPlayer.on('play', function () {
+        updatePlayPauseButton(true);
+        updateProgressBar();
+        videoPlayer.focus();
+    });
+
+    videoPlayer.on('pause', function () {
+        updatePlayPauseButton(false);
+    });
+
+    // Função para atualizar a barra de progresso do vídeo
+    function updateProgressBar() {
+        const currentTime = videoPlayer.currentTime();
+        const duration = videoPlayer.duration();
+        const progress = (currentTime / duration) * 100;
+
+        // Atualizar a barra de progresso do Video.js
+        const progressBar = document.querySelector('.vjs-play-progress');
+        if (progressBar) {
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Atualizar o texto de tempo decorrido
+        const timeDisplay = document.querySelector('.vjs-current-time-display');
+        const durationDisplay = document.querySelector('.vjs-duration-display');
+        if (timeDisplay && durationDisplay) {
+            timeDisplay.textContent = formatTime(currentTime);
+            durationDisplay.textContent = formatTime(duration);
+        }
+    }
+
+    // Registrar o evento 'timeupdate' quando o player estiver pronto
+    videoPlayer.on('timeupdate', updateProgressBar);
+
+    // Função para formatar o tempo em minutos e segundos
+    function formatTime(time) {
+        if (isNaN(time) || time === Infinity) return '00:00';
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+
+    // Função para reproduzir vídeo
+    window.playVideo = function (url) {
+        videoPlayerSection.style.display = 'block';
+        videoPlayer.src({ type: getMimeType(url), src: url });
+        videoPlayer.load();
+        videoPlayer.play();
+
+        // Scroll automático até o player de vídeo
+        videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Entrar em tela cheia em dispositivos móveis
+        if (window.innerWidth <= 768) {
+            videoPlayer.requestFullscreen();
+        }
+    };
+
+    // Função para obter o tipo MIME com base na extensão do arquivo
+    function getMimeType(url) {
+        const extension = url.split('.').pop().toLowerCase();
+        switch (extension) {
+            case 'mkv': return 'video/x-matroska';
+            case 'mp4': return 'video/mp4';
+            case 'webm': return 'video/webm';
+            default: return 'video/mp4';
+        }
+    }
+});
 
 // Monitorar o estado de autenticação do usuário
 onAuthStateChanged(auth, (user) => {
@@ -278,100 +359,6 @@ function displayFiles(files) {
     updateStorageUsage();
 }
 
-// Função para reproduzir vídeo
-function playVideo(url) {
-    videoPlayerSection.style.display = 'block';
-    videoPlayer.src({ type: getMimeType(url), src: url });
-    videoPlayer.load();
-    videoPlayer.play();
-
-    // Forçar atualização inicial da barra de progresso
-    updateProgressBar();
-
-    // Definir o foco no player
-    videoPlayer.focus();
-
-    // Scroll automático até o player de vídeo
-    videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    // Entrar em tela cheia usando o método do Video.js
-    if (window.innerWidth <= 768) {
-        videoPlayer.requestFullscreen();
-    }
-}
-
-// Atualizar o ícone do botão com base no estado do vídeo
-function updatePlayPauseButton(isPlaying) {
-    if (isPlaying) {
-        playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
-    } else {
-        playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
-    }
-}
-
-// Eventos para atualizar o botão quando o vídeo é reproduzido ou pausado
-videoPlayer.on('play', function() {
-    updatePlayPauseButton(true);
-});
-
-videoPlayer.on('pause', function() {
-    updatePlayPauseButton(false);
-});
-
-// Função para atualizar a barra de progresso do vídeo
-function updateProgressBar() {
-    const currentTime = videoPlayer.currentTime();
-    const duration = videoPlayer.duration();
-    const progress = (currentTime / duration) * 100;
-
-    // Atualizar a barra de progresso do Video.js
-    const progressBar = document.querySelector('.vjs-play-progress');
-    if (progressBar) {
-        progressBar.style.width = `${progress}%`;
-    }
-
-    // Atualizar o texto de tempo decorrido
-    const timeDisplay = document.querySelector('.vjs-current-time-display');
-    const durationDisplay = document.querySelector('.vjs-duration-display');
-    if (timeDisplay && durationDisplay) {
-        timeDisplay.textContent = formatTime(currentTime);
-        durationDisplay.textContent = formatTime(duration);
-    }
-}
-
-// Função para formatar o tempo em minutos e segundos
-function formatTime(time) {
-    if (isNaN(time) || time === Infinity) return '00:00';
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-}
-
-function getMimeType(url) {
-    const extension = url.split('.').pop().toLowerCase();
-    switch (extension) {
-        case 'mkv': return 'video/x-matroska';
-        case 'mp4': return 'video/mp4';
-        case 'webm': return 'video/webm';
-        default: return 'video/mp4';
-    }
-}
-
-// Registrar o evento 'timeupdate' quando o player estiver pronto
-videoPlayer.ready(function() {
-    console.log('Video.js player está pronto');
-    videoPlayer.on('timeupdate', updateProgressBar);
-});
-
-// Forçar atualização da barra de progresso no evento 'play'
-videoPlayer.on('play', function() {
-    console.log('Vídeo iniciou a reprodução');
-    updateProgressBar();
-    videoPlayer.focus();
-});
-
-// Removemos a função updatePlayButton() para evitar manipulação direta do botão de play/pause
-
 // Função para ordenar os arquivos
 sortSelect.addEventListener('change', () => {
     sortFiles(sortSelect.value);
@@ -507,4 +494,3 @@ window.addEventListener('scroll', () => {
 // Anexar funções ao objeto window para torná-las acessíveis globalmente
 window.copyToClipboard = copyToClipboard;
 window.deleteFile = deleteFile;
-window.playVideo = playVideo;
