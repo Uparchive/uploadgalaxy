@@ -1139,21 +1139,22 @@ body {
 }
 /* Container do player de vídeo */
 #video-player-section {
+    margin-top: 2rem; /* Ajusta o espaçamento superior */
+    margin-bottom: 2rem; /* Espaçamento inferior adicional */
     width: 100%;
-    max-width: 800px; /* Limita a largura máxima do vídeo em telas maiores */
-    margin: 2rem auto; /* Centraliza horizontalmente e adiciona espaçamento superior e inferior */
-    padding: 0; /* Remove o padding para evitar cortes */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma leve sombra para destaque */
-    border-radius: 8px; /* Bordas arredondadas para suavizar o design */
-    overflow: hidden; /* Evita qualquer transbordamento */
+    display: flex;
+    justify-content: center; /* Centraliza o vídeo horizontalmente */
+    align-items: center; /* Centraliza o vídeo verticalmente */
 }
 
 /* Player de vídeo responsivo */
 #video-player {
     width: 100%;
+    max-width: 100%;
     height: auto;
-    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
-    max-height: 450px; /* Limite máximo de altura */
+    aspect-ratio: 16 / 9;
+    object-fit: contain; /* Ajusta o vídeo sem cortar */
+    margin: 0 auto;
 }
 
 /* Ajuste específico para dispositivos móveis */
