@@ -226,7 +226,6 @@ body {
     background-color: #ff8c00;
     transform: translateY(-2px);
 }
-
 /* Progress Bar */
 .progress-container {
     margin-top: 1rem;
@@ -350,7 +349,6 @@ body {
 .download-button i, .share-button i, .delete-button i {
     margin-right: 0.25rem;
 }
-
 /* Footer */
 footer {
     background-color: #333;
@@ -440,6 +438,7 @@ footer p {
         font-size: 0.85rem;
     }
 }
+
 /* Container de Mensagens (Pop-up) */
 .message-container {
     position: fixed;
@@ -451,7 +450,7 @@ footer p {
 }
 
 .message {
-    background-color: #ffa500; /* Cor de fundo do alerta */
+    background-color: #ffa500;
     color: #fff;
     padding: 1rem;
     margin-bottom: 1rem;
@@ -465,11 +464,11 @@ footer p {
 }
 
 .message.success {
-    background-color: #4caf50; /* Verde para sucesso */
+    background-color: #4caf50;
 }
 
 .message.error {
-    background-color: #f44336; /* Vermelho para erro */
+    background-color: #f44336;
 }
 
 .message i {
@@ -611,176 +610,148 @@ footer p {
 .back-to-top i {
     margin: 0;
 }
-#logout-button {
-    background: linear-gradient(135deg, #ff8c00, #ff6600);
+
+/* Estilo dos botões de ação */
+.download-button, .share-button, .delete-button {
+    background-color: #ff8c00;
     color: white;
-    padding: 0.75rem 1.5rem;
+    padding: 0.6rem 1.2rem;
     border: none;
-    border-radius: 30px;
+    border-radius: 20px;
+    font-size: 0.9rem;
     font-weight: 600;
-    display: flex;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
 }
 
-#logout-button:hover {
-    background: linear-gradient(135deg, #ff6600, #ff3300);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-.navbar .logo {
-    font-size: 2rem;
-    font-weight: bold;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+.download-button:hover, .share-button:hover, .delete-button:hover {
+    background-color: #ff6600;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
 }
 
-.navbar {
-    background: linear-gradient(90deg, #182848, #4b6cb7);
-    padding: 1rem 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.menu-toggle {
-    font-size: 1.8rem;
-    color: white;
-    cursor: pointer;
-    transition: color 0.3s ease;
+.download-button i, .share-button i, .delete-button i {
+    margin-right: 0.5rem;
+    font-size: 1rem;
 }
 
-.menu-toggle:hover {
-    color: #ffa500;
-    transform: rotate(90deg);
-    transition: all 0.5s ease;
-}
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2rem;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* Container do player de vídeo */
+#video-player-section {
     width: 100%;
-    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 100vw;
+}
+
+#video-player {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ajuste específico para dispositivos móveis */
+@media (max-width: 768px) {
+    #video-player {
+        width: 100%;
+        max-width: 100vw;
+        height: auto;
+    }
+}
+
+/* Ajuste específico para telas grandes */
+@media (min-width: 1024px) {
+    #video-player {
+        max-width: 1200px;
+    }
+}
+/* Container do player de vídeo */
+#video-player-section {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Player de vídeo responsivo */
+#video-player {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
     margin: 0 auto;
 }
+
+/* Ajuste específico para dispositivos móveis */
 @media (max-width: 768px) {
-    #logout-button {
+    #video-player-section {
+        margin: 1rem auto;
+    }
+
+    #video-player {
         width: 100%;
-        padding: 1rem 0;
-        font-size: 1.25rem;
-    }
-
-    .navbar .logo {
-        font-size: 1.75rem;
+        max-width: 100vw;
+        height: auto;
     }
 }
-#logout-button {
-    padding: 0.5rem 1.25rem;
-    font-size: 1rem;
-    border-radius: 20px; /* Deixar menos arredondado */
-}
-#logout-button {
-    margin-left: 1rem; /* Adiciona espaço entre o botão e o menu */
-}
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.5rem;
-}
 
-.navbar .logo {
-    flex: 1;
-}
+/* Ajuste específico para dispositivos maiores que 768px (Desktop) */
+@media (min-width: 768px) {
+    #video-player-section {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        max-width: 90%;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.navbar .menu-toggle {
-    margin-right: 1rem;
-}
-@media (max-width: 768px) {
-    #logout-button {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-        width: auto;
+    #video-player {
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: contain;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
     }
 }
-#google-login-button {
-    background: linear-gradient(135deg, #ff8c00, #ff6600);
-    color: white;
-    padding: 0.75rem 1.5rem;
+/* Estilos para o botão de Play/Pause no player de vídeo */
+#video-play-pause-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
     border: none;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    padding: 10px;
+    border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+    z-index: 10;
 }
 
-#google-login-button:hover {
-    background: linear-gradient(135deg, #ff6600, #ff3300);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+#video-play-pause-button i {
+    font-size: 20px;
 }
 
-#google-login-button i {
-    margin-right: 0.5rem;
-    font-size: 1.2rem;
-}
-#login-section {
-    background-color: #fff;
-    padding: 2rem;
-    margin: 2rem auto;
-    max-width: 500px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-#login-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: #333;
-    font-weight: 700;
-}
-#google-login-button i {
-    transition: transform 0.3s ease;
-}
-
-#google-login-button:hover i {
-    transform: rotate(360deg);
-}
-body {
-    background: linear-gradient(to right, #4b6cb7, #182848);
-    font-family: 'Roboto', sans-serif;
-}
-#login-section {
-    background-color: #fff;
-    padding: 2rem;
-    margin: 2rem auto;
-    max-width: 500px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-#login-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: #333;
-    font-weight: 700;
-}
-
+/* Ajustes para o login do Google */
 #google-login-button {
     background: linear-gradient(135deg, #ff8c00, #ff6600);
     color: white;
@@ -812,49 +783,23 @@ body {
 #google-login-button:hover i {
     transform: rotate(360deg);
 }
+
+/* Estilo do container da seção de login */
 #login-section {
     background-color: #fff;
     padding: 2rem;
     margin: 2rem auto;
-    max-width: 400px;
+    max-width: 500px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Centraliza o conteúdo dentro da seção */
+    text-align: center;
 }
 
-#google-login-button {
-    background: linear-gradient(135deg, #ff8c00, #ff6600);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    display: inline-flex; /* Para garantir alinhamento de itens inline */
-    align-items: center; /* Centraliza o conteúdo dentro do botão */
-    justify-content: center; /* Centraliza o conteúdo dentro do botão */
-    gap: 0.5rem; /* Espaço entre o ícone e o texto */
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    width: auto; /* Garante que o tamanho do botão seja automático */
-    margin-top: 1rem; /* Espaçamento superior do botão */
-}
-
-#google-login-button:hover {
-    background: linear-gradient(135deg, #ff6600, #ff3300);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-#google-login-button i {
-    margin-right: 0.5rem;
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
-}
-
-#google-login-button:hover i {
-    transform: rotate(360deg);
+#login-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-weight: 700;
 }
 /* Estilo dos botões de ação */
 .download-button, .share-button, .delete-button {
@@ -883,6 +828,7 @@ body {
     margin-right: 0.5rem;
     font-size: 1rem;
 }
+
 /* Estilo da lista de arquivos */
 #file-list li {
     background-color: #fff;
@@ -918,6 +864,7 @@ body {
     border-radius: 20px;
     transition: all 0.3s ease;
 }
+
 /* Estilo do botão "Voltar ao Topo" */
 .back-to-top {
     position: fixed;
@@ -937,6 +884,7 @@ body {
     background-color: #ff6600;
     transform: translateY(-5px);
 }
+
 /* Lista de arquivos */
 #file-list li {
     background-color: #fff;
@@ -945,7 +893,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column; /* Organiza conteúdo na vertical */
+    flex-direction: column;
     gap: 1rem;
     align-items: flex-start;
 }
@@ -954,7 +902,7 @@ body {
 #file-list li div {
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap; /* Permite que os botões quebrem linha se necessário */
+    flex-wrap: wrap;
     justify-content: flex-start;
 }
 
@@ -962,77 +910,35 @@ body {
     padding: 0.5rem 1.5rem;
     font-size: 0.85rem;
     border-radius: 20px;
-    flex: 1 1 auto; /* Faz com que os botões se ajustem ao tamanho da tela */
+    flex: 1 1 auto;
     text-align: center;
     transition: all 0.3s ease;
 }
+
+/* Ajuste específico para dispositivos móveis */
 @media (max-width: 768px) {
     #file-list li {
-        flex-direction: column; /* Empilha os itens na vertical em telas menores */
-        align-items: center; /* Centraliza os itens no celular */
+        flex-direction: column;
+        align-items: center;
     }
 
     #file-list li div {
-        justify-content: center; /* Centraliza os botões no celular */
+        justify-content: center;
         width: 100%;
     }
 
     .download-button, .share-button, .delete-button {
-        flex: none; /* Garante que os botões mantenham um tamanho adequado */
-        width: 100%; /* Faz os botões ocuparem toda a largura */
-        margin-bottom: 0.5rem; /* Espaçamento entre botões */
+        flex: none;
+        width: 100%;
+        margin-bottom: 0.5rem;
     }
 }
-/* Lista de arquivos */
-#file-list li {
-    background-color: #fff;
-    padding: 1.2rem;
-    margin-bottom: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column; /* Organiza o conteúdo na vertical */
-    gap: 1rem;
-    align-items: flex-start;
-}
-
-/* Estilo dos botões */
-#file-list li div {
-    display: flex;
-    gap: 1rem;
-    justify-content: space-between; /* Espaçamento entre os botões */
-    flex-wrap: wrap; /* Ajusta a quebra de linha se necessário */
-    width: 100%; /* Garante que os botões ocupem toda a largura */
-}
-
-.download-button, .share-button, .delete-button {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.85rem;
-    border-radius: 20px;
-    flex: 1; /* Faz com que os botões ocupem a mesma largura */
-    text-align: center;
-    transition: all 0.3s ease;
-    max-width: 150px; /* Define uma largura máxima para evitar botões grandes demais */
-}
-
-/* Responsividade para telas menores */
-@media (max-width: 768px) {
-    #file-list li div {
-        gap: 0.5rem; /* Reduz o espaçamento entre os botões em telas menores */
-    }
-
-    .download-button, .share-button, .delete-button {
-        flex: 1; /* Faz com que os botões ocupem o mesmo espaço */
-        max-width: 100px; /* Define um tamanho máximo para evitar botões largos */
-        padding: 0.5rem; /* Ajusta o padding para caber em telas pequenas */
-    }
-}
-/* Make video player responsive on mobile */
+/* Player de vídeo responsivo */
 #video-player-section {
     position: relative;
     width: 100%;
     overflow: hidden;
-    padding-top: 56.25%; /* Sets the aspect ratio to 16:9 */
+    padding-top: 56.25%; /* Mantém a proporção 16:9 */
 }
 
 #video-player {
@@ -1041,85 +947,277 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-}
-/* Container do player de vídeo */
-#video-player-section {
-    width: 100%;
-    display: flex;
-    justify-content: center; /* Centraliza o vídeo horizontalmente */
-    align-items: center; /* Centraliza o vídeo verticalmente */
-    overflow: hidden; /* Evita overflow horizontal */
-    padding: 0;
-    margin: 0 auto;
-    max-width: 100vw; /* Garante que o container não ultrapasse a largura da tela */
+    object-fit: cover;
+    max-width: 100%;
 }
 
-/* Player de vídeo responsivo */
-#video-player {
-    width: 100%;
-    max-width: 100%; /* Garante que o vídeo ocupe toda a largura do container pai */
-    height: auto;
-    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
-    object-fit: contain; /* Ajusta o vídeo dentro do container, sem cortar */
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* Container do player de vídeo para dispositivos maiores que 768px (Desktop) */
+@media (min-width: 768px) {
+    #video-player-section {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        max-width: 90%;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #video-player {
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: contain;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
 }
 
 /* Ajuste específico para dispositivos móveis */
 @media (max-width: 768px) {
+    #video-player-section {
+        margin: 1rem auto;
+        display: block;
+    }
+
     #video-player {
         width: 100%;
-        max-width: 100vw; /* O vídeo ocupará toda a largura da viewport */
+        max-width: 100vw;
         height: auto;
     }
 }
 
-/* Ajuste específico para telas grandes */
-@media (min-width: 1024px) {
-    #video-player {
-        max-width: 1200px; /* Define um limite máximo para telas grandes */
+/* Ajuste específico para telas menores que 768px */
+@media (max-width: 768px) {
+    #file-list li div {
+        gap: 0.5rem;
+    }
+
+    .download-button, .share-button, .delete-button {
+        flex: 1;
+        max-width: 100px;
+        padding: 0.5rem;
     }
 }
-/* Container do player de vídeo */
+/* Estilo do botão de Play/Pause no player de vídeo */
+#video-play-pause-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#video-play-pause-button i {
+    font-size: 20px;
+}
+
+/* Ajustes para responsividade do player de vídeo */
 #video-player-section {
     width: 100%;
     display: flex;
-    justify-content: center; /* Centraliza o vídeo horizontalmente */
-    align-items: center; /* Centraliza o vídeo verticalmente */
-    overflow: hidden; /* Evita qualquer overflow do vídeo */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     padding: 0;
     margin: 0 auto;
 }
 
-/* Player de vídeo responsivo */
 #video-player {
     width: 100%;
     height: auto;
-    max-width: 100%; /* Garante que o vídeo ocupe toda a largura do container */
-    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
-    object-fit: cover; /* Garante que o vídeo cubra todo o container sem cortes */
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* Ajuste específico para dispositivos móveis */
-@media (max-width: 768px) {
-    #video-player {
-        width: 100vw; /* Garante que o vídeo ocupe toda a largura do viewport em dispositivos móveis */
-        height: auto;
-        aspect-ratio: 16 / 9; /* Mantém a proporção */
-    }
-}
-
 /* Ajuste específico para telas grandes */
 @media (min-width: 1024px) {
     #video-player {
-        max-width: 1200px; /* Define um limite máximo para telas grandes */
+        max-width: 1200px;
     }
 }
-/* Container do player de vídeo */
+
+/* Botão de upload com estilo aprimorado */
+.upload-button {
+    background-color: #ffa500;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.upload-button:hover {
+    background-color: #ff8c00;
+    transform: translateY(-2px);
+}
+
+/* Estilo do botão "Voltar ao Topo" */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff8c00;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-to-top:hover {
+    background-color: #ff6600;
+    transform: translateY(-5px);
+}
+
+/* Ajustes para o botão de login do Google */
+#google-login-button {
+    background: linear-gradient(135deg, #ff8c00, #ff6600);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+#google-login-button:hover {
+    background: linear-gradient(135deg, #ff6600, #ff3300);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+/* Ajustes para o Google Login Button - ícone */
+#google-login-button i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+#google-login-button:hover i {
+    transform: rotate(360deg);
+}
+
+/* Estilo da seção de login */
+#login-section {
+    background-color: #fff;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#login-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-weight: 700;
+}
+
+/* Estilo dos botões de ação (download, compartilhar, excluir) */
+.download-button, .share-button, .delete-button {
+    background-color: #ff8c00;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-button:hover, .share-button:hover, .delete-button:hover {
+    background-color: #ff6600;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.download-button i, .share-button i, .delete-button i {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Lista de arquivos - responsividade */
+#file-list li {
+    background-color: #fff;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+#file-list li span {
+    font-size: 1rem;
+    color: #333;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+}
+
+#file-list li div {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Ajuste para dispositivos móveis */
+@media (max-width: 768px) {
+    #file-list li {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #file-list li div {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .download-button, .share-button, .delete-button {
+        flex: none;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+/* Ajuste do container do player de vídeo */
 #video-player-section {
     position: relative;
     width: 100%;
@@ -1137,56 +1235,24 @@ body {
     object-fit: cover; /* Faz o vídeo ocupar o espaço inteiro sem distorção */
     max-width: 100%;
 }
-/* Container do player de vídeo */
-#video-player-section {
-    margin-top: 2rem; /* Ajusta o espaçamento superior */
-    margin-bottom: 2rem; /* Espaçamento inferior adicional */
-    width: 100%;
-    display: flex;
-    justify-content: center; /* Centraliza o vídeo horizontalmente */
-    align-items: center; /* Centraliza o vídeo verticalmente */
-}
 
-/* Player de vídeo responsivo */
-#video-player {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: contain; /* Ajusta o vídeo sem cortar */
-    margin: 0 auto;
-}
-
-/* Ajuste específico para dispositivos móveis */
-@media (max-width: 768px) {
-    #video-player-section {
-        margin: 1rem auto; /* Reduz o espaçamento em dispositivos móveis */
-    }
-
-    #video-player {
-        width: 100%;
-        max-width: 100vw; /* O vídeo ocupará toda a largura da viewport */
-        height: auto;
-    }
-}
-/* Container do player de vídeo para dispositivos maiores que 768px (Desktop) */
+/* Ajuste para dispositivos maiores (desktop) */
 @media (min-width: 768px) {
     #video-player-section {
-        margin-top: 2rem; /* Espaçamento superior */
-        margin-bottom: 2rem; /* Espaçamento inferior */
-        max-width: 90%; /* Define um tamanho semelhante ao da lista de arquivos */
-        width: 100%;
+        margin-top: 2rem; /* Ajusta o espaçamento superior */
+        margin-bottom: 2rem; /* Espaçamento inferior adicional */
+        max-width: 90%;
         margin-left: auto;
-        margin-right: auto; /* Centraliza horizontalmente */
+        margin-right: auto;
         display: flex;
-        justify-content: center; /* Centraliza o vídeo horizontalmente */
-        align-items: center; /* Centraliza o vídeo verticalmente */
+        justify-content: center;
+        align-items: center;
     }
 
     #video-player {
         max-width: 100%; /* O vídeo ocupa toda a largura do container pai */
         height: auto;
-        aspect-ratio: 16 / 9;
+        aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
         object-fit: contain; /* Ajusta o vídeo sem cortar */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
         border-radius: 8px; /* Bordas arredondadas para suavizar o design */
@@ -1206,26 +1272,46 @@ body {
         height: auto;
     }
 }
-/* Estilos para o botão de Play/Pause no player de vídeo */
-#video-play-pause-button {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
+
+/* Estilo dos botões para a lista de arquivos */
+.download-button, .share-button, .delete-button {
+    background-color: #ff8c00;
+    color: white;
+    padding: 0.6rem 1.2rem;
     border: none;
-    padding: 10px;
-    border-radius: 50%;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#video-play-pause-button i {
-    font-size: 20px;
-}
-#video-player-section {
-    position: relative;
+.download-button:hover, .share-button:hover, .delete-button:hover {
+    background-color: #ff6600;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
 }
 
-#video-play-pause-button {
-    z-index: 10; /* Certifique-se de que o botão esteja acima do player */
+/* Estilo do botão "Voltar ao Topo" */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff8c00;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-to-top:hover {
+    background-color: #ff6600;
+    transform: translateY(-5px);
 }
