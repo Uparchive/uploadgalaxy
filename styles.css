@@ -1058,3 +1058,18 @@ body {
         aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
     }
 }
+/* Estilo responsivo para o player de vídeo */
+#video-player {
+    width: 100%;
+    height: auto;
+    max-width: 100vw;
+    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+    object-fit: contain; /* Garante que o vídeo se encaixe corretamente */
+}
+
+/* Responsividade para telas maiores */
+@media (min-width: 1024px) {
+    #video-player {
+        max-width: 1200px; /* Limita o tamanho em telas grandes */
+    }
+}
