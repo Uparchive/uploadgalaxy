@@ -23,14 +23,14 @@ setLogLevel('debug');
 
 // Configuração do Firebase (Substitua pelas suas próprias credenciais)
 const firebaseConfig = {
-    apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
-    authDomain: "armazene-acd30.firebaseapp.com",
-    databaseURL: "https://armazene-acd30-default-rtdb.firebaseio.com",
-    projectId: "armazene-acd30",
-    storageBucket: "armazene-acd30.appspot.com",
-    messagingSenderId: "853849509051",
-    appId: "1:853849509051:web:ea6f96915c4d5c895b2d9e",
-    measurementId: "G-79TBH73QPT"
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_AUTH_DOMAIN",
+    databaseURL: "SUA_DATABASE_URL",
+    projectId: "SEU_PROJECT_ID",
+    storageBucket: "SEU_STORAGE_BUCKET",
+    messagingSenderId: "SEU_MESSAGING_SENDER_ID",
+    appId: "SEU_APP_ID",
+    measurementId: "SEU_MEASUREMENT_ID"
 };
 
 // Inicializar o Firebase
@@ -276,11 +276,6 @@ function playVideo(url) {
     // Forçar atualização inicial da barra de progresso
     updateProgressBar();
 
-    // Adicionar listener para 'timeupdate' se ainda não estiver registrado
-    if (!videoPlayer.hasStarted()) {
-        videoPlayer.on('timeupdate', updateProgressBar);
-    }
-
     // Definir o foco no player
     videoPlayer.focus();
 
@@ -291,18 +286,6 @@ function playVideo(url) {
     if (window.innerWidth <= 768) {
         videoPlayer.requestFullscreen();
     }
-}
-
-// Atualizar o botão de play/pause
-function updatePlayButton() {
-    const playButton = document.querySelector('.vjs-play-control');
-    videoPlayer.on('play', () => {
-        playButton.innerHTML = '<i class="fas fa-pause"></i>';
-    });
-
-    videoPlayer.on('pause', () => {
-        playButton.innerHTML = '<i class="fas fa-play"></i>';
-    });
 }
 
 // Função para atualizar a barra de progresso do vídeo
@@ -356,6 +339,8 @@ videoPlayer.on('play', function() {
     updateProgressBar();
     videoPlayer.focus();
 });
+
+// Removemos a função updatePlayButton() para evitar manipulação direta do botão de play/pause
 
 // Função para ordenar os arquivos
 sortSelect.addEventListener('change', () => {
