@@ -1090,18 +1090,20 @@ body {
     }
 }
 /* Player de vídeo responsivo */
+#video-player-section {
+    width: 100%;
+    overflow: hidden; /* Impede que o conteúdo vaze para fora do container */
+    max-width: 100%;
+    display: flex;
+    justify-content: center; /* Centraliza o vídeo horizontalmente */
+    padding: 0;
+}
+
 #video-player {
     width: 100%;
     max-width: 100%;
     height: auto;
     aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
-    object-fit: contain; /* Garante que o vídeo se encaixe no container sem cortar */
-    margin: 0 auto; /* Centraliza o vídeo */
-}
-
-/* Ajuste adicional para dispositivos maiores */
-@media (min-width: 1024px) {
-    #video-player {
-        max-width: 1200px; /* Define um limite máximo para telas grandes */
-    }
+    object-fit: contain;
+    margin: 0;
 }
