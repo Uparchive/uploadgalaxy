@@ -369,6 +369,8 @@
         #video-player-container {
             max-width: 800px;
             margin: 0 auto;
+            overflow: hidden;
+            padding: 0 15px;
         }
 
         /* Botão de Voltar ao Topo */
@@ -538,9 +540,10 @@
         </section>
 
         <!-- Seção de Player de Vídeo -->
-       <div id="video-player-container" style="overflow: hidden; padding: 0 15px;">
-    <!-- Player de vídeo será adicionado aqui -->
-</div>
+        <section id="video-player-section" class="container" style="display: none;">
+            <div id="video-player-container">
+                <!-- Player de vídeo será adicionado aqui -->
+            </div>
         </section>
     </main>
 
