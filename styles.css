@@ -962,3 +962,70 @@ body {
     padding: 5rem 1.5rem;
     text-align: center;
 }
+/* Fundo Azul da Página */
+body {
+    background-color: #1e3c72; /* Azul sólido para toda a página */
+    background-image: none; /* Remove gradiente ou imagens de fundo adicionais */
+    color: #333;
+}
+
+/* Estilo da Seção de Login */
+#login-section {
+    background-color: #fff;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Estilo da Seção Hero com Fundo Azul */
+#hero-section {
+    background-color: #1e3c72; /* Fundo azul */
+    color: #fff; /* Texto branco para contraste */
+    padding: 5rem 1.5rem;
+    text-align: center;
+}
+
+/* Fundo do Rodapé Azul */
+footer {
+    background-color: #1e3c72;
+    color: #fff;
+}
+
+/* Botões da Lista de Upload Lado a Lado e Proporcionais */
+#file-list li div {
+    display: flex;
+    flex-wrap: nowrap; /* Evita quebra de linha */
+    gap: 5px;
+    justify-content: flex-start; /* Alinha os botões no início */
+}
+
+/* Ajuste do Tamanho dos Botões para Ocuparem Espaço Uniforme */
+.download-button, 
+.share-button, 
+.delete-button, 
+.play-button {
+    flex: 1; /* Distribui o espaço igualmente entre os botões */
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    max-width: 100px; /* Limita o tamanho máximo dos botões para evitar quebra de layout */
+    border-radius: 25px;
+    font-size: 0.9rem;
+    background-color: var(--accent-color);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Efeito de Hover nos Botões */
+.download-button:hover, 
+.share-button:hover, 
+.delete-button:hover, 
+.play-button:hover {
+    background-color: var(--button-hover-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
