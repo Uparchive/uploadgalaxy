@@ -19,121 +19,39 @@
 
     <!-- Seu CSS personalizado -->
     <style>
-        /* Estilos adicionais */
-        #video-player {
-            width: 100%;
-            max-width: 640px;
-            height: auto;
-        }
-
-        @media (max-width: 768px) {
-            #video-player {
-                width: 100vw;
-                height: auto;
-                aspect-ratio: 16 / 9;
-            }
-        }
-
-        /* Centralizar o botão de play grande do Video.js */
-        .vjs-big-play-button {
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-        }
-
-        /* Estilos para os botões personalizados */
-        .vjs-rewind-button .fas,
-        .vjs-forward-button .fas,
-        .vjs-download-button .fas,
-        .vjs-embed-button .fas {
-            font-size: 18px;
-            line-height: 1.5;
-            vertical-align: middle;
-            color: white;
-        }
-
-        .vjs-rewind-button,
-        .vjs-forward-button,
-        .vjs-download-button,
-        .vjs-embed-button {
-            width: 36px;
-            height: 36px;
-            padding: 0;
-        }
-
-        .vjs-rewind-button:hover .fas,
-        .vjs-forward-button:hover .fas,
-        .vjs-download-button:hover .fas,
-        .vjs-embed-button:hover .fas {
-            color: #ccc;
-        }
-
-        /* Estilos para o container de progresso múltiplo */
-        .progress-container {
-            margin-top: 20px;
-        }
-
-        /* Estilos para cada item de progresso */
-        .progress-item {
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        /* Estilos para a barra de progresso */
-        .progress-bar-wrapper {
-            position: relative;
-            background-color: #f3f3f3;
-            border-radius: 5px;
-            height: 20px;
-            width: 100%;
-            margin-top: 5px;
-        }
-
-        .progress-bar {
-            background-color: #4caf50;
-            height: 100%;
-            width: 0%;
-            border-radius: 5px;
-            transition: width 0.4s ease;
-        }
-
-        .progress-text {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            color: #fff;
-            line-height: 20px;
-        }
-
         /* Estilos gerais */
         body, html {
             margin: 0;
             padding: 0;
             font-family: 'Roboto', sans-serif;
             height: 100%;
-            background-color: #f9f9f9; /* Fundo mais claro para melhor contraste */
+            background-color: #f0f0f0;
+            color: #333;
         }
 
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px 0;
+            padding: 20px;
         }
 
-        /* Estilos do Cabeçalho */
+        /* Cabeçalho */
         header {
             background-color: #333;
             color: #fff;
-            padding: 10px 0;
+            padding: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .navbar .logo {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             text-decoration: none;
             color: #fff;
@@ -161,30 +79,16 @@
         .navbar .menu-toggle {
             display: none;
             cursor: pointer;
-        }
-
-        /* Botão de Logout */
-        .upload-button {
-            background-color: #4caf50;
             color: #fff;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
+            font-size: 24px;
         }
 
-        .upload-button:hover {
-            background-color: #45a049;
-        }
-
-        /* Seção Hero */
+        /* Hero Section */
         #hero-section {
             background: url('https://via.placeholder.com/1200x400') no-repeat center center/cover;
             color: #fff;
             text-align: center;
-            padding: 100px 20px;
+            padding: 120px 20px;
         }
 
         #hero-section .hero-content h1 {
@@ -193,17 +97,17 @@
         }
 
         #hero-section .hero-content p {
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 30px;
         }
 
         #hero-section .cta-button {
             background-color: #ff5722;
             color: #fff;
-            padding: 15px 25px;
+            padding: 15px 30px;
             border-radius: 5px;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 20px;
             transition: background-color 0.3s ease;
         }
 
@@ -211,171 +115,173 @@
             background-color: #e64a19;
         }
 
-        /* Seção de Login */
+        /* Login Section */
         #login-section {
             background-color: #fff;
-            padding: 50px 20px;
+            padding: 60px 20px;
             text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
         }
 
         #login-section h2 {
             margin-bottom: 20px;
-            font-size: 28px;
+            font-size: 32px;
         }
 
-        /* Seção de Upload */
+        #google-login-button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        #google-login-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Upload Section */
         #upload-section {
             background-color: #fff;
-            padding: 50px 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 60px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
         }
 
         #upload-section h2 {
             margin-bottom: 20px;
-            font-size: 28px;
+            font-size: 32px;
             text-align: center;
         }
 
         #upload-form {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
             max-width: 600px;
             margin: 0 auto;
         }
 
-        #upload-form .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
         #upload-form label {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 500;
         }
 
         #upload-form input[type="file"] {
-            padding: 10px;
+            padding: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
-        /* Seção de Lista de Arquivos */
+        /* File List Section */
         #file-list-section {
             background-color: #fff;
-            padding: 50px 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 60px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
         }
 
         #file-list-section h2 {
             margin-bottom: 20px;
-            font-size: 28px;
+            font-size: 32px;
             text-align: center;
         }
 
         #file-list-section #storage-usage {
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 16px;
+            margin-bottom: 30px;
+            font-size: 18px;
             color: #555;
         }
 
         .search-bar {
             width: 100%;
-            max-width: 400px;
-            padding: 10px;
+            max-width: 500px;
+            padding: 15px;
             margin: 0 auto 20px auto;
             display: block;
             border: 1px solid #ccc;
             border-radius: 5px;
+            font-size: 16px;
         }
 
         .sort-select {
             width: 100%;
-            max-width: 200px;
-            padding: 10px;
+            max-width: 250px;
+            padding: 15px;
             margin: 0 auto 20px auto;
             display: block;
             border: 1px solid #ccc;
             border-radius: 5px;
+            font-size: 16px;
         }
 
-        #file-list {
-            list-style: none;
-            padding: 0;
+        .file-list-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .file-item {
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             gap: 15px;
+            transition: transform 0.2s ease, background-color 0.3s ease;
         }
 
-        #file-list li {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fefefe;
-            transition: background-color 0.3s ease;
+        .file-item:hover {
+            transform: translateY(-5px);
+            background-color: #f9f9f9;
         }
 
-        #file-list li:hover {
-            background-color: #f1f1f1;
-        }
-
-        #file-list li span {
+        .file-item span {
             font-size: 16px;
             word-break: break-all;
-            flex: 1;
-            min-width: 150px;
         }
 
-        #file-list li div {
+        .file-item .actions {
             display: flex;
-            flex-wrap: wrap;
             gap: 10px;
-            align-items: center;
-            justify-content: flex-end;
-            flex: 1;
         }
 
-        .download-button,
-        .share-button,
-        .delete-button,
-        .play-button {
+        .file-button {
             background-color: #4caf50;
             color: #fff;
             border: none;
-            padding: 8px 12px;
+            padding: 10px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
             transition: background-color 0.3s ease;
             text-decoration: none;
             flex: 1;
-            max-width: 100px;
+            text-align: center;
         }
 
-        .download-button:hover,
-        .share-button:hover,
-        .delete-button:hover,
-        .play-button:hover {
+        .file-button:hover {
             background-color: #45a049;
         }
 
-        /* Seção de Player de Vídeo */
+        /* Video Player Section */
         #video-player-section {
             background-color: #fff;
-            padding: 50px 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 60px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
             text-align: center;
         }
 
         #video-player-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             overflow: hidden;
             padding: 0 15px;
@@ -388,10 +294,10 @@
             right: 40px;
             background-color: #4caf50;
             color: #fff;
-            padding: 10px 15px;
+            padding: 15px;
             border-radius: 50%;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 24px;
             display: none;
             transition: background-color 0.3s ease;
             z-index: 1000;
@@ -405,22 +311,23 @@
         footer {
             background-color: #333;
             color: #fff;
-            padding: 20px 0;
+            padding: 30px 0;
             text-align: center;
+            margin-top: 60px;
         }
 
         footer .social-links {
             list-style: none;
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
             padding: 0;
-            margin: 10px 0 0 0;
+            margin: 15px 0 0 0;
         }
 
         footer .social-links li a {
             color: #fff;
-            font-size: 20px;
+            font-size: 24px;
             transition: color 0.3s ease;
         }
 
@@ -435,9 +342,9 @@
             right: 20px;
             background-color: #4caf50;
             color: #fff;
-            padding: 15px 20px;
+            padding: 20px;
             border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             display: none;
             z-index: 1001;
         }
@@ -463,6 +370,7 @@
             .navbar .menu-toggle {
                 display: block;
                 color: #fff;
+                font-size: 28px;
             }
         }
     </style>
@@ -470,24 +378,22 @@
 <body>
     <!-- Cabeçalho com a barra de navegação -->
     <header>
-        <nav class="navbar">
-            <div class="container">
-                <a href="#" class="logo">Upload Galaxy</a>
-                <ul class="nav-links">
-                    <li><a href="#upload-section">Upload</a></li>
-                    <li><a href="#file-list-section">Meus Arquivos</a></li>
-                    <li><a href="#">Sobre</a></li>
-                    <li><a href="#">Contato</a></li>
-                </ul>
-                <!-- Botão para alternar o menu em dispositivos móveis -->
-                <div class="menu-toggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <!-- Botão de Logout -->
-                <button id="logout-button" class="upload-button" style="display: none;">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
+        <nav class="navbar container">
+            <a href="#" class="logo">Upload Galaxy</a>
+            <ul class="nav-links">
+                <li><a href="#upload-section">Upload</a></li>
+                <li><a href="#file-list-section">Meus Arquivos</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+            <!-- Botão para alternar o menu em dispositivos móveis -->
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
             </div>
+            <!-- Botão de Logout -->
+            <button id="logout-button" class="upload-button" style="display: none;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
         </nav>
     </header>
 
@@ -505,7 +411,7 @@
         <!-- Seção de Login -->
         <section id="login-section" class="container">
             <h2>Login com Google</h2>
-            <button id="google-login-button" class="upload-button">
+            <button id="google-login-button">
                 <i class="fab fa-google"></i> Fazer Login com Google
             </button>
         </section>
@@ -521,9 +427,7 @@
                 <button type="submit" class="upload-button"><i class="fas fa-cloud-upload-alt"></i> Fazer Upload</button>
             </form>
             <!-- Container da Barra de Progresso -->
-            <div id="progress-container" class="progress-container" style="display: none;">
-                <!-- As barras de progresso individuais serão inseridas aqui dinamicamente -->
-            </div>
+            <div id="progress-container" class="progress-container" style="display: none;"></div>
         </section>
 
         <!-- Seção de Lista de Arquivos -->
@@ -542,9 +446,9 @@
                 <option value="size-desc">Maior Tamanho Primeiro</option>
             </select>
             <!-- Lista de Arquivos -->
-            <ul id="file-list">
+            <div class="file-list-container" id="file-list">
                 <!-- Os arquivos enviados serão inseridos aqui dinamicamente pelo script.js -->
-            </ul>
+            </div>
         </section>
 
         <!-- Seção de Player de Vídeo -->
