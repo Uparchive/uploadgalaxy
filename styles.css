@@ -1009,10 +1009,10 @@ body {
     padding: 0.6rem 1.5rem;
     font-size: 0.85rem;
     border-radius: 20px;
-    flex: 1;
+    flex: 1; /* Faz com que os botões ocupem a mesma largura */
     text-align: center;
     transition: all 0.3s ease;
-    max-width: 150px;
+    max-width: 150px; /* Define uma largura máxima para evitar botões grandes demais */
 }
 
 /* Responsividade para telas menores */
@@ -1022,8 +1022,8 @@ body {
     }
 
     .download-button, .share-button, .delete-button {
-        max-width: 100px;
-        padding: 0.5rem;
+        max-width: 100px; /* Define um tamanho máximo para evitar botões largos */
+        padding: 0.5rem; /* Ajusta o padding para caber em telas pequenas */
     }
 }
 
@@ -1044,7 +1044,7 @@ body {
     height: auto;
     aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
     object-fit: contain; /* Ajusta o vídeo dentro do container sem cortar */
-    border-radius: 8px;
+    border-radius: 8px; /* Bordas arredondadas para suavizar o design */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
 }
 
@@ -1058,22 +1058,4 @@ body {
         max-width: 100vw; /* O vídeo ocupará toda a largura da viewport */
         height: auto;
     }
-}
-
-/* Estilos para o botão de Play/Pause no player de vídeo */
-#video-play-pause-button {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-}
-
-#video-play-pause-button i {
-    font-size: 20px;
 }
