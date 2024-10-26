@@ -17,10 +17,8 @@
     
     <!-- Seu CSS personalizado -->
     <style>
-        /* ========================================= */
-        /* ======== Reset CSS ====================== */
-        /* ========================================= */
-
+        /* CSS inline para estilizações personalizadas */
+        /* Reset CSS e variáveis de cores */
         * {
             margin: 0;
             padding: 0;
@@ -29,18 +27,11 @@
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto', sans-serif;
             height: 100%;
-            background: linear-gradient(to right, #1e3c72, #2a5298); /* Fundo azul gradiente */
+            background: linear-gradient(to right, #1e3c72, #2a5298);
             color: #333;
             line-height: 1.6;
         }
-
-        /* ========================================= */
-        /* ======== Variáveis de Cores ============== */
-        /* ========================================= */
 
         :root {
             --primary-color: #1e3c72;
@@ -57,10 +48,7 @@
             --footer-border: #ffa500;
         }
 
-        /* ========================================= */
-        /* ======== Layout Geral =================== */
-        /* ========================================= */
-
+        /* Layout Geral */
         .container {
             width: 90%;
             max-width: 1200px;
@@ -68,10 +56,7 @@
             padding: 20px 0;
         }
 
-        /* ========================================= */
-        /* ======== Navbar ========================= */
-        /* ========================================= */
-
+        /* Navbar */
         .navbar {
             background: var(--navbar-bg);
             padding: 1rem 2rem;
@@ -94,11 +79,6 @@
             display: flex;
             align-items: center;
             flex: 1;
-        }
-
-        .navbar .logo i {
-            margin-right: 0.5rem;
-            font-size: 1.5rem;
         }
 
         .navbar .nav-links {
@@ -126,25 +106,7 @@
             transform: translateY(-2px);
         }
 
-        /* Menu Toggle para Mobile */
-        .navbar .menu-toggle {
-            display: none;
-            font-size: 1.8rem;
-            color: white;
-            cursor: pointer;
-            transition: color 0.3s ease, transform 0.5s ease;
-        }
-
-        .navbar .menu-toggle:hover {
-            color: var(--accent-color);
-            transform: rotate(90deg);
-        }
-
-        /* ========================================= */
-        /* ======== Botões Gerais ================== */
-        /* ========================================= */
-
-        /* Botão de Logout */
+        /* Botões Gerais */
         #logout-button {
             background: var(--button-bg);
             color: white;
@@ -169,71 +131,7 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
-        #logout-button i {
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
-        }
-
-        #logout-button:hover i {
-            transform: rotate(360deg);
-        }
-
-        /* Botões de Upload e Outros Botões */
-        .upload-button,
-        .download-button,
-        .share-button,
-        .delete-button,
-        .play-button {
-            background: var(--button-bg);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            flex: 1;
-            text-align: center;
-            max-width: 150px;
-        }
-
-        .upload-button:hover,
-        .download-button:hover,
-        .share-button:hover,
-        .delete-button:hover,
-        .play-button:hover {
-            background: var(--button-hover-bg);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .upload-button i,
-        .download-button i,
-        .share-button i,
-        .delete-button i,
-        .play-button i {
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
-        }
-
-        .upload-button:hover i,
-        .download-button:hover i,
-        .share-button:hover i,
-        .delete-button:hover i,
-        .play-button:hover i {
-            transform: rotate(360deg);
-        }
-
-        /* ========================================= */
-        /* ======== Seção Hero ====================== */
-        /* ========================================= */
-
+        /* Seção Hero */
         #hero-section {
             background: url('https://via.placeholder.com/1200x400') no-repeat center center/cover;
             color: #fff;
@@ -244,11 +142,6 @@
         #hero-section .hero-content h1 {
             font-size: 48px;
             margin-bottom: 20px;
-        }
-
-        #hero-section .hero-content p {
-            font-size: 18px;
-            margin-bottom: 30px;
         }
 
         #hero-section .cta-button {
@@ -264,12 +157,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        #hero-section .cta-button:hover {
-            background: var(--button-hover-color);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
         /* Seção de Login */
         #login-section {
             background-color: #fff;
@@ -279,13 +166,6 @@
             max-width: 400px;
             margin: 2rem auto;
             border-radius: 8px;
-        }
-
-        #login-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #333;
-            font-weight: 700;
         }
 
         #google-login-button {
@@ -307,22 +187,6 @@
             margin-top: 1rem;
         }
 
-        #google-login-button:hover {
-            background: var(--button-hover-bg);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        #google-login-button i {
-            margin-right: 0.5rem;
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
-        }
-
-        #google-login-button:hover i {
-            transform: rotate(360deg);
-        }
-
         /* Seção de Upload de Arquivos */
         #upload-section {
             background-color: #fff;
@@ -332,34 +196,12 @@
             border-radius: 8px;
         }
 
-        #upload-section h2 {
-            margin-bottom: 20px;
-            font-size: 28px;
-            text-align: center;
-            color: #333;
-        }
-
         #upload-form {
             display: flex;
             flex-direction: column;
             gap: 15px;
             max-width: 600px;
             margin: 0 auto;
-        }
-
-        #upload-form .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        #upload-form label {
-            font-size: 16px;
-            font-weight: 600;
-            color: #555;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         #upload-form input[type="file"] {
@@ -371,11 +213,6 @@
             background-color: #f9f9f9;
         }
 
-        #upload-form input[type="file"]:hover {
-            border-color: var(--accent-color);
-            background-color: #f1f1f1;
-        }
-
         /* Seção de Lista de Arquivos */
         #file-list-section {
             background-color: #fff;
@@ -385,13 +222,6 @@
             border-radius: 8px;
         }
 
-        #file-list-section h2 {
-            margin-bottom: 20px;
-            font-size: 28px;
-            text-align: center;
-            color: #333;
-        }
-
         #storage-usage {
             text-align: center;
             margin-bottom: 20px;
@@ -399,111 +229,7 @@
             color: #555;
         }
 
-        /* Search Bar and Sort Select */
-        .search-bar,
-        .sort-select {
-            width: 100%;
-            max-width: 400px;
-            padding: 10px;
-            margin: 0 auto 20px auto;
-            display: block;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .search-bar:focus,
-        .sort-select:focus {
-            border-color: var(--accent-color);
-            outline: none;
-        }
-
-        #file-list {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        #file-list li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            background-color: #fefefe;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        #file-list li:hover {
-            background-color: #f1f1f1;
-            transform: translateY(-2px);
-        }
-
-        #file-list li span {
-            font-size: 16px;
-            color: #333;
-            max-width: 60%;
-            word-break: break-all;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-weight: 600;
-        }
-
-        #file-list li div {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            width: 100%;
-        }
-
-        .download-button,
-        .share-button,
-        .delete-button,
-        .play-button {
-            background: var(--button-bg);
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border: none;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex: 1 1 auto;
-            text-align: center;
-            max-width: 150px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .download-button:hover,
-        .share-button:hover,
-        .delete-button:hover,
-        .play-button:hover {
-            background: var(--button-hover-bg);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .download-button i,
-        .share-button i,
-        .delete-button i,
-        .play-button i {
-            font-size: 1rem;
-            margin-right: 0.25rem;
-        }
-
-        /* Seção de Player de Vídeo */
+        /* Player de Vídeo */
         #video-player-section {
             background-color: #fff;
             padding: 50px 20px;
@@ -515,7 +241,7 @@
         #video-player-container {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            padding-top: 56.25%;
             overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -527,114 +253,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Preenche o container sem distorção */
+            object-fit: cover;
             border: none;
             border-radius: 8px;
-        }
-
-        /* Centralizar o botão de play grande do Video.js */
-        .vjs-big-play-button {
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-        }
-
-        /* Estilos para os botões personalizados do Video.js */
-        .vjs-rewind-button .fas,
-        .vjs-forward-button .fas,
-        .vjs-download-button .fas,
-        .vjs-embed-button .fas {
-            font-size: 18px;
-            line-height: 1.5;
-            vertical-align: middle;
-            color: white;
-        }
-
-        .vjs-rewind-button,
-        .vjs-forward-button,
-        .vjs-download-button,
-        .vjs-embed-button {
-            width: 36px;
-            height: 36px;
-            padding: 0;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .vjs-rewind-button:hover .fas,
-        .vjs-forward-button:hover .fas,
-        .vjs-download-button:hover .fas,
-        .vjs-embed-button:hover .fas {
-            color: #ccc;
-        }
-
-        /* Estilos para o container de progresso múltiplo */
-        .progress-container {
-            margin-top: 20px;
-        }
-
-        /* Estilos para cada item de progresso */
-        .progress-item {
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        /* Estilos para a barra de progresso */
-        .progress-bar-wrapper {
-            position: relative;
-            background-color: #f3f3f3;
-            border-radius: 5px;
-            height: 20px;
-            width: 100%;
-            margin-top: 5px;
-        }
-
-        .progress-bar {
-            background-color: var(--progress-bar-color);
-            height: 100%;
-            width: 0%;
-            border-radius: 5px;
-            transition: width 0.4s ease;
-        }
-
-        .progress-text {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            color: #fff;
-            line-height: 20px;
-        }
-
-        /* Botão de Voltar ao Topo */
-        .back-to-top {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: none;
-            z-index: 1000;
-        }
-
-        .back-to-top:hover {
-            background-color: var(--button-hover-color);
-            transform: translateY(-5px);
-        }
-
-        .back-to-top i {
-            margin: 0;
         }
 
         /* Rodapé */
@@ -647,274 +268,6 @@
             border-top: 4px solid var(--footer-border);
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
         }
-
-        footer p {
-            margin-bottom: 1rem;
-            font-size: 1rem;
-        }
-
-        .social-links {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 0;
-            margin: 0;
-        }
-
-        .social-links li a {
-            color: #fff;
-            font-size: 20px;
-            transition: color 0.3s ease;
-            text-decoration: none;
-        }
-
-        .social-links li a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Mensagens (Pop-up) */
-        .message-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 350px;
-            max-width: 90%;
-            z-index: 2000;
-            pointer-events: none;
-        }
-
-        .message {
-            background: var(--accent-color);
-            color: #fff;
-            padding: 1rem 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            pointer-events: all;
-            animation: slideIn 0.5s ease forwards, fadeOut 5s ease forwards 4.5s;
-            font-weight: 600;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .message.success {
-            background: linear-gradient(135deg, #4caf50, #388e3c);
-        }
-
-        .message.error {
-            background: linear-gradient(135deg, #f44336, #d32f2f);
-        }
-
-        .message.info {
-            background: linear-gradient(135deg, #2196f3, #1976d2);
-        }
-
-        .message.warning {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
-        }
-
-        .message i {
-            cursor: pointer;
-            margin-left: 1rem;
-            transition: transform 0.3s;
-        }
-
-        .message i:hover {
-            transform: rotate(90deg);
-        }
-
-        /* Animações */
-        @keyframes slideIn {
-            0% {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            100% {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        .message::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: #fff;
-            opacity: 0.6;
-            animation: slideBorder 5s linear forwards;
-        }
-
-        @keyframes slideBorder {
-            0% {
-                height: 0%;
-            }
-            100% {
-                height: 100%;
-            }
-        }
-
-        /* ========================================= */
-        /* ======== Responsividade Geral ============ */
-        /* ========================================= */
-
-        @media (max-width: 768px) {
-            /* Navbar Ajustes */
-            .navbar {
-                flex-wrap: wrap;
-            }
-
-            .navbar .nav-links {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                background-color: rgba(0, 0, 0, 0.9);
-                position: absolute;
-                top: 60px;
-                left: 0;
-                padding: 1rem 0;
-                border-top: 1px solid #444;
-            }
-
-            .navbar .nav-links.active {
-                display: flex;
-            }
-
-            .navbar .nav-links li {
-                margin: 0.5rem 0;
-                text-align: center;
-            }
-
-            .navbar .menu-toggle {
-                display: block;
-                margin-right: 1rem;
-            }
-
-            /* Botões de Logout e Upload Ajustes */
-            #logout-button {
-                width: 100%;
-                justify-content: center;
-                margin-top: 0.5rem;
-            }
-
-            #google-login-button {
-                width: 100%;
-                padding: 1rem 0;
-                font-size: 1.25rem;
-                border-radius: 25px;
-            }
-
-            /* Lista de Arquivos Ajustes */
-            #file-list li {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            #file-list li div {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-start;
-                gap: 0.5rem;
-                width: 100%;
-            }
-
-            .download-button,
-            .share-button,
-            .delete-button,
-            .play-button {
-                flex: none;
-                width: 100%;
-                max-width: none;
-                padding: 0.5rem;
-                font-size: 0.9rem;
-            }
-
-            /* Vídeo Ajustes */
-            #video-player-section {
-                padding: 20px;
-                margin: 1rem auto;
-            }
-
-            #video-player-container {
-                padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            }
-
-            #video-player {
-                object-fit: cover;
-            }
-
-            /* Seção Hero Ajustes */
-            #hero-section {
-                padding: 50px 10px;
-            }
-
-            #hero-section .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            #hero-section .hero-content p {
-                font-size: 1rem;
-            }
-
-            #hero-section .cta-button {
-                padding: 10px 20px;
-                font-size: 16px;
-            }
-
-            /* Footer Ajustes */
-            footer {
-                padding: 15px 10px;
-            }
-
-            .social-links {
-                gap: 10px;
-            }
-
-            .social-links li a {
-                font-size: 1.2rem;
-            }
-
-            /* Botão de Voltar ao Topo Ajustes */
-            .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                padding: 10px 12px;
-                font-size: 1.2rem;
-            }
-
-            /* Seção de Upload e Lista de Arquivos Ajustes */
-            #upload-section,
-            #file-list-section,
-            #video-player-section {
-                padding: 30px 10px;
-            }
-
-            /* Seção de Progresso Ajustes */
-            .progress-container {
-                width: 100%;
-            }
-        }
-
-        /* ========================================= */
-        /* ======== Botão Voltar ao Topo ======== */
-        /* ========================================= */
-        /* Já incluído anteriormente */
-
     </style>
 </head>
 <body>
@@ -930,11 +283,9 @@
                     <li><a href="#">Sobre</a></li>
                     <li><a href="#">Contato</a></li>
                 </ul>
-                <!-- Botão para alternar o menu em dispositivos móveis -->
                 <div class="menu-toggle">
                     <i class="fas fa-bars"></i>
                 </div>
-                <!-- Botão de Logout -->
                 <button id="logout-button" class="upload-button" style="display: none;">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
@@ -971,19 +322,14 @@
                 </div>
                 <button type="submit" class="upload-button"><i class="fas fa-cloud-upload-alt"></i> Fazer Upload</button>
             </form>
-            <!-- Container da Barra de Progresso -->
-            <div id="progress-container" class="progress-container" style="display: none;">
-                <!-- As barras de progresso individuais serão inseridas aqui dinamicamente -->
-            </div>
+            <div id="progress-container" class="progress-container" style="display: none;"></div>
         </section>
 
         <!-- Seção de Lista de Arquivos -->
         <section id="file-list-section" class="container" style="display: none;">
             <h2>Seus Arquivos</h2>
             <p id="storage-usage">0.00 GB de Ilimitado</p>
-            <!-- Barra de Pesquisa -->
             <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
-            <!-- Seleção de Ordenação -->
             <select id="sort-select" class="sort-select">
                 <option value="alphabetical">Ordem Alfabética (A-Z)</option>
                 <option value="alphabetical-desc">Ordem Alfabética (Z-A)</option>
@@ -992,10 +338,7 @@
                 <option value="size-asc">Menor Tamanho Primeiro</option>
                 <option value="size-desc">Maior Tamanho Primeiro</option>
             </select>
-            <!-- Lista de Arquivos -->
-            <ul id="file-list">
-                <!-- Os arquivos enviados serão inseridos aqui dinamicamente pelo script.js -->
-            </ul>
+            <ul id="file-list"></ul>
         </section>
 
         <!-- Seção de Player de Vídeo -->
@@ -1003,7 +346,6 @@
             <div id="video-player-container">
                 <video id="video-player" class="video-js vjs-default-skin" controls>
                     <source src="seu-video.mp4" type="video/mp4">
-                    <!-- Outros sources, se necessário -->
                 </video>
             </div>
         </section>
@@ -1024,7 +366,6 @@
                 <li><a href="#"><i class="fab fa-instagram"></i></a></li>
             </ul>
         </div>
-        <!-- Container de mensagens (pop-up) -->
         <div id="message-container" class="message-container"></div>
     </footer>
 
