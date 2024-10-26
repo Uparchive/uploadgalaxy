@@ -1085,5 +1085,44 @@ body {
 .vjs-embed-button:hover .fas {
     color: #ccc;
 }
+/* Estilos para o container de progresso */
+.progress-container {
+    margin-top: 20px;
+}
+
+/* Estilos para cada item de progresso */
+.progress-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Estilos para a barra de progresso */
+.progress-bar-wrapper {
+    position: relative;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    height: 20px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.progress-bar {
+    background-color: #4caf50;
+    height: 100%;
+    width: 0%;
+    border-radius: 5px;
+}
+
+.progress-text {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #fff;
+    line-height: 20px;
+}
 
 
