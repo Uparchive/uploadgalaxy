@@ -114,9 +114,6 @@ uploadForm.addEventListener('submit', (e) => {
     }
 });
 
-// Selecionar o botão de Play/Pause do player de vídeo
-const playPauseButton = document.getElementById('video-play-pause-button');
-
 // Função para atualizar o ícone do botão de Play/Pause
 function updatePlayPauseButton(isPlaying) {
     if (isPlaying) {
