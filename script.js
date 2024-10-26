@@ -287,31 +287,42 @@ function displayFiles(files) {
         listItem.innerHTML = `
             <span>${file.name} (${formatBytes(file.size)})</span>
             <div>
-                ${isVideo ? `<button class="play-button" onclick="playVideo('${file.url}')">Reproduzir</button>` : ''}
+                ${isVideo ? `<button class="play-button">Reproduzir</button>` : ''}
                 <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
-                <button class="share-button" onclick="copyToClipboard('${file.url}')">Copiar Link</button>
-                <button class="delete-button" onclick="deleteFile('${file.name}')">Excluir</button>
+                <button class="share-button">Copiar Link</button>
+                <button class="delete-button">Excluir</button>
             </div>
         `;
         fileList.appendChild(listItem);
+
+        // Adicionar event listeners aos botões
+        if (isVideo) {
+            const playButton = listItem.querySelector('.play-button');
+            playButton.addEventListener('click', () => {
+                playVideo(file.url);
+            });
+        }
+
+        const shareButton = listItem.querySelector('.share-button');
+        shareButton.addEventListener('click', () => {
+            copyToClipboard(file.url);
+        });
+
+        const deleteButton = listItem.querySelector('.delete-button');
+        deleteButton.addEventListener('click', () => {
+            deleteFile(file.name);
+        });
     });
     updateStorageUsage();
 }
 
 // Função para reproduzir vídeo
 function playVideo(url) {
-    const videoPlayerSection = document.getElementById('video-player-section');
-    const videoSource = document.getElementById('video-source');
-    const videoPlayer = videojs('video-player');
-
-    videoSource.src = url;
     videoPlayerSection.style.display = 'block';
+    videoPlayer.src({ type: getMimeType(url), src: url });
     videoPlayer.load();
     videoPlayer.play();
 }
-
-// Tornando a função acessível globalmente
-window.playVideo = playVideo;
 
 // Função para atualizar a barra de progresso do vídeo
 function updateProgressBar() {
