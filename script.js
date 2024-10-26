@@ -60,9 +60,6 @@ const backToTopButton = document.getElementById('back-to-top');
 // Inicializar o player de vídeo Video.js
 const videoPlayer = videojs('video-player');
 
-// Selecionar o botão de Play/Pause do player de vídeo
-const playPauseButton = document.getElementById('video-play-pause-button');
-
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
 let allFiles = [];
@@ -113,36 +110,6 @@ uploadForm.addEventListener('submit', (e) => {
         startUpload();
     }
 });
-
-// Função para atualizar o ícone do botão de Play/Pause
-function updatePlayPauseButton(isPlaying) {
-    if (isPlaying) {
-        playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
-    } else {
-        playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
-    }
-}
-
-// Eventos para atualizar o botão quando o vídeo é reproduzido ou pausado
-videoPlayer.on('play', function() {
-    updatePlayPauseButton(true);
-});
-
-videoPlayer.on('pause', function() {
-    updatePlayPauseButton(false);
-});
-
-// Adicionar evento de clique ao botão de Play/Pause
-playPauseButton.addEventListener('click', function() {
-    if (videoPlayer.paused()) {
-        videoPlayer.play();
-    } else {
-        videoPlayer.pause();
-    }
-});
-
-// Inicializar o estado do botão com o ícone correto
-updatePlayPauseButton(!videoPlayer.paused());
 
 // Função para exibir mensagens personalizadas
 function showMessage(message, type = 'info') {
@@ -322,7 +289,6 @@ function playVideo(url) {
     videoPlayer.src({ type: getMimeType(url), src: url });
     videoPlayer.load();
     videoPlayer.play();
-    updatePlayPauseButton(true); // Atualiza o botão para o estado "Pause"
 }
 
 // Função para atualizar a barra de progresso do vídeo
