@@ -61,7 +61,9 @@
 <body>
     <!-- Contêiner do Player de Vídeo -->
     <div id="video-player-container">
-        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto"></video>
+        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto">
+            Seu navegador não suporta a reprodução deste vídeo.
+        </video>
     </div>
 
     <!-- Scripts necessários -->
@@ -76,7 +78,12 @@
         }
 
         // Obter o URL do vídeo da query string
-        const videoUrl = getQueryParam('videoUrl');
+        let videoUrl = getQueryParam('videoUrl');
+        console.log("URL do vídeo antes da decodificação:", videoUrl);
+
+        // Decodificar a URL do vídeo
+        videoUrl = decodeURIComponent(videoUrl);
+        console.log("URL do vídeo após a decodificação:", videoUrl);
 
         // Verificar se o videoUrl está presente
         if (!videoUrl) {
@@ -102,9 +109,11 @@
         const videoPlayer = videojs('video-player', {
             autoplay: false,
             controls: true,
+            errorDisplay: true,
             sources: [{ src: videoUrl, type: getMimeType(videoUrl) }]
         }, function() {
             // Callback após o player estar pronto
+            console.log("Player inicializado com sucesso.");
             addCustomButtons(); // Adicionar os botões personalizados
         });
 
@@ -176,6 +185,12 @@
             a.click();
             document.body.removeChild(a);
         }
+
+        // Tratamento de Erro do Video.js
+        videoPlayer.on('error', function() {
+            console.error('Erro ao carregar o vídeo:', videoPlayer.error());
+            alert('Erro ao carregar o vídeo. Verifique se a URL está correta e acessível.');
+        });
     </script>
 </body>
 </html>
