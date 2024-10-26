@@ -55,11 +55,13 @@ const searchInput = document.getElementById('search-input');
 const logoutButton = document.getElementById('logout-button');
 const heroSection = document.getElementById('hero-section');
 const videoPlayerSection = document.getElementById('video-player-section');
-const videoSource = document.getElementById('video-source');
 const backToTopButton = document.getElementById('back-to-top');
 
-// Inicializar o player de vídeo
+// Inicializar o player de vídeo Video.js
 const videoPlayer = videojs('video-player');
+
+// Selecionar o botão de Play/Pause do player de vídeo
+const playPauseButton = document.getElementById('video-play-pause-button');
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
@@ -112,13 +114,7 @@ uploadForm.addEventListener('submit', (e) => {
     }
 });
 
-// Inicializar o player de vídeo Video.js
-const videoPlayer = videojs('video-player');
-
-// Selecionar o botão de Play/Pause do player de vídeo
-const playPauseButton = document.getElementById('video-play-pause-button');
-
-// Atualizar o ícone do botão com base no estado do vídeo
+// Atualizar o ícone do botão de Play/Pause do player de vídeo
 function updatePlayPauseButton(isPlaying) {
     if (isPlaying) {
         playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
