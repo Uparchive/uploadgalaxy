@@ -111,23 +111,6 @@ uploadForm.addEventListener('submit', (e) => {
     }
 });
 
-// Função para exibir mensagens personalizadas
-function showMessage(message, type = 'info') {
-    const messageContainer = document.getElementById('message-container');
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('message', type);
-    messageElement.innerHTML = `
-        <span>${message}</span>
-        <i class="fas fa-times" onclick="this.parentElement.remove()"></i>
-    `;
-    messageContainer.appendChild(messageElement);
-    setTimeout(() => {
-        if (messageElement.parentElement) {
-            messageElement.remove();
-        }
-    }, 5000);
-}
-
 // Função para iniciar o upload
 async function startUpload() {
     const fileInput = document.getElementById('file-input');
@@ -286,30 +269,18 @@ function displayFiles(files) {
 // Função para reproduzir vídeo
 function playVideo(url) {
     videoPlayerSection.style.display = 'block';
-    videoPlayer.src({ type: getMimeType(url), src: url });
-    videoPlayer.load();
-    videoPlayer.play();
-}
 
-// Função para atualizar a barra de progresso do vídeo
-function updateProgressBar() {
-    const currentTime = videoPlayer.currentTime();
-    const duration = videoPlayer.duration();
-    const progress = (currentTime / duration) * 100;
+    // Configurar a fonte do vídeo
+    const mimeType = getMimeType(url);
+    videoPlayer.src({ type: mimeType, src: url });
 
-    // Atualizar a barra de progresso do Video.js
-    const progressBarElement = document.querySelector('.vjs-play-progress');
-    if (progressBarElement) {
-        progressBarElement.style.width = `${progress}%`;
-    }
+    // Reproduzir o vídeo quando estiver pronto
+    videoPlayer.ready(function() {
+        videoPlayer.play();
+    });
 
-    // Atualizar o texto de tempo decorrido
-    const timeDisplay = document.querySelector('.vjs-current-time-display');
-    const durationDisplay = document.querySelector('.vjs-duration-display');
-    if (timeDisplay && durationDisplay) {
-        timeDisplay.textContent = formatTime(currentTime);
-        durationDisplay.textContent = formatTime(duration);
-    }
+    // Deslocar a página para o player de vídeo
+    videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // Função para obter o tipo MIME do vídeo
@@ -326,29 +297,6 @@ function getMimeType(url) {
             return 'video/mp4';
     }
 }
-
-// Função para formatar o tempo em minutos e segundos
-function formatTime(time) {
-    if (isNaN(time) || time === Infinity) return '00:00';
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-}
-
-// Registrar o evento 'timeupdate' quando o player estiver pronto
-videoPlayer.ready(function() {
-    console.log('Video.js player está pronto');
-    videoPlayer.on('timeupdate', updateProgressBar);
-});
-
-// Forçar atualização da barra de progresso no evento 'play'
-videoPlayer.on('play', function() {
-    console.log('Vídeo iniciou a reprodução');
-    updateProgressBar();
-    videoPlayer.focus();
-});
-
-// Removemos a função updatePlayButton() para evitar manipulação direta do botão de play/pause
 
 // Função para ordenar os arquivos
 sortSelect.addEventListener('change', () => {
