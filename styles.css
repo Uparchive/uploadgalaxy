@@ -10,7 +10,7 @@
 }
 
 body {
-    /* Alterado para um degradê azul */
+    /* Fundo do site em degradê azul */
     background: linear-gradient(to right, #1e3c72, #2a5298);
     color: #333;
     line-height: 1.6;
@@ -396,8 +396,7 @@ body {
 #file-list li div {
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap; /* Permite quebra de linha se necessário */
-    justify-content: flex-start;
+    justify-content: space-between;
     width: 100%;
 }
 
@@ -409,7 +408,6 @@ body {
     flex: 1; /* Faz com que os botões ocupem a mesma largura */
     text-align: center;
     transition: all 0.3s ease;
-    max-width: 150px; /* Define uma largura máxima para evitar botões grandes demais */
     background-color: #ffa500;
     color: #fff;
     border: none;
@@ -555,8 +553,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     font-size: 12px;
-    /* Alterado para preto */
-    color: #000;
+    color: #000; /* Alterado para preto */
     line-height: 20px;
 }
 
@@ -780,20 +777,20 @@ footer p {
     /* Lista de Arquivos Ajustes */
     #file-list li {
         flex-direction: column; /* Empilha os itens na vertical */
-        align-items: center; /* Centraliza os itens */
+        align-items: flex-start; /* Alinha itens à esquerda */
     }
 
     #file-list li div {
-        justify-content: center; /* Centraliza os botões */
-        width: 100%;
+        /* Mantenha os botões em uma única linha */
+        flex-direction: row;
+        justify-content: space-between;
         gap: 0.5rem;
     }
 
     .download-button, .share-button, .delete-button, .play-button {
-        max-width: 100px; /* Define um tamanho máximo */
+        flex: 1; /* Faz os botões ocuparem a mesma largura */
+        max-width: none; /* Remove a largura máxima */
         padding: 0.5rem; /* Ajusta o padding */
-        width: 100%; /* Faz os botões ocuparem toda a largura */
-        margin-bottom: 0.5rem; /* Espaçamento entre os botões */
     }
 
     /* Vídeo Ajustes */
@@ -809,18 +806,6 @@ footer p {
     /* Progress Bar Ajustes */
     .progress-container {
         width: 100%;
-    }
-    
-    /* Botões da Lista de Uploads esticados */
-    #file-list li div {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-    
-    .download-button, .share-button, .delete-button, .play-button {
-        flex: 1 1 45%; /* Permite que os botões se ajustem responsivamente */
-        max-width: none; /* Remove a largura máxima */
     }
 }
 
