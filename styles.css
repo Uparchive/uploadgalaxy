@@ -1027,17 +1027,17 @@ body {
         padding: 0.5rem; /* Ajusta o padding para caber em telas pequenas */
     }
 }
-/* Ajuste específico para telas grandes */
-@media (min-width: 1024px) {
-    #video-player {
-        max-width: 1200px; /* Define um limite máximo para telas grandes */
-    }
-}
 /* Container do player de vídeo */
 #video-player-section {
     position: relative;
     width: 100%;
-    overflow: hidden;
+    display: flex;
+    justify-content: center; /* Centraliza o vídeo horizontalmente */
+    align-items: center; /* Centraliza o vídeo verticalmente */
+    overflow: hidden; /* Evita overflow */
+    padding: 0;
+    margin: 2rem auto; /* Espaçamento superior e inferior */
+    max-width: 100vw; /* Garante que o container não ultrapasse a largura da tela */
     padding-top: 56.25%; /* Mantém a proporção 16:9 */
 }
 
@@ -1048,15 +1048,20 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Faz o vídeo ocupar o espaço inteiro sem distorção */
-    max-width: 100%;
+    object-fit: contain; /* Ajusta o vídeo dentro do container, sem cortar */
+    box-sizing: border-box;
 }
-/* Container do player de vídeo */
-#video-player-section {
-    margin-top: 2rem; /* Ajusta o espaçamento superior */
-    margin-bottom: 2rem; /* Espaçamento inferior adicional */
-    width: 100%;
-    display: flex;
-    justify-content: center; /* Centraliza o vídeo horizontalmente */
-    align-items: center; /* Centraliza o vídeo verticalmente */
+
+/* Ajuste específico para telas grandes */
+@media (min-width: 1024px) {
+    #video-player {
+        max-width: 1200px; /* Define um limite máximo para telas grandes */
+    }
+}
+
+/* Ajuste específico para dispositivos móveis */
+@media (max-width: 768px) {
+    #video-player {
+        max-width: 100vw; /* O vídeo ocupará toda a largura da viewport */
+    }
 }
