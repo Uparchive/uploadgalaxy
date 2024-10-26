@@ -1229,3 +1229,86 @@ body {
 #video-play-pause-button {
     z-index: 10; /* Certifique-se de que o botão esteja acima do player */
 }
+/* ========================================= */
+/* ======== Player de Vídeo ================= */
+/* ========================================= */
+
+#video-player-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 2rem auto;
+    max-width: 1200px;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #000; /* Fundo preto para realçar o vídeo */
+}
+
+#video-player {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+/* Responsividade para o Player de Vídeo */
+@media (max-width: 768px) {
+    #video-player-section {
+        margin: 1rem auto;
+    }
+
+    #video-player {
+        max-width: 100vw;
+        height: auto;
+    }
+}
+
+/* Botões Customizados do Video.js */
+.vjs-big-play-button {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.vjs-rewind-button .fas,
+.vjs-forward-button .fas,
+.vjs-download-button .fas,
+.vjs-embed-button .fas {
+    font-size: 18px;
+    line-height: 1.5;
+    vertical-align: middle;
+    color: white;
+}
+
+.vjs-rewind-button,
+.vjs-forward-button,
+.vjs-download-button,
+.vjs-embed-button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vjs-rewind-button:hover .fas,
+.vjs-forward-button:hover .fas,
+.vjs-download-button:hover .fas,
+.vjs-embed-button:hover .fas {
+    color: #ccc;
+}
+
+/* Ajustes adicionais para o contêiner do player */
+#video-player-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    overflow: hidden;
+}
