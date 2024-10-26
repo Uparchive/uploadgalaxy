@@ -58,7 +58,7 @@ const videoPlayerSection = document.getElementById('video-player-section');
 const backToTopButton = document.getElementById('back-to-top');
 
 // Inicializar o player de vídeo Video.js
-const videoPlayer = videojs('video-player');
+let videoPlayer;
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
@@ -270,30 +270,20 @@ function displayFiles(files) {
 function playVideo(url) {
     videoPlayerSection.style.display = 'block';
 
-    // Redefinir o player para limpar o cache do vídeo anterior
-    videoPlayer.reset();
+    // Destruir o player anterior se existir
+    if (videoPlayer) {
+        videoPlayer.dispose();
+    }
 
-    // Simular a perda e ganho de foco (não é totalmente possível devido a restrições de segurança)
-    document.title = "Mudando de aba...";
-    setTimeout(() => {
-        document.title = "Voltando para a aba...";
-        // Configurar a fonte do vídeo
-        const mimeType = getMimeType(url);
-        videoPlayer.src({ type: mimeType, src: url });
+    // Criar um novo player
+    videoPlayer = videojs('video-player', {
+        autoplay: true,
+        controls: true,
+        sources: [{ src: url, type: getMimeType(url) }]
+    });
 
-        // Reproduzir o vídeo quando estiver pronto
-        videoPlayer.ready(function() {
-            videoPlayer.play();
-        });
-
-        // Deslocar a página para o player de vídeo
-        videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 100);
-
-    // Limpar o título após alguns segundos
-    setTimeout(() => {
-        document.title = "Seu Título Original";
-    }, 2000);
+    // Deslocar a página para o player de vídeo
+    videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // Função para obter o tipo MIME do vídeo
