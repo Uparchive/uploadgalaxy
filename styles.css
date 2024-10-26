@@ -1146,26 +1146,3 @@ body {
     justify-content: center; /* Centraliza o vídeo horizontalmente */
     align-items: center; /* Centraliza o vídeo verticalmente */
 }
-
-/* Player de vídeo responsivo */
-#video-player {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: contain; /* Ajusta o vídeo sem cortar */
-    margin: 0 auto;
-}
-
-/* Ajuste específico para dispositivos móveis */
-@media (max-width: 768px) {
-    #video-player-section {
-        margin: 1rem auto; /* Reduz o espaçamento em dispositivos móveis */
-    }
-
-    #video-player {
-        width: 100%;
-        max-width: 100vw; /* O vídeo ocupará toda a largura da viewport */
-        height: auto;
-    }
-}
