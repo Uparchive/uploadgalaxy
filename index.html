@@ -43,6 +43,7 @@
             --navbar-bg: linear-gradient(90deg, #182848, #4b6cb7);
             --button-bg: linear-gradient(135deg, #ff8c00, #ff6600);
             --button-hover-bg: linear-gradient(135deg, #ff6600, #ff3300);
+            --progress-bar-bg: #f3f3f3;
             --progress-bar-color: #4caf50;
             --footer-bg: #333;
             --footer-border: #ffa500;
@@ -107,7 +108,7 @@
         }
 
         /* Botões Gerais */
-        #logout-button {
+        .upload-button, #logout-button {
             background: var(--button-bg);
             color: white;
             padding: 0.75rem 1.5rem;
@@ -122,10 +123,9 @@
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
-            margin-left: 1rem;
         }
 
-        #logout-button:hover {
+        .upload-button:hover, #logout-button:hover {
             background: var(--button-hover-bg);
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
@@ -157,6 +157,11 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        #hero-section .cta-button:hover {
+            background-color: #e59400;
+            transform: translateY(-2px);
+        }
+
         /* Seção de Login */
         #login-section {
             background-color: #fff;
@@ -166,25 +171,6 @@
             max-width: 400px;
             margin: 2rem auto;
             border-radius: 8px;
-        }
-
-        #google-login-button {
-            background: var(--button-bg);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            width: auto;
-            margin-top: 1rem;
         }
 
         /* Seção de Upload de Arquivos */
@@ -213,6 +199,33 @@
             background-color: #f9f9f9;
         }
 
+        #upload-form input[type="file"]:hover {
+            border-color: var(--accent-color);
+        }
+
+        /* Barra de Progresso */
+        .progress-container {
+            width: 100%;
+            background-color: var(--progress-bar-bg);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 20px;
+            height: 25px;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--progress-bar-color);
+            transition: width 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
         /* Seção de Lista de Arquivos */
         #file-list-section {
             background-color: #fff;
@@ -229,6 +242,41 @@
             color: #555;
         }
 
+        /* Barra de Pesquisa e Ordenação */
+        .search-bar, .sort-select {
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+            margin: 10px auto;
+            display: block;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar:focus, .sort-select:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+
+        /* Lista de Arquivos */
+        #file-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        #file-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #file-list li:last-child {
+            border-bottom: none;
+        }
+
         /* Player de Vídeo */
         #video-player-section {
             background-color: #fff;
@@ -236,11 +284,14 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
             margin-top: 2rem;
+            border-radius: 8px;
         }
 
         #video-player-container {
             position: relative;
             width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
             padding-top: 56.25%;
             overflow: hidden;
             border-radius: 8px;
@@ -268,6 +319,65 @@
             border-top: 4px solid var(--footer-border);
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
         }
+
+        .social-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 10px;
+        }
+
+        .social-links li a {
+            color: #fff;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Botão de Voltar ao Topo */
+        #back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+
+        #back-to-top:hover {
+            background-color: var(--button-hover-bg);
+            transform: scale(1.1);
+        }
+
+        /* Mensagem de Feedback */
+        .message-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1001;
+        }
+
+        .message-container.error {
+            background-color: #f44336;
+        }
     </style>
 </head>
 <body>
@@ -283,7 +393,7 @@
                     <li><a href="#">Sobre</a></li>
                     <li><a href="#">Contato</a></li>
                 </ul>
-                <div class="menu-toggle">
+                <div class="menu-toggle" style="display: none;">
                     <i class="fas fa-bars"></i>
                 </div>
                 <button id="logout-button" class="upload-button" style="display: none;">
@@ -322,7 +432,9 @@
                 </div>
                 <button type="submit" class="upload-button"><i class="fas fa-cloud-upload-alt"></i> Fazer Upload</button>
             </form>
-            <div id="progress-container" class="progress-container" style="display: none;"></div>
+            <div id="progress-container" class="progress-container">
+                <div class="progress-bar" id="progress-bar">0%</div>
+            </div>
         </section>
 
         <!-- Seção de Lista de Arquivos -->
@@ -375,14 +487,16 @@
     <!-- Inclusão do script.js como módulo ES6 -->
     <script type="module" src="script.js"></script>
 
-    <!-- Script para alternar o menu em dispositivos móveis -->
+    <!-- Script para alternar o menu em dispositivos móveis (opcional) -->
     <script>
         const menuToggle = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.nav-links');
 
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
     </script>
 
     <!-- Script para o botão "Voltar ao Topo" -->
@@ -391,7 +505,7 @@
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
-                backToTopButton.style.display = 'block';
+                backToTopButton.style.display = 'flex';
             } else {
                 backToTopButton.style.display = 'none';
             }
@@ -403,6 +517,86 @@
                 top: 0,
                 behavior: 'smooth'
             });
+        });
+    </script>
+
+    <!-- Script para o formulário de upload com barra de progresso -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const uploadForm = document.getElementById('upload-form');
+            const fileInput = document.getElementById('file-input');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const messageContainer = document.getElementById('message-container');
+
+            uploadForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const files = fileInput.files;
+                if (files.length === 0) {
+                    showMessage('Por favor, selecione pelo menos um arquivo para fazer upload.', 'error');
+                    return;
+                }
+
+                // Criar um FormData para enviar os arquivos
+                const formData = new FormData();
+                for (let i = 0; i < files.length; i++) {
+                    formData.append('files[]', files[i]);
+                }
+
+                // Mostrar a barra de progresso
+                progressContainer.style.display = 'block';
+                progressBar.style.width = '0%';
+                progressBar.textContent = '0%';
+
+                // Enviar a requisição usando XMLHttpRequest para acompanhar o progresso
+                const xhr = new XMLHttpRequest();
+
+                xhr.open('POST', '/upload', true); // Substitua '/upload' pela URL do seu endpoint de upload
+
+                xhr.upload.onprogress = function(event) {
+                    if (event.lengthComputable) {
+                        const percentComplete = Math.round((event.loaded / event.total) * 100);
+                        progressBar.style.width = percentComplete + '%';
+                        progressBar.textContent = percentComplete + '%';
+                    }
+                };
+
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        showMessage('Upload realizado com sucesso!', 'success');
+                        // Resetar o formulário e a barra de progresso
+                        uploadForm.reset();
+                        progressBar.style.width = '0%';
+                        progressBar.textContent = '0%';
+                        progressContainer.style.display = 'none';
+                        // Atualizar a lista de arquivos, se necessário
+                        // loadFileList(); // Implemente esta função conforme seu backend
+                    } else {
+                        showMessage('Erro ao fazer upload. Tente novamente.', 'error');
+                        progressContainer.style.display = 'none';
+                    }
+                };
+
+                xhr.onerror = function() {
+                    showMessage('Erro de rede. Por favor, tente novamente.', 'error');
+                    progressContainer.style.display = 'none';
+                };
+
+                xhr.send(formData);
+            });
+
+            function showMessage(message, type) {
+                messageContainer.textContent = message;
+                messageContainer.className = 'message-container';
+                if (type === 'error') {
+                    messageContainer.classList.add('error');
+                }
+                messageContainer.style.display = 'block';
+                setTimeout(() => {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+            }
         });
     </script>
 </body>
