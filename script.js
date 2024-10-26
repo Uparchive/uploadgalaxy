@@ -268,20 +268,34 @@ function displayFiles(files) {
 
 // Função para reproduzir vídeo
 function playVideo(url) {
-    videoPlayerSection.style.display = 'block';
-
-    // Configurar a fonte do vídeo
-    const mimeType = getMimeType(url);
-    videoPlayer.src({ type: mimeType, src: url });
-
-    // Reproduzir o vídeo quando estiver pronto
-    videoPlayer.ready(function() {
-        videoPlayer.play();
-    });
-
-    // Deslocar a página para o player de vídeo
-    videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Atualizar a página
+    location.reload();
+    
+    // Após recarregar a página, reproduzir o vídeo
+    // Podemos armazenar a URL do vídeo no localStorage para reproduzir após o reload
+    localStorage.setItem('videoToPlay', url);
 }
+
+// Verificar se há um vídeo para reproduzir após o reload
+window.addEventListener('load', () => {
+    const videoToPlay = localStorage.getItem('videoToPlay');
+    if (videoToPlay) {
+        localStorage.removeItem('videoToPlay');
+        videoPlayerSection.style.display = 'block';
+
+        // Configurar a fonte do vídeo
+        const mimeType = getMimeType(videoToPlay);
+        videoPlayer.src({ type: mimeType, src: videoToPlay });
+
+        // Reproduzir o vídeo quando estiver pronto
+        videoPlayer.ready(function() {
+            videoPlayer.play();
+        });
+
+        // Deslocar a página para o player de vídeo
+        videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+});
 
 // Função para obter o tipo MIME do vídeo
 function getMimeType(url) {
