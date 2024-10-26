@@ -23,8 +23,7 @@
         /* Estilos para os botões personalizados */
         .vjs-rewind-button .fas,
         .vjs-forward-button .fas,
-        .vjs-download-button .fas,
-        .vjs-embed-button .fas {
+        .vjs-download-button .fas {
             font-size: 18px;
             line-height: 1.5;
             vertical-align: middle;
@@ -33,8 +32,7 @@
 
         .vjs-rewind-button,
         .vjs-forward-button,
-        .vjs-download-button,
-        .vjs-embed-button {
+        .vjs-download-button {
             width: 36px;
             height: 36px;
             padding: 0;
@@ -42,8 +40,7 @@
 
         .vjs-rewind-button:hover .fas,
         .vjs-forward-button:hover .fas,
-        .vjs-download-button:hover .fas,
-        .vjs-embed-button:hover .fas {
+        .vjs-download-button:hover .fas {
             color: #ccc;
         }
 
@@ -81,6 +78,11 @@
         // Obter o URL do vídeo da query string
         const videoUrl = getQueryParam('videoUrl');
 
+        // Verificar se o videoUrl está presente
+        if (!videoUrl) {
+            alert('URL do vídeo não fornecida.');
+        }
+
         // Função para obter o tipo MIME do vídeo
         function getMimeType(url) {
             const extension = url.split('.').pop().toLowerCase();
@@ -108,7 +110,6 @@
 
         // Função para adicionar botões personalizados ao player
         function addCustomButtons() {
-            // Reutilizar as funções de criação de botões (semelhante ao script.js original)
             // Botão de Retroceder 10 Segundos
             const rewindButton = videojs.extend(videojs.getComponent('Button'), {
                 constructor: function() {
@@ -162,9 +163,6 @@
             });
             videojs.registerComponent('DownloadButton', downloadButton);
             videoPlayer.getChild('controlBar').addChild('DownloadButton', {}, videoPlayer.getChild('controlBar').children().length - 1);
-
-            // Botão de Incorporação (opcional na página embed)
-            // Você pode decidir se faz sentido incluir esse botão na versão incorporada
         }
 
         // Função para baixar o vídeo atual

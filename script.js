@@ -397,7 +397,7 @@ function downloadCurrentVideo() {
 // Função para copiar o código de incorporação para a área de transferência
 function copyEmbedCode() {
     const videoUrl = videoPlayer.currentSrc();
-    const embedPageUrl = `https://SEU_DOMINIO/embed.html?videoUrl=${encodeURIComponent(videoUrl)}`;
+    const embedPageUrl = `https://uparchive.github.io/uploadgalaxy/embed.html?videoUrl=${encodeURIComponent(videoUrl)}`;
     const embedCode = `<iframe src="${embedPageUrl}" frameborder="0" allowfullscreen></iframe>`;
 
     navigator.clipboard.writeText(embedCode).then(() => {
