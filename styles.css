@@ -10,8 +10,8 @@
 }
 
 body {
-    /* Fundo do site com degradê azul mais suave e textura sutil */
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    /* Fundo do site com o mesmo degradê do topo da navbar */
+    background: var(--navbar-bg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     color: #333;
