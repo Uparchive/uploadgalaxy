@@ -1060,27 +1060,24 @@ body {
     }
 }
 
-/* Botão de Play/Pause no player de vídeo */
+/* Estilo do botão de Play/Pause no player de vídeo */
 #video-play-pause-button {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 10px;
+    right: 10px;
     background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
     border: none;
-    padding: 15px;
+    padding: 10px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 10;
-    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 #video-play-pause-button i {
-    font-size: 24px;
+    font-size: 20px;
 }
 
 #video-play-pause-button:hover {
     background-color: rgba(0, 0, 0, 0.8);
-    transform: translate(-50%, -50%) scale(1.1);
 }
