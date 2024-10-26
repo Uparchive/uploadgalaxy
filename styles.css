@@ -906,3 +906,27 @@ footer p {
         padding: 10px 5px;
     }
 }
+/* Correções Adicionais */
+
+/* 1. Fundo do Rodapé Azul */
+footer {
+    background-color: #1e3c72;
+}
+
+/* 2. Garantir que os Botões da Lista de Upload fiquem Lado a Lado */
+#file-list li div {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 5px;
+}
+
+/* 3. Ajuste do Tamanho dos Botões para Evitar Quebra de Linha */
+.download-button, 
+.share-button, 
+.delete-button, 
+.play-button {
+    flex: none;
+    width: 80px; /* Ajuste o tamanho conforme necessário */
+    text-align: center;
+    padding: 0.5rem 0.75rem; /* Tamanho confortável para exibição */
+}
