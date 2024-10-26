@@ -300,24 +300,17 @@ function displayFiles(files) {
 
 // Função para reproduzir vídeo
 function playVideo(url) {
+    const videoPlayerSection = document.getElementById('video-player-section');
+    const videoSource = document.getElementById('video-source');
+    const videoPlayer = videojs('video-player');
+
+    videoSource.src = url;
     videoPlayerSection.style.display = 'block';
-    videoPlayer.src({ type: getMimeType(url), src: url });
     videoPlayer.load();
     videoPlayer.play();
-
-    // Definir o foco no player
-    videoPlayer.focus();
-
-    // Scroll automático até o player de vídeo
-    videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    // Entrar em tela cheia usando o método do Video.js
-    if (window.innerWidth <= 768) {
-        videoPlayer.requestFullscreen();
-    }
 }
 
-// Tornar a função acessível globalmente
+// Tornando a função acessível globalmente
 window.playVideo = playVideo;
 
 // Função para atualizar a barra de progresso do vídeo
