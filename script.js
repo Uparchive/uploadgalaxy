@@ -332,9 +332,9 @@ function updateProgressBar() {
     const progress = (currentTime / duration) * 100;
 
     // Atualizar a barra de progresso do Video.js
-    const progressBar = document.querySelector('.vjs-play-progress');
-    if (progressBar) {
-        progressBar.style.width = `${progress}%`;
+    const progressBarElement = document.querySelector('.vjs-play-progress');
+    if (progressBarElement) {
+        progressBarElement.style.width = `${progress}%`;
     }
 
     // Atualizar o texto de tempo decorrido
@@ -346,22 +346,27 @@ function updateProgressBar() {
     }
 }
 
+// Função para obter o tipo MIME do vídeo
+function getMimeType(url) {
+    const extension = url.split('.').pop().toLowerCase();
+    switch (extension) {
+        case 'mp4':
+            return 'video/mp4';
+        case 'mkv':
+            return 'video/x-matroska';
+        case 'webm':
+            return 'video/webm';
+        default:
+            return 'video/mp4';
+    }
+}
+
 // Função para formatar o tempo em minutos e segundos
 function formatTime(time) {
     if (isNaN(time) || time === Infinity) return '00:00';
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-}
-
-function getMimeType(url) {
-    const extension = url.split('.').pop().toLowerCase();
-    switch (extension) {
-        case 'mkv': return 'video/x-matroska';
-        case 'mp4': return 'video/mp4';
-        case 'webm': return 'video/webm';
-        default: return 'video/mp4';
-    }
 }
 
 // Registrar o evento 'timeupdate' quando o player estiver pronto
