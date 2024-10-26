@@ -142,12 +142,13 @@ async function startUpload() {
 
     // Iterar sobre cada arquivo e iniciar o upload
     Array.from(files).forEach((file, index) => {
-        const storageRefPath = `uploads/${user.uid}/${Date.now()}_${file.name}`;
+        const timestamp = Date.now();
+        const storageRefPath = `uploads/${user.uid}/${timestamp}_${file.name}`;
         const storageRefObj = ref(storage, storageRefPath);
         const uploadTask = uploadBytesResumable(storageRefObj, file);
 
         // Gerar IDs únicos para evitar conflitos
-        const safeFileName = file.name.replace(/\W/g, '_') + '_' + index;
+        const safeFileName = `file_${timestamp}_${index}`;
 
         // Criar elementos de progresso no DOM
         const progressItem = document.createElement('div');
@@ -332,7 +333,9 @@ function playVideo(url) {
     videoPlayer = videojs('video-player', {
         autoplay: true,
         controls: true,
-        sources: [{ src: url, type: getMimeType(url) }]
+        sources: [{ src: url, type: getMimeType(url) }],
+        fluid: true, // Faz o player ser responsivo
+        responsive: true
     }, function() {
         // Callback após o player estar pronto
         addCustomButtons(); // Adicionar os botões personalizados
@@ -344,6 +347,9 @@ function playVideo(url) {
 
 // Função para adicionar botões personalizados ao player
 function addCustomButtons() {
+    // Evitar adicionar múltiplos botões se já existirem
+    if (videoPlayer.getChild('controlBar').getChild('RewindButton')) return;
+
     // Botão de Retroceder 10 Segundos
     const rewindButton = videojs.extend(videojs.getComponent('Button'), {
         constructor: function() {
