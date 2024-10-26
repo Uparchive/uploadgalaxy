@@ -67,6 +67,64 @@
         .vjs-embed-button:hover .fas {
             color: #ccc;
         }
+
+        /* Estilos para o container de progresso múltiplo */
+        .progress-container {
+            margin-top: 20px;
+        }
+
+        /* Estilos para cada item de progresso */
+        .progress-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Estilos para a barra de progresso */
+        .progress-bar-wrapper {
+            position: relative;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            height: 20px;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .progress-bar {
+            background-color: #4caf50;
+            height: 100%;
+            width: 0%;
+            border-radius: 5px;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #fff;
+            line-height: 20px;
+        }
+
+        /* Estilos gerais */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            height: 100%;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Outros estilos do seu site */
+        /* ... */
     </style>
 </head>
 <body>
@@ -113,20 +171,20 @@
         </section>
 
         <!-- Seção de Upload de Arquivos -->
-<section id="upload-section" class="container" style="display: none;">
-    <h2>Envie seus Arquivos</h2>
-    <form id="upload-form" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="file-input"><i class="fas fa-file-upload"></i> Selecione os arquivos:</label>
-            <input type="file" id="file-input" name="files" multiple required>
-        </div>
-        <button type="submit" class="upload-button"><i class="fas fa-cloud-upload-alt"></i> Fazer Upload</button>
-    </form>
-    <!-- Container da Barra de Progresso -->
-    <div id="progress-container" class="progress-container" style="display: none;">
-        <!-- As barras de progresso individuais serão inseridas aqui dinamicamente -->
-    </div>
-</section>
+        <section id="upload-section" class="container" style="display: none;">
+            <h2>Envie seus Arquivos</h2>
+            <form id="upload-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="file-input"><i class="fas fa-file-upload"></i> Selecione os arquivos:</label>
+                    <input type="file" id="file-input" name="files" multiple required>
+                </div>
+                <button type="submit" class="upload-button"><i class="fas fa-cloud-upload-alt"></i> Fazer Upload</button>
+            </form>
+            <!-- Container da Barra de Progresso -->
+            <div id="progress-container" class="progress-container" style="display: none;">
+                <!-- As barras de progresso individuais serão inseridas aqui dinamicamente -->
+            </div>
+        </section>
 
         <!-- Seção de Lista de Arquivos -->
         <section id="file-list-section" class="container" style="display: none;">
