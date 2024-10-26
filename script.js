@@ -141,19 +141,22 @@ async function startUpload() {
     console.log(`Iniciando upload de ${files.length} arquivos...`);
 
     // Iterar sobre cada arquivo e iniciar o upload
-    Array.from(files).forEach(file => {
-        const storageRefPath = `uploads/${user.uid}/${file.name}`;
+    Array.from(files).forEach((file, index) => {
+        const storageRefPath = `uploads/${user.uid}/${Date.now()}_${file.name}`;
         const storageRefObj = ref(storage, storageRefPath);
         const uploadTask = uploadBytesResumable(storageRefObj, file);
+
+        // Gerar IDs únicos para evitar conflitos
+        const safeFileName = file.name.replace(/\W/g, '_') + '_' + index;
 
         // Criar elementos de progresso no DOM
         const progressItem = document.createElement('div');
         progressItem.className = 'progress-item';
         progressItem.innerHTML = `
-            <span>${file.name}</span>
+            <span>${file.name} (${formatBytes(file.size)})</span>
             <div class="progress-bar-wrapper">
-                <div class="progress-bar" id="progress-bar-${file.name.replace(/\W/g, '_')}"></div>
-                <span class="progress-text" id="progress-text-${file.name.replace(/\W/g, '_')}">0%</span>
+                <div class="progress-bar" id="progress-bar-${safeFileName}"></div>
+                <span class="progress-text" id="progress-text-${safeFileName}">0%</span>
             </div>
         `;
         progressContainer.appendChild(progressItem);
@@ -162,23 +165,27 @@ async function startUpload() {
         uploadTask.on('state_changed',
             (snapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                const progressBar = document.getElementById(`progress-bar-${file.name.replace(/\W/g, '_')}`);
-                const progressText = document.getElementById(`progress-text-${file.name.replace(/\W/g, '_')}`);
-                progressBar.style.width = `${progress}%`;
-                progressText.textContent = `${progress.toFixed(2)}%`;
+                const progressBar = document.getElementById(`progress-bar-${safeFileName}`);
+                const progressText = document.getElementById(`progress-text-${safeFileName}`);
+                if (progressBar && progressText) {
+                    progressBar.style.width = `${progress}%`;
+                    progressText.textContent = `${progress.toFixed(2)}%`;
+                }
                 console.log(`Upload do arquivo ${file.name} em progresso: ${progress.toFixed(2)}%`);
             },
             (error) => {
                 console.error(`Erro ao fazer upload do arquivo ${file.name}:`, error);
                 alert(`Erro ao fazer upload do arquivo ${file.name}: ${error.code} - ${error.message}`);
             },
-            async () => {
-                try {
-                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                    console.log(`Upload do arquivo ${file.name} concluído. URL: ${downloadURL}`);
-                } catch (error) {
-                    console.error(`Erro ao obter a URL de download para o arquivo ${file.name}:`, error);
-                }
+            () => {
+                // Upload concluído
+                getDownloadURL(uploadTask.snapshot.ref)
+                    .then((downloadURL) => {
+                        console.log(`Upload do arquivo ${file.name} concluído. URL: ${downloadURL}`);
+                    })
+                    .catch((error) => {
+                        console.error(`Erro ao obter a URL de download para o arquivo ${file.name}:`, error);
+                    });
             }
         );
 
@@ -187,22 +194,30 @@ async function startUpload() {
     });
 
     // Esperar todos os uploads terminarem
-    Promise.all(uploadTasks.map(task => task))
-        .then(async () => {
-            alert('Todos os arquivos foram enviados com sucesso!');
-            await fetchAllFiles();
-            fileInput.value = '';
-            progressContainer.style.display = 'none';
-            progressContainer.innerHTML = '';
-            isUploading = false;
-        })
-        .catch((error) => {
-            console.error('Erro durante os uploads múltiplos:', error);
-            alert(`Erro durante os uploads múltiplos: ${error.code} - ${error.message}`);
-            progressContainer.style.display = 'none';
-            progressContainer.innerHTML = '';
-            isUploading = false;
+    Promise.all(uploadTasks.map(task => {
+        return new Promise((resolve, reject) => {
+            task.on('state_changed',
+                null,
+                reject,
+                resolve
+            );
         });
+    }))
+    .then(async () => {
+        alert('Todos os arquivos foram enviados com sucesso!');
+        await fetchAllFiles();
+        fileInput.value = '';
+        progressContainer.style.display = 'none';
+        progressContainer.innerHTML = '';
+        isUploading = false;
+    })
+    .catch((error) => {
+        console.error('Erro durante os uploads múltiplos:', error);
+        alert(`Erro durante os uploads múltiplos: ${error.code} - ${error.message}`);
+        progressContainer.style.display = 'none';
+        progressContainer.innerHTML = '';
+        isUploading = false;
+    });
 }
 
 // Função para buscar todos os arquivos do usuário
