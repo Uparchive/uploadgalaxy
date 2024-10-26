@@ -886,3 +886,23 @@ footer p {
     max-width: 640px;
     margin: 0 auto; /* Centraliza o vídeo */
 }
+/* Ajustar a exibição dos botões para dispositivos móveis */
+@media (max-width: 768px) {
+    #file-list li div {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        justify-content: space-between;
+    }
+
+    .download-button,
+    .share-button,
+    .delete-button,
+    .play-button {
+        flex: 1 1 calc(25% - 5px);
+        max-width: 80px;
+        box-sizing: border-box;
+        text-align: center;
+        padding: 10px 5px;
+    }
+}
