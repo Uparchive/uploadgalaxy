@@ -1000,7 +1000,7 @@ body {
 #file-list li div {
     display: flex;
     gap: 1rem;
-    justify-content: space-between; /* Espaçamento entre os botões */
+    justify-content: space-between;
     flex-wrap: wrap; /* Ajusta a quebra de linha se necessário */
     width: 100%; /* Garante que os botões ocupem toda a largura */
 }
@@ -1009,10 +1009,10 @@ body {
     padding: 0.6rem 1.5rem;
     font-size: 0.85rem;
     border-radius: 20px;
-    flex: 1; /* Faz com que os botões ocupem a mesma largura */
+    flex: 1;
     text-align: center;
     transition: all 0.3s ease;
-    max-width: 150px; /* Define uma largura máxima para evitar botões grandes demais */
+    max-width: 150px;
 }
 
 /* Responsividade para telas menores */
@@ -1022,46 +1022,58 @@ body {
     }
 
     .download-button, .share-button, .delete-button {
-        flex: 1; /* Faz com que os botões ocupem o mesmo espaço */
-        max-width: 100px; /* Define um tamanho máximo para evitar botões largos */
-        padding: 0.5rem; /* Ajusta o padding para caber em telas pequenas */
+        max-width: 100px;
+        padding: 0.5rem;
     }
 }
-/* Container do player de vídeo */
+
+/* Player de vídeo responsivo */
 #video-player-section {
-    position: relative;
     width: 100%;
     display: flex;
     justify-content: center; /* Centraliza o vídeo horizontalmente */
     align-items: center; /* Centraliza o vídeo verticalmente */
-    overflow: hidden; /* Evita overflow */
-    padding: 0;
+    overflow: hidden;
     margin: 2rem auto; /* Espaçamento superior e inferior */
-    max-width: 100vw; /* Garante que o container não ultrapasse a largura da tela */
-    padding-top: 56.25%; /* Mantém a proporção 16:9 */
+    max-width: 1200px; /* Define um limite máximo para telas grandes */
+    position: relative;
 }
 
-/* Player de vídeo responsivo */
 #video-player {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: contain; /* Ajusta o vídeo dentro do container, sem cortar */
-    box-sizing: border-box;
-}
-
-/* Ajuste específico para telas grandes */
-@media (min-width: 1024px) {
-    #video-player {
-        max-width: 1200px; /* Define um limite máximo para telas grandes */
-    }
+    height: auto;
+    aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+    object-fit: contain; /* Ajusta o vídeo dentro do container sem cortar */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
 }
 
 /* Ajuste específico para dispositivos móveis */
 @media (max-width: 768px) {
+    #video-player-section {
+        margin: 1rem auto; /* Reduz o espaçamento em dispositivos móveis */
+    }
+
     #video-player {
         max-width: 100vw; /* O vídeo ocupará toda a largura da viewport */
+        height: auto;
     }
+}
+
+/* Estilos para o botão de Play/Pause no player de vídeo */
+#video-play-pause-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#video-play-pause-button i {
+    font-size: 20px;
 }
