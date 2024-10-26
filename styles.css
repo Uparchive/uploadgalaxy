@@ -862,3 +862,27 @@ footer p {
     background-color: var(--button-hover-color);
     transform: translateY(-5px);
 }
+@media (max-width: 768px) {
+    #video-player {
+        width: 100% !important; /* Certificar-se que ocupa toda a largura disponível */
+        height: auto !important;
+        aspect-ratio: 16 / 9;
+    }
+
+    #video-player-container {
+        overflow: hidden; /* Evitar que o vídeo se estenda para fora da tela */
+        padding: 0 10px; /* Adicionar um pequeno padding para garantir que não encoste nas bordas */
+    }
+}
+#video-player-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    overflow: hidden;
+}
+.vjs-default-skin {
+    width: 100% !important; /* Ocupa toda a largura disponível do container */
+    max-width: 640px;
+    margin: 0 auto; /* Centraliza o vídeo */
+}
