@@ -1,4 +1,4 @@
-// Importações do Firebase Modular SDK (Certifique-se de usar a versão mais recente disponível)
+// Importações do Firebase Modular SDK
 import { initializeApp, setLogLevel } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
 import {
     getAuth,
@@ -46,8 +46,6 @@ const fileListSection = document.getElementById('file-list-section');
 const googleLoginButton = document.getElementById('google-login-button');
 const uploadForm = document.getElementById('upload-form');
 const progressContainer = document.getElementById('progress-container');
-const progressBar = document.getElementById('progress-bar');
-const progressText = document.getElementById('progress-text');
 const fileList = document.getElementById('file-list');
 const storageUsageDisplay = document.getElementById('storage-usage');
 const sortSelect = document.getElementById('sort-select');
@@ -61,6 +59,7 @@ const backToTopButton = document.getElementById('back-to-top');
 const totalAvailableGB = 'Ilimitado';
 let allFiles = [];
 let isUploading = false;
+let uploadTasks = []; // Armazena os uploads em andamento
 let videoPlayer; // Inicializamos a variável sem atribuir um player ainda
 
 // Monitorar o estado de autenticação do usuário
@@ -115,10 +114,10 @@ uploadForm.addEventListener('submit', (e) => {
     }
 });
 
-// Função para iniciar o upload
+// Função para iniciar o upload múltiplo
 async function startUpload() {
     const fileInput = document.getElementById('file-input');
-    const file = fileInput.files[0];
+    const files = fileInput.files;
     const user = auth.currentUser;
 
     if (!user) {
@@ -127,60 +126,83 @@ async function startUpload() {
         return;
     }
 
-    if (!file) {
+    if (!files.length) {
         console.log('Nenhum arquivo selecionado');
-        alert('Por favor, selecione um arquivo antes de fazer o upload.');
+        alert('Por favor, selecione pelo menos um arquivo antes de fazer o upload.');
         return;
     }
 
-    const storageRefPath = `uploads/${user.uid}/${file.name}`;
-    const storageRefObj = ref(storage, storageRefPath);
-    const uploadTask = uploadBytesResumable(storageRefObj, file);
-
     // Mostrar o container de progresso
     progressContainer.style.display = 'block';
+    progressContainer.innerHTML = ''; // Limpar conteúdos anteriores
     isUploading = true;
+    uploadTasks = [];
 
-    console.log(`Iniciando upload para: ${storageRefPath}`);
+    console.log(`Iniciando upload de ${files.length} arquivos...`);
 
-    // Monitorar o progresso do upload
-    uploadTask.on('state_changed',
-        (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            progressBar.style.width = `${progress}%`;
-            progressText.textContent = `${progress.toFixed(2)}%`;
-            console.log(`Upload em progresso: ${progress.toFixed(2)}%`);
-        },
-        (error) => {
-            console.error('Erro ao fazer upload:', error);
-            alert(`Erro ao fazer upload: ${error.code} - ${error.message}`);
-            isUploading = false;
-            progressContainer.style.display = 'none';
-            progressBar.style.width = '0%';
-            progressText.textContent = '0%';
-        },
-        async () => {
-            try {
-                console.log('Tentando obter a URL de download para:', uploadTask.snapshot.ref.fullPath);
-                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                console.log('URL de download obtida com sucesso:', downloadURL);
-                alert('Arquivo enviado com sucesso!');
-                await fetchAllFiles();
-                fileInput.value = '';
-                progressBar.style.width = '0%';
-                progressText.textContent = '0%';
-                progressContainer.style.display = 'none';
-                isUploading = false;
-            } catch (error) {
-                console.error('Erro ao obter URL de download:', error);
-                alert(`Erro ao obter URL de download: ${error.code} - ${error.message}`);
-                isUploading = false;
-                progressContainer.style.display = 'none';
-                progressBar.style.width = '0%';
-                progressText.textContent = '0%';
+    // Iterar sobre cada arquivo e iniciar o upload
+    Array.from(files).forEach(file => {
+        const storageRefPath = `uploads/${user.uid}/${file.name}`;
+        const storageRefObj = ref(storage, storageRefPath);
+        const uploadTask = uploadBytesResumable(storageRefObj, file);
+
+        // Criar elementos de progresso no DOM
+        const progressItem = document.createElement('div');
+        progressItem.className = 'progress-item';
+        progressItem.innerHTML = `
+            <span>${file.name}</span>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar" id="progress-bar-${file.name.replace(/\W/g, '_')}"></div>
+                <span class="progress-text" id="progress-text-${file.name.replace(/\W/g, '_')}">0%</span>
+            </div>
+        `;
+        progressContainer.appendChild(progressItem);
+
+        // Monitorar o progresso do upload
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                const progressBar = document.getElementById(`progress-bar-${file.name.replace(/\W/g, '_')}`);
+                const progressText = document.getElementById(`progress-text-${file.name.replace(/\W/g, '_')}`);
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${progress.toFixed(2)}%`;
+                console.log(`Upload do arquivo ${file.name} em progresso: ${progress.toFixed(2)}%`);
+            },
+            (error) => {
+                console.error(`Erro ao fazer upload do arquivo ${file.name}:`, error);
+                alert(`Erro ao fazer upload do arquivo ${file.name}: ${error.code} - ${error.message}`);
+            },
+            async () => {
+                try {
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                    console.log(`Upload do arquivo ${file.name} concluído. URL: ${downloadURL}`);
+                } catch (error) {
+                    console.error(`Erro ao obter a URL de download para o arquivo ${file.name}:`, error);
+                }
             }
-        }
-    );
+        );
+
+        // Armazenar a tarefa de upload
+        uploadTasks.push(uploadTask);
+    });
+
+    // Esperar todos os uploads terminarem
+    Promise.all(uploadTasks.map(task => task))
+        .then(async () => {
+            alert('Todos os arquivos foram enviados com sucesso!');
+            await fetchAllFiles();
+            fileInput.value = '';
+            progressContainer.style.display = 'none';
+            progressContainer.innerHTML = '';
+            isUploading = false;
+        })
+        .catch((error) => {
+            console.error('Erro durante os uploads múltiplos:', error);
+            alert(`Erro durante os uploads múltiplos: ${error.code} - ${error.message}`);
+            progressContainer.style.display = 'none';
+            progressContainer.innerHTML = '';
+            isUploading = false;
+        });
 }
 
 // Função para buscar todos os arquivos do usuário
@@ -397,7 +419,8 @@ function downloadCurrentVideo() {
 // Função para copiar o código de incorporação para a área de transferência
 function copyEmbedCode() {
     const videoUrl = videoPlayer.currentSrc();
-    const embedCode = `<iframe src="${videoUrl}" frameborder="0" allowfullscreen></iframe>`;
+    const embedPageUrl = `https://uparchive.github.io/uploadgalaxy/embed.html?videoUrl=${encodeURIComponent(videoUrl)}`;
+    const embedCode = `<iframe src="${embedPageUrl}" frameborder="0" allowfullscreen></iframe>`;
 
     navigator.clipboard.writeText(embedCode).then(() => {
         alert('Código de incorporação copiado para a área de transferência!');
