@@ -268,24 +268,18 @@ function displayFiles(files) {
 
 // Função para reproduzir vídeo
 function playVideo(url) {
-    // Atualizar a página
-    location.reload();
-    
-    // Após recarregar a página, reproduzir o vídeo
-    // Podemos armazenar a URL do vídeo no localStorage para reproduzir após o reload
-    localStorage.setItem('videoToPlay', url);
-}
+    videoPlayerSection.style.display = 'block';
 
-// Verificar se há um vídeo para reproduzir após o reload
-window.addEventListener('load', () => {
-    const videoToPlay = localStorage.getItem('videoToPlay');
-    if (videoToPlay) {
-        localStorage.removeItem('videoToPlay');
-        videoPlayerSection.style.display = 'block';
+    // Redefinir o player para limpar o cache do vídeo anterior
+    videoPlayer.reset();
 
+    // Simular a perda e ganho de foco (não é totalmente possível devido a restrições de segurança)
+    document.title = "Mudando de aba...";
+    setTimeout(() => {
+        document.title = "Voltando para a aba...";
         // Configurar a fonte do vídeo
-        const mimeType = getMimeType(videoToPlay);
-        videoPlayer.src({ type: mimeType, src: videoToPlay });
+        const mimeType = getMimeType(url);
+        videoPlayer.src({ type: mimeType, src: url });
 
         // Reproduzir o vídeo quando estiver pronto
         videoPlayer.ready(function() {
@@ -294,8 +288,13 @@ window.addEventListener('load', () => {
 
         // Deslocar a página para o player de vídeo
         videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-});
+    }, 100);
+
+    // Limpar o título após alguns segundos
+    setTimeout(() => {
+        document.title = "Seu Título Original";
+    }, 2000);
+}
 
 // Função para obter o tipo MIME do vídeo
 function getMimeType(url) {
