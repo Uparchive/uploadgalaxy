@@ -61,18 +61,6 @@ const backToTopButton = document.getElementById('back-to-top');
 // Inicializar o player de vídeo
 const videoPlayer = videojs('video-player');
 
-// Selecionar o botão de Play/Pause do player de vídeo
-const playPauseButton = document.getElementById('video-play-pause-button');
-
-// Adicionar evento de clique ao botão de Play/Pause
-playPauseButton.addEventListener('click', function() {
-    if (videoPlayer.paused()) {
-        videoPlayer.play();
-    } else {
-        videoPlayer.pause();
-    }
-});
-
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
 let allFiles = [];
@@ -299,24 +287,6 @@ function playVideo(url) {
         videoPlayer.requestFullscreen();
     }
 }
-
-// Atualizar o ícone do botão com base no estado do vídeo
-function updatePlayPauseButton(isPlaying) {
-    if (isPlaying) {
-        playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
-    } else {
-        playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
-    }
-}
-
-// Eventos para atualizar o botão quando o vídeo é reproduzido ou pausado
-videoPlayer.on('play', function() {
-    updatePlayPauseButton(true);
-});
-
-videoPlayer.on('pause', function() {
-    updatePlayPauseButton(false);
-});
 
 // Função para atualizar a barra de progresso do vídeo
 function updateProgressBar() {
