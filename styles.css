@@ -1206,22 +1206,3 @@ body {
         height: auto;
     }
 }
-/* Estilos para o botão de Play/Pause no player de vídeo */
-#video-play-pause-button {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-#video-play-pause-button i {
-    font-size: 20px;
-}
-#video-player-section {
-    position: relative;
-}
