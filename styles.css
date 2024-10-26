@@ -1059,7 +1059,11 @@ body {
         height: auto;
     }
 }
+/* Centralizar o botão de play grande do Video.js */
+.vjs-big-play-button {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
 
-/* Removendo o botão de Play/Pause flutuante */
-/* O controle de Play/Pause será feito diretamente no corpo do player de vídeo */
 
