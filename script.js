@@ -147,37 +147,6 @@ playPauseButton.addEventListener('click', function() {
 // Inicializar o estado do botão com o ícone correto
 updatePlayPauseButton(!videoPlayer.paused());
 
-
-// Atualizar o ícone do botão de Play/Pause do player de vídeo
-function updatePlayPauseButton(isPlaying) {
-    if (isPlaying) {
-        playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
-    } else {
-        playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
-    }
-}
-
-// Eventos para atualizar o botão quando o vídeo é reproduzido ou pausado
-videoPlayer.on('play', function() {
-    updatePlayPauseButton(true);
-});
-
-videoPlayer.on('pause', function() {
-    updatePlayPauseButton(false);
-});
-
-// Adicionar evento de clique ao botão de Play/Pause
-playPauseButton.addEventListener('click', function() {
-    if (videoPlayer.paused()) {
-        videoPlayer.play();
-    } else {
-        videoPlayer.pause();
-    }
-});
-
-// Inicializar o estado do botão com o ícone correto
-updatePlayPauseButton(videoPlayer.paused());
-
 // Função para exibir mensagens personalizadas
 function showMessage(message, type = 'info') {
     const messageContainer = document.getElementById('message-container');
@@ -356,6 +325,7 @@ function playVideo(url) {
     videoPlayer.src({ type: getMimeType(url), src: url });
     videoPlayer.load();
     videoPlayer.play();
+    updatePlayPauseButton(true); // Atualiza o botão para o estado "Pause"
 }
 
 // Função para atualizar a barra de progresso do vídeo
