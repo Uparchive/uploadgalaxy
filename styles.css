@@ -937,3 +937,28 @@ footer {
     padding: 0.5rem 0.75rem;
     max-width: 100px; /* Limita o tamanho máximo dos botões */
 }
+/* Fundo Azul da Página */
+body {
+    background-color: #1e3c72;
+    background-image: none;
+    color: #333;
+}
+
+/* Estilo da Seção de Login */
+#login-section {
+    background-color: #fff;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Estilo da Seção Hero com Fundo Azul */
+#hero-section {
+    background-color: #1e3c72;
+    color: #fff;
+    padding: 5rem 1.5rem;
+    text-align: center;
+}
