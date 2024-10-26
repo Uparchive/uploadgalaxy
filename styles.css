@@ -1,889 +1,1180 @@
-/* ========================================= */
-/* ======== Reset CSS ====================== */
-/* ========================================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-}
-
-body {
-    /* Fundo do site alterado para azul */
-    background-color: #1e3c72; /* Azul sólido */
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: #333;
-    line-height: 1.6;
-    height: 100%;
-}
-
-/* ========================================= */
-/* ======== Variáveis de Cores ============== */
-/* ========================================= */
-
-:root {
-    --primary-color: #1e3c72;
-    --secondary-color: #2a5298;
-    --accent-color: #ffa500;
-    --button-hover-color: #ff6600;
-    --text-color: #333;
-    --background-gradient: linear-gradient(135deg, #1e3c72, #2a5298);
-    --navbar-bg: linear-gradient(90deg, #182848, #4b6cb7);
-    --button-bg: linear-gradient(135deg, #ff8c00, #ff6600);
-    --button-hover-bg: linear-gradient(135deg, #ff6600, #ff3300);
-    --progress-bar-color: #4caf50;
-    --footer-bg: #333;
-    --footer-border: #ffa500;
-    /* Nova variável para fundo sólido */
-    --solid-background: #1e3c72;
-}
-
-/* ========================================= */
-/* ======== Layout Geral =================== */
-/* ========================================= */
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 0;
-}
-
-/* ========================================= */
-/* ======== Navbar ========================= */
-/* ========================================= */
-
-.navbar {
-    background: var(--navbar-bg);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.navbar .logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    flex: 1;
-}
-
-.navbar .logo i {
-    margin-right: 0.5rem;
-    font-size: 1.5rem;
-}
-
-.navbar .nav-links {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.navbar .nav-links li {
-    position: relative;
-}
-
-.navbar .nav-links a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s, transform 0.3s;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.navbar .nav-links a:hover {
-    color: var(--accent-color);
-    background-color: rgba(255, 165, 0, 0.1);
-    transform: translateY(-2px);
-}
-
-.menu-toggle {
-    display: none;
-    font-size: 1.8rem;
-    color: white;
-    cursor: pointer;
-    transition: color 0.3s ease, transform 0.5s ease;
-}
-
-.menu-toggle:hover {
-    color: var(--accent-color);
-    transform: rotate(90deg);
-}
-
-/* ========================================= */
-/* ======== Botões Gerais ================== */
-/* ========================================= */
-
-/* Botão de Logout */
-#logout-button {
-    background: var(--button-bg);
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 25px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-#logout-button:hover {
-    background: var(--button-hover-bg);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-#logout-button i {
-    font-size: 1rem;
-}
-
-/* Botões de Upload e Outros Botões */
-.upload-button, .download-button, .share-button, .delete-button, .play-button {
-    background: var(--button-bg);
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    flex: 1;
-    text-align: center;
-}
-
-.upload-button:hover, .download-button:hover, .share-button:hover, .delete-button:hover, .play-button:hover {
-    background: var(--button-hover-bg);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.upload-button i, .download-button i, .share-button i, .delete-button i, .play-button i {
-    font-size: 1rem;
-    transition: transform 0.3s ease;
-}
-
-.upload-button:hover i, .download-button:hover i, .share-button:hover i, .delete-button:hover i, .play-button:hover i {
-    transform: rotate(360deg);
-}
-
-/* ========================================= */
-/* ======== Seção Hero ====================== */
-/* ========================================= */
-
-#hero-section {
-    background: var(--background-gradient);
-    color: #fff;
-    padding: 5rem 1.5rem;
-    text-align: center;
-}
-
-#hero-section .hero-content {
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-#hero-section h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-}
-
-#hero-section p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    color: #f0f0f0;
-}
-
-.cta-button {
-    background-color: var(--accent-color);
-    color: #fff;
-    padding: 0.75rem 1.75rem;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.3s;
-    font-weight: 600;
-    display: inline-block;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-.cta-button:hover {
-    background-color: darkorange;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* ========================================= */
-/* ======== Seção de Login ================== */
-/* ========================================= */
-
-#login-section {
-    background-color: #fff;
-    padding: 2rem;
-    margin: 2rem auto;
-    max-width: 500px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-#login-section h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: var(--text-color);
-    font-weight: 700;
-}
-
-/* Botão de Login com o Google Melhorado */
-#google-login-button {
-    background: var(--button-bg);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    width: auto;
-    margin-top: 1rem;
-    justify-content: center;
-    min-width: 200px;
-}
-
-#google-login-button:hover {
-    background: var(--button-hover-bg);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-#google-login-button i {
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
-}
-
-#google-login-button:hover i {
-    transform: rotate(360deg);
-}
-
-/* ========================================= */
-/* ======== Seção de Upload ================= */
-/* ========================================= */
-
-#upload-section {
-    background-color: #fff;
-    padding: 2rem;
-    margin-top: 1.5rem;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
-#upload-section h2 {
-    margin-bottom: 1rem;
-    font-size: 2rem;
-    color: var(--text-color);
-}
-
-#upload-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    color: #555;
-    font-size: 1rem;
-}
-
-#file-input {
-    display: block;
-    width: 100%;
-    padding: 0.75rem;
-    border: 2px dashed #ccc;
-    border-radius: 5px;
-    transition: border-color 0.3s;
-    cursor: pointer;
-    background-color: #f9f9f9;
-}
-
-#file-input:hover {
-    border-color: var(--accent-color);
-    background-color: #f1f1f1;
-}
-
-.upload-button {
-    align-self: center;
-}
-
-/* ========================================= */
-/* ======== Seção de Lista de Arquivos ===== */
-/* ========================================= */
-
-#file-list-section {
-    background-color: #fff;
-    padding: 2rem;
-    margin-top: 2rem;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
-#file-list-section h2 {
-    margin-bottom: 1rem;
-    font-size: 2rem;
-    color: var(--text-color);
-}
-
-#storage-usage {
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-    color: #555;
-    text-align: center;
-}
-
-/* Search Bar e Sort Select */
-.search-bar, .sort-select {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.search-bar:focus, .sort-select:focus {
-    border-color: var(--accent-color);
-    outline: none;
-}
-
-#file-list {
-    list-style: none;
-    padding: 0;
-}
-
-#file-list li {
-    background-color: #fff;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-#file-list li:hover {
-    background-color: #f9f9f9;
-    transform: translateY(-2px);
-}
-
-#file-list li span {
-    font-size: 1rem;
-    color: var(--text-color);
-    max-width: 60%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: 600;
-}
-
-#file-list li div {
-    display: flex;
-    gap: 1rem;
-    justify-content: space-between;
-    width: 100%;
-}
-
-/* Botões na Lista de Arquivos */
-.download-button, .share-button, .delete-button, .play-button {
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
-    border-radius: 20px;
-    flex: 1;
-    text-align: center;
-    transition: all 0.3s ease;
-    background-color: var(--accent-color);
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.download-button:hover, .share-button:hover, .delete-button:hover, .play-button:hover {
-    background-color: var(--button-hover-color);
-    transform: translateY(-2px);
-}
-
-.download-button i, .share-button i, .delete-button i, .play-button i {
-    font-size: 1rem;
-}
-
-/* ========================================= */
-/* ======== Seção de Vídeo ================== */
-/* ========================================= */
-
-#video-player-section {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    margin: 2rem auto;
-    position: relative;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    background-color: #000; /* Fundo preto para realçar o vídeo */
-}
-
-#video-player {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-/* Responsividade para Vídeo */
-@media (max-width: 768px) {
-    #video-player-section {
-        margin: 1rem auto;
+    /* Reset CSS */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
     }
 
-    #video-player {
-        width: 100vw;
-        height: auto;
+    body {
+        background-color: #f5f5f5;
+        color: #333;
+        line-height: 1.6;
     }
-}
 
-/* ========================================= */
-/* ======== Botões Customizados Video.js ===== */
-/* ========================================= */
-
-/* Centralizar o botão de play grande do Video.js */
-.vjs-big-play-button {
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-}
-
-/* Estilos para os botões personalizados do Video.js */
-.vjs-rewind-button .fas,
-.vjs-forward-button .fas,
-.vjs-download-button .fas,
-.vjs-embed-button .fas {
-    font-size: 18px;
-    line-height: 1.5;
-    vertical-align: middle;
-    color: white;
-}
-
-.vjs-rewind-button,
-.vjs-forward-button,
-.vjs-download-button,
-.vjs-embed-button {
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.vjs-rewind-button:hover .fas,
-.vjs-forward-button:hover .fas,
-.vjs-download-button:hover .fas,
-.vjs-embed-button:hover .fas {
-    color: #ccc;
-}
-
-/* ========================================= */
-/* ======== Barras de Progresso ============ */
-/* ========================================= */
-
-/* Container de Progresso */
-.progress-container {
-    margin-top: 20px;
-    width: 100%;
-}
-
-/* Cada Item de Progresso */
-.progress-item {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-/* Wrapper da Barra de Progresso */
-.progress-bar-wrapper {
-    position: relative;
-    background-color: #f3f3f3;
-    border-radius: 5px;
-    height: 20px;
-    width: 100%;
-    margin-top: 5px;
-    overflow: hidden;
-}
-
-/* Barra de Progresso */
-.progress-bar {
-    background-color: var(--progress-bar-color);
-    height: 100%;
-    width: 0%;
-    border-radius: 5px;
-    transition: width 0.4s ease;
-}
-
-/* Texto da Barra de Progresso */
-.progress-text {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 12px;
-    color: #000;
-    line-height: 20px;
-}
-
-/* ========================================= */
-/* ======== Botão Voltar ao Topo =========== */
-/* ========================================= */
-
-.back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: none;
-    background-color: var(--accent-color);
-    color: white;
-    padding: 15px;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 100;
-}
-
-.back-to-top:hover {
-    background-color: var(--button-hover-color);
-    transform: translateY(-5px);
-}
-
-/* ========================================= */
-/* ======== Footer ========================== */
-/* ========================================= */
-
-footer {
-    background-color: var(--footer-bg);
-    color: #fff;
-    padding: 2rem 1.5rem;
-    text-align: center;
-    margin-top: 2rem;
-    border-top: 4px solid var(--footer-border);
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-}
-
-footer p {
-    margin-bottom: 1rem;
-    font-size: 1rem;
-}
-
-.social-links {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.social-links li a {
-    color: #fff;
-    font-size: 1.5rem;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.social-links li a:hover {
-    color: var(--accent-color);
-}
-
-/* ========================================= */
-/* ======== Mensagens (Pop-up) ============== */
-/* ========================================= */
-
-/* Container de Mensagens */
-.message-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 350px;
-    max-width: 90%;
-    z-index: 2000;
-    pointer-events: none;
-}
-
-/* Estilo das Mensagens */
-.message {
-    background: var(--accent-color);
-    color: #fff;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: all;
-    animation: slideIn 0.5s ease forwards, fadeOut 5s ease forwards 4.5s;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-}
-
-.message.success {
-    background: linear-gradient(135deg, #4caf50, #388e3c);
-}
-
-.message.error {
-    background: linear-gradient(135deg, #f44336, #d32f2f);
-}
-
-.message.info {
-    background: linear-gradient(135deg, #2196f3, #1976d2);
-}
-
-.message.warning {
-    background: linear-gradient(135deg, #ff9800, #f57c00);
-}
-
-.message i {
-    cursor: pointer;
-    margin-left: 1rem;
-    transition: transform 0.3s;
-}
-
-.message i:hover {
-    transform: rotate(90deg);
-}
-
-/* Animações */
-@keyframes slideIn {
-    0% {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-.message::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: #fff;
-    opacity: 0.6;
-    animation: slideBorder 5s linear forwards;
-}
-
-@keyframes slideBorder {
-    0% {
-        height: 0%;
-    }
-    100% {
-        height: 100%;
-    }
-}
-
-/* ========================================= */
-/* ======== Responsividade Geral ============ */
-/* ========================================= */
-
-@media (max-width: 768px) {
-    /* Navbar Ajustes */
+    /* Navbar */
     .navbar {
-        flex-wrap: wrap;
-    }
-
-    .navbar .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
-        position: absolute;
-        top: 60px;
-        left: 0;
-        padding: 1rem 0;
-    }
-
-    .navbar .nav-links.active {
+        background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+        padding: 0.75rem 1.5rem;
         display: flex;
-    }
-
-    .navbar .nav-links li {
-        margin: 0.5rem 0;
-        text-align: center;
-    }
-
-    .menu-toggle {
-        display: block;
-        margin-right: 1rem;
-    }
-
-    /* Botões de Logout e Upload Ajustes */
-    #logout-button {
-        width: 100%;
-        justify-content: center;
-        margin-top: 0.5rem;
-        padding: 0.5rem 1rem;
-        font-size: 1.25rem;
-    }
-
-    #google-login-button {
-        width: 100%;
-        padding: 1rem 0;
-        font-size: 1.25rem;
-        min-width: unset;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .navbar .logo {
+        color: #fff;
         font-size: 1.75rem;
+        text-decoration: none;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
     }
 
-    /* Lista de Arquivos Ajustes */
+    .navbar .logo i {
+        margin-right: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    .navbar .nav-links {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .navbar .nav-links li {
+        position: relative;
+    }
+
+    .navbar .nav-links a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s, transform 0.3s;
+        padding: 0.5rem 0.75rem;
+        border-radius: 4px;
+    }
+
+    .navbar .nav-links a:hover {
+        color: #ffa500;
+        background-color: rgba(255, 165, 0, 0.1);
+        transform: translateY(-2px);
+    }
+
+    /* Botão de Logout */
+    #logout-button {
+        background-color: #ffa500;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: background-color 0.3s, transform 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    #logout-button:hover {
+        background-color: #ff8c00;
+        transform: translateY(-2px);
+    }
+
+    #logout-button i {
+        font-size: 1rem;
+    }
+
+    /* Botão de Upload e Outros Botões */
+    .upload-button {
+        background-color: #ffa500;
+        color: #fff;
+        padding: 0.5rem 1.25rem;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: background-color 0.3s, transform 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .upload-button:hover {
+        background-color: #ff8c00;
+        transform: translateY(-2px);
+    }
+
+    .upload-button i {
+        font-size: 1rem;
+    }
+
+    /* Menu Toggle para Mobile */
+    .menu-toggle {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: #fff;
+    }
+
+    /* Seções */
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Hero Section */
+    #hero-section {
+        background: linear-gradient(to right, #1e3c72, #2a5298);
+        color: #fff;
+        padding: 5rem 1.5rem;
+        text-align: center;
+    }
+
+    #hero-section .hero-content {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    #hero-section h1 {
+        font-size: 2.75rem;
+        margin-bottom: 1rem;
+    }
+
+    #hero-section p {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+    }
+
+    .cta-button {
+        background-color: #ffa500;
+        color: #fff;
+        padding: 0.75rem 1.75rem;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s, transform 0.3s;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    .cta-button:hover {
+        background-color: #ff8c00;
+        transform: translateY(-2px);
+    }
+
+    /* Upload Section */
+    #upload-section {
+        background-color: #fff;
+        padding: 2rem;
+        margin-top: 1.5rem;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    #upload-section h2 {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #555;
+    }
+
+    #file-input {
+        display: block;
+        width: 100%;
+        padding: 0.5rem;
+        border: 2px dashed #ccc;
+        border-radius: 4px;
+        transition: border-color 0.3s;
+        cursor: pointer;
+    }
+
+    #file-input:hover {
+        border-color: #ffa500;
+    }
+
+    .upload-button {
+        background-color: #ffa500;
+        color: #fff;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s, transform 0.3s;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .upload-button:hover {
+        background-color: #ff8c00;
+        transform: translateY(-2px);
+    }
+
+    /* Progress Bar */
+    .progress-container {
+        margin-top: 1rem;
+        width: 100%;
+        height: 20px;
+        border-radius: 10px;
+        background-color: #eee;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .progress-bar {
+        height: 100%;
+        width: 0;
+        background-color: #4caf50;
+        transition: width 0.4s ease;
+    }
+
+    .progress-text {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.9rem;
+        color: #333;
+    }
+
+    /* File List Section */
+    #file-list-section {
+        background-color: #fff;
+        padding: 2rem;
+        margin-top: 2rem;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    #file-list-section h2 {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        color: #333;
+    }
+
+    #storage-usage {
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        color: #555;
+    }
+
+    /* Search Bar and Sort Select */
+    .search-bar, .sort-select {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        font-size: 1rem;
+        transition: border-color 0.3s;
+    }
+
+    .search-bar:focus, .sort-select:focus {
+        border-color: #ffa500;
+        outline: none;
+    }
+
+    /* Lista de Arquivos */
+    #file-list {
+        list-style: none;
+        padding: 0;
+    }
+
     #file-list li {
-        flex-direction: column;
-        align-items: flex-start;
+        background-color: #f9f9f9;
+        padding: 1rem;
+        border: 1px solid #ddd;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 4px;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    #file-list li:hover {
+        background-color: #f1f1f1;
+        transform: translateY(-2px);
+    }
+
+    #file-list li span {
+        font-size: 1rem;
+        color: #333;
+        max-width: 60%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     #file-list li div {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
         gap: 0.5rem;
     }
 
-    .download-button, .share-button, .delete-button, .play-button {
-        flex: 1;
-        max-width: none;
-        padding: 0.5rem;
+    /* Botões na Lista de Arquivos */
+    .download-button, .share-button, .delete-button {
+        background-color: #ffa500;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: background-color 0.3s, transform 0.3s;
         font-size: 0.9rem;
     }
 
-    /* Vídeo Ajustes */
-    #video-player-section {
-        margin: 1rem auto;
+    .download-button:hover, .share-button:hover, .delete-button:hover {
+        background-color: #ff8c00;
+        transform: translateY(-2px);
     }
 
-    #video-player {
-        width: 100vw;
-        height: auto;
+    .download-button i, .share-button i, .delete-button i {
+        margin-right: 0.25rem;
     }
 
-    /* Progress Bar Ajustes */
-    .progress-container {
-        width: 100%;
-    }
-
-    /* Seção Hero Ajustes */
-    #hero-section {
-        padding: 3rem 1rem;
-    }
-
-    #hero-section h1 {
-        font-size: 2.5rem;
-    }
-
-    #hero-section p {
-        font-size: 1rem;
-    }
-
-    .cta-button {
-        padding: 0.5rem 1.5rem;
-        font-size: 1rem;
-    }
-
-    /* Footer Ajustes */
+    /* Footer */
     footer {
-        padding: 1.5rem 1rem;
+        background-color: #333;
+        color: #fff;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        margin-top: 2rem;
+        border-top: 4px solid #ffa500;
+    }
+
+    footer p {
+        margin-bottom: 1rem;
+        font-size: 1rem;
     }
 
     .social-links {
-        gap: 0.5rem;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
     }
 
     .social-links li a {
+        color: #fff;
+        font-size: 1.5rem;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .social-links li a:hover {
+        color: #ffa500;
+    }
+
+    /* Responsividade para dispositivos móveis */
+    @media (max-width: 768px) {
+        .navbar {
+            flex-wrap: wrap;
+        }
+
+        .navbar .nav-links {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            position: absolute;
+            top: 60px;
+            left: 0;
+            padding: 1rem 0;
+        }
+
+        .navbar .nav-links.active {
+            display: flex;
+        }
+
+        .navbar .nav-links li {
+            margin: 0.5rem 0;
+            text-align: center;
+        }
+
+        .menu-toggle {
+            display: block;
+        }
+
+        #logout-button {
+            width: 100%;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+
+        #file-list li {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        #file-list li span {
+            max-width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        #file-list li div {
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        .download-button, .share-button, .delete-button {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.85rem;
+        }
+    }
+    /* Container de Mensagens (Pop-up) */
+    .message-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 300px;
+        max-width: 90%;
+        z-index: 2000;
+    }
+
+    .message {
+        background-color: #ffa500; /* Cor de fundo do alerta */
+        color: #fff;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        animation: fadeInOut 5s ease-in-out;
+        font-weight: bold;
+    }
+
+    .message.success {
+        background-color: #4caf50; /* Verde para sucesso */
+    }
+
+    .message.error {
+        background-color: #f44336; /* Vermelho para erro */
+    }
+
+    .message i {
+        cursor: pointer;
+        margin-left: 1rem;
+    }
+
+    /* Animação para aparecer e desaparecer */
+    @keyframes fadeInOut {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        10%, 90% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+    }
+    /* Estilo personalizado para Pop-ups */
+    .message-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 350px;
+        max-width: 90%;
+        z-index: 2000;
+        pointer-events: none;
+    }
+
+    .message {
+        background: linear-gradient(135deg, #ffa500, #ff8c00);
+        color: #fff;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        pointer-events: all;
+        animation: slideIn 0.5s ease forwards, fadeOut 5s ease forwards 4.5s;
+        font-weight: 600;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .message.success {
+        background: linear-gradient(135deg, #4caf50, #388e3c);
+    }
+
+    .message.error {
+        background: linear-gradient(135deg, #f44336, #d32f2f);
+    }
+
+    .message.info {
+        background: linear-gradient(135deg, #2196f3, #1976d2);
+    }
+
+    .message.warning {
+        background: linear-gradient(135deg, #ff9800, #f57c00);
+    }
+
+    .message i {
+        cursor: pointer;
+        margin-left: 1rem;
+        transition: transform 0.3s;
+    }
+
+    .message i:hover {
+        transform: rotate(90deg);
+    }
+
+    @keyframes slideIn {
+        0% {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    /* Estilo da borda animada */
+    .message::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: #fff;
+        opacity: 0.6;
+        animation: slideBorder 5s linear forwards;
+    }
+
+    @keyframes slideBorder {
+        0% {
+            height: 0%;
+        }
+        100% {
+            height: 100%;
+        }
+    }
+    /* Estilo para o botão de Voltar ao Topo */
+    .back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: none;
+        background-color: #ffa500;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .back-to-top:hover {
+        background-color: #ff8c00;
+        transform: translateY(-5px);
+    }
+
+    .back-to-top i {
+        margin: 0;
+    }
+    #logout-button {
+        background: linear-gradient(135deg, #ff8c00, #ff6600);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 30px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    #logout-button:hover {
+        background: linear-gradient(135deg, #ff6600, #ff3300);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+    .navbar .logo {
+        font-size: 2rem;
+        font-weight: bold;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar {
+        background: linear-gradient(90deg, #182848, #4b6cb7);
+        padding: 1rem 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .menu-toggle {
+        font-size: 1.8rem;
+        color: white;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .menu-toggle:hover {
+        color: #ffa500;
+        transform: rotate(90deg);
+        transition: all 0.5s ease;
+    }
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+        #logout-button {
+            width: 100%;
+            padding: 1rem 0;
+            font-size: 1.25rem;
+        }
+
+        .navbar .logo {
+            font-size: 1.75rem;
+        }
+    }
+    #logout-button {
+        padding: 0.5rem 1.25rem;
+        font-size: 1rem;
+        border-radius: 20px; /* Deixar menos arredondado */
+    }
+    #logout-button {
+        margin-left: 1rem; /* Adiciona espaço entre o botão e o menu */
+    }
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+    }
+
+    .navbar .logo {
+        flex: 1;
+    }
+
+    .navbar .menu-toggle {
+        margin-right: 1rem;
+    }
+    @media (max-width: 768px) {
+        #logout-button {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            width: auto;
+        }
+    }
+    #google-login-button {
+        background: linear-gradient(135deg, #ff8c00, #ff6600);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    #google-login-button:hover {
+        background: linear-gradient(135deg, #ff6600, #ff3300);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    #google-login-button i {
+        margin-right: 0.5rem;
         font-size: 1.2rem;
     }
-}
+    #login-section {
+        background-color: #fff;
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 500px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
 
-/* ========================================= */
-/* ======== Botão Voltar ao Topo ======== */
-/* ========================================= */
+    #login-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: #333;
+        font-weight: 700;
+    }
+    #google-login-button i {
+        transition: transform 0.3s ease;
+    }
 
-/* Já incluído anteriormente */
+    #google-login-button:hover i {
+        transform: rotate(360deg);
+    }
+    body {
+        background: linear-gradient(to right, #4b6cb7, #182848);
+        font-family: 'Roboto', sans-serif;
+    }
+    #login-section {
+        background-color: #fff;
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 500px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
 
-/* ========================================= */
-/* ======== Outros Estilos Necessários ===== */
-/* ========================================= */
+    #login-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: #333;
+        font-weight: 700;
+    }
 
-/* Exibir o botão de voltar ao topo quando necessário */
-.show {
-    display: block !important;
-}
+    #google-login-button {
+        background: linear-gradient(135deg, #ff8c00, #ff6600);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    #google-login-button:hover {
+        background: linear-gradient(135deg, #ff6600, #ff3300);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    #google-login-button i {
+        margin-right: 0.5rem;
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
+
+    #google-login-button:hover i {
+        transform: rotate(360deg);
+    }
+    #login-section {
+        background-color: #fff;
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 400px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Centraliza o conteúdo dentro da seção */
+    }
+
+    #google-login-button {
+        background: linear-gradient(135deg, #ff8c00, #ff6600);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: inline-flex; /* Para garantir alinhamento de itens inline */
+        align-items: center; /* Centraliza o conteúdo dentro do botão */
+        justify-content: center; /* Centraliza o conteúdo dentro do botão */
+        gap: 0.5rem; /* Espaço entre o ícone e o texto */
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        width: auto; /* Garante que o tamanho do botão seja automático */
+        margin-top: 1rem; /* Espaçamento superior do botão */
+    }
+
+    #google-login-button:hover {
+        background: linear-gradient(135deg, #ff6600, #ff3300);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    #google-login-button i {
+        margin-right: 0.5rem;
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
+
+    #google-login-button:hover i {
+        transform: rotate(360deg);
+    }
+    /* Estilo dos botões de ação */
+    .download-button, .share-button, .delete-button {
+        background-color: #ff8c00;
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border: none;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .download-button:hover, .share-button:hover, .delete-button:hover {
+        background-color: #ff6600;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .download-button i, .share-button i, .delete-button i {
+        margin-right: 0.5rem;
+        font-size: 1rem;
+    }
+    /* Estilo da lista de arquivos */
+    #file-list li {
+        background-color: #fff;
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    #file-list li span {
+        font-size: 1rem;
+        color: #333;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+    }
+
+    #file-list li div {
+        display: flex;
+        gap: 1rem;
+    }
+
+    /* Botões ajustados */
+    .download-button, .share-button, .delete-button {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.85rem;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+    /* Estilo do botão "Voltar ao Topo" */
+    .back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #ff8c00;
+        color: white;
+        padding: 15px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .back-to-top:hover {
+        background-color: #ff6600;
+        transform: translateY(-5px);
+    }
+    /* Lista de arquivos */
+    #file-list li {
+        background-color: #fff;
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column; /* Organiza conteúdo na vertical */
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    /* Botões ajustados */
+    #file-list li div {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap; /* Permite que os botões quebrem linha se necessário */
+        justify-content: flex-start;
+    }
+
+    .download-button, .share-button, .delete-button {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.85rem;
+        border-radius: 20px;
+        flex: 1 1 auto; /* Faz com que os botões se ajustem ao tamanho da tela */
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    @media (max-width: 768px) {
+        #file-list li {
+            flex-direction: column; /* Empilha os itens na vertical em telas menores */
+            align-items: center; /* Centraliza os itens no celular */
+        }
+
+        #file-list li div {
+            justify-content: center; /* Centraliza os botões no celular */
+            width: 100%;
+        }
+
+        .download-button, .share-button, .delete-button {
+            flex: none; /* Garante que os botões mantenham um tamanho adequado */
+            width: 100%; /* Faz os botões ocuparem toda a largura */
+            margin-bottom: 0.5rem; /* Espaçamento entre botões */
+        }
+    }
+    /* Lista de arquivos */
+    #file-list li {
+        background-color: #fff;
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column; /* Organiza o conteúdo na vertical */
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    /* Estilo dos botões de ação da lista de arquivos */
+    #file-list li div {
+        display: flex;
+        gap: 1rem;
+        justify-content: space-between;
+        flex-wrap: wrap; /* Ajusta a quebra de linha se necessário */
+        width: 100%; /* Garante que os botões ocupem toda a largura */
+    }
+
+    .download-button, .share-button, .delete-button {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.85rem;
+        border-radius: 20px;
+        flex: 1; /* Faz com que os botões ocupem a mesma largura */
+        text-align: center;
+        transition: all 0.3s ease;
+        max-width: 150px; /* Define uma largura máxima para evitar botões grandes demais */
+    }
+
+    /* Responsividade para telas menores */
+    @media (max-width: 768px) {
+        #file-list li div {
+            gap: 0.5rem; /* Reduz o espaçamento entre os botões em telas menores */
+        }
+
+        .download-button, .share-button, .delete-button {
+            max-width: 100px; /* Define um tamanho máximo para evitar botões largos */
+            padding: 0.5rem; /* Ajusta o padding para caber em telas pequenas */
+        }
+    }
+
+    /* Player de vídeo responsivo */
+    #video-player-section {
+        width: 100%;
+        display: flex;
+        justify-content: center; /* Centraliza o vídeo horizontalmente */
+        align-items: center; /* Centraliza o vídeo verticalmente */
+        overflow: hidden;
+        margin: 2rem auto; /* Espaçamento superior e inferior */
+        max-width: 1200px; /* Define um limite máximo para telas grandes */
+        position: relative;
+    }
+
+    #video-player {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+        object-fit: contain; /* Ajusta o vídeo dentro do container sem cortar */
+        border-radius: 8px; /* Bordas arredondadas para suavizar o design */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
+    }
+
+    /* Ajuste específico para dispositivos móveis */
+    @media (max-width: 768px) {
+        #video-player-section {
+            margin: 1rem auto; /* Reduz o espaçamento em dispositivos móveis */
+        }
+
+        #video-player {
+            max-width: 100vw; /* O vídeo ocupará toda a largura da viewport */
+            height: auto;
+        }
+    }
+    /* Centralizar o botão de play grande do Video.js */
+    .vjs-big-play-button {
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+    }
+    /* Estilos para os botões personalizados */
+    .vjs-download-button .fas,
+    .vjs-embed-button .fas {
+        font-size: 18px;
+        line-height: 1.5;
+        vertical-align: middle;
+        color: white;
+    }
+
+    .vjs-download-button,
+    .vjs-embed-button {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+    }
+
+    .vjs-download-button:hover .fas,
+    .vjs-embed-button:hover .fas {
+        color: #ccc;
+    }
+    /* Estilos para o container de progresso */
+    .progress-container {
+        margin-top: 20px;
+    }
+
+    /* Estilos para cada item de progresso */
+    .progress-item {
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    /* Estilos para a barra de progresso */
+    .progress-bar-wrapper {
+        position: relative;
+        background-color: #f3f3f3;
+        border-radius: 5px;
+        height: 20px;
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    .progress-bar {
+        background-color: #4caf50;
+        height: 100%;
+        width: 0%;
+        border-radius: 5px;
+    }
+
+    .progress-text {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        color: #fff;
+        line-height: 20px;
+    }
+    /* ========================================= */
+    /* ======== Estilos para Embeds ============= */
+    /* ========================================= */
+
+    /* Classe genérica para conteúdo responsivo */
+    .embed-responsive {
+        position: relative;
+        padding-bottom: 56.25%; /* Proporção 16:9 */
+        padding-top: 30px; /* Espaço para títulos ou outros elementos */
+        height: 0;
+        overflow: hidden;
+    }
+
+    .embed-responsive iframe,
+    .embed-responsive object,
+    .embed-responsive embed,
+    .embed-responsive video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* Ajustes específicos para o Player de Vídeo */
+    #video-player-section {
+        width: 100%;
+        max-width: none; /* Remove a restrição de largura máxima */
+        margin: 0;
+        padding: 0;
+    }
+
+    #video-player {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 16 / 9; /* Mantém a proporção widescreen */
+        object-fit: cover; /* Ajusta o vídeo para cobrir todo o container */
+        border-radius: 8px; /* Bordas arredondadas para suavizar o design */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
+    }
+
+    /* Garantir que o player de vídeo ocupe toda a largura em dispositivos móveis */
+    @media (max-width: 768px) {
+        #video-player-section {
+            width: 100vw; /* Ocupa toda a largura da viewport */
+            height: auto;
+        }
+
+        #video-player {
+            width: 100%;
+            height: auto;
+        }
+    }
