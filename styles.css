@@ -996,7 +996,7 @@ body {
     align-items: flex-start;
 }
 
-/* Estilo dos botões */
+/* Estilo dos botões de ação da lista de arquivos */
 #file-list li div {
     display: flex;
     gap: 1rem;
@@ -1059,6 +1059,7 @@ body {
         height: auto;
     }
 }
+
 /* Botão de Play/Pause no player de vídeo */
 #video-play-pause-button {
     position: absolute;
