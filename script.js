@@ -23,14 +23,14 @@ setLogLevel('debug');
 
 // Configuração do Firebase (Substitua pelas suas próprias credenciais)
 const firebaseConfig = {
-    apiKey: "AIzaSyAbADgKRicHlfDWoaXmIfU0EjGbU6nFkPQ",
-    authDomain: "armazene-acd30.firebaseapp.com",
-    databaseURL: "https://armazene-acd30-default-rtdb.firebaseio.com",
-    projectId: "armazene-acd30",
-    storageBucket: "armazene-acd30.appspot.com",
-    messagingSenderId: "853849509051",
-    appId: "1:853849509051:web:ea6f96915c4d5c895b2d9e",
-    measurementId: "G-79TBH73QPT"
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_AUTH_DOMAIN",
+    databaseURL: "SUA_DATABASE_URL",
+    projectId: "SEU_PROJECT_ID",
+    storageBucket: "SEU_STORAGE_BUCKET",
+    messagingSenderId: "SEU_MESSAGING_SENDER_ID",
+    appId: "SEU_APP_ID",
+    measurementId: "SEU_MEASUREMENT_ID"
 };
 
 // Inicializar o Firebase
@@ -57,13 +57,11 @@ const heroSection = document.getElementById('hero-section');
 const videoPlayerSection = document.getElementById('video-player-section');
 const backToTopButton = document.getElementById('back-to-top');
 
-// Inicializar o player de vídeo Video.js
-let videoPlayer;
-
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
 let allFiles = [];
 let isUploading = false;
+let videoPlayer; // Inicializamos a variável sem atribuir um player ainda
 
 // Monitorar o estado de autenticação do usuário
 onAuthStateChanged(auth, (user) => {
@@ -84,6 +82,12 @@ onAuthStateChanged(auth, (user) => {
         storageUsageDisplay.textContent = '0.00 GB de Ilimitado';
         logoutButton.style.display = 'none';
         heroSection.style.display = 'block';
+
+        // Certifique-se de que o player seja destruído quando o usuário sair
+        if (videoPlayer) {
+            videoPlayer.dispose();
+            videoPlayer = null;
+        }
     }
 });
 
@@ -275,7 +279,19 @@ function playVideo(url) {
         videoPlayer.dispose();
     }
 
-    // Criar um novo player
+    // Remover o elemento de vídeo anterior
+    const videoContainer = document.getElementById('video-player-container');
+    videoContainer.innerHTML = '';
+
+    // Criar um novo elemento de vídeo
+    const videoElement = document.createElement('video');
+    videoElement.id = 'video-player';
+    videoElement.className = 'video-js vjs-default-skin';
+    videoElement.setAttribute('controls', '');
+    videoElement.setAttribute('preload', 'auto');
+    videoContainer.appendChild(videoElement);
+
+    // Inicializar o player
     videoPlayer = videojs('video-player', {
         autoplay: true,
         controls: true,
