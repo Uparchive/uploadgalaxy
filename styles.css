@@ -908,25 +908,32 @@ footer p {
 }
 /* Correções Adicionais */
 
-/* 1. Fundo do Rodapé Azul */
+/* 1. Fundo da Página Azul */
+body {
+    background-color: #1e3c72; /* Tom de azul sólido para toda a página */
+    background-image: none; /* Remove qualquer gradiente existente */
+}
+
+/* 2. Fundo do Rodapé Azul */
 footer {
     background-color: #1e3c72;
 }
 
-/* 2. Garantir que os Botões da Lista de Upload fiquem Lado a Lado */
+/* 3. Botões da Lista de Upload Lado a Lado e Proporcionais */
 #file-list li div {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap; /* Evita quebra de linha */
     gap: 5px;
+    justify-content: flex-start; /* Alinha os botões no início */
 }
 
-/* 3. Ajuste do Tamanho dos Botões para Evitar Quebra de Linha */
+/* 4. Ajuste do Tamanho dos Botões para Ocuparem Espaço Uniforme */
 .download-button, 
 .share-button, 
 .delete-button, 
 .play-button {
-    flex: none;
-    width: 80px; /* Ajuste o tamanho conforme necessário */
+    flex: 1; /* Distribui o espaço igualmente entre os botões */
     text-align: center;
-    padding: 0.5rem 0.75rem; /* Tamanho confortável para exibição */
+    padding: 0.5rem 0.75rem;
+    max-width: 100px; /* Limita o tamanho máximo dos botões */
 }
