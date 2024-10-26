@@ -305,9 +305,6 @@ function playVideo(url) {
     videoPlayer.load();
     videoPlayer.play();
 
-    // Forçar atualização inicial da barra de progresso
-    updateProgressBar();
-
     // Definir o foco no player
     videoPlayer.focus();
 
@@ -319,6 +316,9 @@ function playVideo(url) {
         videoPlayer.requestFullscreen();
     }
 }
+
+// Tornar a função acessível globalmente
+window.playVideo = playVideo;
 
 // Função para atualizar a barra de progresso do vídeo
 function updateProgressBar() {
