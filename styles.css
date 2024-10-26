@@ -1065,25 +1065,5 @@ body {
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
 }
-/* Estilos para os botões personalizados */
-.vjs-download-button .fas,
-.vjs-embed-button .fas {
-    font-size: 18px;
-    line-height: 1.5;
-    vertical-align: middle;
-    color: white;
-}
-
-.vjs-download-button,
-.vjs-embed-button {
-    width: 36px;
-    height: 36px;
-    padding: 0;
-}
-
-.vjs-download-button:hover .fas,
-.vjs-embed-button:hover .fas {
-    color: #ccc;
-}
 
 
