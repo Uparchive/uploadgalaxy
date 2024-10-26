@@ -1060,24 +1060,6 @@ body {
     }
 }
 
-/* Estilo do botão de Play/Pause no player de vídeo */
-#video-play-pause-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-}
+/* Removendo o botão de Play/Pause flutuante */
+/* O controle de Play/Pause será feito diretamente no corpo do player de vídeo */
 
-#video-play-pause-button i {
-    font-size: 20px;
-}
-
-#video-play-pause-button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
