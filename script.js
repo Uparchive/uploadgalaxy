@@ -54,7 +54,6 @@ const logoutButton = document.getElementById('logout-button');
 const heroSection = document.getElementById('hero-section');
 const videoPlayerSection = document.getElementById('video-player-section');
 const backToTopButton = document.getElementById('back-to-top');
-const videoContainer = document.getElementById('video-player-container');
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
@@ -279,7 +278,7 @@ function displayFiles(files) {
 
         listItem.innerHTML = `
             <span>${file.name} (${formatBytes(file.size)})</span>
-            <div class="file-actions">
+            <div>
                 ${isVideo ? `<button class="play-button">Reproduzir</button>` : ''}
                 <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
                 <button class="share-button">Copiar Link</button>
@@ -319,6 +318,7 @@ function playVideo(url) {
     }
 
     // Remover o elemento de vídeo anterior
+    const videoContainer = document.getElementById('video-player-container');
     videoContainer.innerHTML = '';
 
     // Criar um novo elemento de vídeo
@@ -328,10 +328,6 @@ function playVideo(url) {
     videoElement.setAttribute('controls', '');
     videoElement.setAttribute('preload', 'auto');
     videoContainer.appendChild(videoElement);
-
-    // Ajustar estilos do container do vídeo
-    videoContainer.style.boxSizing = 'border-box';
-    videoContainer.style.padding = '10px';
 
     // Inicializar o player
     videoPlayer = videojs('video-player', {
