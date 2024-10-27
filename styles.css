@@ -970,43 +970,43 @@ footer p {
     line-height: 1.2; /* Ajusta o espaçamento entre as linhas para melhor visualização */
 }
 
-/* Estilos para centralizar e ajustar o tamanho do player de vídeo */
+/* Estilos para centralizar e ajustar o tamanho do contêiner do player de vídeo */
 #video-player-section {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: hidden; /* Oculta qualquer conteúdo extra */
     margin: 2rem auto;
     width: 100%;
-    max-width: 550px; /* Reduz ainda mais o limite de largura */
-    height: auto;
+    max-width: 550px; /* Define o limite de largura */
+    aspect-ratio: 16 / 9; /* Garante a proporção do contêiner */
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     background-color: #000;
 }
 
-/* Player de Vídeo com ajuste para cobrir completamente o contêiner */
+/* Player de Vídeo ajustado para ocupar toda a área do contêiner */
 #video-player {
     width: 100%;
     height: 100%;
     max-width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover; /* Cobre toda a área disponível */
-    border-radius: 10px; /* Aplica o arredondamento diretamente ao vídeo */
+    border-radius: 10px; /* Aplica o mesmo arredondamento do contêiner */
+    object-fit: cover; /* Ajusta o vídeo para cobrir todo o contêiner */
+    overflow: hidden; /* Garante que nada ultrapasse o contorno */
 }
 
-/* Ajuste para barra de controle do player no limite inferior */
+/* Barra de controle do player no limite inferior */
 .video-js .vjs-control-bar {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    margin: 0; /* Remove qualquer margem */
-    padding: 0; /* Remove qualquer padding */
+    margin: 0;
+    padding: 0;
     border-radius: 0 0 10px 10px; /* Acompanha o arredondamento do contêiner */
 }
 
-/* Remover a borda da barra de controle se existir */
+/* Remover qualquer borda da barra de controle */
 .video-js .vjs-control-bar, 
 .video-js .vjs-control-bar * {
     border: none;
@@ -1018,5 +1018,4 @@ footer p {
         max-width: 90vw; /* Ocupa até 90% da largura da tela em dispositivos móveis */
     }
 }
-
 
