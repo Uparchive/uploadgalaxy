@@ -980,10 +980,10 @@ footer p {
     width: 100%;
     max-width: 600px; /* Largura máxima */
     aspect-ratio: 16 / 9; /* Proporção 16:9 */
-    border-radius: 12px; /* Arredondamento das bordas */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra suave */
     background-color: #000; /* Fundo preto */
     position: relative;
+    border-radius: 0; /* Remove o arredondamento */
 }
 
 /* Player de Vídeo */
@@ -992,8 +992,8 @@ footer p {
     height: 100%;
     max-width: 100%;
     max-height: 100%;
-    object-fit: cover; /* Preenche completamente o contêiner */
-    border-radius: inherit; /* Herdar arredondamento do contêiner */
+    object-fit: fill; /* Preenche completamente o contêiner */
+    border-radius: 0; /* Remove arredondamento para deixar quadrado */
 }
 
 /* Barra de Controle do Player */
@@ -1003,9 +1003,8 @@ footer p {
     left: 0;
     right: 0;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
-    padding: 5px 0; /* Padding mais compacto */
-    border-radius: 0 0 12px 12px; /* Arredondamento na parte inferior */
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente */
+    padding: 8px 0; /* Padding para melhor alinhamento */
     box-sizing: border-box;
 }
 
@@ -1019,10 +1018,9 @@ footer p {
 @media (max-width: 768px) {
     #video-player-section {
         max-width: 90vw; /* 90% da largura da tela */
-        border-radius: 10px; /* Ajusta o arredondamento */
     }
 
     .video-js .vjs-control-bar {
-        padding: 3px 0;
+        padding: 6px 0; /* Ajusta o padding para dispositivos menores */
     }
 }
