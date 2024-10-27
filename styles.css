@@ -971,7 +971,7 @@ footer p {
 }
 /* Seção de Player de Vídeo */
 #video-player-section {
-    background-color: rgba(40, 40, 41, 0.05); /* Cor #282829 com 5% de opacidade, quase invisível */
+    background-color: transparent; /* Fundo totalmente invisível */
     padding: 50px 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
