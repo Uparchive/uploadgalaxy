@@ -983,21 +983,24 @@ footer p {
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    background-color: #000;
+    background-color: #000; /* Remove a borda preta */
 }
 
-/* Player de Vídeo com limite de tamanho */
+/* Player de Vídeo com ajuste para ocupar todo o contêiner */
 #video-player {
     width: 100%;
-    height: auto;
-    max-width: 100%; /* Garante que o player não ultrapasse o contêiner */
-    aspect-ratio: 16 / 9; /* Proporção para visualização adequada */
+    height: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9; /* Proporção para visualização correta */
+    object-fit: cover; /* Cobre toda a área disponível para evitar bordas */
 }
 
-/* Responsividade para dispositivos móveis */
-@media (max-width: 768px) {
-    #video-player-section {
-        max-width: 90vw; /* Ocupa até 90% da largura da tela em dispositivos móveis */
-    }
+/* Ajuste para barra de controle do player no limite inferior */
+.video-js .vjs-control-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0 0 10px 10px; /* Acompanha o arredondamento do contêiner */
 }
 
