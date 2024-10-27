@@ -972,15 +972,60 @@ footer p {
 
 /* Seção de Player de Vídeo */
 #video-player-section {
-    background-color: #fff;
-    padding: 50px 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 30px 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra mais profunda */
     text-align: center;
+    border-radius: 15px; /* Bordas arredondadas para um visual mais elegante */
+    margin: 2rem auto;
+    max-width: 850px; /* Limite de largura */
 }
 
+/* Título do Vídeo */
+#video-title {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px; /* Espaço entre o título e o player */
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 1px; /* Pequeno espaçamento entre letras para estilo */
+}
+
+/* Contêiner do Player */
 #video-player-container {
     max-width: 800px;
     margin: 0 auto;
     overflow: hidden;
-    padding: 0 15px;
+    border-radius: 12px; /* Arredondamento nas bordas do contêiner do vídeo */
+    padding: 5px;
+    background-color: #f9f9f9; /* Fundo suave para destacar o vídeo */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra leve ao redor do vídeo */
 }
+
+/* Player de Vídeo */
+#video-player {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ajuste para cobrir o contêiner */
+}
+
+/* Barra de Controle */
+.video-js .vjs-control-bar {
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente para destaque */
+    padding: 5px;
+    border-radius: 0 0 12px 12px;
+    bottom: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #video-player-section {
+        padding: 20px 15px;
+    }
+
+    #video-title {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+}
+
