@@ -906,3 +906,44 @@ footer p {
         padding: 10px 5px;
     }
 }
+/* Estilo para alinhar os botões em uma linha */
+#file-list li div {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 10px; /* Espaçamento entre os botões */
+    align-items: center;
+}
+
+/* Ajuste para os botões, forçando o texto em uma linha */
+.download-button, .share-button, .delete-button, .play-button {
+    white-space: nowrap; /* Mantém o texto em uma linha */
+    text-align: center;
+    padding: 0.6rem 1.2rem; /* Padding para espaçamento interno */
+    flex: 1; /* Distribui igualmente o espaço */
+    font-size: 1rem;
+    border-radius: 5px; /* Bordas arredondadas para um visual consistente */
+    background-color: #333; /* Cor do botão para o modo escuro */
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+/* Ajuste para hover dos botões */
+.download-button:hover, .share-button:hover, .delete-button:hover, .play-button:hover {
+    background-color: #444;
+}
+
+/* Ajuste específico para botões com texto longo */
+.download-button, .share-button, .delete-button, .play-button {
+    width: 100%; /* Ajusta a largura dos botões para preencher igualmente o espaço */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Correção de alinhamento específico */
+#file-list li span {
+    max-width: 60%; /* Define o limite da largura para o nome do arquivo */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
