@@ -978,35 +978,39 @@ footer p {
     overflow: hidden;
     margin: 2rem auto;
     width: 100%;
-    max-width: 600px; /* Define a largura máxima para desktops */
-    aspect-ratio: 16 / 9; /* Mantém a proporção 16:9 */
-    border-radius: 12px; /* Bordas arredondadas */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra suave para destaque */
-    background-color: #000; /* Fundo para evitar bordas visíveis */
+    max-width: 600px; /* Largura máxima */
+    aspect-ratio: 16 / 9; /* Proporção 16:9 */
+    border-radius: 12px; /* Arredondamento das bordas */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra suave */
+    background-color: #000; /* Fundo preto */
     position: relative;
 }
 
-/* Player de Vídeo dentro do contêiner */
+/* Player de Vídeo */
 #video-player {
     width: 100%;
     height: 100%;
-    object-fit: fill; /* Preenche completamente o contêiner */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /* Preenche completamente o contêiner */
+    border-radius: inherit; /* Herdar arredondamento do contêiner */
 }
 
-/* Barra de Controle */
+/* Barra de Controle do Player */
 .video-js .vjs-control-bar {
     position: absolute;
     bottom: 0;
     left: 0;
+    right: 0;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente para a barra */
-    padding: 5px 0; /* Reduz o padding para uma aparência mais compacta */
-    border-radius: 0 0 12px 12px; /* Alinha o arredondamento com o contêiner */
-    box-sizing: border-box; /* Inclui padding e bordas no cálculo do tamanho */
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+    padding: 5px 0; /* Padding mais compacto */
+    border-radius: 0 0 12px 12px; /* Arredondamento na parte inferior */
+    box-sizing: border-box;
 }
 
-/* Remover quaisquer bordas da barra de controle e seus elementos */
-.video-js .vjs-control-bar, 
+/* Remover bordas da barra de controle e seus elementos */
+.video-js .vjs-control-bar,
 .video-js .vjs-control-bar * {
     border: none;
 }
@@ -1014,12 +1018,11 @@ footer p {
 /* Ajuste para o Player em Telas Menores */
 @media (max-width: 768px) {
     #video-player-section {
-        max-width: 90vw; /* Ocupa até 90% da largura da tela em dispositivos móveis */
-        border-radius: 10px; /* Ajusta o arredondamento para dispositivos menores */
+        max-width: 90vw; /* 90% da largura da tela */
+        border-radius: 10px; /* Ajusta o arredondamento */
     }
 
     .video-js .vjs-control-bar {
-        padding: 3px 0; /* Reduz ainda mais o padding em dispositivos menores */
+        padding: 3px 0;
     }
 }
-
