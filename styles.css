@@ -959,4 +959,45 @@ footer p {
         max-width: 50%; /* Diminui o espaço para o texto do nome do arquivo */
     }
 }
+/* Estilo para o nome do arquivo, permitindo múltiplas linhas se for longo */
+#file-list li span {
+    display: block; /* Garante que o nome ocupe a linha inteira */
+    max-width: 100%;
+    font-size: 1rem;
+    color: #333;
+    word-wrap: break-word; /* Quebra o texto para continuar na linha de baixo */
+    white-space: normal; /* Permite múltiplas linhas, quebrando conforme necessário */
+    line-height: 1.2; /* Ajusta o espaçamento entre as linhas para melhor visualização */
+}
+
+/* Estilos Responsivos para o Player de Vídeo */
+#video-player-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 2rem auto;
+    max-width: 90vw; /* Limita a largura para não ultrapassar a largura da tela */
+    max-height: 60vh; /* Limita a altura para 60% da altura da tela */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra suave para destacar */
+    background-color: #000;
+}
+
+/* Player de Vídeo em si com limite de tamanho */
+#video-player {
+    width: 100%;
+    height: auto;
+    max-width: 800px; /* Limite para desktops */
+    max-height: 450px; /* Limite de altura */
+    aspect-ratio: 16 / 9; /* Proporção para garantir a visualização correta */
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    #video-player {
+        max-width: 100vw; /* Ocupa toda a largura do dispositivo móvel */
+        max-height: 50vh; /* Ocupa metade da altura da tela em dispositivos móveis */
+    }
+}
 
