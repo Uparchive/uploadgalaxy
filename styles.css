@@ -947,3 +947,16 @@ footer p {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+/* Responsividade para diminuir a fonte dos botões em telas menores */
+@media (max-width: 600px) {
+    .download-button, .share-button, .delete-button, .play-button {
+        font-size: 0.8rem; /* Reduz o tamanho da fonte para caber em dispositivos móveis */
+        padding: 0.5rem 1rem; /* Ajusta o padding para manter o layout compacto */
+    }
+
+    #file-list li span {
+        max-width: 50%; /* Diminui o espaço para o texto do nome do arquivo */
+    }
+}
+
