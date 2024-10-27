@@ -971,33 +971,33 @@ footer p {
 }
 
 /* Estilos Responsivos para o Player de Vídeo */
+/* Estilos para centralizar e ajustar o tamanho do player de vídeo */
 #video-player-section {
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     margin: 2rem auto;
-    max-width: 90vw; /* Limita a largura para não ultrapassar a largura da tela */
-    max-height: 60vh; /* Limita a altura para 60% da altura da tela */
+    width: 100%;
+    max-width: 600px; /* Limite de largura para desktops */
+    height: auto;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra suave para destacar */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     background-color: #000;
 }
 
-/* Player de Vídeo em si com limite de tamanho */
+/* Player de Vídeo com limite de tamanho */
 #video-player {
     width: 100%;
     height: auto;
-    max-width: 800px; /* Limite para desktops */
-    max-height: 450px; /* Limite de altura */
-    aspect-ratio: 16 / 9; /* Proporção para garantir a visualização correta */
+    max-width: 100%; /* Garante que o player não ultrapasse o contêiner */
+    aspect-ratio: 16 / 9; /* Proporção para visualização adequada */
 }
 
 /* Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
-    #video-player {
-        max-width: 100vw; /* Ocupa toda a largura do dispositivo móvel */
-        max-height: 50vh; /* Ocupa metade da altura da tela em dispositivos móveis */
+    #video-player-section {
+        max-width: 90vw; /* Ocupa até 90% da largura da tela em dispositivos móveis */
     }
 }
 
