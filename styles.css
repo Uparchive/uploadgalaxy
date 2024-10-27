@@ -998,7 +998,7 @@ footer p {
 /* Barra de Controle do Player */
 .video-js .vjs-control-bar {
     position: absolute;
-    bottom: 0;
+    bottom: 5px; /* Adiciona um pequeno espaço preto abaixo da barra */
     left: 0;
     right: 0;
     width: 100%;
