@@ -978,7 +978,7 @@ footer p {
     overflow: hidden;
     margin: 2rem auto;
     width: 100%;
-    max-width: 550px; /* Reduz ainda mais o limite de largura para desktops */
+    max-width: 550px; /* Reduz ainda mais o limite de largura */
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -1001,7 +1001,15 @@ footer p {
     bottom: 0;
     left: 0;
     width: 100%;
+    margin: 0; /* Remove qualquer margem */
+    padding: 0; /* Remove qualquer padding */
     border-radius: 0 0 10px 10px; /* Acompanha o arredondamento do contêiner */
+}
+
+/* Remover a borda da barra de controle se existir */
+.video-js .vjs-control-bar, 
+.video-js .vjs-control-bar * {
+    border: none;
 }
 
 /* Responsividade para dispositivos móveis */
