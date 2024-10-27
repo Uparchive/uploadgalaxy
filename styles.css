@@ -983,39 +983,3 @@ footer p {
     overflow: hidden;
     padding: 0 15px;
 }
-/* Estilo padrão para todos os botões na seção de uploads */
-#upload-section .upload-button,
-#upload-section .download-button,
-#upload-section .play-button,
-#upload-section .share-button,
-#upload-section .delete-button {
-    padding: 8px 16px; /* Padding uniforme para altura e largura consistentes */
-    font-size: 0.9rem; /* Tamanho de fonte uniforme */
-    border-radius: 5px; /* Bordas arredondadas para consistência */
-    background-color: #ff8c00; /* Cor de fundo padrão */
-    color: #ffffff; /* Cor do texto */
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: inline-block;
-    min-width: 100px; /* Largura mínima para consistência */
-    text-align: center;
-    box-sizing: border-box;
-}
-
-/* Ajuste de Hover */
-#upload-section .upload-button:hover,
-#upload-section .download-button:hover,
-#upload-section .play-button:hover,
-#upload-section .share-button:hover,
-#upload-section .delete-button:hover {
-    background-color: #e07b00; /* Cor de fundo mais escura ao passar o mouse */
-}
-
-/* Ajuste para garantir que todos os botões tenham o mesmo alinhamento e espaço */
-#upload-section .button-container {
-    display: flex;
-    gap: 10px; /* Espaçamento entre os botões */
-    flex-wrap: wrap; /* Permite que os botões se ajustem em telas menores */
-    justify-content: flex-start;
-}
