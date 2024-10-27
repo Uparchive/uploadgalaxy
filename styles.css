@@ -969,3 +969,17 @@ footer p {
     white-space: normal; /* Permite múltiplas linhas, quebrando conforme necessário */
     line-height: 1.2; /* Ajusta o espaçamento entre as linhas para melhor visualização */
 }
+/* Seção de Player de Vídeo */
+#video-player-section {
+    background-color: #282829;
+    padding: 50px 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#video-player-container {
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 0 15px;
+}
