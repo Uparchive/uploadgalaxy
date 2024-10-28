@@ -980,12 +980,12 @@ footer p {
 #video-player-container {
     max-width: 800px;
     margin: 0 auto;
-    overflow: hidden;
-    padding: 0 15px;
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* Proporção de 16:9 */
+    padding-bottom: 56.25%; /* Define a altura com a proporção de 16:9 */
     height: 0;
+    overflow: hidden;
+    background-color: #000; /* Fundo preto para harmonizar com o vídeo */
 }
 
 #video-player-container iframe {
@@ -996,4 +996,3 @@ footer p {
     height: 100%;
     border: none;
 }
-
