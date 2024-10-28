@@ -212,6 +212,23 @@ body {
     transition: transform 0.3s ease;
 }
 
+/* CSS para esconder o texto dos botões em telas menores */
+@media (max-width: 768px) {
+    .file-actions .button-text {
+        display: none;
+    }
+
+    .file-actions button, 
+    .file-actions a {
+        padding: 0.6rem; /* Ajustar o padding para manter o tamanho do botão */
+        width: 48px; /* Largura fixa para manter consistência visual */
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 /* ========================================= */
 /* ======== Seção Hero ====================== */
 /* ========================================= */
