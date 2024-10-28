@@ -288,48 +288,6 @@ function displayFiles(files) {
         `;
         fileList.appendChild(listItem);
 
-        // Adicionar event listeners aos botões
-        if (isVideo) {
-            const playButton = listItem.querySelector('.play-button');
-            playButton.addEventListener('click', () => {
-                playVideo(file.url);
-            });
-        }
-
-        const shareButton = listItem.querySelector('.share-button');
-        shareButton.addEventListener('click', () => {
-            copyToClipboard(file.url);
-        });
-
-        const deleteButton = listItem.querySelector('.delete-button');
-        deleteButton.addEventListener('click', () => {
-            deleteFile(file.name);
-        });
-    });
-    updateStorageUsage();
-}
-
-        // Adicionar event listeners aos botões
-        if (isVideo) {
-            const playButton = listItem.querySelector('.play-button');
-            playButton.addEventListener('click', () => {
-                playVideo(file.url);
-            });
-        }
-
-        const shareButton = listItem.querySelector('.share-button');
-        shareButton.addEventListener('click', () => {
-            copyToClipboard(file.url);
-        });
-
-        const deleteButton = listItem.querySelector('.delete-button');
-        deleteButton.addEventListener('click', () => {
-            deleteFile(file.name);
-        });
-    });
-    updateStorageUsage();
-}
-
 // Função para reproduzir vídeo
 function playVideo(url) {
     videoPlayerSection.style.display = 'block';
