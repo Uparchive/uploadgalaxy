@@ -138,6 +138,19 @@
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
+
+        // Fecha o menu ao clicar fora ou em um link do menu
+        document.addEventListener('click', (event) => {
+            if (!menuToggle.contains(event.target) && !navLinks.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
     </script>
 </body>
 </html>
