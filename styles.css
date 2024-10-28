@@ -145,40 +145,40 @@ body {
     }
 }
 
-/* ========================================= */
-/* ======== Botões Gerais ================== */
-/* ========================================= */
+        /* ========================================= */
+        /* ======== Botões Gerais ================== */
+        /* ========================================= */
 
-/* Botão de Logout */
-#logout-button {
-    background: var(--button-bg);
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 25px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    text-align: center;
-    margin: 0 auto;
-}
+        /* Botão de Logout */
+        #logout-button {
+            background: var(--button-bg);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            margin: 0 auto;
+        }
 
-#logout-button:hover {
-    background: var(--button-hover-bg);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
+        #logout-button:hover {
+            background: var(--button-hover-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
 
-#logout-button i {
-    font-size: 1rem;
-}
+        #logout-button i {
+            font-size: 1rem;
+        }
 
-/* Botão de Upload e Outros Botões */
+        /* Botão de Upload e Outros Botões */
 .upload-button, .download-button, .share-button, .delete-button, .play-button {
     background: var(--button-bg);
     color: white;
@@ -190,40 +190,26 @@ body {
     display: inline-flex; /* Garante que o botão se ajuste ao conteúdo */
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
     cursor: pointer;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     text-align: center;
     white-space: nowrap; /* Impede a quebra de linha do texto */
-    min-width: 100px; /* Define uma largura mínima para os botões */
 }
 
-/* Ajuste para ícones e texto dos botões */
+/* Ajuste para dispositivos menores */
+@media (max-width: 768px) {
+    .upload-button, .download-button, .share-button, .delete-button, .play-button {
+        font-size: 0.8rem; /* Reduz o tamanho da fonte para caber melhor no botão */
+        padding: 0.4rem 0.8rem; /* Ajusta o padding para manter o layout compacto */
+    }
+}
+
+/* Ajuste para ícones e texto */
 .upload-button i, .download-button i, .share-button i, .delete-button i, .play-button i {
     font-size: 1rem;
     transition: transform 0.3s ease;
-}
-
-/* CSS para esconder o texto dos botões em telas menores */
-@media (max-width: 768px) {
-    .upload-button .button-text,
-    .download-button .button-text,
-    .share-button .button-text,
-    .delete-button .button-text,
-    .play-button .button-text {
-        display: none;
-    }
-
-    .file-actions button, 
-    .file-actions a {
-        padding: 0.6rem; /* Ajustar o padding para manter o tamanho do botão */
-        width: 48px; /* Largura fixa para manter consistência visual */
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
 }
 
 /* ========================================= */
