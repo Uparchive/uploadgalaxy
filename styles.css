@@ -969,6 +969,143 @@ footer p {
     white-space: normal; /* Permite múltiplas linhas, quebrando conforme necessário */
     line-height: 1.2; /* Ajusta o espaçamento entre as linhas para melhor visualização */
 }
+
+/* Melhorias no Layout do Topo da Página */
+
+/* Container do Topo */
+.top-bar {
+    background: linear-gradient(90deg, #182848, #4b6cb7); /* Mesma cor de fundo para manter consistência */
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo do Site */
+.top-bar .logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Estilo dos Links do Menu */
+.top-bar .nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.top-bar .nav-links li {
+    position: relative;
+}
+
+.top-bar .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s, transform 0.3s;
+    padding: 0.75rem 1rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.top-bar .nav-links a:hover {
+    color: var(--accent-color);
+    background-color: rgba(255, 165, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Botão de Logout no Topo */
+.top-bar #logout-button {
+    background: var(--button-bg);
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.top-bar #logout-button:hover {
+    background: var(--button-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.top-bar #logout-button i {
+    font-size: 1.2rem;
+}
+
+/* Menu para Dispositivos Móveis */
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.5s ease;
+}
+
+.menu-toggle:hover {
+    color: var(--accent-color);
+    transform: rotate(90deg);
+}
+
+@media (max-width: 768px) {
+    /* Ajustes para Telas Menores */
+    .top-bar {
+        flex-wrap: wrap;
+    }
+
+    .top-bar .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 1rem 0;
+        text-align: center;
+    }
+
+    .top-bar .nav-links.active {
+        display: flex;
+    }
+
+    .top-bar .nav-links li {
+        margin: 0.5rem 0;
+    }
+
+    .menu-toggle {
+        display: block;
+        margin-right: 1rem;
+    }
+
+    .top-bar #logout-button {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
+        padding: 0.75rem 1rem;
+    }
+}
+
 /* Seção de Player de Vídeo */
 #video-player-section {
     background-color: transparent; /* Fundo totalmente invisível */
