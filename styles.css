@@ -85,7 +85,8 @@ body {
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
+    flex-direction: row;
 }
 
 .navbar .nav-links li {
@@ -111,16 +112,25 @@ body {
 }
 
 .menu-toggle {
-    display: none;
-    font-size: 1.8rem;
-    color: white;
-    cursor: pointer;
-    transition: color 0.3s ease, transform 0.5s ease;
+    display: none; /* Esconde o ícone de menu de hambúrguer */
 }
 
-.menu-toggle:hover {
-    color: var(--accent-color);
-    transform: rotate(90deg);
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .navbar .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .navbar .nav-links li {
+        margin: 0.5rem 0;
+    }
 }
 
 /* ========================================= */
