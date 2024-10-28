@@ -1,3 +1,4 @@
+
 // Importações do Firebase Modular SDK
 import { initializeApp, setLogLevel } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
 import {
@@ -280,13 +281,34 @@ function displayFiles(files) {
         listItem.innerHTML = `
             <span>${file.name} (${formatBytes(file.size)})</span>
             <div class="file-actions">
-                ${isVideo ? `<button class="play-button"><i class="fas fa-play"></i> Play</button>` : ''}
-                <a href="${file.url}" class="download-button" download="${file.name}"><i class="fas fa-download"></i> Download</a>
-                <button class="share-button"><i class="fas fa-link"></i> Link</button>
-                <button class="delete-button"><i class="fas fa-trash"></i> Excluir</button>
+                ${isVideo ? `<button class="play-button">Reproduzir</button>` : ''}
+                <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
+                <button class="share-button">Copiar Link</button>
+                <button class="delete-button">Excluir</button>
             </div>
         `;
         fileList.appendChild(listItem);
+
+        // Adicionar event listeners aos botões
+        if (isVideo) {
+            const playButton = listItem.querySelector('.play-button');
+            playButton.addEventListener('click', () => {
+                playVideo(file.url);
+            });
+        }
+
+        const shareButton = listItem.querySelector('.share-button');
+        shareButton.addEventListener('click', () => {
+            copyToClipboard(file.url);
+        });
+
+        const deleteButton = listItem.querySelector('.delete-button');
+        deleteButton.addEventListener('click', () => {
+            deleteFile(file.name);
+        });
+    });
+    updateStorageUsage();
+}
 
 // Função para reproduzir vídeo
 function playVideo(url) {
