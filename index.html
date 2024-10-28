@@ -151,6 +151,11 @@
                 navLinks.classList.remove('active');
             });
         });
+
+        // Impede que o menu suma ao clicar no botão menu-toggle
+        menuToggle.addEventListener('mouseenter', () => {
+            menuToggle.style.transform = 'none';
+        });
     </script>
 </body>
 </html>
