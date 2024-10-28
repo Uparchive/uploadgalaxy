@@ -284,14 +284,16 @@ body {
     border-radius: 25px;
     font-size: 1rem;
     font-weight: 600;
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     cursor: pointer;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    width: auto;
-    margin-top: 1rem;
+    width: 100%;
+    max-width: 300px;
+    margin: 1rem auto;
 }
 
 #google-login-button:hover {
