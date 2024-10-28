@@ -145,93 +145,88 @@ body {
     }
 }
 
-/* ========================================= */
-/* ======== Botões Gerais ================== */
-/* ========================================= */
+        /* ========================================= */
+        /* ======== Botões Gerais ================== */
+        /* ========================================= */
 
-/* Botão de Logout */
-#logout-button {
-    background: var(--button-bg);
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 25px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    text-align: center;
-    width: 100%;
-    max-width: 250px;
-    margin: 0 auto;
-}
+        /* Botão de Logout */
+        #logout-button {
+            background: var(--button-bg);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            margin: 0 auto;
+        }
 
-#logout-button:hover {
-    background: var(--button-hover-bg);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
+        #logout-button:hover {
+            background: var(--button-hover-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
 
-#logout-button i {
-    font-size: 1rem;
-}
+        #logout-button i {
+            font-size: 1rem;
+        }
 
-/* Botão de Upload e Outros Botões */
-.upload-button, .download-button, .share-button, .delete-button, .play-button {
-    background: var(--button-bg);
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    flex: 1;
-    text-align: center;
-    max-width: 200px;
-    margin: 0.5rem auto;
-    width: 100%;
-}
+        /* Botão de Upload e Outros Botões */
+        .upload-button, .download-button, .share-button, .delete-button, .play-button {
+            background: var(--button-bg);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
 
-.upload-button:hover, .download-button:hover, .share-button:hover, .delete-button:hover, .play-button:hover {
-    background: var(--button-hover-bg);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
+        .upload-button:hover, .download-button:hover, .share-button:hover, .delete-button:hover, .play-button:hover {
+            background: var(--button-hover-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
 
-.upload-button i, .download-button i, .share-button i, .delete-button i, .play-button i {
-    font-size: 1rem;
-    transition: transform 0.3s ease;
-}
+        .upload-button i, .download-button i, .share-button i, .delete-button i, .play-button i {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
 
-.upload-button:hover i, .download-button:hover i, .share-button:hover i, .delete-button:hover i, .play-button:hover i {
-    transform: rotate(360deg);
-}
+        .upload-button:hover i, .download-button:hover i, .share-button:hover i, .delete-button:hover i, .play-button:hover i {
+            transform: rotate(360deg);
+        }
 
-/* Ajustes para dispositivos móveis */
-@media (max-width: 768px) {
-    .upload-button, .download-button, .share-button, .delete-button, .play-button {
-        font-size: 0.9rem; /* Reduz o tamanho da fonte */
-        padding: 0.5rem 1rem; /* Ajusta o padding para evitar que o texto saia do botão */
-        max-width: 100%; /* O botão deve ocupar a largura máxima disponível */
-    }
+        /* Ajustes para dispositivos móveis */
+        @media (max-width: 768px) {
+            .upload-button, .download-button, .share-button, .delete-button, .play-button {
+                font-size: 0.9rem; /* Reduz o tamanho da fonte */
+                padding: 0.5rem 1rem; /* Ajusta o padding para evitar que o texto saia do botão */
+                max-width: 100%; /* O botão deve ocupar a largura máxima disponível */
+            }
 
-    #logout-button {
-        font-size: 0.9rem; /* Reduz o tamanho da fonte para dispositivos móveis */
-        padding: 0.5rem 1rem; /* Ajusta o padding */
-        max-width: 100%;
-    }
-}
+            #logout-button {
+                font-size: 0.9rem; /* Reduz o tamanho da fonte para dispositivos móveis */
+                padding: 0.5rem 1rem; /* Ajusta o padding */
+                max-width: 100%;
+            }
+        }
 
 /* ========================================= */
 /* ======== Seção Hero ====================== */
