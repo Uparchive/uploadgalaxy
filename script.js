@@ -279,14 +279,14 @@ function displayFiles(files) {
         const isVideo = file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm');
 
         listItem.innerHTML = `
-            <span>${file.name} (${formatBytes(file.size)})</span>
-            <div class="file-actions">
-                ${isVideo ? `<button class="play-button">Reproduzir</button>` : ''}
-                <a href="${file.url}" class="download-button" download="${file.name}">Download</a>
-                <button class="share-button">Copiar Link</button>
-                <button class="delete-button">Excluir</button>
-            </div>
-        `;
+    <span>${file.name} (${formatBytes(file.size)})</span>
+    <div class="file-actions">
+        ${isVideo ? `<button class="play-button"><i class="fas fa-play"></i> Play</button>` : ''}
+        <a href="${file.url}" class="download-button" download="${file.name}"><i class="fas fa-download"></i> Download</a>
+        <button class="share-button"><i class="fas fa-link"></i> Link</button>
+        <button class="delete-button"><i class="fas fa-trash"></i> Excluir</button>
+    </div>
+`;
         fileList.appendChild(listItem);
 
         // Adicionar event listeners aos botões
