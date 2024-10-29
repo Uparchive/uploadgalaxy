@@ -1174,3 +1174,46 @@ footer p {
 .toggle-button i {
     font-size: 1rem;
 }
+
+/* ========================================= */
+/* ======== Armazenamento Style ============ */
+/* ========================================= */
+
+/* Container Geral do Armazenamento */
+.storage-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Texto de Uso do Armazenamento */
+.storage-text {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Container da Barra de Progresso */
+.progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Barra de Progresso */
+.progress-bar {
+    height: 100%;
+    background-color: #ff6600;
+    width: 0; /* Valor inicial (será ajustado dinamicamente) */
+    border-radius: 10px 0 0 10px;
+    transition: width 0.5s ease-in-out;
+}
+
