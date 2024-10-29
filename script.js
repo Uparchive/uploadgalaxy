@@ -128,10 +128,38 @@ fileInput.addEventListener('change', () => {
             const fileItem = document.createElement('div');
             fileItem.className = 'file-item';
             fileItem.innerHTML = `
-                <span>${file.name} (${formatBytes(file.size)})</span>
-                <input type="text" id="rename-input-${index}" class="rename-input" placeholder="Nomear este arquivo (opcional)">
+                <span id="file-name-${index}" class="file-name">${file.name}</span>
+                <i class="fas fa-pencil-alt rename-icon" id="edit-icon-${index}" title="Renomear"></i>
+                <input type="text" id="rename-input-${index}" class="rename-input" value="${file.name}" style="display: none;">
             `;
             renameFileList.appendChild(fileItem);
+
+            // Evento para clicar no ícone de lápis
+            const editIcon = document.getElementById(`edit-icon-${index}`);
+            const renameInput = document.getElementById(`rename-input-${index}`);
+            const fileNameSpan = document.getElementById(`file-name-${index}`);
+
+            editIcon.addEventListener('click', () => {
+                // Tornar o nome do arquivo editável
+                fileNameSpan.style.display = 'none';
+                renameInput.style.display = 'inline-block';
+                renameInput.focus();
+
+                // Quando o campo perder o foco ou pressionar Enter, salvar a edição
+                renameInput.addEventListener('blur', () => {
+                    if (renameInput.value.trim()) {
+                        fileNameSpan.textContent = renameInput.value.trim();
+                    }
+                    fileNameSpan.style.display = 'inline-block';
+                    renameInput.style.display = 'none';
+                });
+
+                renameInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        renameInput.blur();
+                    }
+                });
+            });
         });
     }
 });
