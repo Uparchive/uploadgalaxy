@@ -355,10 +355,15 @@ function displayFiles(files) {
         const savedName = localStorage.getItem(`renamed_${file.name}`);
         const displayName = savedName ? savedName : file.name;
 
+        // Formatar o tamanho do arquivo
+        const fileSizeFormatted = formatBytes(file.size);
+
+        // Elemento de item da lista, com o nome do arquivo e seu tamanho
         listItem.className = 'file-item';
         listItem.innerHTML = `
             <div class="file-header">
                 <span id="file-name-${index}" class="file-name">${displayName}</span>
+                <span class="file-size">(${fileSizeFormatted})</span>
                 <i class="fas fa-pencil-alt rename-icon" id="edit-icon-${index}" title="Renomear"></i>
                 <input type="text" id="rename-input-${index}" class="rename-input" value="${displayName}" style="display: none;">
             </div>
