@@ -58,6 +58,7 @@ const backToTopButton = document.getElementById('back-to-top');
 const videoContainer = document.getElementById('video-player-container');
 const fileInput = document.getElementById('file-input');
 const renameFileList = document.getElementById('rename-file-list');
+const toggleButton = document.getElementById('toggle-file-list-button');
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
@@ -161,6 +162,18 @@ fileInput.addEventListener('change', () => {
                 });
             });
         });
+    }
+});
+
+toggleButton.addEventListener('click', () => {
+    if (fileListSection.style.display === 'none') {
+        // Mostrar a lista
+        fileListSection.style.display = 'block';
+        toggleButton.textContent = 'Ocultar Lista';
+    } else {
+        // Ocultar a lista
+        fileListSection.style.display = 'none';
+        toggleButton.textContent = 'Mostrar Lista';
     }
 });
 
