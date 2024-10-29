@@ -1158,39 +1158,3 @@ footer p {
 #file-list-container {
     display: block; /* Garante que a lista de arquivos seja exibida por padrão */
 }
-
-/* ========================================= */
-/* ======== Editar Nome da Seção =========== */
-/* ========================================= */
-
-/* Estilizar o título e o ícone de edição */
-.file-list-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-#file-list-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-.rename-icon {
-    cursor: pointer;
-    color: #ff6600;
-    transition: transform 0.2s;
-    margin-left: 10px;
-}
-
-.rename-icon:hover {
-    transform: scale(1.2);
-}
-
-/* Estilo para título editável */
-#file-list-title[contenteditable="true"] {
-    border: 1px dashed #ccc;
-    padding: 5px;
-    background-color: #fff;
-}
