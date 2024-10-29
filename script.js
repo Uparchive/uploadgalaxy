@@ -56,6 +56,8 @@ const heroSection = document.getElementById('hero-section');
 const videoPlayerSection = document.getElementById('video-player-section');
 const backToTopButton = document.getElementById('back-to-top');
 const videoContainer = document.getElementById('video-player-container');
+const fileInput = document.getElementById('file-input');
+const renameFileList = document.getElementById('rename-file-list');
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
@@ -116,10 +118,26 @@ uploadForm.addEventListener('submit', (e) => {
     }
 });
 
+// Ao selecionar arquivos, exibir campos para renomeação
+fileInput.addEventListener('change', () => {
+    const files = fileInput.files;
+    renameFileList.innerHTML = ''; // Limpar a lista anterior
+
+    if (files.length > 0) {
+        Array.from(files).forEach((file, index) => {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <span>${file.name} (${formatBytes(file.size)})</span>
+                <input type="text" id="rename-input-${index}" class="rename-input" placeholder="Nomear este arquivo (opcional)">
+            `;
+            renameFileList.appendChild(fileItem);
+        });
+    }
+});
+
 // Função para iniciar o upload múltiplo
 async function startUpload() {
-    const fileInput = document.getElementById('file-input');
-    const fileNameInput = document.getElementById('file-name');
     const files = fileInput.files;
     const user = auth.currentUser;
 
@@ -146,7 +164,8 @@ async function startUpload() {
     // Iterar sobre cada arquivo e iniciar o upload
     Array.from(files).forEach((file, index) => {
         // Use o nome do arquivo fornecido pelo usuário ou o nome original se nenhum for dado
-        const customFileName = fileNameInput.value.trim() ? fileNameInput.value.trim() : file.name;
+        const renameInput = document.getElementById(`rename-input-${index}`);
+        const customFileName = renameInput && renameInput.value.trim() ? renameInput.value.trim() : file.name;
         const storageRefPath = `uploads/${user.uid}/${customFileName}`;
         const storageRefObj = ref(storage, storageRefPath);
         const uploadTask = uploadBytesResumable(storageRefObj, file);
@@ -209,7 +228,7 @@ async function startUpload() {
         alert('Todos os arquivos foram enviados com sucesso!');
         await fetchAllFiles();
         fileInput.value = '';
-        fileNameInput.value = ''; // Limpar campo de nome do arquivo após upload
+        renameFileList.innerHTML = ''; // Limpar campos de renomeação após upload
         progressContainer.style.display = 'none';
         progressContainer.innerHTML = '';
         isUploading = false;
