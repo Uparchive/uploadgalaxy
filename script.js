@@ -60,6 +60,9 @@ const fileInput = document.getElementById('file-input');
 const renameFileList = document.getElementById('rename-file-list');
 const toggleButton = document.getElementById('toggle-file-list-button');
 const fileListContainer = document.getElementById('file-list-container');
+const toggleButton = document.getElementById('toggle-file-list-button');
+const fileListTitle = document.getElementById('file-list-title');
+const editTitleIcon = document.getElementById('edit-title-icon');
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
@@ -166,8 +169,14 @@ fileInput.addEventListener('change', () => {
     }
 });
 
+// Carregar o título salvo no localStorage, se houver
+const savedTitle = localStorage.getItem('fileListTitle');
+if (savedTitle) {
+    fileListTitle.textContent = savedTitle;
+}
+
+// Evento para alternar visibilidade da lista de arquivos
 toggleButton.addEventListener('click', () => {
-    // Verificar o estilo atual do container da lista de arquivos
     const currentDisplay = window.getComputedStyle(fileListContainer).display;
 
     if (currentDisplay === 'none') {
@@ -179,6 +188,31 @@ toggleButton.addEventListener('click', () => {
         fileListContainer.style.display = 'none';
         toggleButton.textContent = 'Mostrar Lista';
     }
+});
+
+// Evento para editar o título ao clicar no ícone de lápis
+editTitleIcon.addEventListener('click', () => {
+    fileListTitle.contentEditable = true;
+    fileListTitle.focus();
+
+    // Quando o título perder o foco, salvar a alteração
+    fileListTitle.addEventListener('blur', () => {
+        fileListTitle.contentEditable = false;
+
+        // Salvar o novo título no localStorage
+        const newTitle = fileListTitle.textContent.trim();
+        if (newTitle) {
+            localStorage.setItem('fileListTitle', newTitle);
+        }
+    });
+
+    // Salvar ao pressionar "Enter"
+    fileListTitle.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            fileListTitle.blur(); // Isso dispara o evento de 'blur' acima para salvar
+        }
+    });
 });
 
 // Função para iniciar o upload múltiplo
