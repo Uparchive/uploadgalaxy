@@ -165,16 +165,14 @@ fileInput.addEventListener('change', () => {
     }
 });
 
-// Alternar visibilidade quando o botão for clicado
 toggleButton.addEventListener('click', () => {
-    const fileListSectionContent = document.querySelector('.file-list-content');
-    if (fileListSectionContent.style.display === 'none') {
-        // Mostrar todo o conteúdo da lista de arquivos
-        fileListSectionContent.style.display = 'block';
+    if (fileListContainer.style.display === 'none') {
+        // Mostrar a lista de uploads
+        fileListContainer.style.display = 'block';
         toggleButton.textContent = 'Ocultar Lista';
     } else {
-        // Ocultar todo o conteúdo da lista de arquivos
-        fileListSectionContent.style.display = 'none';
+        // Ocultar a lista de uploads
+        fileListContainer.style.display = 'none';
         toggleButton.textContent = 'Mostrar Lista';
     }
 });
