@@ -1056,53 +1056,72 @@ footer p {
 }
 /* Bloco de Estilo para Renomeação de Arquivos */
 
-/* Estilização do container do item do arquivo */
+/* Estilização dos itens da lista de arquivos */
 .file-item {
-    padding: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
     background-color: #f9f9f9;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
 }
 
-/* Wrapper do nome do arquivo e ícone de lápis */
-.file-name-wrapper {
+/* Container do cabeçalho do arquivo (nome + ícone de lápis) */
+.file-header {
     display: flex;
     align-items: center;
-    margin-bottom: 10px; /* Espaço entre o nome e os botões abaixo */
+    justify-content: space-between;
+    margin-bottom: 5px;
 }
 
-/* Nome do arquivo */
+/* Nome do arquivo estilizado */
 .file-name {
     font-weight: 600;
+    flex-grow: 1; /* Ocupar o espaço disponível */
 }
 
 /* Ícone de lápis para renomear */
 .rename-icon {
     cursor: pointer;
     color: #ff6600;
-    margin-left: 8px; /* Espaço à esquerda para afastar do nome do arquivo */
     transition: transform 0.2s;
+    margin-left: 10px; /* Espaçamento do ícone em relação ao nome */
 }
 
 .rename-icon:hover {
-    transform: scale(1.2);
+    transform: scale(1.2); /* Aumentar levemente ao passar o mouse */
 }
 
 /* Campo de entrada para renomear o arquivo */
 .rename-input {
     padding: 5px;
     font-size: 1rem;
-    width: 200px;
+    width: calc(100% - 30px);
     border: 1px solid #ccc;
     border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 5px;
 }
 
-/* Ações do arquivo (botões) ficam na linha abaixo */
+/* Container dos botões de ação (ficam abaixo do nome do arquivo) */
 .file-actions {
     display: flex;
     gap: 10px;
-    margin-top: 10px; /* Espaço superior entre o nome e os botões */
+    margin-top: 10px;
+    justify-content: flex-start;
 }
 
+.download-button, .share-button, .delete-button, .play-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
 
+.download-button:hover, .share-button:hover, .delete-button:hover, .play-button:hover {
+    background-color: var(--button-hover-color);
+    transform: translateY(-2px);
+}
