@@ -166,7 +166,10 @@ fileInput.addEventListener('change', () => {
 });
 
 toggleButton.addEventListener('click', () => {
-    if (fileListContainer.style.display === 'none') {
+    // Verificar o estilo atual do container da lista de arquivos
+    const currentDisplay = window.getComputedStyle(fileListContainer).display;
+
+    if (currentDisplay === 'none') {
         // Mostrar a lista de uploads
         fileListContainer.style.display = 'block';
         toggleButton.textContent = 'Ocultar Lista';
