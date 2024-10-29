@@ -327,9 +327,11 @@ function displayFiles(files) {
 
         listItem.innerHTML = `
             <div class="file-item">
-                <span id="file-name-${index}" class="file-name">${file.name}</span>
-                <i class="fas fa-pencil-alt rename-icon" id="edit-icon-${index}" title="Renomear"></i>
-                <input type="text" id="rename-input-${index}" class="rename-input" value="${file.name}" style="display: none;">
+                <div class="file-name-wrapper">
+                    <span id="file-name-${index}" class="file-name">${file.name}</span>
+                    <i class="fas fa-pencil-alt rename-icon" id="edit-icon-${index}" title="Renomear"></i>
+                    <input type="text" id="rename-input-${index}" class="rename-input" value="${file.name}" style="display: none;">
+                </div>
                 <div class="file-actions">
                     ${isVideo ? `<button class="play-button"><i class="fas fa-play"></i></button>` : ''}
                     <a href="${file.url}" class="download-button" download="${file.name}"><i class="fas fa-download"></i></a>
@@ -370,6 +372,7 @@ function displayFiles(files) {
         });
     });
 }
+
 
 // Função para renomear o arquivo no Firebase Storage
 async function renameFile(oldName, newName) {
