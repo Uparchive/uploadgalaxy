@@ -323,8 +323,8 @@ function displayFiles(files) {
     fileList.innerHTML = '';
     files.forEach((file, index) => {
         const listItem = document.createElement('li');
-        const isVideo = file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm');
-
+        
+        // Estrutura HTML para exibir o nome do arquivo com o ícone de lápis
         listItem.innerHTML = `
             <div class="file-item">
                 <div class="file-name-wrapper">
@@ -333,16 +333,18 @@ function displayFiles(files) {
                     <input type="text" id="rename-input-${index}" class="rename-input" value="${file.name}" style="display: none;">
                 </div>
                 <div class="file-actions">
-                    ${isVideo ? `<button class="play-button"><i class="fas fa-play"></i></button>` : ''}
+                    ${file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm') 
+                      ? `<button class="play-button"><i class="fas fa-play"></i></button>` : ''}
                     <a href="${file.url}" class="download-button" download="${file.name}"><i class="fas fa-download"></i></a>
                     <button class="share-button"><i class="fas fa-link"></i></button>
                     <button class="delete-button"><i class="fas fa-trash"></i></button>
                 </div>
             </div>
         `;
+        
         fileList.appendChild(listItem);
 
-        // Evento para clicar no ícone de lápis
+        // Evento para clicar no ícone de lápis e editar o nome do arquivo
         const editIcon = document.getElementById(`edit-icon-${index}`);
         const renameInput = document.getElementById(`rename-input-${index}`);
         const fileNameSpan = document.getElementById(`file-name-${index}`);
@@ -372,7 +374,6 @@ function displayFiles(files) {
         });
     });
 }
-
 
 // Função para renomear o arquivo no Firebase Storage
 async function renameFile(oldName, newName) {
