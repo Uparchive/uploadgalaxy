@@ -325,12 +325,16 @@ function displayFiles(files) {
         const listItem = document.createElement('li');
         const isVideo = file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm');
 
+        // Obter nome renomeado do localStorage, se houver
+        const savedName = localStorage.getItem(`renamed_${file.name}`);
+        const displayName = savedName ? savedName : file.name;
+
         listItem.className = 'file-item';
         listItem.innerHTML = `
             <div class="file-header">
-                <span id="file-name-${index}" class="file-name">${file.name}</span>
+                <span id="file-name-${index}" class="file-name">${displayName}</span>
                 <i class="fas fa-pencil-alt rename-icon" id="edit-icon-${index}" title="Renomear"></i>
-                <input type="text" id="rename-input-${index}" class="rename-input" value="${file.name}" style="display: none;">
+                <input type="text" id="rename-input-${index}" class="rename-input" value="${displayName}" style="display: none;">
             </div>
             <div class="file-actions">
                 ${isVideo ? `<button class="play-button"><i class="fas fa-play"></i> </button>` : ''}
@@ -353,38 +357,17 @@ function displayFiles(files) {
             renameInput.focus();
 
             // Quando o campo perder o foco ou pressionar Enter, salvar a edição
-            renameInput.addEventListener('blur', async () => {
-                if (renameInput.value.trim() && renameInput.value.trim() !== file.name) {
-                    try {
-                        const newName = renameInput.value.trim();
-                        const user = auth.currentUser;
+            renameInput.addEventListener('blur', () => {
+                if (renameInput.value.trim() && renameInput.value.trim() !== displayName) {
+                    const newName = renameInput.value.trim();
 
-                        if (!user) {
-                            throw new Error('Usuário não autenticado');
-                        }
+                    // Salvar o nome renomeado no localStorage
+                    localStorage.setItem(`renamed_${file.name}`, newName);
 
-                        // Obter referência ao arquivo antigo e novo
-                        const oldFileRef = ref(storage, `uploads/${user.uid}/${file.name}`);
-                        const newFileRef = ref(storage, `uploads/${user.uid}/${newName}`);
+                    // Atualizar o nome no DOM
+                    fileNameSpan.textContent = newName;
 
-                        // Baixar o conteúdo do arquivo antigo como um Blob
-                        const oldFileBlob = await getBlob(oldFileRef);
-
-                        // Fazer o upload do arquivo com o novo nome
-                        await uploadBytes(newFileRef, oldFileBlob);
-
-                        // Excluir o arquivo antigo
-                        await deleteObject(oldFileRef);
-
-                        // Atualizar o nome no DOM
-                        file.name = newName;
-                        fileNameSpan.textContent = newName;
-
-                        console.log(`Arquivo renomeado para: ${newName}`);
-                    } catch (error) {
-                        console.error('Erro ao renomear o arquivo:', error);
-                        alert(`Erro ao renomear o arquivo: ${error.message}`);
-                    }
+                    console.log(`Nome do arquivo renomeado para: ${newName}`);
                 }
                 fileNameSpan.style.display = 'inline-block';
                 renameInput.style.display = 'none';
