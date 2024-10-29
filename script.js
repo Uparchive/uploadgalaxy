@@ -119,6 +119,7 @@ uploadForm.addEventListener('submit', (e) => {
 // Função para iniciar o upload múltiplo
 async function startUpload() {
     const fileInput = document.getElementById('file-input');
+    const fileNameInput = document.getElementById('file-name');
     const files = fileInput.files;
     const user = auth.currentUser;
 
@@ -144,22 +145,20 @@ async function startUpload() {
 
     // Iterar sobre cada arquivo e iniciar o upload
     Array.from(files).forEach((file, index) => {
-        const timestamp = Date.now();
-        const storageRefPath = `uploads/${user.uid}/${timestamp}_${file.name}`;
+        // Use o nome do arquivo fornecido pelo usuário ou o nome original se nenhum for dado
+        const customFileName = fileNameInput.value.trim() ? fileNameInput.value.trim() : file.name;
+        const storageRefPath = `uploads/${user.uid}/${customFileName}`;
         const storageRefObj = ref(storage, storageRefPath);
         const uploadTask = uploadBytesResumable(storageRefObj, file);
-
-        // Gerar IDs únicos para evitar conflitos
-        const safeFileName = `file_${timestamp}_${index}`;
 
         // Criar elementos de progresso no DOM
         const progressItem = document.createElement('div');
         progressItem.className = 'progress-item';
         progressItem.innerHTML = `
-            <span>${file.name} (${formatBytes(file.size)})</span>
+            <span>${customFileName} (${formatBytes(file.size)})</span>
             <div class="progress-bar-wrapper">
-                <div class="progress-bar" id="progress-bar-${safeFileName}"></div>
-                <span class="progress-text" id="progress-text-${safeFileName}">0%</span>
+                <div class="progress-bar" id="progress-bar-${index}"></div>
+                <span class="progress-text" id="progress-text-${index}">0%</span>
             </div>
         `;
         progressContainer.appendChild(progressItem);
@@ -168,26 +167,26 @@ async function startUpload() {
         uploadTask.on('state_changed',
             (snapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                const progressBar = document.getElementById(`progress-bar-${safeFileName}`);
-                const progressText = document.getElementById(`progress-text-${safeFileName}`);
+                const progressBar = document.getElementById(`progress-bar-${index}`);
+                const progressText = document.getElementById(`progress-text-${index}`);
                 if (progressBar && progressText) {
                     progressBar.style.width = `${progress}%`;
                     progressText.textContent = `${progress.toFixed(2)}%`;
                 }
-                console.log(`Upload do arquivo ${file.name} em progresso: ${progress.toFixed(2)}%`);
+                console.log(`Upload do arquivo ${customFileName} em progresso: ${progress.toFixed(2)}%`);
             },
             (error) => {
-                console.error(`Erro ao fazer upload do arquivo ${file.name}:`, error);
-                alert(`Erro ao fazer upload do arquivo ${file.name}: ${error.code} - ${error.message}`);
+                console.error(`Erro ao fazer upload do arquivo ${customFileName}:`, error);
+                alert(`Erro ao fazer upload do arquivo ${customFileName}: ${error.code} - ${error.message}`);
             },
             () => {
                 // Upload concluído
                 getDownloadURL(uploadTask.snapshot.ref)
                     .then((downloadURL) => {
-                        console.log(`Upload do arquivo ${file.name} concluído. URL: ${downloadURL}`);
+                        console.log(`Upload do arquivo ${customFileName} concluído. URL: ${downloadURL}`);
                     })
                     .catch((error) => {
-                        console.error(`Erro ao obter a URL de download para o arquivo ${file.name}:`, error);
+                        console.error(`Erro ao obter a URL de download para o arquivo ${customFileName}:`, error);
                     });
             }
         );
@@ -210,6 +209,7 @@ async function startUpload() {
         alert('Todos os arquivos foram enviados com sucesso!');
         await fetchAllFiles();
         fileInput.value = '';
+        fileNameInput.value = ''; // Limpar campo de nome do arquivo após upload
         progressContainer.style.display = 'none';
         progressContainer.innerHTML = '';
         isUploading = false;
