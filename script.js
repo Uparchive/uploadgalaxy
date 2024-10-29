@@ -323,28 +323,25 @@ function displayFiles(files) {
     fileList.innerHTML = '';
     files.forEach((file, index) => {
         const listItem = document.createElement('li');
-        
-        // Estrutura HTML para exibir o nome do arquivo com o ícone de lápis
+        const isVideo = file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm');
+
+        listItem.className = 'file-item';
         listItem.innerHTML = `
-            <div class="file-item">
-                <div class="file-name-wrapper">
-                    <span id="file-name-${index}" class="file-name">${file.name}</span>
-                    <i class="fas fa-pencil-alt rename-icon" id="edit-icon-${index}" title="Renomear"></i>
-                    <input type="text" id="rename-input-${index}" class="rename-input" value="${file.name}" style="display: none;">
-                </div>
-                <div class="file-actions">
-                    ${file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm') 
-                      ? `<button class="play-button"><i class="fas fa-play"></i></button>` : ''}
-                    <a href="${file.url}" class="download-button" download="${file.name}"><i class="fas fa-download"></i></a>
-                    <button class="share-button"><i class="fas fa-link"></i></button>
-                    <button class="delete-button"><i class="fas fa-trash"></i></button>
-                </div>
+            <div class="file-header">
+                <span id="file-name-${index}" class="file-name">${file.name}</span>
+                <i class="fas fa-pencil-alt rename-icon" id="edit-icon-${index}" title="Renomear"></i>
+                <input type="text" id="rename-input-${index}" class="rename-input" value="${file.name}" style="display: none;">
+            </div>
+            <div class="file-actions">
+                ${isVideo ? `<button class="play-button"><i class="fas fa-play"></i> </button>` : ''}
+                <a href="${file.url}" class="download-button" download="${file.name}"><i class="fas fa-download"></i> </a>
+                <button class="share-button"><i class="fas fa-link"></i> </button>
+                <button class="delete-button"><i class="fas fa-trash"></i> </button>
             </div>
         `;
-        
         fileList.appendChild(listItem);
 
-        // Evento para clicar no ícone de lápis e editar o nome do arquivo
+        // Evento para clicar no ícone de lápis
         const editIcon = document.getElementById(`edit-icon-${index}`);
         const renameInput = document.getElementById(`rename-input-${index}`);
         const fileNameSpan = document.getElementById(`file-name-${index}`);
@@ -358,9 +355,26 @@ function displayFiles(files) {
             // Quando o campo perder o foco ou pressionar Enter, salvar a edição
             renameInput.addEventListener('blur', async () => {
                 if (renameInput.value.trim() && renameInput.value.trim() !== file.name) {
-                    const newFileName = renameInput.value.trim();
-                    await renameFile(file.name, newFileName);
-                    fileNameSpan.textContent = newFileName;
+                    try {
+                        const newName = renameInput.value.trim();
+                        // Atualize o nome do arquivo no Firebase
+                        const oldFileRef = ref(storage, `uploads/${auth.currentUser.uid}/${file.name}`);
+                        const newFileRef = ref(storage, `uploads/${auth.currentUser.uid}/${newName}`);
+
+                        // Copiar o arquivo para o novo local e excluir o antigo
+                        const fileData = await getBlob(oldFileRef);
+                        await uploadBytes(newFileRef, fileData);
+                        await deleteObject(oldFileRef);
+
+                        // Atualizar o nome no DOM
+                        file.name = newName;
+                        fileNameSpan.textContent = newName;
+
+                        console.log(`Arquivo renomeado para: ${newName}`);
+                    } catch (error) {
+                        console.error('Erro ao renomear o arquivo:', error);
+                        alert(`Erro ao renomear o arquivo: ${error.message}`);
+                    }
                 }
                 fileNameSpan.style.display = 'inline-block';
                 renameInput.style.display = 'none';
