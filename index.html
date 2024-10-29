@@ -1,179 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- Metadados -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Galaxy</title>
-
-    <!-- Fontes e Estilos -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Seu arquivo CSS principal -->
+    <title>Upload com Telegram Bot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Font Awesome para ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- Video.js para reprodução de vídeos -->
-    <link href="https://vjs.zencdn.net/7.21.1/video-js.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Cabeçalho com a barra de navegação -->
-    <header>
-        <nav class="navbar">
-            <div class="container">
-                <a href="#" class="logo">Upload Galaxy</a>
-                <ul class="nav-links">
-                    <li><a href="#upload-section">Upload</a></li>
-                    <li><a href="#file-list-section">Meus Arquivos</a></li>
-                    <li><a href="#">Sobre</a></li>
-                    <li><a href="#">Contato</a></li>
-                </ul>
-                <!-- Botão para alternar o menu em dispositivos móveis -->
-                <div class="menu-toggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <!-- Botão de Logout -->
-                <button id="logout-button" class="upload-button" style="display: none;">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </div>
-        </nav>
-    </header>
+    <!-- Seção de Login -->
+    <section id="login-section">
+        <button id="google-login-button">Login com Google</button>
+    </section>
 
-    <!-- Conteúdo Principal -->
-    <main>
-        <!-- Seção Hero -->
-        <section id="hero-section">
-            <div class="hero-content">
-                <h1>Armazene e Compartilhe Seus Arquivos com Facilidade</h1>
-                <p>Faça upload de seus arquivos e acesse-os a qualquer hora, em qualquer lugar. Segurança e conveniência ao seu alcance.</p>
-                <a href="#upload-section" class="cta-button">Começar Agora</a>
-            </div>
-        </section>
+    <!-- Seção de Upload -->
+    <section id="upload-section" style="display: none;">
+        <form id="upload-form">
+            <input type="file" id="file-input" multiple>
+            <button type="submit">Upload</button>
+        </form>
+        <div id="rename-file-list"></div>
+    </section>
 
-        <!-- Seção de Login -->
-        <section id="login-section" class="container">
-            <h2>Login com Google</h2>
-            <button id="google-login-button" class="upload-button">
-                <i class="fab fa-google"></i> Fazer Login com Google
-            </button>
-        </section>
-
-        <!-- Seção de Upload de Arquivos -->
-<section id="upload-section" class="container" style="display: none;">
-    <h2>Envie seus Arquivos</h2>
-    <form id="upload-form" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="file-input"><i class="fas fa-file-upload"></i> Selecione os arquivos:</label>
-            <input type="file" id="file-input" name="files" multiple required>
+    <!-- Lista de Arquivos -->
+    <section id="file-list-section" style="display: none;">
+        <button id="toggle-file-list-button"><i class="fas fa-chevron-down"></i> Mostrar/Ocultar Lista de Arquivos</button>
+        <div id="file-list-container">
+            <ul id="file-list"></ul>
         </div>
-        <!-- Lista para renomear os arquivos -->
-        <div id="rename-file-list" class="rename-file-list"></div>
-        <button type="submit" class="upload-button"><i class="fas fa-cloud-upload-alt"></i> Fazer Upload</button>
-    </form>
-    <!-- Container da Barra de Progresso -->
-    <div id="progress-container" class="progress-container" style="display: none;">
-        <!-- As barras de progresso individuais serão inseridas aqui dinamicamente -->
-    </div>
-</section>
+    </section>
 
-        <!-- Seção de Lista de Arquivos -->
-<section id="file-list-section" class="container">
-    <div class="file-list-header">
-        <h2>Seus Arquivos</h2>
-        <button id="toggle-file-list-button" class="toggle-button">
-            <i class="fas fa-chevron-down"></i>
-        </button>
-    </div>
-    <div id="file-list-container">
-        <!-- Uso do Armazenamento -->
-        <div class="storage-container">
-            <p class="storage-text"><strong>32.65 GB</strong> de Ilimitado</p>
-            <div class="progress-bar-container">
-                <div class="progress-bar" style="width: 20%;"></div> <!-- Ajuste a largura para refletir o uso do armazenamento -->
-            </div>
-        </div>
-        
-        <!-- Barra de Pesquisa -->
-        <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
-        
-        <!-- Seleção de Ordenação -->
-        <select id="sort-select" class="sort-select">
-            <option value="alphabetical">Ordem Alfabética (A-Z)</option>
-            <option value="alphabetical-desc">Ordem Alfabética (Z-A)</option>
-            <option value="newest">Mais Recentes Primeiro</option>
-            <option value="oldest">Mais Antigos Primeiro</option>
-            <option value="size-asc">Menor Tamanho Primeiro</option>
-            <option value="size-desc">Maior Tamanho Primeiro</option>
-        </select>
-        
-        <!-- Lista de Arquivos -->
-        <ul id="file-list">
-            <!-- Os arquivos enviados serão inseridos aqui dinamicamente pelo script.js -->
-        </ul>
-    </div>
-</section>
+    <!-- Botão de Logout -->
+    <button id="logout-button" style="display: none;">Logout</button>
 
-        <!-- Seção de Player de Vídeo -->
-        <section id="video-player-section" class="container" style="display: none;">
-            <div id="video-player-container">
-                <!-- Player de vídeo será adicionado aqui -->
-            </div>
-        </section>
-    </main>
-
-    <!-- Botão de Voltar ao Topo -->
-    <a href="#" id="back-to-top" class="back-to-top">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-
-    <!-- Rodapé -->
-    <footer>
-        <div class="container">
-            <p>© 2024 - Upload Galaxy. Todos os direitos reservados.</p>
-            <ul class="social-links">
-                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-            </ul>
-        </div>
-        <!-- Container de mensagens (pop-up) -->
-        <div id="message-container" class="message-container"></div>
-    </footer>
-
-    <!-- Inclusão do Video.js -->
-    <script src="https://vjs.zencdn.net/7.21.1/video.min.js"></script>
-
-    <!-- Inclusão do script.js como módulo ES6 -->
-    <script type="module" src="script.js"></script>
-
-    <!-- Script para alternar o menu em dispositivos móveis -->
-    <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Fecha o menu ao clicar fora ou em um link do menu
-        document.addEventListener('click', (event) => {
-            if (!menuToggle.contains(event.target) && !navLinks.contains(event.target)) {
-                navLinks.classList.remove('active');
-            }
-        });
-
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Impede que o menu suma ao clicar no botão menu-toggle
-        menuToggle.addEventListener('mouseenter', () => {
-            menuToggle.style.transform = 'none';
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
