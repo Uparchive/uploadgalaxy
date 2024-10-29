@@ -1054,13 +1054,22 @@ footer p {
     border: 1px solid #ccc; /* Borda suave para delimitar o campo */
     border-radius: 5px; /* Bordas arredondadas para consistência visual */
 }
-/* Bloco de Estilo para Renomeação na Tabela de Arquivos */
+/* Bloco de Estilo para Renomeação de Arquivos */
 
-/* Envolve o nome do arquivo e o ícone de edição */
+/* Estilização do container do item do arquivo */
+.file-item {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+/* Wrapper do nome do arquivo e ícone de lápis */
 .file-name-wrapper {
     display: flex;
     align-items: center;
-    gap: 8px;
+    margin-bottom: 10px; /* Espaço entre o nome e os botões abaixo */
 }
 
 /* Nome do arquivo */
@@ -1068,10 +1077,11 @@ footer p {
     font-weight: 600;
 }
 
-/* Ícone de lápis para renomeação */
+/* Ícone de lápis para renomear */
 .rename-icon {
     cursor: pointer;
     color: #ff6600;
+    margin-left: 8px; /* Espaço à esquerda para afastar do nome do arquivo */
     transition: transform 0.2s;
 }
 
@@ -1087,4 +1097,12 @@ footer p {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
+/* Ações do arquivo (botões) ficam na linha abaixo */
+.file-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px; /* Espaço superior entre o nome e os botões */
+}
+
 
