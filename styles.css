@@ -1221,46 +1221,63 @@ footer p {
 /* ======== Size Archive Style ============= */
 /* ========================================= */
 
-/* Nome do arquivo e tamanho */
+/* Container do cabeçalho do arquivo para flexibilidade */
+.file-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px; /* Espaçamento entre os elementos */
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+/* Nome do arquivo */
 .file-name {
     font-weight: 600;
     color: #333;
-    max-width: calc(100% - 80px); /* Ajuste para garantir que o nome do arquivo não ocupe toda a linha */
     overflow: hidden; /* Impede o estouro do conteúdo */
     text-overflow: ellipsis; /* Mostra "..." caso o texto não caiba */
     white-space: nowrap; /* Evita a quebra de linha */
+    flex: 1; /* Nome do arquivo se expandirá para preencher o espaço disponível */
+    min-width: 0; /* Garante que o elemento encolha se necessário */
 }
 
+/* Tamanho do arquivo */
 .file-size {
     font-weight: 400;
     color: #666;
-    margin-left: 10px;
-    font-size: 0.85rem; /* Reduz o tamanho da fonte para evitar que ocupe muito espaço */
     background-color: #f0f0f0;
     padding: 2px 6px;
     border-radius: 5px;
-    display: inline-block; /* Garante que o tamanho seja exibido ao lado do nome */
     white-space: nowrap; /* Evita quebra de linha */
-    vertical-align: middle; /* Alinha verticalmente ao meio com o nome do arquivo */
+    font-size: 0.85rem; /* Tamanho reduzido */
+    flex-shrink: 0; /* Não encolhe para garantir visibilidade */
+}
+
+/* Ícone de edição */
+.rename-icon {
+    cursor: pointer;
+    color: #ff6600;
+    margin-left: 5px;
+    flex-shrink: 0; /* Não encolher */
 }
 
 /* Ajustes para telas menores */
 @media (max-width: 600px) {
     .file-header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+        gap: 5px; /* Reduz o espaçamento entre os elementos em telas menores */
     }
 
     .file-name {
-        font-size: 0.9rem; /* Reduz o tamanho do texto do nome do arquivo */
-        max-width: calc(100% - 60px); /* Ajuste para telas menores */
+        font-size: 0.8rem; /* Reduz o tamanho do texto do nome do arquivo */
     }
 
     .file-size {
         font-size: 0.75rem; /* Reduz o tamanho do texto do tamanho do arquivo */
-        margin-left: 5px; /* Reduz a margem entre o nome e o tamanho do arquivo */
+    }
+
+    .rename-icon {
+        font-size: 1rem; /* Reduz o tamanho do ícone de edição */
     }
 }
 
