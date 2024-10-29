@@ -1217,3 +1217,22 @@ footer p {
     transition: width 0.5s ease-in-out;
 }
 
+/* ========================================= */
+/* ======== Size Archive Style ============= */
+/* ========================================= */
+
+/* Estilo para o nome e tamanho do arquivo */
+.file-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.file-size {
+    font-weight: 400;
+    color: #666; /* Cor mais clara para diferenciar do nome do arquivo */
+    margin-left: 10px; /* Espaço entre o nome do arquivo e o tamanho */
+    font-size: 0.9rem; /* Tamanho menor da fonte para dar destaque menor */
+    background-color: #f0f0f0; /* Fundo leve para destaque */
+    padding: 2px 6px; /* Espaçamento para um visual mais "badge" */
+    border-radius: 5px; /* Bordas arredondadas para um visual consistente */
+}
