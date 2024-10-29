@@ -166,18 +166,18 @@ fileInput.addEventListener('change', () => {
     }
 });
 
+// Evento para alternar visibilidade da lista de arquivos
 toggleButton.addEventListener('click', () => {
-    // Verificar o estilo atual do container da lista de arquivos
     const currentDisplay = window.getComputedStyle(fileListContainer).display;
 
     if (currentDisplay === 'none') {
         // Mostrar a lista de uploads
         fileListContainer.style.display = 'block';
-        toggleButton.textContent = 'Ocultar Lista';
+        toggleButton.innerHTML = '<i class="fas fa-chevron-up"></i>'; // Seta para cima
     } else {
         // Ocultar a lista de uploads
         fileListContainer.style.display = 'none';
-        toggleButton.textContent = 'Mostrar Lista';
+        toggleButton.innerHTML = '<i class="fas fa-chevron-down"></i>'; // Seta para baixo
     }
 });
 
