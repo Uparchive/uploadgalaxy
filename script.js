@@ -165,26 +165,6 @@ fileInput.addEventListener('change', () => {
     }
 });
 
-// Inicialmente, crie uma div para envolver o conteúdo da lista (exceto o cabeçalho)
-if (!fileListSectionContent) {
-    const fileListContent = document.createElement('div');
-    fileListContent.className = 'file-list-content';
-
-    // Mova os elementos que não são o cabeçalho para dentro de fileListContent
-    const storageUsage = document.getElementById('storage-usage');
-    const searchInput = document.getElementById('search-input');
-    const sortSelect = document.getElementById('sort-select');
-    const fileList = document.getElementById('file-list');
-
-    fileListContent.appendChild(storageUsage);
-    fileListContent.appendChild(searchInput);
-    fileListContent.appendChild(sortSelect);
-    fileListContent.appendChild(fileList);
-
-    const fileListSection = document.getElementById('file-list-section');
-    fileListSection.appendChild(fileListContent);
-}
-
 // Alternar visibilidade quando o botão for clicado
 toggleButton.addEventListener('click', () => {
     const fileListSectionContent = document.querySelector('.file-list-content');
