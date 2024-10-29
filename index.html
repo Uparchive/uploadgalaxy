@@ -87,9 +87,17 @@
         </button>
     </div>
     <div id="file-list-container">
-        <p id="storage-usage">32.65 GB de Ilimitado</p>
+        <!-- Uso do Armazenamento -->
+        <div class="storage-container">
+            <p class="storage-text"><strong>32.65 GB</strong> de Ilimitado</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 20%;"></div> <!-- Ajuste a largura para refletir o uso do armazenamento -->
+            </div>
+        </div>
+        
         <!-- Barra de Pesquisa -->
         <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
+        
         <!-- Seleção de Ordenação -->
         <select id="sort-select" class="sort-select">
             <option value="alphabetical">Ordem Alfabética (A-Z)</option>
@@ -99,6 +107,7 @@
             <option value="size-asc">Menor Tamanho Primeiro</option>
             <option value="size-desc">Maior Tamanho Primeiro</option>
         </select>
+        
         <!-- Lista de Arquivos -->
         <ul id="file-list">
             <!-- Os arquivos enviados serão inseridos aqui dinamicamente pelo script.js -->
