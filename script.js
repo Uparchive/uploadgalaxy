@@ -367,15 +367,11 @@ function displayFiles(files) {
                         const oldFileRef = ref(storage, `uploads/${user.uid}/${file.name}`);
                         const newFileRef = ref(storage, `uploads/${user.uid}/${newName}`);
 
-                        // Obter a URL de download do arquivo antigo
-                        const downloadURL = await getDownloadURL(oldFileRef);
-                        
-                        // Fazer o download do conteúdo do arquivo
-                        const response = await fetch(downloadURL);
-                        const blob = await response.blob();
+                        // Baixar o conteúdo do arquivo antigo como um Blob
+                        const oldFileBlob = await getBlob(oldFileRef);
 
                         // Fazer o upload do arquivo com o novo nome
-                        await uploadBytes(newFileRef, blob);
+                        await uploadBytes(newFileRef, oldFileBlob);
 
                         // Excluir o arquivo antigo
                         await deleteObject(oldFileRef);
