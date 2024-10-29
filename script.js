@@ -337,10 +337,10 @@ function displayFiles(files) {
                 <input type="text" id="rename-input-${index}" class="rename-input" value="${displayName}" style="display: none;">
             </div>
             <div class="file-actions">
-                ${isVideo ? `<button class="play-button"><i class="fas fa-play"></i> </button>` : ''}
-                <a href="${file.url}" class="download-button" download="${file.name}"><i class="fas fa-download"></i> </a>
-                <button class="share-button"><i class="fas fa-link"></i> </button>
-                <button class="delete-button"><i class="fas fa-trash"></i> </button>
+                ${isVideo ? `<button class="play-button" id="play-button-${index}"><i class="fas fa-play"></i></button>` : ''}
+                <a href="${file.url}" class="download-button" id="download-button-${index}" download="${file.name}"><i class="fas fa-download"></i></a>
+                <button class="share-button" id="share-button-${index}"><i class="fas fa-link"></i></button>
+                <button class="delete-button" id="delete-button-${index}"><i class="fas fa-trash"></i></button>
             </div>
         `;
         fileList.appendChild(listItem);
@@ -378,6 +378,26 @@ function displayFiles(files) {
                     renameInput.blur();
                 }
             });
+        });
+
+        // Evento para tocar vídeo
+        if (isVideo) {
+            const playButton = document.getElementById(`play-button-${index}`);
+            playButton.addEventListener('click', () => {
+                playVideo(file.url);
+            });
+        }
+
+        // Evento para copiar link do arquivo
+        const shareButton = document.getElementById(`share-button-${index}`);
+        shareButton.addEventListener('click', () => {
+            copyToClipboard(file.url);
+        });
+
+        // Evento para excluir o arquivo
+        const deleteButton = document.getElementById(`delete-button-${index}`);
+        deleteButton.addEventListener('click', () => {
+            deleteFile(file.name);
         });
     });
 }
