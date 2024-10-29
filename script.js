@@ -215,6 +215,84 @@ editTitleIcon.addEventListener('click', () => {
     });
 });
 
+// Inicialmente, ocultar a seção de arquivos até o login ser confirmado
+fileListSection.style.display = 'none';
+
+// Simulação do login
+const loginButton = document.getElementById('login-button'); // Botão de login
+loginButton.addEventListener('click', () => {
+    // Depois do login ser efetuado, mostrar a seção de arquivos
+    authenticateUser().then(user => {
+        if (user) {
+            fileListSection.style.display = 'block';
+        }
+    });
+});
+
+// Verifica se o usuário está autenticado e mostra/esconde a seção de arquivos
+function authenticateUser() {
+    // Supondo uma função que verifica o status de autenticação do usuário
+    return new Promise((resolve) => {
+        // Aqui poderíamos verificar o status do Firebase Auth ou outro sistema de login
+        const user = true; // Simulação do retorno do login bem-sucedido
+        if (user) {
+            resolve(user);
+        } else {
+            resolve(null);
+        }
+    });
+}
+
+// Evento para alternar visibilidade da lista de arquivos
+toggleButton.addEventListener('click', () => {
+    const currentDisplay = window.getComputedStyle(fileListContainer).display;
+
+    if (currentDisplay === 'none') {
+        // Mostrar a lista de uploads
+        fileListContainer.style.display = 'block';
+        toggleButton.textContent = 'Ocultar Lista';
+    } else {
+        // Ocultar a lista de uploads
+        fileListContainer.style.display = 'none';
+        toggleButton.textContent = 'Mostrar Lista';
+    }
+});
+
+// Evento para editar o título ao clicar no ícone de lápis
+editTitleIcon.addEventListener('click', () => {
+    fileListTitle.contentEditable = true;
+    fileListTitle.focus();
+
+    // Quando o título perder o foco, salvar a alteração
+    fileListTitle.addEventListener('blur', () => {
+        fileListTitle.contentEditable = false;
+
+        // Salvar o novo título no localStorage
+        const newTitle = fileListTitle.textContent.trim();
+        if (newTitle) {
+            localStorage.setItem('fileListTitle', newTitle);
+        }
+    });
+
+    // Salvar ao pressionar "Enter"
+    fileListTitle.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            fileListTitle.blur(); // Isso dispara o evento de 'blur' acima para salvar
+        }
+    });
+});
+
+// Carregar o título salvo no localStorage, se houver, após login
+authenticateUser().then(user => {
+    if (user) {
+        const savedTitle = localStorage.getItem('fileListTitle');
+        if (savedTitle) {
+            fileListTitle.textContent = savedTitle;
+        }
+    }
+});
+
 // Função para iniciar o upload múltiplo
 async function startUpload() {
     const files = fileInput.files;
