@@ -179,6 +179,14 @@ toggleButton.addEventListener('click', () => {
         fileListContainer.style.display = 'none';
         toggleButton.innerHTML = '<i class="fas fa-chevron-down"></i>'; // Seta para baixo
     }
+
+    // Adicionar classe de animação ao botão
+    toggleButton.classList.add('clicked');
+
+    // Remover a classe após um curto período para permitir animação subsequente
+    setTimeout(() => {
+        toggleButton.classList.remove('clicked');
+    }, 300); // Aguardar 300ms (tempo da animação)
 });
 
 // Função para iniciar o upload múltiplo
