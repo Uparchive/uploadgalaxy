@@ -84,22 +84,24 @@
         <h2>Seus Arquivos</h2>
         <button id="toggle-file-list-button" class="toggle-button">Ocultar Lista</button>
     </div>
-    <p id="storage-usage">32.65 GB de Ilimitado</p>
-    <!-- Barra de Pesquisa -->
-    <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
-    <!-- Seleção de Ordenação -->
-    <select id="sort-select" class="sort-select">
-        <option value="alphabetical">Ordem Alfabética (A-Z)</option>
-        <option value="alphabetical-desc">Ordem Alfabética (Z-A)</option>
-        <option value="newest">Mais Recentes Primeiro</option>
-        <option value="oldest">Mais Antigos Primeiro</option>
-        <option value="size-asc">Menor Tamanho Primeiro</option>
-        <option value="size-desc">Maior Tamanho Primeiro</option>
-    </select>
-    <!-- Lista de Arquivos -->
-    <ul id="file-list">
-        <!-- Os arquivos enviados serão inseridos aqui dinamicamente pelo script.js -->
-    </ul>
+    <div id="file-list-container">
+        <p id="storage-usage">32.65 GB de Ilimitado</p>
+        <!-- Barra de Pesquisa -->
+        <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
+        <!-- Seleção de Ordenação -->
+        <select id="sort-select" class="sort-select">
+            <option value="alphabetical">Ordem Alfabética (A-Z)</option>
+            <option value="alphabetical-desc">Ordem Alfabética (Z-A)</option>
+            <option value="newest">Mais Recentes Primeiro</option>
+            <option value="oldest">Mais Antigos Primeiro</option>
+            <option value="size-asc">Menor Tamanho Primeiro</option>
+            <option value="size-desc">Maior Tamanho Primeiro</option>
+        </select>
+        <!-- Lista de Arquivos -->
+        <ul id="file-list">
+            <!-- Os arquivos enviados serão inseridos aqui dinamicamente pelo script.js -->
+        </ul>
+    </div>
 </section>
 
         <!-- Seção de Player de Vídeo -->
