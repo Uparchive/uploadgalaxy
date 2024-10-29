@@ -278,14 +278,15 @@ async function startUpload() {
         });
     }))
     .then(async () => {
-        alert('Todos os arquivos foram enviados com sucesso!');
-        await fetchAllFiles();
-        fileInput.value = '';
-        renameFileList.innerHTML = ''; // Limpar campos de renomeação após upload
-        progressContainer.style.display = 'none';
-        progressContainer.innerHTML = '';
-        isUploading = false;
-    })
+    alert('Todos os arquivos foram enviados com sucesso!');
+    await fetchAllFiles();
+    updateStorageUsage(); // Atualizar o contador de armazenamento
+    fileInput.value = '';
+    renameFileList.innerHTML = '';
+    progressContainer.style.display = 'none';
+    progressContainer.innerHTML = '';
+    isUploading = false;
+})
     .catch((error) => {
         console.error('Erro durante os uploads múltiplos:', error);
         alert(`Erro durante os uploads múltiplos: ${error.code} - ${error.message}`);
@@ -674,7 +675,8 @@ async function deleteFile(fileName) {
         await deleteObject(fileRef);
         console.log(`Arquivo "${fileName}" excluído com sucesso.`);
         alert('Arquivo excluído com sucesso!');
-        fetchAllFiles();
+        await fetchAllFiles();
+        updateStorageUsage(); // Atualizar o contador de armazenamento após a exclusão
     } catch (error) {
         console.error('Erro ao excluir o arquivo:', error);
         alert(`Erro ao excluir o arquivo: ${error.code} - ${error.message}`);
@@ -683,12 +685,32 @@ async function deleteFile(fileName) {
 
 // Função para atualizar o uso de armazenamento
 function updateStorageUsage() {
+    // Calcula o total de bytes utilizados somando o tamanho de todos os arquivos
     const totalUsedBytes = allFiles.reduce((sum, file) => sum + Number(file.size || 0), 0);
+
+    // Converte o valor para gigabytes
     const totalUsedGB = totalUsedBytes / (1024 ** 3);
     const formattedUsedGB = totalUsedGB.toFixed(2);
-    const formattedTotalGB = totalAvailableGB;
-    storageUsageDisplay.textContent = `${formattedUsedGB} GB de ${formattedTotalGB}`;
-    console.log(`Total Usado: ${formattedUsedGB} GB de ${formattedTotalGB}`);
+
+    // Exibe o valor no console para depuração
+    console.log('Total Used Bytes:', totalUsedBytes);
+    console.log('Total Used GB:', formattedUsedGB);
+
+    // Atualiza o texto que exibe o total de armazenamento usado
+    const storageUsageDisplay = document.querySelector('.storage-text');
+    storageUsageDisplay.textContent = `${formattedUsedGB} GB de ${totalAvailableGB}`;
+
+    // Atualiza a largura da barra de progresso para refletir o uso atual
+    const progressBar = document.querySelector('.progress-bar');
+    if (totalAvailableGB !== 'Ilimitado') {
+        const usedPercentage = (totalUsedGB / parseFloat(totalAvailableGB)) * 100;
+        progressBar.style.width = `${Math.min(usedPercentage, 100)}%`; // Garante que a barra não ultrapasse 100%
+    } else {
+        // Se o armazenamento for ilimitado, exibir uma representação visual diferente
+        progressBar.style.width = totalUsedGB > 0 ? '20%' : '0%'; // Exemplo: deixar sempre em 20% caso exista uso
+    }
+
+    console.log(`Total Usado: ${formattedUsedGB} GB de ${totalAvailableGB}`);
 }
 
 // Função para formatar bytes em unidades legíveis
