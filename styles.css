@@ -1054,3 +1054,43 @@ footer p {
     border: 1px solid #ccc; /* Borda suave para delimitar o campo */
     border-radius: 5px; /* Bordas arredondadas para consistência visual */
 }
+/* Bloco de Estilo para Renomeação na Tabela de Arquivos */
+
+/* Cada item de arquivo na lista */
+.file-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: space-between; /* Distribui as ações e o nome do arquivo */
+}
+
+/* Nome do arquivo */
+.file-name {
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+/* Ícone de lápis para renomeação */
+.rename-icon {
+    cursor: pointer;
+    color: #ff6600;
+    margin-right: 10px;
+    transition: transform 0.2s;
+}
+
+.rename-icon:hover {
+    transform: scale(1.2);
+}
+
+/* Campo de entrada para renomear o arquivo */
+.rename-input {
+    padding: 5px;
+    font-size: 1rem;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
