@@ -166,13 +166,13 @@ fileInput.addEventListener('change', () => {
 });
 
 toggleButton.addEventListener('click', () => {
-    if (fileListSection.style.display === 'none') {
-        // Mostrar a lista
-        fileListSection.style.display = 'block';
+    if (fileList.style.display === 'none') {
+        // Mostrar a lista de arquivos
+        fileList.style.display = 'block';
         toggleButton.textContent = 'Ocultar Lista';
     } else {
-        // Ocultar a lista
-        fileListSection.style.display = 'none';
+        // Ocultar a lista de arquivos
+        fileList.style.display = 'none';
         toggleButton.textContent = 'Mostrar Lista';
     }
 });
