@@ -59,6 +59,7 @@ const videoContainer = document.getElementById('video-player-container');
 const fileInput = document.getElementById('file-input');
 const renameFileList = document.getElementById('rename-file-list');
 const toggleButton = document.getElementById('toggle-file-list-button');
+const fileListContainer = document.getElementById('file-list-container');
 
 // Variáveis Globais
 const totalAvailableGB = 'Ilimitado';
