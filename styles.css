@@ -1011,3 +1011,46 @@ footer p {
     overflow: hidden;
     padding: 0 15px;
 }
+
+/* ========================================= */
+/* ======== Renomeação de Arquivos ========= */
+/* ========================================= */
+
+/* Estilização dos itens da lista de arquivos, cada arquivo se torna um item visual da lista */
+.file-item {
+    display: flex; /* Itens na horizontal (nome e ícone de lápis) */
+    align-items: center; /* Alinhar verticalmente no centro */
+    margin-bottom: 10px; /* Espaço inferior entre os itens */
+    padding: 10px; /* Espaçamento interno */
+    background-color: #f9f9f9; /* Fundo claro para destacar os arquivos */
+    border-radius: 5px; /* Bordas arredondadas para uma aparência suave */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidade ao item */
+}
+
+/* Estilo do nome do arquivo para destacá-lo */
+.file-name {
+    font-weight: 600; /* Negrito para destacar o nome do arquivo */
+    margin-right: 10px; /* Espaço à direita do nome para não colidir com o ícone */
+}
+
+/* Estilização do ícone de lápis para renomear */
+.rename-icon {
+    cursor: pointer; /* Mostrar que o ícone é clicável */
+    color: #ff6600; /* Cor laranja para destacar o ícone */
+    margin-right: 10px; /* Espaço à direita do ícone */
+    transition: transform 0.2s; /* Animação suave ao passar o mouse */
+}
+
+/* Efeito de hover para aumentar o ícone de lápis ao passar o mouse */
+.rename-icon:hover {
+    transform: scale(1.2); /* Aumentar levemente o tamanho do ícone ao passar o mouse */
+}
+
+/* Campo de entrada para renomear o arquivo */
+.rename-input {
+    padding: 5px; /* Espaçamento interno para conforto ao digitar */
+    font-size: 1rem; /* Tamanho da fonte confortável para leitura */
+    width: 200px; /* Largura suficiente para digitar o nome do arquivo */
+    border: 1px solid #ccc; /* Borda suave para delimitar o campo */
+    border-radius: 5px; /* Bordas arredondadas para consistência visual */
+}
