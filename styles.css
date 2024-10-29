@@ -1155,3 +1155,6 @@ footer p {
     justify-content: space-between;
     margin-bottom: 15px;
 }
+#file-list-container {
+    display: block; /* Garante que a lista de arquivos seja exibida por padrão */
+}
