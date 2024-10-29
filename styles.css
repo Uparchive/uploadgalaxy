@@ -1131,6 +1131,25 @@ footer p {
 /* ========================================= */
 
 /* Botão de Ocultar/Mostrar a Lista de Arquivos */
+/* Header da seção de lista de arquivos */
+.file-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Título da lista de arquivos */
+#file-list-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
 /* Botão de alternância (seta para cima/baixo) */
 .toggle-button {
     background-color: #ff6600;
@@ -1147,14 +1166,11 @@ footer p {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Efeito de hover */
 .toggle-button:hover {
     background-color: #e65c00;
     transform: translateY(-2px);
 }
 
-/* Classe para animação de clique */
-.toggle-button.clicked {
-    transform: translateY(-2px);
+.toggle-button i {
+    font-size: 1rem;
 }
-
