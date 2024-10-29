@@ -1221,18 +1221,46 @@ footer p {
 /* ======== Size Archive Style ============= */
 /* ========================================= */
 
-/* Estilo para o nome e tamanho do arquivo */
+/* Nome do arquivo e tamanho */
 .file-name {
     font-weight: 600;
     color: #333;
+    max-width: calc(100% - 80px); /* Ajuste para garantir que o nome do arquivo não ocupe toda a linha */
+    overflow: hidden; /* Impede o estouro do conteúdo */
+    text-overflow: ellipsis; /* Mostra "..." caso o texto não caiba */
+    white-space: nowrap; /* Evita a quebra de linha */
 }
 
 .file-size {
     font-weight: 400;
-    color: #666; /* Cor mais clara para diferenciar do nome do arquivo */
-    margin-left: 10px; /* Espaço entre o nome do arquivo e o tamanho */
-    font-size: 0.9rem; /* Tamanho menor da fonte para dar destaque menor */
-    background-color: #f0f0f0; /* Fundo leve para destaque */
-    padding: 2px 6px; /* Espaçamento para um visual mais "badge" */
-    border-radius: 5px; /* Bordas arredondadas para um visual consistente */
+    color: #666;
+    margin-left: 10px;
+    font-size: 0.85rem; /* Reduz o tamanho da fonte para evitar que ocupe muito espaço */
+    background-color: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 5px;
+    display: inline-block; /* Garante que o tamanho seja exibido ao lado do nome */
+    white-space: nowrap; /* Evita quebra de linha */
+    vertical-align: middle; /* Alinha verticalmente ao meio com o nome do arquivo */
 }
+
+/* Ajustes para telas menores */
+@media (max-width: 600px) {
+    .file-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .file-name {
+        font-size: 0.9rem; /* Reduz o tamanho do texto do nome do arquivo */
+        max-width: calc(100% - 60px); /* Ajuste para telas menores */
+    }
+
+    .file-size {
+        font-size: 0.75rem; /* Reduz o tamanho do texto do tamanho do arquivo */
+        margin-left: 5px; /* Reduz a margem entre o nome e o tamanho do arquivo */
+    }
+}
+
