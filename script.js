@@ -321,40 +321,86 @@ async function fetchAllFiles() {
 // Função para exibir a lista de arquivos
 function displayFiles(files) {
     fileList.innerHTML = '';
-    files.forEach(file => {
+    files.forEach((file, index) => {
         const listItem = document.createElement('li');
         const isVideo = file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm');
 
         listItem.innerHTML = `
-    <span>${file.name} (${formatBytes(file.size)})</span>
-    <div class="file-actions">
-        ${isVideo ? `<button class="play-button"><i class="fas fa-play"></i> </button>` : ''}
-        <a href="${file.url}" class="download-button" download="${file.name}"><i class="fas fa-download"></i> </a>
-        <button class="share-button"><i class="fas fa-link"></i> </button>
-        <button class="delete-button"><i class="fas fa-trash"></i> </button>
-    </div>
-`;
+            <div class="file-item">
+                <span id="file-name-${index}" class="file-name">${file.name}</span>
+                <i class="fas fa-pencil-alt rename-icon" id="edit-icon-${index}" title="Renomear"></i>
+                <input type="text" id="rename-input-${index}" class="rename-input" value="${file.name}" style="display: none;">
+                <div class="file-actions">
+                    ${isVideo ? `<button class="play-button"><i class="fas fa-play"></i></button>` : ''}
+                    <a href="${file.url}" class="download-button" download="${file.name}"><i class="fas fa-download"></i></a>
+                    <button class="share-button"><i class="fas fa-link"></i></button>
+                    <button class="delete-button"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        `;
         fileList.appendChild(listItem);
 
-        // Adicionar event listeners aos botões
-        if (isVideo) {
-            const playButton = listItem.querySelector('.play-button');
-            playButton.addEventListener('click', () => {
-                playVideo(file.url);
+        // Evento para clicar no ícone de lápis
+        const editIcon = document.getElementById(`edit-icon-${index}`);
+        const renameInput = document.getElementById(`rename-input-${index}`);
+        const fileNameSpan = document.getElementById(`file-name-${index}`);
+
+        editIcon.addEventListener('click', () => {
+            // Tornar o nome do arquivo editável
+            fileNameSpan.style.display = 'none';
+            renameInput.style.display = 'inline-block';
+            renameInput.focus();
+
+            // Quando o campo perder o foco ou pressionar Enter, salvar a edição
+            renameInput.addEventListener('blur', async () => {
+                if (renameInput.value.trim() && renameInput.value.trim() !== file.name) {
+                    const newFileName = renameInput.value.trim();
+                    await renameFile(file.name, newFileName);
+                    fileNameSpan.textContent = newFileName;
+                }
+                fileNameSpan.style.display = 'inline-block';
+                renameInput.style.display = 'none';
             });
-        }
 
-        const shareButton = listItem.querySelector('.share-button');
-        shareButton.addEventListener('click', () => {
-            copyToClipboard(file.url);
-        });
-
-        const deleteButton = listItem.querySelector('.delete-button');
-        deleteButton.addEventListener('click', () => {
-            deleteFile(file.name);
+            renameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    renameInput.blur();
+                }
+            });
         });
     });
-    updateStorageUsage();
+}
+
+// Função para renomear o arquivo no Firebase Storage
+async function renameFile(oldName, newName) {
+    try {
+        const user = auth.currentUser;
+        if (!user) {
+            console.error('Usuário não autenticado');
+            return;
+        }
+
+        const oldFileRef = ref(storage, `uploads/${user.uid}/${oldName}`);
+        const newFileRef = ref(storage, `uploads/${user.uid}/${newName}`);
+
+        // Fazer o download do arquivo e re-upload com o novo nome
+        const url = await getDownloadURL(oldFileRef);
+        const response = await fetch(url);
+        const blob = await response.blob();
+
+        // Upload com o novo nome
+        await uploadBytesResumable(newFileRef, blob);
+
+        // Apagar o arquivo antigo
+        await deleteObject(oldFileRef);
+
+        console.log(`Arquivo renomeado de ${oldName} para ${newName}`);
+        alert(`Arquivo renomeado para ${newName} com sucesso!`);
+        fetchAllFiles(); // Atualizar a lista de arquivos
+    } catch (error) {
+        console.error('Erro ao renomear o arquivo:', error);
+        alert(`Erro ao renomear o arquivo: ${error.code} - ${error.message}`);
+    }
 }
 
 // Função para reproduzir vídeo
