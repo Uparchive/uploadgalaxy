@@ -357,13 +357,27 @@ function displayFiles(files) {
                 if (renameInput.value.trim() && renameInput.value.trim() !== file.name) {
                     try {
                         const newName = renameInput.value.trim();
-                        // Atualize o nome do arquivo no Firebase
-                        const oldFileRef = ref(storage, `uploads/${auth.currentUser.uid}/${file.name}`);
-                        const newFileRef = ref(storage, `uploads/${auth.currentUser.uid}/${newName}`);
+                        const user = auth.currentUser;
 
-                        // Copiar o arquivo para o novo local e excluir o antigo
-                        const fileData = await getBlob(oldFileRef);
-                        await uploadBytes(newFileRef, fileData);
+                        if (!user) {
+                            throw new Error('Usuário não autenticado');
+                        }
+
+                        // Obter referência ao arquivo antigo e novo
+                        const oldFileRef = ref(storage, `uploads/${user.uid}/${file.name}`);
+                        const newFileRef = ref(storage, `uploads/${user.uid}/${newName}`);
+
+                        // Obter a URL de download do arquivo antigo
+                        const downloadURL = await getDownloadURL(oldFileRef);
+                        
+                        // Fazer o download do conteúdo do arquivo
+                        const response = await fetch(downloadURL);
+                        const blob = await response.blob();
+
+                        // Fazer o upload do arquivo com o novo nome
+                        await uploadBytes(newFileRef, blob);
+
+                        // Excluir o arquivo antigo
                         await deleteObject(oldFileRef);
 
                         // Atualizar o nome no DOM
