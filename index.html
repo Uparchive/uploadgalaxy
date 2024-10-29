@@ -68,10 +68,8 @@
             <label for="file-input"><i class="fas fa-file-upload"></i> Selecione os arquivos:</label>
             <input type="file" id="file-input" name="files" multiple required>
         </div>
-        <div class="form-group">
-            <label for="file-name"><i class="fas fa-edit"></i> Nome do arquivo (opcional):</label>
-            <input type="text" id="file-name" name="fileName" placeholder="Digite um nome para o arquivo">
-        </div>
+        <!-- Lista para renomear os arquivos -->
+        <div id="rename-file-list" class="rename-file-list"></div>
         <button type="submit" class="upload-button"><i class="fas fa-cloud-upload-alt"></i> Fazer Upload</button>
     </form>
     <!-- Container da Barra de Progresso -->
