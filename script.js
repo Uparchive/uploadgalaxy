@@ -62,8 +62,6 @@ const toggleButton = document.getElementById('toggle-file-list-button');
 const fileListContainer = document.getElementById('file-list-container');
 
 // Variáveis Globais
-// Definindo o limite máximo de armazenamento (em bytes)
-const MAX_STORAGE_BYTES = 1 * 1024 ** 4; // 1 TB em bytes
 let allFiles = [];
 let isUploading = false;
 let uploadTasks = []; // Armazena os uploads em andamento
@@ -189,6 +187,11 @@ toggleButton.addEventListener('click', () => {
         toggleButton.classList.remove('clicked');
     }, 300); // Aguardar 300ms (tempo da animação)
 });
+
+// Limite Gratuito para o servidor
+function getMaxStorageBytes() {
+    return 50 * 1024 ** 3; // Limite de 50 GB em bytes
+}
 
 // Função para iniciar o upload múltiplo
 async function startUpload() {
