@@ -1379,4 +1379,35 @@ footer p {
     transform: translateY(-2px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+/* Estilo do botão de edição (ícone do lápis) */
+.edit-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #ff8c00; /* Destaca o ícone */
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 10; /* Garante que esteja acima de outros elementos */
+    transition: color 0.3s;
+}
+
+.edit-icon:hover {
+    color: #ffa500; /* Muda a cor ao passar o mouse */
+}
+
+/* Estilo para o contêiner de arquivo */
+.file-container {
+    position: relative;
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
