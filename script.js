@@ -380,7 +380,7 @@ async function fetchAllFiles() {
     }
 }
 
-// Modificar a função displayFiles para adicionar o evento de renomear
+// Função para exibir a lista de arquivos
 function displayFiles(files) {
     fileList.innerHTML = '';
     files.forEach((file, index) => {
@@ -412,11 +412,60 @@ function displayFiles(files) {
         `;
         fileList.appendChild(listItem);
 
-        // Anexar o evento para renomear
-        attachRenameEvent(index, file);
+        // Evento para clicar no ícone de lápis
+        const editIcon = document.getElementById(`edit-icon-${index}`);
+        const renameInput = document.getElementById(`rename-input-${index}`);
+        const fileNameSpan = document.getElementById(`file-name-${index}`);
 
-        // Eventos para tocar vídeo, copiar link e excluir arquivo...
-        // (mantendo o código que já existia para essas funcionalidades)
+        editIcon.addEventListener('click', () => {
+            // Tornar o nome do arquivo editável
+            fileNameSpan.style.display = 'none';
+            renameInput.style.display = 'inline-block';
+            renameInput.focus();
+
+            // Quando o campo perder o foco ou pressionar Enter, salvar a edição
+            renameInput.addEventListener('blur', () => {
+                if (renameInput.value.trim() && renameInput.value.trim() !== displayName) {
+                    const newName = renameInput.value.trim();
+
+                    // Salvar o nome renomeado no localStorage
+                    localStorage.setItem(`renamed_${file.name}`, newName);
+
+                    // Atualizar o nome no DOM
+                    fileNameSpan.textContent = newName;
+
+                    console.log(`Nome do arquivo renomeado para: ${newName}`);
+                }
+                fileNameSpan.style.display = 'inline-block';
+                renameInput.style.display = 'none';
+            });
+
+            renameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    renameInput.blur();
+                }
+            });
+        });
+
+        // Evento para tocar vídeo
+        if (isVideo) {
+            const playButton = document.getElementById(`play-button-${index}`);
+            playButton.addEventListener('click', () => {
+                playVideo(file.url);
+            });
+        }
+
+        // Evento para copiar link do arquivo
+        const shareButton = document.getElementById(`share-button-${index}`);
+        shareButton.addEventListener('click', () => {
+            copyToClipboard(file.url);
+        });
+
+        // Evento para excluir o arquivo
+        const deleteButton = document.getElementById(`delete-button-${index}`);
+        deleteButton.addEventListener('click', () => {
+            deleteFile(file.name);
+        });
     });
 }
 
@@ -426,7 +475,6 @@ async function renameFile(oldName, newName) {
         const user = auth.currentUser;
         if (!user) {
             console.error('Usuário não autenticado');
-            alert('Você precisa estar logado para renomear arquivos.');
             return;
         }
 
@@ -446,46 +494,11 @@ async function renameFile(oldName, newName) {
 
         console.log(`Arquivo renomeado de ${oldName} para ${newName}`);
         alert(`Arquivo renomeado para ${newName} com sucesso!`);
-
-        // Atualizar a lista de arquivos exibidos
-        fetchAllFiles();
+        fetchAllFiles(); // Atualizar a lista de arquivos
     } catch (error) {
         console.error('Erro ao renomear o arquivo:', error);
         alert(`Erro ao renomear o arquivo: ${error.code} - ${error.message}`);
     }
-}
-
-// Atualizar evento de clique para renomear o arquivo
-function attachRenameEvent(index, file) {
-    const editIcon = document.getElementById(`edit-icon-${index}`);
-    const renameInput = document.getElementById(`rename-input-${index}`);
-    const fileNameSpan = document.getElementById(`file-name-${index}`);
-
-    editIcon.addEventListener('click', () => {
-        // Tornar o nome do arquivo editável
-        fileNameSpan.style.display = 'none';
-        renameInput.style.display = 'inline-block';
-        renameInput.focus();
-
-        // Quando o campo perder o foco ou pressionar Enter, salvar a edição
-        renameInput.addEventListener('blur', async () => {
-            if (renameInput.value.trim() && renameInput.value.trim() !== file.name) {
-                const newName = renameInput.value.trim();
-                await renameFile(file.name, newName);
-
-                // Atualizar o nome no DOM
-                fileNameSpan.textContent = newName;
-            }
-            fileNameSpan.style.display = 'inline-block';
-            renameInput.style.display = 'none';
-        });
-
-        renameInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                renameInput.blur();
-            }
-        });
-    });
 }
 
 // Função para reproduzir vídeo
