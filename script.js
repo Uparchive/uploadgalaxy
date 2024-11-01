@@ -131,12 +131,14 @@ fileInput.addEventListener('change', () => {
             fileItem.className = 'file-item';
             fileItem.innerHTML = `
                 <span id="file-name-${index}" class="file-name">${file.name}</span>
-                <i class="fas fa-pencil-alt rename-icon" id="edit-icon-${index}" title="Renomear"></i>
+                <button class="edit-icon" id="edit-icon-${index}" title="Renomear">
+                    ✏️
+                </button>
                 <input type="text" id="rename-input-${index}" class="rename-input" value="${file.name}" style="display: none;">
             `;
             renameFileList.appendChild(fileItem);
 
-            // Evento para clicar no ícone de lápis
+            // Eventos para edição do nome do arquivo
             const editIcon = document.getElementById(`edit-icon-${index}`);
             const renameInput = document.getElementById(`rename-input-${index}`);
             const fileNameSpan = document.getElementById(`file-name-${index}`);
@@ -146,21 +148,21 @@ fileInput.addEventListener('change', () => {
                 fileNameSpan.style.display = 'none';
                 renameInput.style.display = 'inline-block';
                 renameInput.focus();
+            });
 
-                // Quando o campo perder o foco ou pressionar Enter, salvar a edição
-                renameInput.addEventListener('blur', () => {
-                    if (renameInput.value.trim()) {
-                        fileNameSpan.textContent = renameInput.value.trim();
-                    }
-                    fileNameSpan.style.display = 'inline-block';
-                    renameInput.style.display = 'none';
-                });
+            // Quando o campo perder o foco ou pressionar Enter, salvar a edição
+            renameInput.addEventListener('blur', () => {
+                if (renameInput.value.trim()) {
+                    fileNameSpan.textContent = renameInput.value.trim();
+                }
+                fileNameSpan.style.display = 'inline-block';
+                renameInput.style.display = 'none';
+            });
 
-                renameInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        renameInput.blur();
-                    }
-                });
+            renameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    renameInput.blur();
+                }
             });
         });
     }
