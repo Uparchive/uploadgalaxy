@@ -236,13 +236,12 @@ async function startUpload() {
     const totalUsedBytes = allFiles.reduce((sum, file) => sum + Number(file.size || 0), 0);
     const projectedTotalBytes = totalUsedBytes + totalNewFilesBytes;
 
-    // Verifica se o limite de 1 TB será excedido
-    if (projectedTotalBytes > MAX_STORAGE_BYTES) {
-        alert('Você atingiu o limite máximo de armazenamento de 1 TB. Não é possível fazer novos uploads.');
+    // Verifica se o limite de armazenamento será excedido
+    if (projectedTotalBytes > getMaxStorageBytes()) {
+        alert(`Você atingiu o limite máximo de armazenamento de ${formatBytes(getMaxStorageBytes())}. Não é possível fazer novos uploads.`);
         return;
     }
 
-    // Código de upload permanece o mesmo...
     // Mostrar o container de progresso
     progressContainer.style.display = 'block';
     progressContainer.innerHTML = ''; // Limpar conteúdos anteriores
