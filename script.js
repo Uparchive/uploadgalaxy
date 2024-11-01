@@ -193,6 +193,27 @@ function getMaxStorageBytes() {
     return 50 * 1024 ** 3; // Limite de 50 GB em bytes
 }
 
+// Função para atualizar o uso de armazenamento
+async function updateStorageUsage() {
+    // Calcula o total de bytes utilizados somando o tamanho de todos os arquivos
+    const totalUsedBytes = allFiles.reduce((sum, file) => sum + Number(file.size || 0), 0);
+
+    // Converte o valor para gigabytes
+    const totalUsedGB = totalUsedBytes / (1024 ** 3);
+    const formattedUsedGB = totalUsedGB.toFixed(2);
+
+    // Atualiza o texto que exibe o total de armazenamento usado
+    const storageUsageDisplay = document.querySelector('.storage-text');
+    storageUsageDisplay.textContent = `${formattedUsedGB} GB de 50.00 GB`;
+
+    // Atualiza a largura da barra de progresso para refletir o uso atual
+    const progressBar = document.querySelector('.progress-bar');
+    const usedPercentage = (totalUsedBytes / getMaxStorageBytes()) * 100;
+    progressBar.style.width = `${Math.min(usedPercentage, 100)}%`; // Garante que a barra não ultrapasse 100%
+
+    console.log(`Total Usado: ${formattedUsedGB} GB de 50.00 GB`);
+}
+
 // Função para iniciar o upload múltiplo
 async function startUpload() {
     const files = fileInput.files;
@@ -702,27 +723,6 @@ async function deleteFile(fileName) {
         console.error('Erro ao excluir o arquivo:', error);
         alert(`Erro ao excluir o arquivo: ${error.code} - ${error.message}`);
     }
-}
-
-// Função para atualizar o uso de armazenamento
-async function updateStorageUsage() {
-    // Calcula o total de bytes utilizados somando o tamanho de todos os arquivos
-    const totalUsedBytes = allFiles.reduce((sum, file) => sum + Number(file.size || 0), 0);
-
-    // Converte o valor para gigabytes
-    const totalUsedGB = totalUsedBytes / (1024 ** 3);
-    const formattedUsedGB = totalUsedGB.toFixed(2);
-
-    // Atualiza o texto que exibe o total de armazenamento usado
-    const storageUsageDisplay = document.querySelector('.storage-text');
-    storageUsageDisplay.textContent = `${formattedUsedGB} GB de 1000.00 GB`;
-
-    // Atualiza a largura da barra de progresso para refletir o uso atual
-    const progressBar = document.querySelector('.progress-bar');
-    const usedPercentage = (totalUsedBytes / MAX_STORAGE_BYTES) * 100;
-    progressBar.style.width = `${Math.min(usedPercentage, 100)}%`; // Garante que a barra não ultrapasse 100%
-
-    console.log(`Total Usado: ${formattedUsedGB} GB de 1000.00 GB`);
 }
 
 // Função para formatar bytes em unidades legíveis
