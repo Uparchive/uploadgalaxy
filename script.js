@@ -131,9 +131,7 @@ fileInput.addEventListener('change', () => {
             fileItem.className = 'file-item';
             fileItem.innerHTML = `
                 <span id="file-name-${index}" class="file-name">${file.name}</span>
-                <button class="edit-icon" id="edit-icon-${index}" title="Renomear">
-                    ✏️
-                </button>
+                <button class="edit-icon" id="edit-icon-${index}" title="Renomear">✏️</button>
                 <input type="text" id="rename-input-${index}" class="rename-input" value="${file.name}" style="display: none;">
             `;
             renameFileList.appendChild(fileItem);
@@ -152,8 +150,10 @@ fileInput.addEventListener('change', () => {
 
             // Quando o campo perder o foco ou pressionar Enter, salvar a edição
             renameInput.addEventListener('blur', () => {
-                if (renameInput.value.trim()) {
-                    fileNameSpan.textContent = renameInput.value.trim();
+                if (renameInput.value.trim() && renameInput.value.trim() !== file.name) {
+                    const newName = renameInput.value.trim();
+                    renameFile(file.name, newName); // Chama a função para renomear no Firebase
+                    fileNameSpan.textContent = newName; // Atualiza o nome visível
                 }
                 fileNameSpan.style.display = 'inline-block';
                 renameInput.style.display = 'none';
