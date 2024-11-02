@@ -7,7 +7,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://vjs.zencdn.net/7.21.1/video-js.css" rel="stylesheet">
 </head>
@@ -28,7 +27,6 @@
                 <div class="menu-toggle">
                     <i class="fas fa-bars"></i>
                 </div>
-                <!-- Links adicionais para mobile -->
                 <div class="mobile-links">
                     <a href="#upload-section">Upload</a>
                     <a href="#file-list-section">Meus Arquivos</a>
@@ -65,8 +63,7 @@
                 <div id="rename-file-list" class="rename-file-list"></div>
                 <button type="submit" class="upload-button"><i class="fas fa-cloud-upload-alt"></i> Fazer Upload</button>
             </form>
-            <div id="progress-container" class="progress-container" style="display: none;">
-            </div>
+            <div id="progress-container" class="progress-container" style="display: none;"></div>
         </section>
 
         <section id="file-list-section" class="container">
@@ -103,8 +100,12 @@
             </div>
         </section>
 
-        <section id="video-player-section" class="container" style="display: none;">
-            <div id="video-player-container"></div>
+        <!-- Modal para o Player de Vídeo -->
+        <section id="video-modal" class="video-modal" style="display: none;">
+            <div class="video-modal-content">
+                <span id="close-video-modal" class="close-button">&times;</span>
+                <div id="video-player-container"></div>
+            </div>
         </section>
     </main>
 
@@ -127,25 +128,5 @@
     <script src="https://vjs.zencdn.net/7.21.1/video.min.js"></script>
     <script type="module" src="script.js"></script>
 
-    <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        document.addEventListener('click', (event) => {
-            if (!menuToggle.contains(event.target) && !navLinks.contains(event.target)) {
-                navLinks.classList.remove('active');
-            }
-        });
-
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-    </script>
 </body>
 </html>
