@@ -510,7 +510,7 @@ function playVideo(url) {
 
     // Inserir o elemento de vídeo no DOM
     videoContainer.innerHTML = `
-        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; max-height: 80vh; aspect-ratio: 16 / 9; object-fit: cover;"></video>
+        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; max-height: 80vh;"></video>
     `;
 
     // Inicializar o player após garantir que o elemento foi adicionado
@@ -521,13 +521,23 @@ function playVideo(url) {
         fluid: true,
     });
 
-    // Forçar a reprodução do vídeo em paisagem
-    player.on('loadedmetadata', () => {
-        // Verificar se o vídeo está em modo retrato e ajustar para paisagem
-        if (player.videoWidth < player.videoHeight) {
-            player.width(player.videoHeight);
-            player.height(player.videoWidth);
+    // Ajustar o player para sempre estar em modo paisagem
+    const aspectRatio = 16 / 9; // Proporção de paisagem padrão
+    player.on('ready', () => {
+        const playerElement = document.getElementById('video-player');
+
+        // Ajustar a altura do player com base na largura e na proporção desejada
+        function setPlayerLandscape() {
+            const playerWidth = playerElement.offsetWidth;
+            const playerHeight = playerWidth / aspectRatio;
+            playerElement.style.height = `${playerHeight}px`;
         }
+
+        // Definir a altura inicial do player para modo paisagem
+        setPlayerLandscape();
+
+        // Ajustar o tamanho do player quando a janela for redimensionada
+        window.addEventListener('resize', setPlayerLandscape);
     });
 
     // Adicionar botões personalizados ao player
