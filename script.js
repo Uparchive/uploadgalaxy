@@ -536,11 +536,19 @@ function openVideoModal(videoUrl) {
 
     // Inicialize o player com o vídeo URL
     videoContainer.innerHTML = '<video id="video-player" class="video-js vjs-default-skin" controls preload="auto"></video>';
-    videojs('video-player', {
+    const player = videojs('video-player', {
         autoplay: true,
         controls: true,
         sources: [{ src: videoUrl, type: getMimeType(videoUrl) }],
         fluid: true
+    });
+
+    // Forçar modo paisagem
+    player.on('loadedmetadata', () => {
+        if (player.videoWidth < player.videoHeight) {
+            // Se o vídeo estiver em modo retrato, aplicamos um ajuste para que seja mostrado em paisagem
+            player.addClass('landscape');
+        }
     });
 
     // Exibir o modal e centralizá-lo corretamente
