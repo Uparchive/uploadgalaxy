@@ -1413,15 +1413,15 @@ footer p {
 /* Botão de Fechar */
 .close-button {
     position: absolute;
-    top: 10px; 
+    top: 10px;
     right: 10px;
-    font-size: 24px;
+    font-size: 20px; /* Reduzido um pouco mais */
     color: #ffffff;
     cursor: pointer;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 50%;
     border: none;
-    padding: 5px;
+    padding: 3px; /* Padding reduzido */
     z-index: 2100;
     transition: color 0.3s, background-color 0.3s;
 }
@@ -1448,9 +1448,9 @@ footer p {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center; /* Alinha verticalmente os elementos */
-    gap: 5px; /* Espaçamento entre os botões */
-    padding: 0 5px; /* Reduzido para garantir espaço suficiente para todos os botões */
+    align-items: center;
+    gap: 3px; /* Reduzido mais */
+    padding: 0 3px; /* Reduzido para garantir mais espaço */
 }
 
 /* Estilo para os Botões Personalizados do Player */
@@ -1458,7 +1458,7 @@ footer p {
 .vjs-forward-button .fas,
 .vjs-download-button .fas,
 .vjs-embed-button .fas {
-    font-size: 16px; /* Reduzir tamanho dos ícones */
+    font-size: 14px; /* Reduzido mais */
     line-height: 1.5;
     vertical-align: middle;
     color: white;
@@ -1468,8 +1468,8 @@ footer p {
 .vjs-forward-button,
 .vjs-download-button,
 .vjs-embed-button {
-    width: 30px; /* Reduzir largura dos botões */
-    height: 30px; /* Reduzir altura dos botões */
+    width: 26px; /* Reduzido mais */
+    height: 26px; /* Reduzido mais */
     padding: 0;
     background: transparent;
     display: flex;
@@ -1487,7 +1487,7 @@ footer p {
 
 /* Estilos para os botões personalizados do player */
 .vjs-button .fas {
-    font-size: 1.2em; /* Reduzir tamanho dos ícones */
+    font-size: 1.1em; /* Reduzido mais */
     color: #ffffff; /* Defina uma cor visível para os ícones */
 }
 
@@ -1498,7 +1498,7 @@ footer p {
     display: inline-block;
     width: auto;
     text-align: center;
-    padding: 3px; /* Reduzir padding dos botões */
+    padding: 2px; /* Reduzido mais */
 }
 
 /* Garante que o ícone do botão seja exibido */
@@ -1515,24 +1515,23 @@ footer p {
     .vjs-forward-button,
     .vjs-download-button,
     .vjs-embed-button {
-        width: 24px; /* Ajustar tamanho dos botões para caberem melhor na tela de celulares */
-        height: 24px;
+        width: 22px; /* Ajuste para caber melhor em telas de celulares */
+        height: 22px; /* Ajuste para caber melhor em telas de celulares */
     }
 
     .vjs-button .fas {
-        font-size: 1em; /* Reduzir tamanho dos ícones em dispositivos móveis */
+        font-size: 0.9em; /* Reduzido mais em dispositivos móveis */
     }
 
     .close-button {
-        top: 5px; /* Ajuste para ser menos intrusivo em telas menores */
+        top: 5px;
         right: 5px;
-        font-size: 20px;
+        font-size: 18px; /* Ajuste para ser menos intrusivo em telas menores */
     }
 
     /* Ajustar a barra de controle para caber melhor em dispositivos móveis */
     .vjs-control-bar {
         gap: 2px; /* Menor espaço entre botões em dispositivos móveis */
-        padding: 0 3px; /* Reduzir o padding para aumentar o espaço disponível */
+        padding: 0 2px; /* Reduzido para aumentar o espaço disponível */
     }
 }
-
