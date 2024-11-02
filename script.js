@@ -148,6 +148,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeAudioModalButton = document.getElementById('close-audio-modal');
     if (closeAudioModalButton) {
         closeAudioModalButton.addEventListener('click', closeAudioModal);
+    } else {
+        console.error('Erro: Botão de fechar do modal de áudio não encontrado.');
+    }
+
+    // Associar o evento ao botão de fechar do modal de vídeo
+    const closeVideoModalButton = document.getElementById('close-video-modal');
+    if (closeVideoModalButton) {
+        closeVideoModalButton.addEventListener('click', closeVideoModal);
+    } else {
+        console.error('Erro: Botão de fechar do modal de vídeo não encontrado.');
     }
 });
 
@@ -543,11 +553,15 @@ function closeAudioModal() {
     const audioModal = document.getElementById('audio-modal');
     const audioContainer = document.getElementById('audio-player-container');
 
-    // Esconder o modal
-    audioModal.style.display = 'none';
+    if (audioModal && audioContainer) {
+        // Esconder o modal
+        audioModal.style.display = 'none';
 
-    // Limpar o conteúdo do container de áudio
-    audioContainer.innerHTML = '';
+        // Limpar o conteúdo do container de áudio
+        audioContainer.innerHTML = '';
+    } else {
+        console.error('Erro: Modal de áudio ou container não foram encontrados no DOM.');
+    }
 }
 
 // Função para renomear o arquivo no Firebase Storage
@@ -636,16 +650,20 @@ function closeVideoModal() {
     const videoModal = document.getElementById('video-modal');
     const videoContainer = document.getElementById('video-player-container');
 
-    // Esconder o modal
-    videoModal.style.display = 'none';
+    if (videoModal && videoContainer) {
+        // Esconder o modal
+        videoModal.style.display = 'none';
 
-    // Destruir o player se existir
-    if (videojs.getPlayer('video-player')) {
-        videojs.getPlayer('video-player').dispose();
+        // Destruir o player de vídeo se ele existir
+        if (videojs.getPlayer('video-player')) {
+            videojs.getPlayer('video-player').dispose();
+        }
+
+        // Limpar o conteúdo do container de vídeo
+        videoContainer.innerHTML = '';
+    } else {
+        console.error('Erro: Modal de vídeo ou container não foram encontrados no DOM.');
     }
-
-    // Limpar o conteúdo do container
-    videoContainer.innerHTML = '';
 }
 
 // Função para adicionar botões personalizados ao player
