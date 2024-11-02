@@ -125,17 +125,22 @@ uploadForm.addEventListener('submit', (e) => {
 
 // Mostrar o botão de fone quando o player de áudio estiver pausado
 audioPlayer.addEventListener('pause', () => {
-    audioHeadphoneButton.style.display = 'flex';
+    const audioHeadphoneButton = document.getElementById('audio-headphone-button');
+    if (audioHeadphoneButton) {
+        audioHeadphoneButton.style.display = 'flex';
+    } else {
+        console.error('Erro: Botão de fone de ouvido não encontrado.');
+    }
 });
 
 // Ocultar o botão de fone quando o áudio estiver tocando
 audioPlayer.addEventListener('play', () => {
-    audioHeadphoneButton.style.display = 'none';
-});
-
-// Clique no botão de fone para começar a tocar o áudio
-audioHeadphoneButton.addEventListener('click', () => {
-    audioPlayer.play();
+    const audioHeadphoneButton = document.getElementById('audio-headphone-button');
+    if (audioHeadphoneButton) {
+        audioHeadphoneButton.style.display = 'none';
+    } else {
+        console.error('Erro: Botão de fone de ouvido não encontrado.');
+    }
 });
 
 // Ao selecionar arquivos, exibir campos para renomeação e exclusão
@@ -509,16 +514,21 @@ function playAudio(url) {
     const audioModal = document.getElementById('audio-modal');
     const audioContainer = document.getElementById('audio-player-container');
 
-    // Exibir o modal
-    audioModal.style.display = 'flex';
+    // Verificar se o modal e o container de áudio existem no DOM
+    if (audioModal && audioContainer) {
+        // Exibir o modal
+        audioModal.style.display = 'flex';
 
-    // Inserir o elemento de áudio no DOM
-    audioContainer.innerHTML = `
-        <audio id="audio-player" class="audio-player" controls autoplay>
-            <source src="${url}" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    `;
+        // Inserir o elemento de áudio no DOM
+        audioContainer.innerHTML = `
+            <audio id="audio-player" class="audio-player" controls autoplay>
+                <source src="${url}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        `;
+    } else {
+        console.error('Erro: Elementos do modal ou container de áudio não foram encontrados no DOM.');
+    }
 }
 
 // Função para renomear o arquivo no Firebase Storage
