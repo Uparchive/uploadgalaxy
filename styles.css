@@ -1413,9 +1413,9 @@ footer p {
 /* Botão de Fechar */
 .close-button {
     position: absolute;
-    top: 20px; /* Ajuste para mover um pouco mais para dentro */
-    right: 20px; /* Ajuste para mover um pouco mais para dentro */
-    font-size: 20px; /* Tamanho menor do "X" */
+    top: 15px; /* Ajuste para mover um pouco mais para cima */
+    right: 20px; /* Mantém o ajuste na posição horizontal */
+    font-size: 20px; /* Tamanho do "X" */
     color: #ffffff;
     cursor: pointer;
     background: #000000;
