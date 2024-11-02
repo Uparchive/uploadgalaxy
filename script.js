@@ -640,15 +640,25 @@ function addCustomButtons(videoPlayer) {
     videojs.registerComponent('EmbedButton', embedButton);
     videoPlayer.getChild('controlBar').addChild('EmbedButton', {}, videoPlayer.getChild('controlBar').children().length - 1);
 
-    // Manipular a visibilidade do botão de incorporação baseado no modo de tela cheia
+    // Manipular a visibilidade dos botões de incorporação e PiP baseado no modo de tela cheia
     videoPlayer.on('fullscreenchange', function() {
         const isFullscreen = videoPlayer.isFullscreen();
         const embedButtonInstance = videoPlayer.getChild('controlBar').getChild('EmbedButton');
+        const pipButtonInstance = videoPlayer.getChild('controlBar').getChild('PictureInPictureToggle');
+
         if (embedButtonInstance) {
             if (isFullscreen) {
                 embedButtonInstance.show();
             } else {
                 embedButtonInstance.hide();
+            }
+        }
+
+        if (pipButtonInstance) {
+            if (isFullscreen) {
+                pipButtonInstance.show();
+            } else {
+                pipButtonInstance.hide();
             }
         }
     });
