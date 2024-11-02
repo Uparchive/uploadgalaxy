@@ -60,7 +60,8 @@ const fileInput = document.getElementById('file-input');
 const renameFileList = document.getElementById('rename-file-list');
 const toggleButton = document.getElementById('toggle-file-list-button');
 const fileListContainer = document.getElementById('file-list-container');
-
+const audioPlayer = document.getElementById('audio-player');
+const audioHeadphoneButton = document.getElementById('audio-headphone-button');
 
 
 // Variáveis Globais
@@ -120,6 +121,21 @@ uploadForm.addEventListener('submit', (e) => {
         console.log('Iniciando upload...');
         startUpload();
     }
+});
+
+// Mostrar o botão de fone quando o player de áudio estiver pausado
+audioPlayer.addEventListener('pause', () => {
+    audioHeadphoneButton.style.display = 'flex';
+});
+
+// Ocultar o botão de fone quando o áudio estiver tocando
+audioPlayer.addEventListener('play', () => {
+    audioHeadphoneButton.style.display = 'none';
+});
+
+// Clique no botão de fone para começar a tocar o áudio
+audioHeadphoneButton.addEventListener('click', () => {
+    audioPlayer.play();
 });
 
 // Ao selecionar arquivos, exibir campos para renomeação e exclusão
