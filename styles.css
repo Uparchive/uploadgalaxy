@@ -1388,59 +1388,41 @@ footer p {
 /* ======== Modal Player =================== */
 /* ========================================= */
 
-/* Modal para o player de vídeo */
 .video-modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
     z-index: 1000;
 }
 
 .video-modal-content {
-    position: relative;
     width: 90%;
     max-width: 800px;
-    padding: 20px;
-    background-color: #000;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .close-button {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 2rem;
+    font-size: 24px;
     color: #fff;
     cursor: pointer;
-}
-#video-player-section {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.8);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1000;
-}
-
-#video-player-container {
-    width: 90%;
-    max-width: 800px;
-    max-height: 90vh;
-    position: relative;
+    background: none;
+    border: none;
 }
 
 .video-js {
     width: 100% !important;
     height: 100% !important;
 }
+
