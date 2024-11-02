@@ -143,6 +143,14 @@ audioPlayer.addEventListener('play', () => {
     }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Associar o evento ao botão de fechar do modal de áudio
+    const closeAudioModalButton = document.getElementById('close-audio-modal');
+    if (closeAudioModalButton) {
+        closeAudioModalButton.addEventListener('click', closeAudioModal);
+    }
+});
+
 // Ao selecionar arquivos, exibir campos para renomeação e exclusão
 fileInput.addEventListener('change', () => {
     const files = Array.from(fileInput.files); // Obtenha a lista de arquivos
@@ -523,7 +531,7 @@ function playAudio(url) {
         audioContainer.innerHTML = `
             <audio id="audio-player" class="audio-player" controls autoplay>
                 <source src="${url}" type="audio/mpeg">
-                Your browser does not support the audio element.
+                Seu navegador não suporta o elemento de áudio.
             </audio>
         `;
     } else {
