@@ -101,18 +101,18 @@
         </section>
 
         <!-- Modal para o Player de Vídeo -->
-<section id="video-modal" class="video-modal" style="display: none;">
-    <div class="video-modal-content">
-        <span id="close-video-modal" class="close-button">&times;</span>
-        <div id="video-player-container">
-            <!-- Insira aqui o player de vídeo, por exemplo com o video.js -->
-            <video id="my-video" class="video-js" controls preload="auto" data-setup="{}">
-                <source src="seu_video.mp4" type="video/mp4">
-                Seu navegador não suporta este vídeo.
-            </video>
-        </div>
-    </div>
-</section>
+        <section id="video-modal" class="video-modal" style="display: none;">
+            <div class="video-modal-content">
+                <span id="close-video-modal" class="close-button">&times;</span>
+                <div id="video-player-container">
+                    <!-- Player de vídeo usando video.js -->
+                    <video id="my-video" class="video-js" controls preload="auto" data-setup="{}" style="aspect-ratio: 16 / 9;">
+                        <source src="seu_video.mp4" type="video/mp4">
+                        Seu navegador não suporta este vídeo.
+                    </video>
+                </div>
+            </div>
+        </section>        
 
     <a href="#" id="back-to-top" class="back-to-top">
         <i class="fas fa-arrow-up"></i>
