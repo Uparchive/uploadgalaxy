@@ -1413,16 +1413,15 @@ footer p {
 /* Botão de Fechar */
 .close-button {
     position: absolute;
-    top: 0; /* Alinhar ao topo do modal */
-    right: 0; /* Alinhar à direita do modal */
-    transform: translate(50%, -50%); /* Colocar o botão um pouco acima e deslocar à direita */
+    top: 10px; /* Ajuste para alinhar ao topo do modal */
+    right: 10px; /* Ajuste para alinhar à direita do modal */
     font-size: 24px;
     color: #ffffff;
     cursor: pointer;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 50%; /* Deixar o botão arredondado */
     border: none;
-    padding: 8px;
+    padding: 5px;
     z-index: 2100;
     transition: color 0.3s, background-color 0.3s;
 }
@@ -1442,6 +1441,15 @@ footer p {
 .video-js {
     width: 100% !important;
     height: auto !important;
+}
+
+/* Ajuste para Centralizar a Barra de Controle */
+.vjs-control-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centraliza os elementos da barra de controle */
+    gap: 5px; /* Espaçamento entre os botões */
+    padding: 0 10px; /* Espaço interno para garantir que os botões não toquem nas bordas */
 }
 
 /* Estilo para os Botões Personalizados do Player */
@@ -1467,7 +1475,6 @@ footer p {
     align-items: center;
     justify-content: center;
     color: white; /* Garante que o ícone seja visível */
-    margin-right: 5px; /* Adiciona espaço entre os botões */
 }
 
 .vjs-rewind-button:hover .fas,
@@ -1520,5 +1527,11 @@ footer p {
         right: 5px;
         transform: none; /* Remover o deslocamento em dispositivos móveis */
         font-size: 20px; /* Tamanho menor do "X" em dispositivos móveis */
+    }
+
+    /* Ajustar a barra de controle para caber melhor em dispositivos móveis */
+    .vjs-control-bar {
+        justify-content: space-around; /* Distribui os botões uniformemente em dispositivos móveis */
+        gap: 3px; /* Reduzir o espaço entre os botões */
     }
 }
