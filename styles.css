@@ -1689,20 +1689,15 @@ footer p {
     gap: 10px; /* Espaço entre os elementos */
 }
 
-/* Estilo dos Controles do Player */
-.audio-player::-webkit-media-controls-panel {
-    background-color: #2a2a2a; /* Fundo do painel dos controles */
-    color: #fff; /* Cor dos ícones dos controles */
-}
-
 /* Ajuste do Botão Play/Pause */
 .audio-player::-webkit-media-controls-play-button {
     background: transparent; /* Remove o fundo laranja */
     border: none; /* Remove borda para deixar o ícone mais discreto */
     width: 30px;
     height: 30px;
-    color: #ff6600; /* Cor do ícone do botão play/pause */
+    color: #000; /* Ícone preto para o botão play/pause */
     box-shadow: none; /* Remove qualquer sombra do botão */
+    filter: brightness(0.3); /* Torna o ícone preto e visível contra o fundo escuro */
 }
 
 /* Ajustes nos Outros Controles do Player */
