@@ -61,6 +61,7 @@ const renameFileList = document.getElementById('rename-file-list');
 const toggleButton = document.getElementById('toggle-file-list-button');
 const fileListContainer = document.getElementById('file-list-container');
 
+
 // Variáveis Globais
 let allFiles = [];
 let isUploading = false;
@@ -131,6 +132,7 @@ fileInput.addEventListener('change', () => {
             fileItem.innerHTML = `
                 <span id="file-name-${index}" class="file-name">${file.name}</span>
                 <i class="fas fa-pencil-alt rename-icon" id="edit-icon-${index}" title="Renomear"></i>
+                <i class="fas fa-trash delete-icon" id="delete-icon-${index}" title="Excluir"></i>
                 <input type="text" id="rename-input-${index}" class="rename-input" value="${file.name}" style="display: none;">
             `;
             renameFileList.appendChild(fileItem);
@@ -160,6 +162,16 @@ fileInput.addEventListener('change', () => {
                         renameInput.blur();
                     }
                 });
+            });
+
+            // Evento para clicar no ícone de lixeira
+            const deleteIcon = document.getElementById(`delete-icon-${index}`);
+            deleteIcon.addEventListener('click', () => {
+                const confirmDelete = confirm(`Tem certeza de que deseja excluir o arquivo "${file.name}"?`);
+                if (confirmDelete) {
+                    fileItem.remove(); // Remove o item da lista de pré-visualização
+                    alert(`Arquivo "${file.name}" excluído da seleção.`);
+                }
             });
         });
     }
