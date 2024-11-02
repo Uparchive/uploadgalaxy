@@ -1463,3 +1463,21 @@ footer p {
 .vjs-embed-button:hover .fas {
     color: #ccc;
 }
+/* Estilos para os botões personalizados do player */
+.vjs-button .fas {
+    font-size: 1.5em;
+    color: #ffffff; /* Defina uma cor visível para os ícones */
+}
+
+.vjs-rewind-button, .vjs-forward-button, .vjs-download-button, .vjs-embed-button {
+    display: inline-block;
+    width: auto;
+    color: white; /* A cor dos ícones para garantir visibilidade */
+    text-align: center;
+    padding: 5px;
+}
+
+/* Garante que o ícone do botão seja exibido */
+.vjs-button .fas, .vjs-button .fab {
+    pointer-events: none;
+}
