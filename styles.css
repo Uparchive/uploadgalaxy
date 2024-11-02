@@ -1514,36 +1514,45 @@ footer p {
 }
 
 /* Controle de Volume para expandir para cima */
-.vjs-volume-panel.vjs-volume-horizontal {
-    display: none; /* Esconde o controle de volume horizontal */
-}
-
-.vjs-volume-panel.vjs-volume-vertical {
-    position: relative;
-    display: flex;
-    flex-direction: column-reverse; /* Ajusta o slider para expandir para cima */
-    align-items: center;
+.vjs-volume-panel {
+    position: absolute;
+    bottom: 50px; /* Ajusta a posição para estar acima do controle principal */
+    left: 5px; /* Ajuste a posição horizontal conforme necessário */
     height: 100px; /* Ajuste de altura */
-    top: -80px; /* Mover o controle de volume para cima do vídeo */
-    z-index: 3000;
+    display: flex;
+    align-items: center;
 }
 
 .vjs-volume-control {
-    width: 6px;
-    height: 80px; /* Ajuste a altura de acordo com o tamanho desejado */
+    width: 5px;
+    height: 80px; /* Altura do controle de volume */
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .vjs-slider {
-    transform-origin: bottom center; /* Garante que o slider cresça para cima */
-    transform: rotate(270deg); /* Rotaciona o controle de volume para que ele seja vertical */
-    height: 6px;
+    transform: rotate(270deg); /* Rotaciona o controle de volume para ser vertical */
+    width: 5px; /* Ajuste da largura */
+    height: 80px; /* Altura do controle de volume */
+    display: block;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 0 auto;
+    z-index: 3000;
 }
 
 .vjs-volume-level {
-    background: #ffffff; /* A cor do volume */
+    background: #ffffff; /* Cor do nível de volume */
 }
 
 .vjs-volume-bar {
     background: rgba(255, 255, 255, 0.3); /* Barra de volume com opacidade */
+    height: 100%; /* Altura completa da barra */
+    border-radius: 5px;
 }
 
+/* Ocultar volume horizontal e manter apenas o vertical */
+.vjs-volume-panel.vjs-volume-horizontal {
+    display: none !important;
+}
