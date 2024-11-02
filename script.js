@@ -500,23 +500,23 @@ function playVideo(url) {
     const videoModal = document.getElementById('video-modal');
     const videoContainer = document.getElementById('video-player-container');
 
-    // Certifique-se de que o modal está visível antes de tentar inicializar o player
+    // Exibir o modal
     videoModal.style.display = 'flex';
 
-    // Verifique se o player já foi inicializado, para evitar duplicação
-    if (!videojs.getPlayer('video-player')) {
-        videoContainer.innerHTML = '<video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: 100%;"></video>';
-        
-        // Inicializar o player com URL dinâmico
-        const player = videojs('video-player', {
-            autoplay: true,
-            controls: true,
-            sources: [{ src: url, type: 'video/mp4' }],
-            fluid: true,
-        });
-        
-        addCustomButtons(player);
-    }
+    // Inserir o elemento de vídeo no DOM
+    videoContainer.innerHTML = `
+        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: 100%;"></video>
+    `;
+
+    // Inicializar o player após garantir que o elemento foi adicionado
+    const player = videojs('video-player', {
+        autoplay: true,
+        controls: true,
+        sources: [{ src: url, type: 'video/mp4' }],
+        fluid: true,
+    });
+
+    addCustomButtons(player);
 }
 
 function openVideoModal(videoUrl) {
@@ -542,13 +542,19 @@ function openVideoModal(videoUrl) {
 }
 
 function closeVideoModal() {
-    const videoPlayerSection = document.getElementById('video-player-section');
-    videoPlayerSection.style.display = 'none';
+    const videoModal = document.getElementById('video-modal');
+    const videoContainer = document.getElementById('video-player-container');
 
-    if (videoPlayer) {
-        videoPlayer.dispose();  // Destrói a instância do player ao fechar
-        videoPlayer = null;
+    // Esconder o modal
+    videoModal.style.display = 'none';
+
+    // Destruir o player se existir
+    if (videojs.getPlayer('video-player')) {
+        videojs.getPlayer('video-player').dispose();
     }
+
+    // Limpar o conteúdo do container
+    videoContainer.innerHTML = '';
 }
 
 // Função para adicionar botões personalizados ao player de vídeo
@@ -760,14 +766,7 @@ logoutButton.addEventListener('click', () => {
     logout();
 });
 
-document.getElementById('close-video-modal').addEventListener('click', () => {
-    const videoModal = document.getElementById('video-modal');
-    videoModal.style.display = 'none';
-    if (videojs.getPlayer('video-player')) {
-        videojs.getPlayer('video-player').dispose();
-    }
-});
-
+document.getElementById('close-video-modal').addEventListener('click', closeVideoModal);
 
 // Função para impedir o usuário de sair durante o upload
 window.addEventListener('beforeunload', function (e) {
