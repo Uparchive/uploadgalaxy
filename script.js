@@ -524,6 +524,7 @@ function playVideo(url) {
     addCustomButtons(player);
 }
 
+// Função para abrir o modal de vídeo
 function openVideoModal(videoUrl) {
     const videoModal = document.getElementById('video-modal');
     const videoContainer = document.getElementById('video-player-container');
@@ -542,13 +543,14 @@ function openVideoModal(videoUrl) {
         fluid: true
     });
 
-    // Exibir o modal
+    // Exibir o modal e centralizá-lo corretamente
     videoModal.style.display = 'flex';
+    videoModal.scrollIntoView({ behavior: 'smooth' });
 }
 
+// Função para fechar o modal de vídeo
 function closeVideoModal() {
     const videoModal = document.getElementById('video-modal');
-    const videoContainer = document.getElementById('video-player-container');
 
     // Esconder o modal
     videoModal.style.display = 'none';
@@ -557,9 +559,6 @@ function closeVideoModal() {
     if (videojs.getPlayer('video-player')) {
         videojs.getPlayer('video-player').dispose();
     }
-
-    // Limpar o conteúdo do container
-    videoContainer.innerHTML = '';
 }
 
 // Função para adicionar botões personalizados ao player
