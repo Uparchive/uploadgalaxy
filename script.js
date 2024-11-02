@@ -216,7 +216,7 @@ toggleButton.addEventListener('click', () => {
 
 // Limite Gratuito para o servidor
 function getMaxStorageBytes() {
-    return 50 * 1024 ** 3; // Limite de 50 GB em bytes
+    return 500 * 1024 ** 4; // Limite de 500 GB em bytes
 }
 
 // Função para atualizar o uso de armazenamento
