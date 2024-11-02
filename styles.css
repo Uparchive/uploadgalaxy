@@ -1531,7 +1531,7 @@ footer p {
         display: none !important; /* Oculta o ícone de volume no player para dispositivos móveis */
     }
 }
-/* Modal de Vídeo Ajustado para Paisagem */
+/* Modal de Vídeo Ajustado */
 .video-modal {
     position: fixed;
     top: 50%;
@@ -1545,7 +1545,7 @@ footer p {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    overflow: hidden; /* Evita que o vídeo saia dos limites do modal */
+    overflow: hidden;
     border-radius: 10px;
 }
 
@@ -1565,11 +1565,6 @@ footer p {
 }
 
 #video-player {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9; /* Força a proporção de 16:9 para modo paisagem */
-    object-fit: cover; /* Faz o vídeo preencher a tela, cortando as bordas, se necessário */
-    max-height: 80vh; /* Garante que o vídeo não ultrapasse a altura da tela */
     border-radius: 10px;
 }
 
