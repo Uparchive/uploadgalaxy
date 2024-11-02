@@ -1434,6 +1434,7 @@ footer p {
     width: 100% !important;
     height: auto !important;
 }
+
 .vjs-rewind-button .fas,
 .vjs-forward-button .fas,
 .vjs-download-button .fas,
@@ -1455,29 +1456,37 @@ footer p {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white; /* Garante que o ícone seja visível */
 }
 
 .vjs-rewind-button:hover .fas,
 .vjs-forward-button:hover .fas,
 .vjs-download-button:hover .fas,
 .vjs-embed-button:hover .fas {
-    color: #ccc;
+    color: #ccc; /* Cor ao passar o mouse */
 }
+
 /* Estilos para os botões personalizados do player */
 .vjs-button .fas {
     font-size: 1.5em;
     color: #ffffff; /* Defina uma cor visível para os ícones */
 }
 
-.vjs-rewind-button, .vjs-forward-button, .vjs-download-button, .vjs-embed-button {
+.vjs-rewind-button,
+.vjs-forward-button,
+.vjs-download-button,
+.vjs-embed-button {
     display: inline-block;
     width: auto;
-    color: white; /* A cor dos ícones para garantir visibilidade */
     text-align: center;
     padding: 5px;
 }
 
 /* Garante que o ícone do botão seja exibido */
-.vjs-button .fas, .vjs-button .fab {
+.vjs-button .fas,
+.vjs-button .fab {
     pointer-events: none;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
 }
+
