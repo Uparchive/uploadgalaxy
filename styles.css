@@ -1451,7 +1451,8 @@ footer p {
 .vjs-rewind-button .fas,
 .vjs-forward-button .fas,
 .vjs-download-button .fas,
-.vjs-embed-button .fas {
+.vjs-embed-button .fas,
+.vjs-picture-in-picture-button .fas {
     font-size: 18px;
     line-height: 1.5;
     vertical-align: middle;
@@ -1461,7 +1462,8 @@ footer p {
 .vjs-rewind-button,
 .vjs-forward-button,
 .vjs-download-button,
-.vjs-embed-button {
+.vjs-embed-button,
+.vjs-picture-in-picture-button {
     width: 36px;
     height: 36px;
     padding: 0;
@@ -1475,7 +1477,8 @@ footer p {
 .vjs-rewind-button:hover .fas,
 .vjs-forward-button:hover .fas,
 .vjs-download-button:hover .fas,
-.vjs-embed-button:hover .fas {
+.vjs-embed-button:hover .fas,
+.vjs-picture-in-picture-button:hover .fas {
     color: #ccc; /* Cor ao passar o mouse */
 }
 
@@ -1488,7 +1491,8 @@ footer p {
 .vjs-rewind-button,
 .vjs-forward-button,
 .vjs-download-button,
-.vjs-embed-button {
+.vjs-embed-button,
+.vjs-picture-in-picture-button {
     display: inline-block;
     width: auto;
     text-align: center;
@@ -1511,4 +1515,14 @@ footer p {
 /* Mostrar o Botão de Incorporação somente quando em Tela Cheia */
 .vjs-fullscreen .vjs-embed-button {
     display: flex !important; /* Mostrar o botão de incorporação somente em tela cheia */
+}
+
+/* Ocultar o Botão de Picture-in-Picture em Tela Mínima */
+.vjs-picture-in-picture-button {
+    display: none; /* Ocultar o botão de Picture-in-Picture por padrão */
+}
+
+/* Mostrar o Botão de Picture-in-Picture somente quando em Tela Cheia */
+.vjs-fullscreen .vjs-picture-in-picture-button {
+    display: flex !important; /* Mostrar o botão de Picture-in-Picture somente em tela cheia */
 }
