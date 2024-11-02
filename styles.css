@@ -1586,3 +1586,24 @@ footer p {
     background-color: #ffffff; /* Fundo branco ao passar o mouse */
     color: #000000; /* Texto preto ao passar o mouse */
 }
+/* Estilo do Botão de Ação para Áudio */
+.audio-play-button {
+    background-color: #ff6600; /* Cor de fundo laranja */
+    border: none; /* Remover borda padrão */
+    border-radius: 5px; /* Borda arredondada para combinar com os outros botões */
+    color: #ffffff; /* Cor do ícone */
+    padding: 10px 15px; /* Espaçamento consistente */
+    cursor: pointer; /* Alterar cursor ao passar sobre o botão */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Transição suave para o hover */
+}
+
+/* Ícone do Botão de Áudio */
+.audio-play-button i {
+    font-size: 1.2em; /* Tamanho do ícone */
+}
+
+/* Hover do Botão de Áudio */
+.audio-play-button:hover {
+    background-color: #e55c00; /* Tom um pouco mais escuro ao passar o mouse */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra para dar destaque */
+}
