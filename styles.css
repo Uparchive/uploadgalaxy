@@ -1520,11 +1520,14 @@ footer p {
     align-items: center;
 }
 
+/* Posicionamento vertical da barra de volume */
 .vjs-volume-control {
     position: absolute;
-    bottom: 40px; /* Ajuste para manter a barra para cima do ícone */
-    left: -5px;
+    bottom: 50px; /* Ajuste para garantir que a barra esteja acima do ícone do volume */
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza a barra acima do ícone */
     height: 80px; /* Altura da barra de volume */
+    width: 5px; /* Largura da barra de volume */
     visibility: hidden; /* A barra será visível somente ao passar o mouse */
     opacity: 0;
     transition: visibility 0s, opacity 0.2s linear;
@@ -1538,7 +1541,7 @@ footer p {
 
 .vjs-volume-bar {
     height: 100%;
-    width: 5px;
+    width: 100%; /* Garante que a largura da barra seja igual à definida na `.vjs-volume-control` */
     background: rgba(255, 255, 255, 0.3); /* Cor da barra de volume */
     border-radius: 4px;
 }
