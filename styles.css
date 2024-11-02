@@ -588,41 +588,13 @@ body {
 /* ======== Seção de Vídeo ================== */
 /* ========================================= */
 
-/* Estilo para garantir a proporção do vídeo */
+/* Estilo para o player de vídeo */
 #video-player-container .video-js {
     width: 100%;
-    height: auto;
     max-width: 100%;
     max-height: 100%;
-    aspect-ratio: 16 / 9; /* Mantém a orientação horizontal */
-    object-fit: contain;
     border-radius: 8px;
 }
-.video-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    overflow: hidden;
-}
-
-.video-modal-content {
-    position: relative;
-    width: 90vw;
-    max-width: 90vw;
-    max-height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
 
 /* ========================================= */
 /* ======== Botões Customizados Video.js ===== */
