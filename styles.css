@@ -1384,6 +1384,10 @@ footer p {
     }
 }
 
+/* ========================================= */
+/* ======== Modal Player =================== */
+/* ========================================= */
+
 /* Modal */
 .video-modal {
     display: none;
@@ -1392,10 +1396,10 @@ footer p {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Fundo escurecido */
+    background-color: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: center;
-    z-index: 2000; /* Z-index alto para garantir que o modal fique sobre outros elementos */
+    z-index: 2000;
 }
 
 /* Conteúdo do Modal */
@@ -1409,27 +1413,27 @@ footer p {
 /* Botão de Fechar */
 .close-button {
     position: absolute;
-    top: 15px; /* Ajuste para mover o botão um pouco mais para cima */
-    right: 20px; /* Manter um espaço da lateral */
+    top: 15px; /* Ajuste para mover um pouco mais para cima */
+    right: 20px; /* Mantém o ajuste na posição horizontal */
     font-size: 20px; /* Tamanho do "X" */
     color: #ffffff;
     cursor: pointer;
-    background: #000000; /* Fundo preto para destacar o botão */
+    background: #000000;
     border-radius: 50%; /* Deixar o botão perfeitamente circular */
-    border: 2px solid #ffffff; /* Bordas brancas para destacá-lo */
-    padding: 6px; /* Adiciona um espaçamento interno */
+    border: 2px solid #ffffff;
+    padding: 6px;
     width: 30px; /* Dimensão fixa para manter o formato de círculo */
     height: 30px; /* Dimensão fixa para manter o formato de círculo */
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2100; /* Certifica-se de que o botão está acima do modal */
-    transition: background-color 0.3s, color 0.3s; /* Transição suave ao passar o mouse */
+    z-index: 2100;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .close-button:hover {
-    background-color: #ffffff; /* Fundo branco ao passar o mouse */
-    color: #000000; /* Cor preta ao passar o mouse */
+    background-color: #ffffff;
+    color: #000000;
 }
 
 /* Container do Vídeo */
@@ -1444,7 +1448,6 @@ footer p {
     height: auto !important;
 }
 
-/* Estilos dos Botões Personalizados do Player */
 .vjs-rewind-button .fas,
 .vjs-forward-button .fas,
 .vjs-download-button .fas,
@@ -1476,13 +1479,13 @@ footer p {
 .vjs-download-button:hover .fas,
 .vjs-embed-button:hover .fas,
 .vjs-picture-in-picture-button:hover .fas {
-    color: #ccc; /* Cor ao passar o mouse para indicar interação */
+    color: #ccc; /* Cor ao passar o mouse */
 }
 
 /* Estilos para os botões personalizados do player */
 .vjs-button .fas {
     font-size: 1.5em;
-    color: #ffffff; /* Cor dos ícones */
+    color: #ffffff; /* Defina uma cor visível para os ícones */
 }
 
 .vjs-rewind-button,
@@ -1523,204 +1526,9 @@ footer p {
 .vjs-fullscreen .vjs-picture-in-picture-button {
     display: flex !important; /* Mostrar o botão de Picture-in-Picture somente em tela cheia */
 }
-
-/* Ocultar o Ícone de Volume em Dispositivos Móveis */
 @media (max-width: 768px) {
     .vjs-volume-panel {
         display: none !important; /* Oculta o ícone de volume no player para dispositivos móveis */
     }
 }
 
-/* ========================================= */
-/* ======== Estilo Geral dos Botões ========= */
-/* ========================================= */
-
-.action-button,
-.audio-play-button {
-    background: linear-gradient(to right, #ff7e00, #ff6600); /* Gradiente laranja */
-    border: none;
-    border-radius: 5px;
-    color: #ffffff;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Ícone do Botão (aplica-se tanto a botões gerais quanto ao botão de áudio) */
-.action-button i,
-.audio-play-button i {
-    font-size: 1.2em;
-}
-
-/* Efeito Hover para todos os botões */
-.action-button:hover,
-.audio-play-button:hover {
-    background: linear-gradient(to right, #e66a00, #e55c00); /* Um pouco mais escuro ao passar o mouse */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-/* ========================================= */
-/* ======== Modais de Vídeo e Áudio ========= */
-/* ========================================= */
-
-/* Estilo para os modais de vídeo e áudio */
-.video-modal, .audio-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9); /* Fundo escuro mais opaco */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Certifique-se de que o modal esteja sobre outros elementos */
-}
-
-/* Conteúdo dos modais (aplica-se para áudio e vídeo) */
-.video-modal-content, .audio-modal-content {
-    width: 90%;
-    max-width: 800px; /* Mantém o tamanho máximo para modais em telas maiores */
-    background: #1c1c1c; /* Fundo do modal escuro */
-    padding: 20px;
-    border-radius: 10px; /* Bordas levemente arredondadas */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    position: relative;
-}
-
-/* Estilo do Botão de Fechar do Modal */
-.close-button {
-    position: absolute;
-    top: 15px; /* Ajuste para se manter consistente */
-    right: 20px;
-    font-size: 1.5rem; /* Tamanho do "X" */
-    color: #fff; /* Cor do "X" para fechar - branco para destaque */
-    background: #000; /* Fundo do botão de fechar */
-    border-radius: 50%; /* Botão de fechar arredondado */
-    border: 2px solid #fff; /* Borda branca */
-    padding: 6px;
-    width: 30px; /* Dimensão fixa para manter o formato de círculo */
-    height: 30px; /* Dimensão fixa para manter o formato de círculo */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2100; /* Garante que o botão de fechar esteja acima do conteúdo do modal */
-    transition: background-color 0.3s, color 0.3s; /* Transição suave para hover */
-}
-
-/* Efeito ao passar o mouse no botão de fechar */
-.close-button:hover {
-    background-color: #fff; /* Muda para branco ao passar o mouse */
-    color: #000; /* Ícone muda para preto ao passar o mouse */
-}
-
-/* ========================================= */
-/* ======== Player de Áudio Melhorado ======= */
-/* ========================================= */
-
-/* Estilos Gerais do Player */
-.custom-audio-player {
-    display: flex;
-    align-items: center;
-    background: #1c1c1c;
-    padding: 15px;
-    border-radius: 10px;
-    max-width: 600px;
-    margin: 20px auto; /* Centraliza o player horizontalmente */
-    box-shadow: 0 0 15px rgba(255, 102, 0, 0.5);
-    gap: 15px;
-}
-
-/* Botão Play/Pause */
-#play-pause-button {
-    background: linear-gradient(to right, #ff7e00, #ff6600);
-    border: none;
-    border-radius: 50%;
-    color: #fff;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#play-pause-button:hover {
-    background: linear-gradient(to right, #e66a00, #e55c00);
-    transform: scale(1.1);
-}
-
-/* Ícones do Botão Play/Pause */
-#play-pause-button i {
-    font-size: 1.5em;
-}
-
-/* Barra de Progresso */
-.progress-bar-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    gap: 10px;
-    color: #fff;
-}
-
-#progress-bar {
-    position: relative;
-    flex: 1;
-    height: 10px;
-    background: #444;
-    border-radius: 5px;
-    cursor: pointer;
-    overflow: hidden;
-}
-
-#progress {
-    background: linear-gradient(to right, #ff7e00, #ff6600);
-    height: 100%;
-    width: 0%;
-    border-radius: 5px;
-    transition: width 0.1s linear;
-}
-
-/* Tempo Atual e Duração */
-#current-time, #duration {
-    font-size: 0.9em;
-    width: 40px;
-    text-align: center;
-}
-
-/* Controle de Volume */
-.volume-control {
-    display: flex;
-    align-items: center;
-    color: #fff;
-    gap: 5px;
-}
-
-.volume-control i {
-    font-size: 1.2em;
-}
-
-#volume-slider {
-    width: 80px;
-}
-
-#volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    background: #ff6600;
-    border: none;
-    border-radius: 50%;
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-}
-
-#volume-slider::-webkit-slider-runnable-track {
-    background: #444;
-    border-radius: 5px;
-    height: 5px;
-}

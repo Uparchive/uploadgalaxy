@@ -60,8 +60,7 @@ const fileInput = document.getElementById('file-input');
 const renameFileList = document.getElementById('rename-file-list');
 const toggleButton = document.getElementById('toggle-file-list-button');
 const fileListContainer = document.getElementById('file-list-container');
-const audioPlayer = document.getElementById('audio-player');
-const audioHeadphoneButton = document.getElementById('audio-headphone-button');
+
 
 
 // Variáveis Globais
@@ -120,44 +119,6 @@ uploadForm.addEventListener('submit', (e) => {
     if (!isUploading) {
         console.log('Iniciando upload...');
         startUpload();
-    }
-});
-
-// Mostrar o botão de fone quando o player de áudio estiver pausado
-audioPlayer.addEventListener('pause', () => {
-    const audioHeadphoneButton = document.getElementById('audio-headphone-button');
-    if (audioHeadphoneButton) {
-        audioHeadphoneButton.style.display = 'flex';
-    } else {
-        console.error('Erro: Botão de fone de ouvido não encontrado.');
-    }
-});
-
-// Ocultar o botão de fone quando o áudio estiver tocando
-audioPlayer.addEventListener('play', () => {
-    const audioHeadphoneButton = document.getElementById('audio-headphone-button');
-    if (audioHeadphoneButton) {
-        audioHeadphoneButton.style.display = 'none';
-    } else {
-        console.error('Erro: Botão de fone de ouvido não encontrado.');
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Associar o evento ao botão de fechar do modal de áudio
-    const closeAudioModalButton = document.getElementById('close-audio-modal');
-    if (closeAudioModalButton) {
-        closeAudioModalButton.addEventListener('click', closeAudioModal);
-    } else {
-        console.error('Erro: Botão de fechar do modal de áudio não encontrado.');
-    }
-
-    // Associar o evento ao botão de fechar do modal de vídeo
-    const closeVideoModalButton = document.getElementById('close-video-modal');
-    if (closeVideoModalButton) {
-        closeVideoModalButton.addEventListener('click', closeVideoModal);
-    } else {
-        console.error('Erro: Botão de fechar do modal de vídeo não encontrado.');
     }
 });
 
@@ -261,15 +222,6 @@ function getMaxStorageBytes() {
 
 // Função para atualizar o uso de armazenamento
 async function updateStorageUsage() {
-    if (!allFiles || allFiles.length === 0) {
-        console.log('Nenhum arquivo encontrado para calcular o uso de armazenamento.');
-        const storageUsageDisplay = document.querySelector('.storage-text');
-        storageUsageDisplay.textContent = '0.00 GB de 500.00 GB';
-        const progressBar = document.querySelector('.progress-bar');
-        progressBar.style.width = '0%';
-        return;
-    }
-
     // Calcula o total de bytes utilizados somando o tamanho de todos os arquivos
     const totalUsedBytes = allFiles.reduce((sum, file) => sum + Number(file.size || 0), 0);
 
@@ -288,7 +240,6 @@ async function updateStorageUsage() {
 
     console.log(`Total Usado: ${formattedUsedGB} GB de 500.00 GB`);
 }
-
 
 // Função para iniciar o upload múltiplo
 async function startUpload(files) {
@@ -456,120 +407,61 @@ async function fetchAllFiles() {
 }
 
 function displayFiles(files) {
-    // Limpar a lista atual de arquivos exibidos
     fileList.innerHTML = '';
-
     files.forEach((file, index) => {
-        // Verificar se o arquivo é vídeo ou áudio
-        const isVideo = file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm');
-        const isAudio = file.name.endsWith('.mp3') || file.name.endsWith('.wav') || file.name.endsWith('.ogg');
-
-        // Criar elemento de lista para exibir o arquivo
         const listItem = document.createElement('li');
-        listItem.className = 'file-item';
+        const isVideo = file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm');
+
+        // Usar o nome original do arquivo
+        const displayName = file.name; 
 
         // Formatar o tamanho do arquivo
         const fileSizeFormatted = formatBytes(file.size);
 
-        // Definir o conteúdo HTML do elemento
+        // Elemento de item da lista, com o nome do arquivo e seu tamanho
+        listItem.className = 'file-item';
         listItem.innerHTML = `
             <div class="file-header">
-                <span id="file-name-${index}" class="file-name">${file.name}</span>
+                <span id="file-name-${index}" class="file-name">${displayName}</span>
                 <span class="file-size">(${fileSizeFormatted})</span>
             </div>
             <div class="file-actions">
-                ${isVideo ? `<button class="action-button play-button" id="play-button-${index}"><i class="fas fa-play"></i></button>` : ''}
-                ${isAudio ? `<button class="action-button audio-play-button" id="audio-play-button-${index}"><i class="fas fa-headphones"></i></button>` : ''}
-                <a href="${file.url}" class="action-button download-button" id="download-button-${index}" download="${file.name}"><i class="fas fa-download"></i></a>
-                <button class="action-button share-button" id="share-button-${index}"><i class="fas fa-link"></i></button>
-                <button class="action-button delete-button delete-icon" id="delete-button-${index}"><i class="fas fa-trash"></i></button>
+                ${isVideo ? `<button class="play-button" id="play-button-${index}"><i class="fas fa-play"></i></button>` : ''}
+                <a href="${file.url}" class="download-button" id="download-button-${index}" download="${file.name}"><i class="fas fa-download"></i></a>
+                <button class="share-button" id="share-button-${index}"><i class="fas fa-link"></i></button>
+                <button class="delete-button delete-icon" id="delete-button-${index}"><i class="fas fa-trash"></i></button>
             </div>
         `;
-
-        // Adicionar o item à lista de arquivos
         fileList.appendChild(listItem);
 
-        // Adicionar evento para tocar vídeo
+        // Evento para tocar vídeo
         if (isVideo) {
             const playButton = document.getElementById(`play-button-${index}`);
-            if (playButton) {
-                playButton.addEventListener('click', () => {
-                    playVideo(file.url);
-                });
-            }
+            playButton.addEventListener('click', () => {
+                playVideo(file.url);
+            });
         }
 
-        // Adicionar evento para tocar áudio
-        if (isAudio) {
-            const audioPlayButton = document.getElementById(`audio-play-button-${index}`);
-            if (audioPlayButton) {
-                audioPlayButton.addEventListener('click', () => {
-                    playAudio(file.url);
-                });
-            }
-        }
-
-        // Adicionar evento para copiar link do arquivo
+        // Evento para copiar link do arquivo
         const shareButton = document.getElementById(`share-button-${index}`);
-        if (shareButton) {
-            shareButton.addEventListener('click', () => {
-                copyToClipboard(file.url);
-            });
-        }
+        shareButton.addEventListener('click', () => {
+            copyToClipboard(file.url);
+        });
 
-        // Adicionar evento para excluir o arquivo do Firebase Storage
+        // Evento para excluir o arquivo no Firebase Storage
         const deleteButton = document.getElementById(`delete-button-${index}`);
-        if (deleteButton) {
-            deleteButton.addEventListener('click', () => {
-                deleteFile(file.name);
-            });
-        }
+        deleteButton.addEventListener('click', () => {
+            deleteFile(file.name);
+        });
     });
-}
 
-// Função para tocar áudio
-function playAudio(url) {
-    const audioModal = document.getElementById('audio-modal');
-    const audioContainer = document.getElementById('audio-player-container');
-
-    // Verificar se o modal e o container de áudio existem no DOM
-    if (audioModal && audioContainer) {
-        // Exibir o modal
-        audioModal.style.display = 'flex';
-
-        // Inserir o elemento de áudio no DOM
-        audioContainer.innerHTML = `
-            <audio id="audio-player" class="audio-player" controls autoplay>
-                <source src="${url}" type="audio/mpeg">
-                Seu navegador não suporta o elemento de áudio.
-            </audio>
-        `;
-
-        // Adicionar evento de clique ao botão de fechar após inserir o player no DOM
-        const closeAudioModalButton = document.getElementById('close-audio-modal');
-        if (closeAudioModalButton) {
-            closeAudioModalButton.addEventListener('click', closeAudioModal);
-        } else {
-            console.error('Erro: Botão de fechar do modal de áudio não encontrado.');
-        }
-    } else {
-        console.error('Erro: Elementos do modal ou container de áudio não foram encontrados no DOM.');
-    }
-}
-
-function closeAudioModal() {
-    const audioModal = document.getElementById('audio-modal');
-    const audioContainer = document.getElementById('audio-player-container');
-
-    if (audioModal && audioContainer) {
-        // Esconder o modal de áudio
-        audioModal.style.display = 'none';
-
-        // Limpar o conteúdo do container de áudio
-        audioContainer.innerHTML = '';
-    } else {
-        console.error('Erro: Modal de áudio ou container de áudio não foram encontrados no DOM.');
-    }
+    // Adiciona o evento de exclusão ao ícone de lixeira localmente, removendo o item da lista visualmente
+    document.querySelectorAll('.delete-icon').forEach(icon => {
+        icon.addEventListener('click', function() {
+            const fileItem = this.closest('.file-item');
+            fileItem.remove(); // Opcional: lógica adicional para atualizar a lista de arquivos selecionados
+        });
+    });
 }
 
 // Função para renomear o arquivo no Firebase Storage
@@ -608,43 +500,28 @@ function playVideo(url) {
     const videoModal = document.getElementById('video-modal');
     const videoContainer = document.getElementById('video-player-container');
 
-    // Verificar se o modal e o container de vídeo existem no DOM
-    if (videoModal && videoContainer) {
-        // Exibir o modal
-        videoModal.style.display = 'flex';
+    // Exibir o modal
+    videoModal.style.display = 'flex';
 
-        // Destruir o player de vídeo se já existir
-        if (videojs.getPlayer('video-player')) {
-            videojs.getPlayer('video-player').dispose();
-        }
-
-        // Inserir o elemento de vídeo no DOM
-        videoContainer.innerHTML = `
-            <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: 100%;"></video>
-        `;
-
-        // Inicializar o player após garantir que o elemento foi adicionado
-        const player = videojs('video-player', {
-            autoplay: true,
-            controls: true,
-            sources: [{ src: url, type: 'video/mp4' }],
-            fluid: true,
-        });
-
-        addCustomButtons(player);
-
-        // Adicionar evento de clique ao botão de fechar após inserir o player no DOM
-        const closeVideoModalButton = document.getElementById('close-video-modal');
-        if (closeVideoModalButton) {
-            // Remover eventuais listeners anteriores para evitar duplicidade
-            closeVideoModalButton.removeEventListener('click', closeVideoModal);
-            closeVideoModalButton.addEventListener('click', closeVideoModal);
-        } else {
-            console.error('Erro: Botão de fechar do modal de vídeo não encontrado.');
-        }
-    } else {
-        console.error('Erro: Elementos do modal ou container de vídeo não foram encontrados no DOM.');
+    // Destruir o player se já existir
+    if (videojs.getPlayer('video-player')) {
+        videojs.getPlayer('video-player').dispose();
     }
+
+    // Inserir o elemento de vídeo no DOM
+    videoContainer.innerHTML = `
+        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: 100%;"></video>
+    `;
+
+    // Inicializar o player após garantir que o elemento foi adicionado
+    const player = videojs('video-player', {
+        autoplay: true,
+        controls: true,
+        sources: [{ src: url, type: 'video/mp4' }],
+        fluid: true,
+    });
+
+    addCustomButtons(player);
 }
 
 function openVideoModal(videoUrl) {
@@ -673,20 +550,16 @@ function closeVideoModal() {
     const videoModal = document.getElementById('video-modal');
     const videoContainer = document.getElementById('video-player-container');
 
-    if (videoModal && videoContainer) {
-        // Esconder o modal de vídeo
-        videoModal.style.display = 'none';
+    // Esconder o modal
+    videoModal.style.display = 'none';
 
-        // Destruir o player de vídeo se ele existir
-        if (videojs.getPlayer('video-player')) {
-            videojs.getPlayer('video-player').dispose();
-        }
-
-        // Limpar o conteúdo do container de vídeo
-        videoContainer.innerHTML = '';
-    } else {
-        console.error('Erro: Modal de vídeo ou container de vídeo não foram encontrados no DOM.');
+    // Destruir o player se existir
+    if (videojs.getPlayer('video-player')) {
+        videojs.getPlayer('video-player').dispose();
     }
+
+    // Limpar o conteúdo do container
+    videoContainer.innerHTML = '';
 }
 
 // Função para adicionar botões personalizados ao player
