@@ -568,61 +568,29 @@ function addCustomButtons(videoPlayer) {
     const RewindButton = videojs.getComponent('Button');
     const rewindButton = new RewindButton(videoPlayer, {
         text: 'Retroceder 10 segundos',
-        className: 'vjs-rewind-button',
+        className: 'vjs-rewind-button vjs-custom-button', // Adicionar classe personalizada
         innerHTML: '<i class="fas fa-undo"></i>'
     });
     rewindButton.controlText('Retroceder 10 segundos');
-    rewindButton.addClass('vjs-control');
-    rewindButton.addClass('vjs-button');
-    rewindButton.on('click', () => {
-        const currentTime = videoPlayer.currentTime();
-        videoPlayer.currentTime(Math.max(0, currentTime - 10));
-    });
     videoPlayer.getChild('controlBar').addChild(rewindButton, {}, 0);
 
     // Botão de avançar 10 segundos
     const forwardButton = new RewindButton(videoPlayer, {
         text: 'Avançar 10 segundos',
-        className: 'vjs-forward-button',
+        className: 'vjs-forward-button vjs-custom-button', // Adicionar classe personalizada
         innerHTML: '<i class="fas fa-redo"></i>'
     });
     forwardButton.controlText('Avançar 10 segundos');
-    forwardButton.addClass('vjs-control');
-    forwardButton.addClass('vjs-button');
-    forwardButton.on('click', () => {
-        const currentTime = videoPlayer.currentTime();
-        const duration = videoPlayer.duration();
-        videoPlayer.currentTime(Math.min(duration, currentTime + 10));
-    });
     videoPlayer.getChild('controlBar').addChild(forwardButton, {}, 2);
 
     // Botão de download
     const downloadButton = new RewindButton(videoPlayer, {
         text: 'Download Vídeo',
-        className: 'vjs-download-button',
+        className: 'vjs-download-button vjs-custom-button', // Adicionar classe personalizada
         innerHTML: '<i class="fas fa-download"></i>'
     });
     downloadButton.controlText('Download Vídeo');
-    downloadButton.addClass('vjs-control');
-    downloadButton.addClass('vjs-button');
-    downloadButton.on('click', () => {
-        downloadCurrentVideo(videoPlayer.currentSrc());
-    });
     videoPlayer.getChild('controlBar').addChild(downloadButton, {}, videoPlayer.getChild('controlBar').children().length - 1);
-
-    // Botão de incorporação
-    const embedButton = new RewindButton(videoPlayer, {
-        text: 'Copiar Código de Incorporação',
-        className: 'vjs-embed-button',
-        innerHTML: '<i class="fas fa-code"></i>'
-    });
-    embedButton.controlText('Copiar Código de Incorporação');
-    embedButton.addClass('vjs-control');
-    embedButton.addClass('vjs-button');
-    embedButton.on('click', () => {
-        copyEmbedCode(videoPlayer.currentSrc());
-    });
-    videoPlayer.getChild('controlBar').addChild(embedButton, {}, videoPlayer.getChild('controlBar').children().length - 1);
 }
 
 // Função para baixar o vídeo atual
