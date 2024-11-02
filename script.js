@@ -503,6 +503,11 @@ function playVideo(url) {
     // Exibir o modal
     videoModal.style.display = 'flex';
 
+    // Destruir o player se já existir
+    if (videojs.getPlayer('video-player')) {
+        videojs.getPlayer('video-player').dispose();
+    }
+
     // Inserir o elemento de vídeo no DOM
     videoContainer.innerHTML = `
         <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: 100%;"></video>
