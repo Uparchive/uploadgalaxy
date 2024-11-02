@@ -28,6 +28,13 @@
                 <div class="menu-toggle">
                     <i class="fas fa-bars"></i>
                 </div>
+                <!-- Links adicionais para mobile -->
+                <div class="mobile-links">
+                    <a href="#upload-section">Upload</a>
+                    <a href="#file-list-section">Meus Arquivos</a>
+                    <a href="Sobre/sobre.html">Sobre</a>
+                    <a href="#">Contato</a>
+                </div>
             </div>
         </nav>
     </header>
@@ -63,41 +70,41 @@
         </section>
 
         <section id="file-list-section" class="container">
-    <div class="file-list-header">
-        <h2>Seus Arquivos</h2>
-        <button id="toggle-file-list-button" class="toggle-button">
-            <i class="fas fa-chevron-down"></i>
-        </button>
-    </div>
-    <div id="file-list-container">
-        <div class="storage-container">
-            <p class="storage-text"><strong>Calculando...</strong></p>
-            <div class="progress-bar-container">
-                <div class="progress-bar" style="width: 20%;"></div>
+            <div class="file-list-header">
+                <h2>Seus Arquivos</h2>
+                <button id="toggle-file-list-button" class="toggle-button">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
             </div>
-        </div>
-        
-        <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
-        
-        <select id="sort-select" class="sort-select">
-            <option value="alphabetical">Ordem Alfabética (A-Z)</option>
-            <option value="alphabetical-desc">Ordem Alfabética (Z-A)</option>
-            <option value="newest">Mais Recentes Primeiro</option>
-            <option value="oldest">Mais Antigos Primeiro</option>
-            <option value="size-asc">Menor Tamanho Primeiro</option>
-            <option value="size-desc">Maior Tamanho Primeiro</option>
-        </select>
+            <div id="file-list-container">
+                <div class="storage-container">
+                    <p class="storage-text"><strong>Calculando...</strong></p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 20%;"></div>
+                    </div>
+                </div>
+                
+                <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
+                
+                <select id="sort-select" class="sort-select">
+                    <option value="alphabetical">Ordem Alfabética (A-Z)</option>
+                    <option value="alphabetical-desc">Ordem Alfabética (Z-A)</option>
+                    <option value="newest">Mais Recentes Primeiro</option>
+                    <option value="oldest">Mais Antigos Primeiro</option>
+                    <option value="size-asc">Menor Tamanho Primeiro</option>
+                    <option value="size-desc">Maior Tamanho Primeiro</option>
+                </select>
 
-        <div id="file-list-container">
-    <ul id="file-list">
-        <!-- Os itens da lista serão inseridos aqui dinamicamente -->
-    </ul>
-</div>
-</section>
+                <div id="file-list-container">
+                    <ul id="file-list">
+                        <!-- Os itens da lista serão inseridos aqui dinamicamente -->
+                    </ul>
+                </div>
+            </div>
+        </section>
 
         <section id="video-player-section" class="container" style="display: none;">
-            <div id="video-player-container">
-            </div>
+            <div id="video-player-container"></div>
         </section>
     </main>
 
@@ -118,7 +125,6 @@
     </footer>
 
     <script src="https://vjs.zencdn.net/7.21.1/video.min.js"></script>
-
     <script type="module" src="script.js"></script>
 
     <script>
