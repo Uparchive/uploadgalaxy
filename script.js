@@ -519,34 +519,25 @@ function playVideo(url) {
     }
 }
 
-
-// Função para abrir o modal de vídeo
 function openVideoModal(videoUrl) {
     const videoModal = document.getElementById('video-modal');
     const videoContainer = document.getElementById('video-player-container');
-    
-    // Limpa o container do vídeo anterior
-    videoContainer.innerHTML = '';
 
-    // Cria um novo elemento de vídeo com as configurações do Video.js
-    const videoElement = document.createElement('video');
-    videoElement.id = 'video-player';
-    videoElement.className = 'video-js vjs-default-skin';
-    videoElement.setAttribute('controls', '');
-    videoElement.setAttribute('preload', 'auto');
-    videoContainer.appendChild(videoElement);
+    // Certifique-se de destruir o player anterior
+    if (videojs.getPlayer('video-player')) {
+        videojs.getPlayer('video-player').dispose();
+    }
 
-    const videoPlayer = videojs('video-player', {
+    // Inicialize o player com o vídeo URL
+    videoContainer.innerHTML = '<video id="video-player" class="video-js vjs-default-skin" controls preload="auto"></video>';
+    videojs('video-player', {
         autoplay: true,
         controls: true,
-        sources: [{ src: videoUrl, type: 'video/mp4' }],
-        fluid: true,
-        responsive: true
+        sources: [{ src: videoUrl, type: getMimeType(videoUrl) }],
+        fluid: true
     });
 
-    // Adiciona os botões personalizados
-    addCustomButtons(videoPlayer);
-
+    // Exibir o modal
     videoModal.style.display = 'flex';
 }
 
@@ -772,12 +763,11 @@ logoutButton.addEventListener('click', () => {
 document.getElementById('close-video-modal').addEventListener('click', () => {
     const videoModal = document.getElementById('video-modal');
     videoModal.style.display = 'none';
-
-    // Certifique-se de que o player é removido do DOM para evitar erros subsequentes
     if (videojs.getPlayer('video-player')) {
         videojs.getPlayer('video-player').dispose();
     }
 });
+
 
 // Função para impedir o usuário de sair durante o upload
 window.addEventListener('beforeunload', function (e) {
