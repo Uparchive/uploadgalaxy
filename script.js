@@ -531,6 +531,47 @@ function playVideo(url) {
     closeModal.addEventListener('click', closeVideoModal);
 }
 
+// Função para abrir o modal de vídeo
+function openVideoModal(videoUrl) {
+    const videoModal = document.getElementById('video-modal');
+    const videoContainer = document.getElementById('video-player-container');
+    
+    // Limpa o container do vídeo anterior
+    videoContainer.innerHTML = '';
+
+    // Cria um novo elemento de vídeo com as configurações do Video.js
+    const videoElement = document.createElement('video');
+    videoElement.id = 'video-player';
+    videoElement.className = 'video-js vjs-default-skin';
+    videoElement.setAttribute('controls', '');
+    videoElement.setAttribute('preload', 'auto');
+    videoContainer.appendChild(videoElement);
+
+    const videoPlayer = videojs('video-player', {
+        autoplay: true,
+        controls: true,
+        sources: [{ src: videoUrl, type: 'video/mp4' }],
+        fluid: true,
+        responsive: true
+    });
+
+    // Adiciona os botões personalizados
+    addCustomButtons(videoPlayer);
+
+    videoModal.style.display = 'flex';
+}
+
+// Função para fechar o modal de vídeo
+document.getElementById('close-video-modal').addEventListener('click', () => {
+    const videoModal = document.getElementById('video-modal');
+    videoModal.style.display = 'none';
+
+    // Remove o player quando o modal é fechado
+    if (videojs.getPlayer('video-player')) {
+        videojs.getPlayer('video-player').dispose();
+    }
+});
+
 // Função para fechar o modal de vídeo
 function closeVideoModal() {
     const videoModal = document.getElementById('video-modal');
@@ -544,20 +585,16 @@ function closeVideoModal() {
     }
 }
 
-// Função para adicionar botões personalizados ao player
-function addCustomButtons() {
-    // Evitar adicionar múltiplos botões se já existirem
-    if (videoPlayer.getChild('controlBar').getChild('RewindButton')) return;
-
-    // Botão de Retroceder 10 Segundos
+// Função para adicionar botões personalizados ao player de vídeo
+function addCustomButtons(videoPlayer) {
+    // Botão de retroceder 10 segundos
     const rewindButton = videojs.extend(videojs.getComponent('Button'), {
         constructor: function() {
             videojs.getComponent('Button').apply(this, arguments);
             this.controlText('Retroceder 10 segundos');
             this.addClass('vjs-control');
             this.addClass('vjs-button');
-            this.addClass('vjs-rewind-button');
-            this.el().innerHTML = '<i class="fas fa-undo"></i>'; // Ícone Font Awesome
+            this.el().innerHTML = '<i class="fas fa-undo"></i>'; 
         },
         handleClick: function() {
             const currentTime = videoPlayer.currentTime();
@@ -565,17 +602,16 @@ function addCustomButtons() {
         }
     });
     videojs.registerComponent('RewindButton', rewindButton);
-    videoPlayer.getChild('controlBar').addChild('RewindButton', {}, 0); // Adiciona no início da barra de controles
+    videoPlayer.getChild('controlBar').addChild('RewindButton', {}, 0);
 
-    // Botão de Avançar 10 Segundos
+    // Botão de avançar 10 segundos
     const forwardButton = videojs.extend(videojs.getComponent('Button'), {
         constructor: function() {
             videojs.getComponent('Button').apply(this, arguments);
             this.controlText('Avançar 10 segundos');
             this.addClass('vjs-control');
             this.addClass('vjs-button');
-            this.addClass('vjs-forward-button');
-            this.el().innerHTML = '<i class="fas fa-redo"></i>'; // Ícone Font Awesome
+            this.el().innerHTML = '<i class="fas fa-redo"></i>';
         },
         handleClick: function() {
             const currentTime = videoPlayer.currentTime();
@@ -584,48 +620,43 @@ function addCustomButtons() {
         }
     });
     videojs.registerComponent('ForwardButton', forwardButton);
-    videoPlayer.getChild('controlBar').addChild('ForwardButton', {}, 2); // Adiciona após o botão de play/pause
+    videoPlayer.getChild('controlBar').addChild('ForwardButton', {}, 2);
 
-    // Botão de Download
+    // Botão de download
     const downloadButton = videojs.extend(videojs.getComponent('Button'), {
         constructor: function() {
             videojs.getComponent('Button').apply(this, arguments);
             this.controlText('Download Vídeo');
             this.addClass('vjs-control');
             this.addClass('vjs-button');
-            this.addClass('vjs-download-button');
-            this.el().innerHTML = '<i class="fas fa-download"></i>'; // Ícone de download
+            this.el().innerHTML = '<i class="fas fa-download"></i>';
         },
         handleClick: function() {
-            downloadCurrentVideo();
+            downloadCurrentVideo(videoPlayer.currentSrc());
         }
     });
     videojs.registerComponent('DownloadButton', downloadButton);
-    // Adicionar o botão de download antes do botão de tela cheia
     videoPlayer.getChild('controlBar').addChild('DownloadButton', {}, videoPlayer.getChild('controlBar').children().length - 1);
 
-    // Botão de Incorporação
+    // Botão de incorporação
     const embedButton = videojs.extend(videojs.getComponent('Button'), {
         constructor: function() {
             videojs.getComponent('Button').apply(this, arguments);
             this.controlText('Copiar Código de Incorporação');
             this.addClass('vjs-control');
             this.addClass('vjs-button');
-            this.addClass('vjs-embed-button');
-            this.el().innerHTML = '<i class="fas fa-code"></i>'; // Ícone de código
+            this.el().innerHTML = '<i class="fas fa-code"></i>';
         },
         handleClick: function() {
-            copyEmbedCode();
+            copyEmbedCode(videoPlayer.currentSrc());
         }
     });
     videojs.registerComponent('EmbedButton', embedButton);
-    // Adicionar o botão de incorporação antes do botão de tela cheia
     videoPlayer.getChild('controlBar').addChild('EmbedButton', {}, videoPlayer.getChild('controlBar').children().length - 1);
 }
 
 // Função para baixar o vídeo atual
-function downloadCurrentVideo() {
-    const videoUrl = videoPlayer.currentSrc();
+function downloadCurrentVideo(videoUrl) {
     const videoName = videoUrl.substring(videoUrl.lastIndexOf('/') + 1).split('?')[0];
 
     const a = document.createElement('a');
@@ -637,8 +668,7 @@ function downloadCurrentVideo() {
 }
 
 // Função para copiar o código de incorporação para a área de transferência
-function copyEmbedCode() {
-    const videoUrl = videoPlayer.currentSrc();
+function copyEmbedCode(videoUrl) {
     const embedPageUrl = `https://uparchive.github.io/uploadgalaxy/embed.html?videoUrl=${encodeURIComponent(videoUrl)}`;
     const embedCode = `<iframe src="${embedPageUrl}" frameborder="0" allowfullscreen></iframe>`;
 
