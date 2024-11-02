@@ -608,36 +608,28 @@ function playVideo(url) {
     const videoModal = document.getElementById('video-modal');
     const videoContainer = document.getElementById('video-player-container');
 
-    // Verificar se o modal e o container de vídeo existem no DOM
-    if (videoModal && videoContainer) {
-        // Exibir o modal
-        videoModal.style.display = 'flex';
+    // Exibir o modal
+    videoModal.style.display = 'flex';
 
-        // Inserir o elemento de vídeo no DOM
-        videoContainer.innerHTML = `
-            <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: 100%;">
-                <source src="${url}" type="video/mp4">
-                Seu navegador não suporta o elemento de vídeo.
-            </video>
-        `;
-
-        // Inicializar o player de vídeo
-        videojs('video-player', {
-            autoplay: true,
-            controls: true,
-            fluid: true,
-        });
-
-        // Adicionar evento de clique ao botão de fechar após inserir o player no DOM
-        const closeVideoModalButton = document.getElementById('close-video-modal');
-        if (closeVideoModalButton) {
-            closeVideoModalButton.addEventListener('click', closeVideoModal);
-        } else {
-            console.error('Erro: Botão de fechar do modal de vídeo não encontrado.');
-        }
-    } else {
-        console.error('Erro: Elementos do modal ou container de vídeo não foram encontrados no DOM.');
+    // Destruir o player se já existir
+    if (videojs.getPlayer('video-player')) {
+        videojs.getPlayer('video-player').dispose();
     }
+
+    // Inserir o elemento de vídeo no DOM
+    videoContainer.innerHTML = `
+        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: 100%;"></video>
+    `;
+
+    // Inicializar o player após garantir que o elemento foi adicionado
+    const player = videojs('video-player', {
+        autoplay: true,
+        controls: true,
+        sources: [{ src: url, type: 'video/mp4' }],
+        fluid: true,
+    });
+
+    addCustomButtons(player);
 }
 
 function openVideoModal(videoUrl) {
