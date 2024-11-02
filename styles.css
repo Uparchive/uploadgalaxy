@@ -1415,15 +1415,15 @@ footer p {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 20px;
+    font-size: 28px;
     color: #ffffff;
     cursor: pointer;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 50%;
-    border: none;
-    padding: 3px;
+    background: #000000;
+    border-radius: 50%; /* Deixar o botão arredondado */
+    border: 2px solid #ffffff;
+    padding: 5px;
     z-index: 2100;
-    transition: color 0.3s, background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .close-button:hover {
@@ -1443,22 +1443,11 @@ footer p {
     height: auto !important;
 }
 
-/* Ajuste para Centralizar a Barra de Controle */
-.vjs-control-bar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 3px;
-    padding: 0 3px;
-}
-
-/* Estilo para os Botões Personalizados do Player */
 .vjs-rewind-button .fas,
 .vjs-forward-button .fas,
 .vjs-download-button .fas,
 .vjs-embed-button .fas {
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.5;
     vertical-align: middle;
     color: white;
@@ -1468,27 +1457,27 @@ footer p {
 .vjs-forward-button,
 .vjs-download-button,
 .vjs-embed-button {
-    width: 26px;
-    height: 26px;
+    width: 36px;
+    height: 36px;
     padding: 0;
     background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: white; /* Garante que o ícone seja visível */
 }
 
 .vjs-rewind-button:hover .fas,
 .vjs-forward-button:hover .fas,
 .vjs-download-button:hover .fas,
 .vjs-embed-button:hover .fas {
-    color: #ccc;
+    color: #ccc; /* Cor ao passar o mouse */
 }
 
 /* Estilos para os botões personalizados do player */
 .vjs-button .fas {
-    font-size: 1.1em;
-    color: #ffffff;
+    font-size: 1.5em;
+    color: #ffffff; /* Defina uma cor visível para os ícones */
 }
 
 .vjs-rewind-button,
@@ -1498,7 +1487,7 @@ footer p {
     display: inline-block;
     width: auto;
     text-align: center;
-    padding: 2px;
+    padding: 5px;
 }
 
 /* Garante que o ícone do botão seja exibido */
@@ -1518,4 +1507,3 @@ footer p {
 .vjs-fullscreen .vjs-embed-button {
     display: flex !important; /* Mostrar o botão de incorporação somente em tela cheia */
 }
-
