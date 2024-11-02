@@ -639,6 +639,19 @@ function addCustomButtons(videoPlayer) {
     videojs.registerComponent('EmbedButton', embedButton);
     // Adicionar o botão de incorporação antes do botão de tela cheia
     videoPlayer.getChild('controlBar').addChild('EmbedButton', {}, videoPlayer.getChild('controlBar').children().length - 1);
+
+    // Manipular a visibilidade do botão de incorporação baseado no modo de tela cheia
+    videoPlayer.on('fullscreenchange', function() {
+        const isFullscreen = videoPlayer.isFullscreen();
+        const embedButtonInstance = videoPlayer.getChild('controlBar').getChild('EmbedButton');
+        if (embedButtonInstance) {
+            if (isFullscreen) {
+                embedButtonInstance.show();
+            } else {
+                embedButtonInstance.hide();
+            }
+        }
+    });
 }
 
 // Função para baixar o vídeo atual
