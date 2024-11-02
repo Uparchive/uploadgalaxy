@@ -63,35 +63,43 @@
         </section>
 
         <section id="file-list-section" class="container">
-            <div class="file-list-header">
-                <h2>Seus Arquivos</h2>
-                <button id="toggle-file-list-button" class="toggle-button">
-                    <i class="fas fa-chevron-down"></i>
-                </button>
+    <div class="file-list-header">
+        <h2>Seus Arquivos</h2>
+        <button id="toggle-file-list-button" class="toggle-button">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
+    <div id="file-list-container">
+        <div class="storage-container">
+            <p class="storage-text"><strong>Calculando...</strong></p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 20%;"></div>
             </div>
-            <div id="file-list-container">
-                <div class="storage-container">
-                    <p class="storage-text"><strong>Calculando...</strong></p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 20%;"></div> 
-                    </div>
+        </div>
+        
+        <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
+        
+        <select id="sort-select" class="sort-select">
+            <option value="alphabetical">Ordem Alfabética (A-Z)</option>
+            <option value="alphabetical-desc">Ordem Alfabética (Z-A)</option>
+            <option value="newest">Mais Recentes Primeiro</option>
+            <option value="oldest">Mais Antigos Primeiro</option>
+            <option value="size-asc">Menor Tamanho Primeiro</option>
+            <option value="size-desc">Maior Tamanho Primeiro</option>
+        </select>
+        
+        <ul id="file-list">
+            <li class="file-item">
+                <span class="file-name">Nome_do_Arquivo.mp4</span>
+                <div class="file-actions">
+                    <i class="fas fa-pencil-alt rename-icon" title="Renomear"></i>
+                    <i class="fas fa-trash delete-icon" title="Remover"></i>
                 </div>
-            
-                <input type="text" id="search-input" placeholder="Pesquise por arquivos..." class="search-bar">
-                
-                <select id="sort-select" class="sort-select">
-                    <option value="alphabetical">Ordem Alfabética (A-Z)</option>
-                    <option value="alphabetical-desc">Ordem Alfabética (Z-A)</option>
-                    <option value="newest">Mais Recentes Primeiro</option>
-                    <option value="oldest">Mais Antigos Primeiro</option>
-                    <option value="size-asc">Menor Tamanho Primeiro</option>
-                    <option value="size-desc">Maior Tamanho Primeiro</option>
-                </select>
-                
-                <ul id="file-list">
-                </ul>
-            </div>
-        </section>
+            </li>
+            <!-- Repita <li class="file-item"> para cada arquivo da lista -->
+        </ul>
+    </div>
+</section>
 
         <section id="video-player-section" class="container" style="display: none;">
             <div id="video-player-container">
