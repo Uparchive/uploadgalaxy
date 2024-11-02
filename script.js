@@ -510,7 +510,7 @@ function playVideo(url) {
 
     // Inserir o elemento de vídeo no DOM
     videoContainer.innerHTML = `
-        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: 100%;"></video>
+        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; max-height: 80vh; aspect-ratio: 16 / 9; object-fit: cover;"></video>
     `;
 
     // Inicializar o player após garantir que o elemento foi adicionado
@@ -521,8 +521,19 @@ function playVideo(url) {
         fluid: true,
     });
 
+    // Forçar a reprodução do vídeo em paisagem
+    player.on('loadedmetadata', () => {
+        // Verificar se o vídeo está em modo retrato e ajustar para paisagem
+        if (player.videoWidth < player.videoHeight) {
+            player.width(player.videoHeight);
+            player.height(player.videoWidth);
+        }
+    });
+
+    // Adicionar botões personalizados ao player
     addCustomButtons(player);
 }
+
 
 // Função para abrir o modal de vídeo
 function openVideoModal(videoUrl) {
