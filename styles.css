@@ -1549,13 +1549,6 @@ footer p {
     border-radius: 10px;
 }
 
-.video-modal-content {
-    position: relative;
-    width: 100%;
-    height: auto;
-    max-height: 100%;
-}
-
 #video-player-container {
     width: 100%;
     height: auto;
@@ -1566,5 +1559,9 @@ footer p {
 
 #video-player {
     border-radius: 10px;
+    max-height: 80vh;
+    width: 100%;
+    object-fit: contain; /* Ajustar para conter o vídeo dentro da área do player */
 }
+
 
