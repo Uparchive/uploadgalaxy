@@ -149,6 +149,21 @@ body {
     cursor: pointer;
 }
 
+/* Estilos para links abaixo do botão de logout no mobile */
+.mobile-links {
+    display: none; /* Esconder em telas maiores */
+    text-align: center;
+    margin-top: 10px;
+}
+
+.mobile-links a {
+    margin: 0 5px;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
 /* Responsividade para dispositivos móveis - Blocos de Navegação */
 @media (max-width: 768px) {
     /* Container centralizado e em coluna */
@@ -171,7 +186,7 @@ body {
         justify-content: center;
     }
 
-    /* Esconde o ícone de menu sanduíche completamente */
+    /* Links de navegação */
     .menu-toggle {
         display: none !important; /* Assegura que o menu-toggle está oculto */
     }
@@ -199,6 +214,18 @@ body {
         font-weight: 600;
         display: block;
         padding: 0.5rem;
+    }
+
+    /* Exibir links "Upload," "Meus Arquivos," "Sobre," "Contato" abaixo do botão de logout */
+    .mobile-links {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: nowrap;
+    }
+
+    .mobile-links a:hover {
+        color: #ffcc80; /* Cor ao passar o mouse */
     }
 }
 
