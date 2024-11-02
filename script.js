@@ -510,7 +510,7 @@ function playVideo(url) {
 
     // Inserir o elemento de vídeo no DOM
     videoContainer.innerHTML = `
-        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; max-height: 80vh;"></video>
+        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: auto; max-height: 80vh;"></video>
     `;
 
     // Inicializar o player após garantir que o elemento foi adicionado
@@ -531,7 +531,7 @@ function playVideo(url) {
         if (videoHeight > videoWidth) {
             // Ajustes para vídeos em pé
             playerElement.style.width = 'auto';
-            playerElement.style.height = '80vh';
+            playerElement.style.height = 'calc(80vh - 50px)'; // Reduz a altura para deixar espaço para a barra de controles
         } else {
             // Ajustes para vídeos em paisagem
             playerElement.style.width = '100%';
