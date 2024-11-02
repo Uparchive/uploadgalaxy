@@ -1413,24 +1413,21 @@ footer p {
 /* Botão de Fechar */
 .close-button {
     position: absolute;
-    top: -15px; /* Ajuste para posicionar um pouco fora do modal */
-    right: -15px; /* Ajuste para alinhar corretamente */
-    font-size: 28px;
+    top: 10px; /* Posiciona dentro do vídeo */
+    right: 10px; /* Ajuste para alinhar corretamente */
+    font-size: 24px;
     color: #ffffff;
     cursor: pointer;
-    background: #000000;
-    border-radius: 50%; /* Deixar o botão arredondado */
-    border: 2px solid #ffffff;
+    background: transparent;
+    border: none;
     padding: 5px;
     z-index: 2100;
-    transition: background-color 0.3s, color 0.3s;
+    transition: color 0.3s;
 }
 
 .close-button:hover {
-    background-color: #ffffff;
-    color: #000000;
+    color: #ccc; /* Cor mais clara ao passar o mouse */
 }
-
 
 /* Container do Vídeo */
 #video-player-container {
@@ -1444,6 +1441,7 @@ footer p {
     height: auto !important;
 }
 
+/* Estilo para os Botões Personalizados do Player */
 .vjs-rewind-button .fas,
 .vjs-forward-button .fas,
 .vjs-download-button .fas,
@@ -1497,5 +1495,26 @@ footer p {
     pointer-events: none;
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
+}
+
+/* Ajuste Específico para Mobile */
+@media (max-width: 768px) {
+    .vjs-rewind-button,
+    .vjs-forward-button,
+    .vjs-download-button,
+    .vjs-embed-button {
+        width: 28px; /* Reduzir tamanho dos botões em dispositivos móveis */
+        height: 28px;
+    }
+
+    .vjs-button .fas {
+        font-size: 1.2em; /* Reduzir tamanho dos ícones para dispositivos móveis */
+    }
+
+    .close-button {
+        top: 5px; /* Ajuste para ficar mais sutil em telas pequenas */
+        right: 5px;
+        font-size: 20px; /* Tamanho menor do "X" em dispositivos móveis */
+    }
 }
 
