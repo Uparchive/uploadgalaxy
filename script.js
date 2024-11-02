@@ -495,17 +495,19 @@ async function renameFile(oldName, newName) {
     }
 }
 
-// Função para reproduzir vídeo
+// Função para abrir o modal de vídeo e iniciar a reprodução
 function playVideo(url) {
-    videoPlayerSection.style.display = 'block';
+    const videoModal = document.getElementById('video-modal');
+    const videoContainer = document.getElementById('video-player-container');
 
-    // Destruir o player anterior se existir
+    // Exibir o modal
+    videoModal.style.display = 'flex';
+
+    // Limpar o conteúdo anterior do player, caso exista
     if (videoPlayer) {
         videoPlayer.dispose();
     }
-
-    // Remover o elemento de vídeo anterior
-    videoContainer.innerHTML = '';
+    videoContainer.innerHTML = ''; // Limpar o container do player
 
     // Criar um novo elemento de vídeo
     const videoElement = document.createElement('video');
@@ -515,24 +517,31 @@ function playVideo(url) {
     videoElement.setAttribute('preload', 'auto');
     videoContainer.appendChild(videoElement);
 
-    // Ajustar estilos do container do vídeo
-    videoContainer.style.boxSizing = 'border-box';
-    videoContainer.style.padding = '10px';
-
-    // Inicializar o player
+    // Inicializar o player com Video.js
     videoPlayer = videojs('video-player', {
         autoplay: true,
         controls: true,
         sources: [{ src: url, type: getMimeType(url) }],
-        fluid: true, // Faz o player ser responsivo
+        fluid: true,
         responsive: true
-    }, function() {
-        // Callback após o player estar pronto
-        addCustomButtons(); // Adicionar os botões personalizados
     });
 
-    // Deslocar a página para o player de vídeo
-    videoPlayerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Fechar o modal ao clicar fora do player
+    const closeModal = document.getElementById('close-video-modal');
+    closeModal.addEventListener('click', closeVideoModal);
+}
+
+// Função para fechar o modal de vídeo
+function closeVideoModal() {
+    const videoModal = document.getElementById('video-modal');
+    videoModal.style.display = 'none';
+
+    // Parar o vídeo e destruir o player
+    if (videoPlayer) {
+        videoPlayer.pause();
+        videoPlayer.dispose();
+        videoPlayer = null;
+    }
 }
 
 // Função para adicionar botões personalizados ao player
