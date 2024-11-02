@@ -238,6 +238,15 @@ function getMaxStorageBytes() {
 
 // Função para atualizar o uso de armazenamento
 async function updateStorageUsage() {
+    if (!allFiles || allFiles.length === 0) {
+        console.log('Nenhum arquivo encontrado para calcular o uso de armazenamento.');
+        const storageUsageDisplay = document.querySelector('.storage-text');
+        storageUsageDisplay.textContent = '0.00 GB de 500.00 GB';
+        const progressBar = document.querySelector('.progress-bar');
+        progressBar.style.width = '0%';
+        return;
+    }
+
     // Calcula o total de bytes utilizados somando o tamanho de todos os arquivos
     const totalUsedBytes = allFiles.reduce((sum, file) => sum + Number(file.size || 0), 0);
 
@@ -256,6 +265,7 @@ async function updateStorageUsage() {
 
     console.log(`Total Usado: ${formattedUsedGB} GB de 500.00 GB`);
 }
+
 
 // Função para iniciar o upload múltiplo
 async function startUpload(files) {
