@@ -1531,37 +1531,3 @@ footer p {
         display: none !important; /* Oculta o ícone de volume no player para dispositivos móveis */
     }
 }
-/* Modal de Vídeo Ajustado */
-.video-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 800px;
-    max-height: 90%;
-    background: rgba(0, 0, 0, 0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    overflow: hidden;
-    border-radius: 10px;
-}
-
-#video-player-container {
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#video-player {
-    border-radius: 10px;
-    max-height: 80vh;
-    width: 100%;
-    object-fit: contain; /* Ajustar para conter o vídeo dentro da área do player */
-}
-
-
