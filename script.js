@@ -620,7 +620,7 @@ function addCustomButtons(videoPlayer) {
 
     videojs.registerComponent('DownloadButton', downloadButton);
     // Adicionar o botão de download antes do botão de tela cheia
-    videoPlayer.getChild('controlBar').addChild('DownloadButton', {}, videoPlayer.getChild('controlBar').children().length - 1);
+    videoPlayer.getChild('controlBar').addChild('DownloadButton', {}, videoPlayer.getChild('controlBar').children().length - 2);
 
     // Botão de Incorporação
     const EmbedButton = videojs.getComponent('Button');
