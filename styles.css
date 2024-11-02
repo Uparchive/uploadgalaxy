@@ -1526,3 +1526,9 @@ footer p {
 .vjs-fullscreen .vjs-picture-in-picture-button {
     display: flex !important; /* Mostrar o botão de Picture-in-Picture somente em tela cheia */
 }
+@media (max-width: 768px) {
+    .vjs-volume-panel {
+        display: none !important; /* Oculta o ícone de volume no player para dispositivos móveis */
+    }
+}
+
