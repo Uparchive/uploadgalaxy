@@ -562,35 +562,83 @@ function closeVideoModal() {
     videoContainer.innerHTML = '';
 }
 
-// Função para adicionar botões personalizados ao player de vídeo
-function addCustomButtons(videoPlayer) {
-    // Botão de retroceder 10 segundos
-    const RewindButton = videojs.getComponent('Button');
-    const rewindButton = new RewindButton(videoPlayer, {
-        text: 'Retroceder 10 segundos',
-        className: 'vjs-rewind-button vjs-custom-button', // Adicionar classe personalizada
-        innerHTML: '<i class="fas fa-undo"></i>'
-    });
-    rewindButton.controlText('Retroceder 10 segundos');
-    videoPlayer.getChild('controlBar').addChild(rewindButton, {}, 0);
+// Função para adicionar botões personalizados ao player
+function addCustomButtons() {
+    // Evitar adicionar múltiplos botões se já existirem
+    if (videoPlayer.getChild('controlBar').getChild('RewindButton')) return;
 
-    // Botão de avançar 10 segundos
-    const forwardButton = new RewindButton(videoPlayer, {
-        text: 'Avançar 10 segundos',
-        className: 'vjs-forward-button vjs-custom-button', // Adicionar classe personalizada
-        innerHTML: '<i class="fas fa-redo"></i>'
+    // Botão de Retroceder 10 Segundos
+    const rewindButton = videojs.extend(videojs.getComponent('Button'), {
+        constructor: function() {
+            videojs.getComponent('Button').apply(this, arguments);
+            this.controlText('Retroceder 10 segundos');
+            this.addClass('vjs-control');
+            this.addClass('vjs-button');
+            this.addClass('vjs-rewind-button');
+            this.el().innerHTML = '<i class="fas fa-undo"></i>'; // Ícone Font Awesome
+        },
+        handleClick: function() {
+            const currentTime = videoPlayer.currentTime();
+            videoPlayer.currentTime(Math.max(0, currentTime - 10));
+        }
     });
-    forwardButton.controlText('Avançar 10 segundos');
-    videoPlayer.getChild('controlBar').addChild(forwardButton, {}, 2);
+    videojs.registerComponent('RewindButton', rewindButton);
+    videoPlayer.getChild('controlBar').addChild('RewindButton', {}, 0); // Adiciona no início da barra de controles
 
-    // Botão de download
-    const downloadButton = new RewindButton(videoPlayer, {
-        text: 'Download Vídeo',
-        className: 'vjs-download-button vjs-custom-button', // Adicionar classe personalizada
-        innerHTML: '<i class="fas fa-download"></i>'
+    // Botão de Avançar 10 Segundos
+    const forwardButton = videojs.extend(videojs.getComponent('Button'), {
+        constructor: function() {
+            videojs.getComponent('Button').apply(this, arguments);
+            this.controlText('Avançar 10 segundos');
+            this.addClass('vjs-control');
+            this.addClass('vjs-button');
+            this.addClass('vjs-forward-button');
+            this.el().innerHTML = '<i class="fas fa-redo"></i>'; // Ícone Font Awesome
+        },
+        handleClick: function() {
+            const currentTime = videoPlayer.currentTime();
+            const duration = videoPlayer.duration();
+            videoPlayer.currentTime(Math.min(duration, currentTime + 10));
+        }
     });
-    downloadButton.controlText('Download Vídeo');
-    videoPlayer.getChild('controlBar').addChild(downloadButton, {}, videoPlayer.getChild('controlBar').children().length - 1);
+    videojs.registerComponent('ForwardButton', forwardButton);
+    videoPlayer.getChild('controlBar').addChild('ForwardButton', {}, 2); // Adiciona após o botão de play/pause
+
+    // Botão de Download
+    const downloadButton = videojs.extend(videojs.getComponent('Button'), {
+        constructor: function() {
+            videojs.getComponent('Button').apply(this, arguments);
+            this.controlText('Download Vídeo');
+            this.addClass('vjs-control');
+            this.addClass('vjs-button');
+            this.addClass('vjs-download-button');
+            this.el().innerHTML = '<i class="fas fa-download"></i>'; // Ícone de download
+        },
+        handleClick: function() {
+            downloadCurrentVideo();
+        }
+    });
+    videojs.registerComponent('DownloadButton', downloadButton);
+    // Adicionar o botão de download antes do botão de tela cheia
+    videoPlayer.getChild('controlBar').addChild('DownloadButton', {}, videoPlayer.getChild('controlBar').children().length - 1);
+
+    // Botão de Incorporação
+    const embedButton = videojs.extend(videojs.getComponent('Button'), {
+        constructor: function() {
+            videojs.getComponent('Button').apply(this, arguments);
+            this.controlText('Copiar Código de Incorporação');
+            this.addClass('vjs-control');
+            this.addClass('vjs-button');
+            this.addClass('vjs-embed-button');
+            this.el().innerHTML = '<i class="fas fa-code"></i>'; // Ícone de código
+        },
+        handleClick: function() {
+            copyEmbedCode();
+        }
+    });
+    videojs.registerComponent('EmbedButton', embedButton);
+    // Adicionar o botão de incorporação antes do botão de tela cheia
+    videoPlayer.getChild('controlBar').addChild('EmbedButton', {}, videoPlayer.getChild('controlBar').children().length - 1);
 }
 
 // Função para baixar o vídeo atual
