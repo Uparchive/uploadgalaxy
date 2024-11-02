@@ -1415,13 +1415,13 @@ footer p {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 18px; /* Reduzido para tornar mais discreto */
+    font-size: 20px;
     color: #ffffff;
     cursor: pointer;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 50%;
     border: none;
-    padding: 3px; /* Padding reduzido */
+    padding: 3px;
     z-index: 2100;
     transition: color 0.3s, background-color 0.3s;
 }
@@ -1449,8 +1449,8 @@ footer p {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 2px; /* Reduzido ainda mais */
-    padding: 0 2px; /* Reduzido para garantir mais espaço */
+    gap: 3px;
+    padding: 0 3px;
 }
 
 /* Estilo para os Botões Personalizados do Player */
@@ -1458,7 +1458,7 @@ footer p {
 .vjs-forward-button .fas,
 .vjs-download-button .fas,
 .vjs-embed-button .fas {
-    font-size: 12px; /* Reduzido ainda mais */
+    font-size: 14px;
     line-height: 1.5;
     vertical-align: middle;
     color: white;
@@ -1468,8 +1468,8 @@ footer p {
 .vjs-forward-button,
 .vjs-download-button,
 .vjs-embed-button {
-    width: 24px; /* Reduzido ainda mais */
-    height: 24px; /* Reduzido ainda mais */
+    width: 26px;
+    height: 26px;
     padding: 0;
     background: transparent;
     display: flex;
@@ -1482,13 +1482,13 @@ footer p {
 .vjs-forward-button:hover .fas,
 .vjs-download-button:hover .fas,
 .vjs-embed-button:hover .fas {
-    color: #ccc; /* Cor ao passar o mouse */
+    color: #ccc;
 }
 
 /* Estilos para os botões personalizados do player */
 .vjs-button .fas {
-    font-size: 1em; /* Reduzido ainda mais */
-    color: #ffffff; /* Defina uma cor visível para os ícones */
+    font-size: 1.1em;
+    color: #ffffff;
 }
 
 .vjs-rewind-button,
@@ -1498,7 +1498,7 @@ footer p {
     display: inline-block;
     width: auto;
     text-align: center;
-    padding: 1px; /* Reduzido ainda mais */
+    padding: 2px;
 }
 
 /* Garante que o ícone do botão seja exibido */
@@ -1515,23 +1515,32 @@ footer p {
     .vjs-forward-button,
     .vjs-download-button,
     .vjs-embed-button {
-        width: 20px; /* Ajuste para caber melhor em telas de celulares */
-        height: 20px; /* Ajuste para caber melhor em telas de celulares */
+        width: 22px;
+        height: 22px;
     }
 
     .vjs-button .fas {
-        font-size: 0.8em; /* Reduzido mais em dispositivos móveis */
+        font-size: 0.9em;
     }
 
     .close-button {
         top: 5px;
         right: 5px;
-        font-size: 16px; /* Ajuste para ser menos intrusivo em telas menores */
+        font-size: 18px;
     }
 
-    /* Ajustar a barra de controle para caber melhor em dispositivos móveis */
     .vjs-control-bar {
-        gap: 1px; /* Menor espaço entre botões em dispositivos móveis */
-        padding: 0 1px; /* Reduzido para aumentar o espaço disponível */
+        gap: 2px;
+        padding: 0 2px;
     }
+}
+
+/* Ocultar o Botão de Incorporação em Tela Mínima */
+.vjs-embed-button {
+    display: none; /* Por padrão, ocultar o botão de incorporação */
+}
+
+/* Mostrar o Botão de Incorporação quando em Tela Cheia */
+.vjs-fullscreen .vjs-embed-button {
+    display: flex !important; /* Mostrar o botão de incorporação em tela cheia */
 }
