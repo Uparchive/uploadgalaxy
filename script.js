@@ -425,8 +425,8 @@ async function fetchAllFiles() {
 function displayFiles(files) {
     fileList.innerHTML = '';
     files.forEach((file, index) => {
-        const listItem = document.createElement('li');
         const isVideo = file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm');
+        const isAudio = file.name.endsWith('.mp3') || file.name.endsWith('.wav') || file.name.endsWith('.ogg');
 
         // Usar o nome original do arquivo
         const displayName = file.name; 
@@ -443,6 +443,7 @@ function displayFiles(files) {
             </div>
             <div class="file-actions">
                 ${isVideo ? `<button class="play-button" id="play-button-${index}"><i class="fas fa-play"></i></button>` : ''}
+                ${isAudio ? `<button class="audio-play-button" id="audio-play-button-${index}"><i class="fas fa-headphones"></i></button>` : ''}
                 <a href="${file.url}" class="download-button" id="download-button-${index}" download="${file.name}"><i class="fas fa-download"></i></a>
                 <button class="share-button" id="share-button-${index}"><i class="fas fa-link"></i></button>
                 <button class="delete-button delete-icon" id="delete-button-${index}"><i class="fas fa-trash"></i></button>
@@ -455,6 +456,14 @@ function displayFiles(files) {
             const playButton = document.getElementById(`play-button-${index}`);
             playButton.addEventListener('click', () => {
                 playVideo(file.url);
+            });
+        }
+
+        // Evento para tocar áudio
+        if (isAudio) {
+            const audioPlayButton = document.getElementById(`audio-play-button-${index}`);
+            audioPlayButton.addEventListener('click', () => {
+                playAudio(file.url);
             });
         }
 
@@ -478,6 +487,23 @@ function displayFiles(files) {
             fileItem.remove(); // Opcional: lógica adicional para atualizar a lista de arquivos selecionados
         });
     });
+}
+
+// Função para tocar áudio
+function playAudio(url) {
+    const audioModal = document.getElementById('audio-modal');
+    const audioContainer = document.getElementById('audio-player-container');
+
+    // Exibir o modal
+    audioModal.style.display = 'flex';
+
+    // Inserir o elemento de áudio no DOM
+    audioContainer.innerHTML = `
+        <audio id="audio-player" class="audio-player" controls autoplay>
+            <source src="${url}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    `;
 }
 
 // Função para renomear o arquivo no Firebase Storage
