@@ -1645,7 +1645,15 @@ footer p {
     width: 30px;
     height: 30px;
     color: #ff6600; /* Ícone laranja para o botão play/pause */
-    filter: brightness(1.2); /* Aumenta a visibilidade do ícone */
+    filter: brightness(1.5); /* Aumenta a visibilidade do ícone */
+}
+
+/* Estilo alternativo para o botão Play/Pause */
+.audio-player::part(media-controls-play-button),
+.audio-player::part(media-controls-pause-button) {
+    --media-button-icon-width: 24px; /* Tamanho do ícone */
+    --media-button-icon-height: 24px; /* Tamanho do ícone */
+    --media-button-icon-color: #ff6600; /* Cor laranja para o ícone */
 }
 
 /* Ajustes nos Outros Controles do Player */
