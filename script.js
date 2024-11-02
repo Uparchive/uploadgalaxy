@@ -640,11 +640,16 @@ function addCustomButtons(videoPlayer) {
     videojs.registerComponent('EmbedButton', embedButton);
     videoPlayer.getChild('controlBar').addChild('EmbedButton', {}, videoPlayer.getChild('controlBar').children().length - 1);
 
+    // Ocultar o botão Picture-in-Picture por padrão
+    const pipButtonInstance = videoPlayer.getChild('controlBar').getChild('PictureInPictureToggle');
+    if (pipButtonInstance) {
+        pipButtonInstance.hide(); // Ocultar inicialmente o botão PiP
+    }
+
     // Manipular a visibilidade dos botões de incorporação e PiP baseado no modo de tela cheia
     videoPlayer.on('fullscreenchange', function() {
         const isFullscreen = videoPlayer.isFullscreen();
         const embedButtonInstance = videoPlayer.getChild('controlBar').getChild('EmbedButton');
-        const pipButtonInstance = videoPlayer.getChild('controlBar').getChild('PictureInPictureToggle');
 
         if (embedButtonInstance) {
             if (isFullscreen) {
