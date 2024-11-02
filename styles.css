@@ -1413,15 +1413,20 @@ footer p {
 /* Botão de Fechar */
 .close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 28px;
+    top: 10px; /* Ajuste para alinhar na borda superior */
+    right: 10px; /* Ajuste para alinhar na borda direita */
+    font-size: 20px; /* Tamanho menor do "X" */
     color: #ffffff;
     cursor: pointer;
     background: #000000;
-    border-radius: 50%; /* Deixar o botão arredondado */
+    border-radius: 50%; /* Deixar o botão perfeitamente circular */
     border: 2px solid #ffffff;
-    padding: 5px;
+    padding: 6px;
+    width: 30px; /* Dimensão fixa para manter o formato de círculo */
+    height: 30px; /* Dimensão fixa para manter o formato de círculo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 2100;
     transition: background-color 0.3s, color 0.3s;
 }
