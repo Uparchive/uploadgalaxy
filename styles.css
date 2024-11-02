@@ -534,6 +534,29 @@ body {
     font-size: 1rem;
 }
 
+/* Estilo do ícone de lápis para renomear */
+.rename-icon {
+    cursor: pointer;
+    color: #ff6600;
+    margin-right: 10px;
+    transition: transform 0.2s;
+}
+
+.rename-icon:hover {
+    transform: scale(1.2);
+}
+
+/* Estilo do ícone de lixeira para remover */
+.delete-icon {
+    cursor: pointer;
+    color: #e53935;
+    transition: transform 0.2s;
+}
+
+.delete-icon:hover {
+    transform: scale(1.2);
+}
+
 /* ========================================= */
 /* ======== Seção de Vídeo ================== */
 /* ========================================= */
