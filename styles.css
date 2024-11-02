@@ -1553,10 +1553,10 @@ footer p {
 .video-modal-content, .audio-modal-content {
     width: 90%;
     max-width: 800px; /* Mantém o tamanho máximo para modais em telas maiores */
-    background: #ffffff;
+    background: #333; /* Fundo escuro para o conteúdo */
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Sombra escura para destaque */
     position: relative;
 }
 
@@ -1586,6 +1586,7 @@ footer p {
     background-color: #ffffff; /* Fundo branco ao passar o mouse */
     color: #000000; /* Texto preto ao passar o mouse */
 }
+
 /* Estilo do Botão de Ação para Áudio */
 .audio-play-button {
     background-color: #ff6600; /* Cor de fundo laranja */
@@ -1606,4 +1607,26 @@ footer p {
 .audio-play-button:hover {
     background-color: #e55c00; /* Tom um pouco mais escuro ao passar o mouse */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra para dar destaque */
+}
+
+/* Ajustes para Player de Áudio e Vídeo */
+.audio-player, .video-player {
+    width: 100%;
+    height: auto;
+    background: #222; /* Fundo escuro do player */
+    color: #fff; /* Cor dos controles do player */
+    border-radius: 5px;
+}
+
+/* Ajustes nos controles do player */
+.audio-player::-webkit-media-controls-panel,
+.video-player::-webkit-media-controls-panel {
+    background-color: #333; /* Painel de controle em fundo escuro */
+}
+
+.audio-player::-webkit-media-controls-play-button,
+.audio-player::-webkit-media-controls-volume-slider,
+.video-player::-webkit-media-controls-play-button,
+.video-player::-webkit-media-controls-volume-slider {
+    color: #fff; /* Cor dos ícones dos controles */
 }
