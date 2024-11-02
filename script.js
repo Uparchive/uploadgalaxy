@@ -630,6 +630,7 @@ function addCustomButtons(videoPlayer) {
             this.controlText('Copiar Código de Incorporação');
             this.addClass('vjs-embed-button');
             this.el().innerHTML = '<i class="fas fa-code"></i>'; // Ícone de código
+            this.hide(); // Começa oculto
         },
         handleClick: function() {
             copyEmbedCode(videoPlayer.currentSrc());
@@ -637,7 +638,6 @@ function addCustomButtons(videoPlayer) {
     });
 
     videojs.registerComponent('EmbedButton', embedButton);
-    // Adicionar o botão de incorporação antes do botão de tela cheia
     videoPlayer.getChild('controlBar').addChild('EmbedButton', {}, videoPlayer.getChild('controlBar').children().length - 1);
 
     // Manipular a visibilidade do botão de incorporação baseado no modo de tela cheia
