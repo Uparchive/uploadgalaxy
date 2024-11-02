@@ -149,44 +149,56 @@ body {
     cursor: pointer;
 }
 
-/* Responsividade para dispositivos móveis */
+/* Responsividade para dispositivos móveis - Blocos de Navegação */
 @media (max-width: 768px) {
+    /* Container centralizado e em coluna */
     .container {
         flex-direction: column;
         align-items: center;
     }
 
+    /* Logo com espaçamento inferior */
     .logo {
         margin-bottom: 1rem;
     }
 
+    /* Botão de logout centralizado e ajustado para dispositivos móveis */
     #logout-button {
-        width: 90%; /* Ocupa a maior parte da tela para um visual limpo */
+        width: 90%;
         padding: 0.7rem 1rem;
         font-size: 1rem;
         margin-bottom: 1rem;
         justify-content: center;
     }
 
+    /* Esconde o ícone de menu sanduíche */
     .menu-toggle {
-        display: block;
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .nav-links {
         display: none;
-        flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
-        padding: 1rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        text-align: center;
     }
 
-    .nav-links.active {
-        display: flex;
+    /* Ajuste para links de navegação em blocos */
+    .nav-links {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Divisão em duas colunas */
+        gap: 0.5rem;
+        width: 100%;
+        padding: 1rem;
+        background-color: rgba(0, 0, 0, 0.9);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links li {
+        text-align: center;
+        background-color: #283593;
+        border-radius: 5px;
+        padding: 0.5rem 0;
+    }
+
+    .nav-links a {
+        color: #fff;
+        font-weight: 600;
+        display: block;
+        padding: 0.5rem;
     }
 }
 
