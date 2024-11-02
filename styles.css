@@ -1637,7 +1637,7 @@ footer p {
 
 /* Conteúdo do Modal de Áudio */
 .audio-modal-content {
-    background: #1c1c1c; /* Fundo do modal ainda mais escuro para destacar o player */
+    background: #1c1c1c; /* Fundo do modal escuro */
     padding: 20px;
     border-radius: 10px; /* Bordas levemente arredondadas */
     max-width: 600px;
@@ -1676,11 +1676,11 @@ footer p {
 /* Player de Áudio Estilizado */
 .audio-player {
     width: 100%;
-    height: 50px;
+    height: 40px;
     background: #2a2a2a; /* Fundo mais escuro do player */
     color: #fff; /* Cor dos controles do player */
     border-radius: 10px; /* Bordas arredondadas para um visual mais moderno */
-    box-shadow: 0 0 15px rgba(255, 102, 0, 0.7); /* Sombra laranja suave para destacar o player */
+    box-shadow: 0 0 15px rgba(255, 102, 0, 0.5); /* Sombra laranja suave para destacar o player */
     border: none;
     outline: none;
     padding: 5px;
@@ -1697,12 +1697,12 @@ footer p {
 
 /* Ajuste do Botão Play/Pause */
 .audio-player::-webkit-media-controls-play-button {
-    background: #ff6600; /* Fundo do botão de play */
-    border-radius: 50%; /* Arredondado para destacar visualmente */
-    width: 40px;
-    height: 40px;
-    box-shadow: 0 0 8px rgba(255, 102, 0, 0.7); /* Sombra laranja para o botão de play */
-    border: 2px solid #fff; /* Borda branca para melhorar o destaque */
+    background: transparent; /* Remove o fundo laranja */
+    border: none; /* Remove borda para deixar o ícone mais discreto */
+    width: 30px;
+    height: 30px;
+    color: #ff6600; /* Cor do ícone do botão play/pause */
+    box-shadow: none; /* Remove qualquer sombra do botão */
 }
 
 /* Ajustes nos Outros Controles do Player */
@@ -1728,4 +1728,3 @@ footer p {
 .audio-player {
     box-shadow: 0 0 15px rgba(255, 102, 0, 0.5); /* Sombra laranja para destacar o player */
 }
-
