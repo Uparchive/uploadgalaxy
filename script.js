@@ -521,29 +521,27 @@ function playVideo(url) {
         fluid: true,
     });
 
-    // Ajustar o player para sempre estar em modo paisagem
-    const aspectRatio = 16 / 9; // Proporção de paisagem padrão
-    player.on('ready', () => {
+    // Ajustar o player para lidar com vídeos em pé ou paisagem
+    player.on('loadedmetadata', () => {
         const playerElement = document.getElementById('video-player');
+        const videoWidth = player.videoWidth;
+        const videoHeight = player.videoHeight;
 
-        // Ajustar a altura do player com base na largura e na proporção desejada
-        function setPlayerLandscape() {
-            const playerWidth = playerElement.offsetWidth;
-            const playerHeight = playerWidth / aspectRatio;
-            playerElement.style.height = `${playerHeight}px`;
+        // Verifica se o vídeo está em orientação retrato (em pé)
+        if (videoHeight > videoWidth) {
+            // Ajustes para vídeos em pé
+            playerElement.style.width = 'auto';
+            playerElement.style.height = '80vh';
+        } else {
+            // Ajustes para vídeos em paisagem
+            playerElement.style.width = '100%';
+            playerElement.style.height = 'auto';
         }
-
-        // Definir a altura inicial do player para modo paisagem
-        setPlayerLandscape();
-
-        // Ajustar o tamanho do player quando a janela for redimensionada
-        window.addEventListener('resize', setPlayerLandscape);
     });
 
     // Adicionar botões personalizados ao player
     addCustomButtons(player);
 }
-
 
 // Função para abrir o modal de vídeo
 function openVideoModal(videoUrl) {
