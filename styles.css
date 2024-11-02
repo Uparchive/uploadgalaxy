@@ -1434,3 +1434,32 @@ footer p {
     width: 100% !important;
     height: auto !important;
 }
+.vjs-rewind-button .fas,
+.vjs-forward-button .fas,
+.vjs-download-button .fas,
+.vjs-embed-button .fas {
+    font-size: 18px;
+    line-height: 1.5;
+    vertical-align: middle;
+    color: white;
+}
+
+.vjs-rewind-button,
+.vjs-forward-button,
+.vjs-download-button,
+.vjs-embed-button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vjs-rewind-button:hover .fas,
+.vjs-forward-button:hover .fas,
+.vjs-download-button:hover .fas,
+.vjs-embed-button:hover .fas {
+    color: #ccc;
+}
