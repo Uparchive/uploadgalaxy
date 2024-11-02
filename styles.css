@@ -1509,38 +1509,13 @@ footer p {
     font-weight: 900;
 }
 
-/* Ajuste Específico para Mobile */
-@media (max-width: 768px) {
-    .vjs-rewind-button,
-    .vjs-forward-button,
-    .vjs-download-button,
-    .vjs-embed-button {
-        width: 22px;
-        height: 22px;
-    }
-
-    .vjs-button .fas {
-        font-size: 0.9em;
-    }
-
-    .close-button {
-        top: 5px;
-        right: 5px;
-        font-size: 18px;
-    }
-
-    .vjs-control-bar {
-        gap: 2px;
-        padding: 0 2px;
-    }
-}
-
 /* Ocultar o Botão de Incorporação em Tela Mínima */
 .vjs-embed-button {
-    display: none; /* Por padrão, ocultar o botão de incorporação */
+    display: none; /* Ocultar o botão de incorporação por padrão */
 }
 
-/* Mostrar o Botão de Incorporação quando em Tela Cheia */
+/* Mostrar o Botão de Incorporação somente quando em Tela Cheia */
 .vjs-fullscreen .vjs-embed-button {
-    display: flex !important; /* Mostrar o botão de incorporação em tela cheia */
+    display: flex !important; /* Mostrar o botão de incorporação somente em tela cheia */
 }
+
