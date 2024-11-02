@@ -510,36 +510,41 @@ function playVideo(url) {
 
     // Inserir o elemento de vídeo no DOM
     videoContainer.innerHTML = `
-        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: auto; aspect-ratio: 16 / 9;"></video>
+        <video id="video-player" class="video-js vjs-default-skin vjs-fluid" controls preload="auto"></video>
     `;
 
-    // Inicializar o player após garantir que o elemento foi adicionado
+    // Inicializar o player com a proporção 16:9
     const player = videojs('video-player', {
         autoplay: true,
         controls: true,
         sources: [{ src: url, type: 'video/mp4' }],
-        fluid: true,
+        aspectRatio: '16:9',
     });
 
     addCustomButtons(player);
 }
 
+
 function openVideoModal(videoUrl) {
     const videoModal = document.getElementById('video-modal');
     const videoContainer = document.getElementById('video-player-container');
 
-    // Certifique-se de destruir o player anterior
+    // Destruir o player anterior se existir
     if (videojs.getPlayer('video-player')) {
         videojs.getPlayer('video-player').dispose();
     }
 
-    // Inicialize o player com o vídeo URL
-    videoContainer.innerHTML = '<video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="aspect-ratio: 16 / 9;"></video>';
+    // Inserir o elemento de vídeo no DOM
+    videoContainer.innerHTML = `
+        <video id="video-player" class="video-js vjs-default-skin vjs-fluid" controls preload="auto"></video>
+    `;
+
+    // Inicializar o player com a proporção 16:9
     videojs('video-player', {
         autoplay: true,
         controls: true,
         sources: [{ src: videoUrl, type: getMimeType(videoUrl) }],
-        fluid: true
+        aspectRatio: '16:9',
     });
 
     // Exibir o modal
