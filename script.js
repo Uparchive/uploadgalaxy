@@ -62,6 +62,7 @@ const toggleButton = document.getElementById('toggle-file-list-button');
 const fileListContainer = document.getElementById('file-list-container');
 
 
+
 // Variáveis Globais
 let allFiles = [];
 let isUploading = false;
@@ -495,41 +496,35 @@ async function renameFile(oldName, newName) {
     }
 }
 
-// Função para reproduzir o vídeo no modal
 function playVideo(url) {
     const videoPlayerSection = document.getElementById('video-player-section');
     const videoContainer = document.getElementById('video-player-container');
 
-    // Certifique-se de destruir a instância anterior do player, se houver
+    if (!videoPlayerSection || !videoContainer) {
+        console.error("Elemento de player de vídeo não encontrado no DOM.");
+        return;
+    }
+
+    // Remova a instância anterior do player se houver
     if (videoPlayer) {
         videoPlayer.dispose();
         videoPlayer = null;
     }
 
     // Limpe o container e crie um novo elemento de vídeo
-    videoContainer.innerHTML = '<video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: 100%;"></video>';
+    videoContainer.innerHTML = '<video id="video-player" class="video-js vjs-default-skin" controls preload="auto"></video>';
 
-    // Configure o modal para ocupar a tela inteira
+    // Configure o modal para ser exibido na tela
     videoPlayerSection.style.display = 'flex';
-    videoPlayerSection.style.position = 'fixed';
-    videoPlayerSection.style.top = '0';
-    videoPlayerSection.style.left = '0';
-    videoPlayerSection.style.width = '100vw';
-    videoPlayerSection.style.height = '100vh';
-    videoPlayerSection.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-    videoPlayerSection.style.alignItems = 'center';
-    videoPlayerSection.style.justifyContent = 'center';
-    videoPlayerSection.style.zIndex = '1000';
 
-    // Inicialize o player
+    // Inicialize o Video.js player com a URL do vídeo
     videoPlayer = videojs('video-player', {
         autoplay: true,
         controls: true,
         sources: [{ src: url, type: getMimeType(url) }],
-        fluid: true
+        fluid: true,
     }, function() {
-        // Adiciona botões personalizados após o player ser inicializado
-        addCustomButtons(this);
+        addCustomButtons(this); // Adicione os botões personalizados após a inicialização
     });
 }
 
@@ -574,12 +569,12 @@ document.getElementById('close-video-modal').addEventListener('click', () => {
     }
 });
 
-// Função para fechar o modal de vídeo
 function closeVideoModal() {
     const videoPlayerSection = document.getElementById('video-player-section');
     videoPlayerSection.style.display = 'none';
+
     if (videoPlayer) {
-        videoPlayer.dispose();  // Destroi a instância do player ao fechar
+        videoPlayer.dispose();  // Destrói a instância do player ao fechar
         videoPlayer = null;
     }
 }
