@@ -1535,7 +1535,8 @@ footer p {
 /* ======== Estilo Geral dos Botões ========= */
 /* ========================================= */
 
-.action-button {
+.action-button,
+.audio-play-button {
     background: linear-gradient(to right, #ff7e00, #ff6600); /* Gradiente laranja */
     border: none;
     border-radius: 5px;
@@ -1548,43 +1549,25 @@ footer p {
     justify-content: center;
 }
 
-/* Ícone do Botão */
-.action-button i {
+/* Ícone do Botão (aplica-se tanto a botões gerais quanto ao botão de áudio) */
+.action-button i,
+.audio-play-button i {
     font-size: 1.2em;
 }
 
-/* Efeito Hover */
-.action-button:hover {
+/* Efeito Hover para todos os botões */
+.action-button:hover,
+.audio-play-button:hover {
     background: linear-gradient(to right, #e66a00, #e55c00); /* Um pouco mais escuro ao passar o mouse */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo Específico do Botão de Áudio */
-.audio-play-button {
-    background: linear-gradient(to right, #ff7e00, #ff6600); /* Gradiente igual aos outros botões */
-    border: none;
-    border-radius: 5px;
-    color: #ffffff;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
+/* ========================================= */
+/* ======== Modais de Vídeo e Áudio ========= */
+/* ========================================= */
 
-/* Ícone do Botão de Áudio */
-.audio-play-button i {
-    font-size: 1.2em; /* Mesmo tamanho dos outros botões */
-}
-
-/* Efeito Hover do Botão de Áudio */
-.audio-play-button:hover {
-    background: linear-gradient(to right, #e66a00, #e55c00); /* Cor um pouco mais escura no hover */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-/* Estilo do Modal de Áudio */
-.audio-modal {
+/* Estilo para os modais de vídeo e áudio */
+.video-modal, .audio-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -1594,16 +1577,16 @@ footer p {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1000; /* Certifique-se de que o modal esteja sobre outros elementos */
 }
 
-/* Conteúdo do Modal de Áudio */
-.audio-modal-content {
+/* Conteúdo dos modais (aplica-se para áudio e vídeo) */
+.video-modal-content, .audio-modal-content {
+    width: 90%;
+    max-width: 800px; /* Mantém o tamanho máximo para modais em telas maiores */
     background: #333; /* Fundo do modal escuro */
     padding: 20px;
     border-radius: 10px; /* Bordas levemente arredondadas */
-    max-width: 600px;
-    width: 100%;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     position: relative;
 }
@@ -1611,10 +1594,9 @@ footer p {
 /* Estilo do Botão de Fechar do Modal */
 .close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5rem;
-    cursor: pointer;
+    top: 15px; /* Ajuste para se manter consistente */
+    right: 20px;
+    font-size: 1.5rem; /* Tamanho do "X" */
     color: #fff; /* Cor do "X" para fechar - branco para destaque */
     background: #000; /* Fundo do botão de fechar */
     border-radius: 50%; /* Botão de fechar arredondado */
@@ -1625,14 +1607,19 @@ footer p {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2100;
+    z-index: 2100; /* Garante que o botão de fechar esteja acima do conteúdo do modal */
     transition: background-color 0.3s, color 0.3s; /* Transição suave para hover */
 }
 
+/* Efeito ao passar o mouse no botão de fechar */
 .close-button:hover {
     background-color: #fff; /* Muda para branco ao passar o mouse */
     color: #000; /* Ícone muda para preto ao passar o mouse */
 }
+
+/* ========================================= */
+/* ======== Player de Áudio ================= */
+/* ========================================= */
 
 /* Player de Áudio */
 .audio-player {
