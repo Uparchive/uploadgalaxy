@@ -67,6 +67,7 @@ let allFiles = [];
 let isUploading = false;
 let uploadTasks = []; // Armazena os uploads em andamento
 let videoPlayer; // Inicializamos a variável sem atribuir um player ainda
+let remainingFiles = [];
 
 // Monitorar o estado de autenticação do usuário
 onAuthStateChanged(auth, (user) => {
@@ -120,13 +121,14 @@ uploadForm.addEventListener('submit', (e) => {
     }
 });
 
-// Ao selecionar arquivos, exibir campos para renomeação
+// Ao selecionar arquivos, exibir campos para renomeação e exclusão
 fileInput.addEventListener('change', () => {
-    const files = fileInput.files;
+    const files = Array.from(fileInput.files); // Obtenha a lista de arquivos
+    remainingFiles = files; // Inicializa com todos os arquivos selecionados
     renameFileList.innerHTML = ''; // Limpar a lista anterior
 
     if (files.length > 0) {
-        Array.from(files).forEach((file, index) => {
+        files.forEach((file, index) => {
             const fileItem = document.createElement('div');
             fileItem.className = 'file-item';
             fileItem.innerHTML = `
@@ -137,18 +139,16 @@ fileInput.addEventListener('change', () => {
             `;
             renameFileList.appendChild(fileItem);
 
-            // Evento para clicar no ícone de lápis
+            // Evento para renomear
             const editIcon = document.getElementById(`edit-icon-${index}`);
             const renameInput = document.getElementById(`rename-input-${index}`);
             const fileNameSpan = document.getElementById(`file-name-${index}`);
 
             editIcon.addEventListener('click', () => {
-                // Tornar o nome do arquivo editável
                 fileNameSpan.style.display = 'none';
                 renameInput.style.display = 'inline-block';
                 renameInput.focus();
 
-                // Quando o campo perder o foco ou pressionar Enter, salvar a edição
                 renameInput.addEventListener('blur', () => {
                     if (renameInput.value.trim()) {
                         fileNameSpan.textContent = renameInput.value.trim();
@@ -164,16 +164,30 @@ fileInput.addEventListener('change', () => {
                 });
             });
 
-            // Evento para clicar no ícone de lixeira
+            // Evento para excluir o arquivo
             const deleteIcon = document.getElementById(`delete-icon-${index}`);
             deleteIcon.addEventListener('click', () => {
                 const confirmDelete = confirm(`Tem certeza de que deseja excluir o arquivo "${file.name}"?`);
                 if (confirmDelete) {
-                    fileItem.remove(); // Remove o item da lista de pré-visualização
-                    alert(`Arquivo "${file.name}" excluído da seleção.`);
+                    // Remove o arquivo da lista de pré-visualização
+                    fileItem.remove();
+
+                    // Remove o arquivo do array de arquivos restantes
+                    remainingFiles = remainingFiles.filter((f) => f !== file);
                 }
             });
         });
+    }
+});
+
+// Substitua sua função de upload para usar o `remainingFiles` em vez de `fileInput.files`
+uploadForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!isUploading && remainingFiles.length > 0) {
+        console.log('Iniciando upload...');
+        startUpload(remainingFiles); // Use o array atualizado
+    } else {
+        alert('Nenhum arquivo para fazer upload!');
     }
 });
 
@@ -227,8 +241,7 @@ async function updateStorageUsage() {
 }
 
 // Função para iniciar o upload múltiplo
-async function startUpload() {
-    const files = fileInput.files;
+async function startUpload(files) {
     const user = auth.currentUser;
 
     if (!user) {
@@ -244,7 +257,7 @@ async function startUpload() {
     }
 
     // Calcula o total de bytes dos novos arquivos
-    const totalNewFilesBytes = Array.from(files).reduce((sum, file) => sum + file.size, 0);
+    const totalNewFilesBytes = files.reduce((sum, file) => sum + file.size, 0);
     const totalUsedBytes = allFiles.reduce((sum, file) => sum + Number(file.size || 0), 0);
     const projectedTotalBytes = totalUsedBytes + totalNewFilesBytes;
 
@@ -263,7 +276,7 @@ async function startUpload() {
     console.log(`Iniciando upload de ${files.length} arquivos...`);
 
     // Iterar sobre cada arquivo e iniciar o upload
-    Array.from(files).forEach((file, index) => {
+    files.forEach((file, index) => {
         // Use o nome do arquivo fornecido pelo usuário ou o nome original se nenhum for dado
         const renameInput = document.getElementById(`rename-input-${index}`);
         const customFileName = renameInput && renameInput.value.trim() ? renameInput.value.trim() : file.name;
