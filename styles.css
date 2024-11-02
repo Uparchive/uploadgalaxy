@@ -1420,3 +1420,27 @@ footer p {
     color: #fff;
     cursor: pointer;
 }
+#video-player-section {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+}
+
+#video-player-container {
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    position: relative;
+}
+
+.video-js {
+    width: 100% !important;
+    height: 100% !important;
+}
