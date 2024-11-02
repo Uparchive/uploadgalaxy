@@ -1384,10 +1384,6 @@ footer p {
     }
 }
 
-/* ========================================= */
-/* ======== Modal Player =================== */
-/* ========================================= */
-
 /* Modal */
 .video-modal {
     display: none;
@@ -1396,10 +1392,10 @@ footer p {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo escurecido */
     justify-content: center;
     align-items: center;
-    z-index: 2000;
+    z-index: 2000; /* Z-index alto para garantir que o modal fique sobre outros elementos */
 }
 
 /* Conteúdo do Modal */
@@ -1413,27 +1409,27 @@ footer p {
 /* Botão de Fechar */
 .close-button {
     position: absolute;
-    top: 15px; /* Ajuste para mover um pouco mais para cima */
-    right: 20px; /* Mantém o ajuste na posição horizontal */
+    top: 15px; /* Ajuste para mover o botão um pouco mais para cima */
+    right: 20px; /* Manter um espaço da lateral */
     font-size: 20px; /* Tamanho do "X" */
     color: #ffffff;
     cursor: pointer;
-    background: #000000;
+    background: #000000; /* Fundo preto para destacar o botão */
     border-radius: 50%; /* Deixar o botão perfeitamente circular */
-    border: 2px solid #ffffff;
-    padding: 6px;
+    border: 2px solid #ffffff; /* Bordas brancas para destacá-lo */
+    padding: 6px; /* Adiciona um espaçamento interno */
     width: 30px; /* Dimensão fixa para manter o formato de círculo */
     height: 30px; /* Dimensão fixa para manter o formato de círculo */
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2100;
-    transition: background-color 0.3s, color 0.3s;
+    z-index: 2100; /* Certifica-se de que o botão está acima do modal */
+    transition: background-color 0.3s, color 0.3s; /* Transição suave ao passar o mouse */
 }
 
 .close-button:hover {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #ffffff; /* Fundo branco ao passar o mouse */
+    color: #000000; /* Cor preta ao passar o mouse */
 }
 
 /* Container do Vídeo */
@@ -1448,6 +1444,7 @@ footer p {
     height: auto !important;
 }
 
+/* Estilos dos Botões Personalizados do Player */
 .vjs-rewind-button .fas,
 .vjs-forward-button .fas,
 .vjs-download-button .fas,
@@ -1479,13 +1476,13 @@ footer p {
 .vjs-download-button:hover .fas,
 .vjs-embed-button:hover .fas,
 .vjs-picture-in-picture-button:hover .fas {
-    color: #ccc; /* Cor ao passar o mouse */
+    color: #ccc; /* Cor ao passar o mouse para indicar interação */
 }
 
 /* Estilos para os botões personalizados do player */
 .vjs-button .fas {
     font-size: 1.5em;
-    color: #ffffff; /* Defina uma cor visível para os ícones */
+    color: #ffffff; /* Cor dos ícones */
 }
 
 .vjs-rewind-button,
@@ -1526,6 +1523,8 @@ footer p {
 .vjs-fullscreen .vjs-picture-in-picture-button {
     display: flex !important; /* Mostrar o botão de Picture-in-Picture somente em tela cheia */
 }
+
+/* Ocultar o Ícone de Volume em Dispositivos Móveis */
 @media (max-width: 768px) {
     .vjs-volume-panel {
         display: none !important; /* Oculta o ícone de volume no player para dispositivos móveis */
