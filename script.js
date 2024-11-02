@@ -403,7 +403,7 @@ function displayFiles(files) {
                 ${isVideo ? `<button class="play-button" id="play-button-${index}"><i class="fas fa-play"></i></button>` : ''}
                 <a href="${file.url}" class="download-button" id="download-button-${index}" download="${file.name}"><i class="fas fa-download"></i></a>
                 <button class="share-button" id="share-button-${index}"><i class="fas fa-link"></i></button>
-                <button class="delete-button" id="delete-button-${index}"><i class="fas fa-trash"></i></button>
+                <button class="delete-button delete-icon" id="delete-button-${index}"><i class="fas fa-trash"></i></button>
             </div>
         `;
         fileList.appendChild(listItem);
@@ -422,10 +422,18 @@ function displayFiles(files) {
             copyToClipboard(file.url);
         });
 
-        // Evento para excluir o arquivo
+        // Evento para excluir o arquivo no Firebase Storage
         const deleteButton = document.getElementById(`delete-button-${index}`);
         deleteButton.addEventListener('click', () => {
             deleteFile(file.name);
+        });
+    });
+
+    // Adiciona o evento de exclusão ao ícone de lixeira localmente, removendo o item da lista visualmente
+    document.querySelectorAll('.delete-icon').forEach(icon => {
+        icon.addEventListener('click', function() {
+            const fileItem = this.closest('.file-item');
+            fileItem.remove(); // Opcional: lógica adicional para atualizar a lista de arquivos selecionados
         });
     });
 }
