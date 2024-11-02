@@ -510,7 +510,7 @@ function playVideo(url) {
 
     // Inserir o elemento de vídeo no DOM
     videoContainer.innerHTML = `
-        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: auto; max-height: 80vh;"></video>
+        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: 100%;"></video>
     `;
 
     // Inicializar o player após garantir que o elemento foi adicionado
@@ -521,29 +521,9 @@ function playVideo(url) {
         fluid: true,
     });
 
-    // Ajustar o player para lidar com vídeos em pé ou paisagem
-    player.on('loadedmetadata', () => {
-        const playerElement = document.getElementById('video-player');
-        const videoWidth = player.videoWidth;
-        const videoHeight = player.videoHeight;
-
-        // Verifica se o vídeo está em orientação retrato (em pé)
-        if (videoHeight > videoWidth) {
-            // Ajustes para vídeos em pé
-            playerElement.style.width = 'auto';
-            playerElement.style.height = 'calc(80vh - 50px)'; // Reduz a altura para deixar espaço para a barra de controles
-        } else {
-            // Ajustes para vídeos em paisagem
-            playerElement.style.width = '100%';
-            playerElement.style.height = 'auto';
-        }
-    });
-
-    // Adicionar botões personalizados ao player
     addCustomButtons(player);
 }
 
-// Função para abrir o modal de vídeo
 function openVideoModal(videoUrl) {
     const videoModal = document.getElementById('video-modal');
     const videoContainer = document.getElementById('video-player-container');
@@ -555,29 +535,20 @@ function openVideoModal(videoUrl) {
 
     // Inicialize o player com o vídeo URL
     videoContainer.innerHTML = '<video id="video-player" class="video-js vjs-default-skin" controls preload="auto"></video>';
-    const player = videojs('video-player', {
+    videojs('video-player', {
         autoplay: true,
         controls: true,
         sources: [{ src: videoUrl, type: getMimeType(videoUrl) }],
         fluid: true
     });
 
-    // Forçar modo paisagem
-    player.on('loadedmetadata', () => {
-        if (player.videoWidth < player.videoHeight) {
-            // Se o vídeo estiver em modo retrato, aplicamos um ajuste para que seja mostrado em paisagem
-            player.addClass('landscape');
-        }
-    });
-
-    // Exibir o modal e centralizá-lo corretamente
+    // Exibir o modal
     videoModal.style.display = 'flex';
-    videoModal.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Função para fechar o modal de vídeo
 function closeVideoModal() {
     const videoModal = document.getElementById('video-modal');
+    const videoContainer = document.getElementById('video-player-container');
 
     // Esconder o modal
     videoModal.style.display = 'none';
@@ -586,6 +557,9 @@ function closeVideoModal() {
     if (videojs.getPlayer('video-player')) {
         videojs.getPlayer('video-player').dispose();
     }
+
+    // Limpar o conteúdo do container
+    videoContainer.innerHTML = '';
 }
 
 // Função para adicionar botões personalizados ao player
