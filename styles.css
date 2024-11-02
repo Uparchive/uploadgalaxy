@@ -1413,20 +1413,23 @@ footer p {
 /* Botão de Fechar */
 .close-button {
     position: absolute;
-    top: 10px; /* Posiciona dentro do vídeo */
-    right: 10px; /* Ajuste para alinhar corretamente */
+    top: 0; /* Alinhar ao topo do modal */
+    right: 0; /* Alinhar à direita do modal */
+    transform: translate(50%, -50%); /* Colocar o botão um pouco acima e deslocar à direita */
     font-size: 24px;
     color: #ffffff;
     cursor: pointer;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%; /* Deixar o botão arredondado */
     border: none;
-    padding: 5px;
+    padding: 8px;
     z-index: 2100;
-    transition: color 0.3s;
+    transition: color 0.3s, background-color 0.3s;
 }
 
 .close-button:hover {
-    color: #ccc; /* Cor mais clara ao passar o mouse */
+    background-color: #ffffff;
+    color: #000000;
 }
 
 /* Container do Vídeo */
@@ -1464,6 +1467,7 @@ footer p {
     align-items: center;
     justify-content: center;
     color: white; /* Garante que o ícone seja visível */
+    margin-right: 5px; /* Adiciona espaço entre os botões */
 }
 
 .vjs-rewind-button:hover .fas,
@@ -1514,7 +1518,7 @@ footer p {
     .close-button {
         top: 5px; /* Ajuste para ficar mais sutil em telas pequenas */
         right: 5px;
+        transform: none; /* Remover o deslocamento em dispositivos móveis */
         font-size: 20px; /* Tamanho menor do "X" em dispositivos móveis */
     }
 }
-
