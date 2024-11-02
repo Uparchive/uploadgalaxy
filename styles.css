@@ -1618,24 +1618,105 @@ footer p {
 }
 
 /* ========================================= */
-/* ======== Player de Áudio ================= */
+/* ======== Player de Áudio Melhorado ======= */
 /* ========================================= */
 
-/* Player de Áudio */
-.audio-player {
+/* Estilo para o Modal de Áudio */
+.audio-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 40px;
-    background: #222; /* Fundo escuro do player */
-    color: #fff; /* Cor dos controles do player */
-    border-radius: 5px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Fundo escuro mais opaco */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Certifique-se de que o modal esteja sobre outros elementos */
 }
 
-/* Ajustes nos controles do player */
+/* Conteúdo do Modal de Áudio */
+.audio-modal-content {
+    background: #1c1c1c; /* Fundo do modal ainda mais escuro para destacar o player */
+    padding: 20px;
+    border-radius: 10px; /* Bordas levemente arredondadas */
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+/* Estilo do Botão de Fechar do Modal */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #fff; /* Cor do "X" para fechar - branco para destaque */
+    background: #000; /* Fundo do botão de fechar */
+    border-radius: 50%; /* Botão de fechar arredondado */
+    border: 2px solid #fff; /* Borda branca */
+    padding: 6px;
+    width: 30px; /* Dimensão fixa para manter o formato de círculo */
+    height: 30px; /* Dimensão fixa para manter o formato de círculo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2100;
+    transition: background-color 0.3s, color 0.3s; /* Transição suave para hover */
+}
+
+/* Efeito ao passar o mouse no botão de fechar */
+.close-button:hover {
+    background-color: #fff; /* Muda para branco ao passar o mouse */
+    color: #000; /* Ícone muda para preto ao passar o mouse */
+}
+
+/* Player de Áudio Estilizado */
+.audio-player {
+    width: 100%;
+    height: 50px;
+    background: #2a2a2a; /* Fundo mais escuro do player */
+    color: #fff; /* Cor dos controles do player */
+    border-radius: 10px; /* Bordas arredondadas para um visual mais moderno */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra para destacar o player */
+    border: none;
+    outline: none;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre os elementos */
+}
+
+/* Estilo dos Controles do Player */
 .audio-player::-webkit-media-controls-panel {
-    background-color: #333; /* Painel de controle em fundo escuro */
+    background-color: #2a2a2a; /* Fundo do painel dos controles */
+    color: #fff; /* Cor dos ícones dos controles */
 }
 
 .audio-player::-webkit-media-controls-play-button,
+.audio-player::-webkit-media-controls-volume-slider,
+.audio-player::-webkit-media-controls-timeline,
+.audio-player::-webkit-media-controls-current-time-display,
+.audio-player::-webkit-media-controls-time-remaining-display {
+    color: #ffffff; /* Cor dos ícones dos controles para contraste */
+}
+
+/* Ajustes para Controle de Volume */
 .audio-player::-webkit-media-controls-volume-slider {
-    color: #fff; /* Cor dos ícones dos controles */
+    accent-color: #ff6600; /* Acento laranja para combinar com o tema do site */
+}
+
+/* Ajustes para o Botão Play/Pause */
+.audio-player::-webkit-media-controls-play-button {
+    background: #ff6600; /* Fundo do botão de play */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+/* Ajuste de Sombra no Player de Áudio */
+.audio-player {
+    box-shadow: 0 0 15px rgba(255, 102, 0, 0.5); /* Sombra laranja para destacar o player */
 }
