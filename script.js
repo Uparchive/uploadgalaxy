@@ -510,7 +510,7 @@ function playVideo(url) {
 
     // Inserir o elemento de vídeo no DOM
     videoContainer.innerHTML = `
-        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: 100%;"></video>
+        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: auto; aspect-ratio: 16 / 9;"></video>
     `;
 
     // Inicializar o player após garantir que o elemento foi adicionado
@@ -534,7 +534,7 @@ function openVideoModal(videoUrl) {
     }
 
     // Inicialize o player com o vídeo URL
-    videoContainer.innerHTML = '<video id="video-player" class="video-js vjs-default-skin" controls preload="auto"></video>';
+    videoContainer.innerHTML = '<video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="aspect-ratio: 16 / 9;"></video>';
     videojs('video-player', {
         autoplay: true,
         controls: true,
