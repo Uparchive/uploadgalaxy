@@ -230,14 +230,14 @@ async function updateStorageUsage() {
 
     // Atualiza o texto que exibe o total de armazenamento usado
     const storageUsageDisplay = document.querySelector('.storage-text');
-    storageUsageDisplay.textContent = `${formattedUsedGB} GB de 50.00 GB`;
+    storageUsageDisplay.textContent = `${formattedUsedGB} GB de 500.00 GB`;
 
     // Atualiza a largura da barra de progresso para refletir o uso atual
     const progressBar = document.querySelector('.progress-bar');
     const usedPercentage = (totalUsedBytes / getMaxStorageBytes()) * 100;
     progressBar.style.width = `${Math.min(usedPercentage, 100)}%`; // Garante que a barra não ultrapasse 100%
 
-    console.log(`Total Usado: ${formattedUsedGB} GB de 50.00 GB`);
+    console.log(`Total Usado: ${formattedUsedGB} GB de 500.00 GB`);
 }
 
 // Função para iniciar o upload múltiplo
