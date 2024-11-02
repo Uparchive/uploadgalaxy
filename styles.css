@@ -1532,7 +1532,7 @@ footer p {
 }
 
 /* ========================================= */
-/* ======== Player de Áudio ================ */
+/* ======== Player de Áudio e Vídeo ========= */
 /* ========================================= */
 
 /* Estilo para os modais de vídeo e áudio */
@@ -1542,20 +1542,20 @@ footer p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.8); /* Fundo escuro para destacar o conteúdo do modal */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 2000; /* Certifique-se de que o modal esteja sobre outros elementos */
 }
 
 /* Conteúdo dos modais */
 .video-modal-content, .audio-modal-content {
-    background: #fff;
+    width: 90%;
+    max-width: 800px; /* Mantém o tamanho máximo para modais em telas maiores */
+    background: #ffffff;
     padding: 20px;
     border-radius: 8px;
-    max-width: 600px;
-    width: 100%;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     position: relative;
 }
@@ -1563,9 +1563,26 @@ footer p {
 /* Estilo do botão de fechar do modal */
 .close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5rem;
+    top: 15px; /* Alinhado para se manter consistente com o botão de fechar do player de vídeo */
+    right: 20px;
+    font-size: 20px; /* Tamanho do "X" */
+    color: #ffffff;
     cursor: pointer;
-    color: #333;
+    background: #000000; /* Fundo preto para destacar o botão */
+    border-radius: 50%; /* Circular */
+    border: 2px solid #ffffff; /* Bordas brancas */
+    padding: 6px;
+    width: 30px; /* Dimensão fixa para manter o formato de círculo */
+    height: 30px; /* Dimensão fixa para manter o formato de círculo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2100; /* Garante que o botão de fechar esteja acima do conteúdo do modal */
+    transition: background-color 0.3s, color 0.3s; /* Efeito de transição ao passar o mouse */
+}
+
+/* Efeito ao passar o mouse no botão de fechar */
+.close-button:hover {
+    background-color: #ffffff; /* Fundo branco ao passar o mouse */
+    color: #000000; /* Texto preto ao passar o mouse */
 }
