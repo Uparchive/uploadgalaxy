@@ -554,13 +554,13 @@ function closeAudioModal() {
     const audioContainer = document.getElementById('audio-player-container');
 
     if (audioModal && audioContainer) {
-        // Esconder o modal
+        // Esconder o modal de áudio
         audioModal.style.display = 'none';
 
         // Limpar o conteúdo do container de áudio
         audioContainer.innerHTML = '';
     } else {
-        console.error('Erro: Modal de áudio ou container não foram encontrados no DOM.');
+        console.error('Erro: Modal de áudio ou container de áudio não foram encontrados no DOM.');
     }
 }
 
@@ -651,7 +651,7 @@ function closeVideoModal() {
     const videoContainer = document.getElementById('video-player-container');
 
     if (videoModal && videoContainer) {
-        // Esconder o modal
+        // Esconder o modal de vídeo
         videoModal.style.display = 'none';
 
         // Destruir o player de vídeo se ele existir
@@ -662,7 +662,7 @@ function closeVideoModal() {
         // Limpar o conteúdo do container de vídeo
         videoContainer.innerHTML = '';
     } else {
-        console.error('Erro: Modal de vídeo ou container não foram encontrados no DOM.');
+        console.error('Erro: Modal de vídeo ou container de vídeo não foram encontrados no DOM.');
     }
 }
 
