@@ -433,22 +433,25 @@ async function fetchAllFiles() {
 }
 
 function displayFiles(files) {
+    // Limpar a lista atual de arquivos exibidos
     fileList.innerHTML = '';
+
     files.forEach((file, index) => {
+        // Verificar se o arquivo é vídeo ou áudio
         const isVideo = file.name.endsWith('.mp4') || file.name.endsWith('.mkv') || file.name.endsWith('.webm');
         const isAudio = file.name.endsWith('.mp3') || file.name.endsWith('.wav') || file.name.endsWith('.ogg');
 
-        // Usar o nome original do arquivo
-        const displayName = file.name; 
+        // Criar elemento de lista para exibir o arquivo
+        const listItem = document.createElement('li');
+        listItem.className = 'file-item';
 
         // Formatar o tamanho do arquivo
         const fileSizeFormatted = formatBytes(file.size);
 
-        // Elemento de item da lista, com o nome do arquivo e seu tamanho
-        listItem.className = 'file-item';
+        // Definir o conteúdo HTML do elemento
         listItem.innerHTML = `
             <div class="file-header">
-                <span id="file-name-${index}" class="file-name">${displayName}</span>
+                <span id="file-name-${index}" class="file-name">${file.name}</span>
                 <span class="file-size">(${fileSizeFormatted})</span>
             </div>
             <div class="file-actions">
@@ -459,43 +462,45 @@ function displayFiles(files) {
                 <button class="delete-button delete-icon" id="delete-button-${index}"><i class="fas fa-trash"></i></button>
             </div>
         `;
+
+        // Adicionar o item à lista de arquivos
         fileList.appendChild(listItem);
 
-        // Evento para tocar vídeo
+        // Adicionar evento para tocar vídeo
         if (isVideo) {
             const playButton = document.getElementById(`play-button-${index}`);
-            playButton.addEventListener('click', () => {
-                playVideo(file.url);
-            });
+            if (playButton) {
+                playButton.addEventListener('click', () => {
+                    playVideo(file.url);
+                });
+            }
         }
 
-        // Evento para tocar áudio
+        // Adicionar evento para tocar áudio
         if (isAudio) {
             const audioPlayButton = document.getElementById(`audio-play-button-${index}`);
-            audioPlayButton.addEventListener('click', () => {
-                playAudio(file.url);
+            if (audioPlayButton) {
+                audioPlayButton.addEventListener('click', () => {
+                    playAudio(file.url);
+                });
+            }
+        }
+
+        // Adicionar evento para copiar link do arquivo
+        const shareButton = document.getElementById(`share-button-${index}`);
+        if (shareButton) {
+            shareButton.addEventListener('click', () => {
+                copyToClipboard(file.url);
             });
         }
 
-        // Evento para copiar link do arquivo
-        const shareButton = document.getElementById(`share-button-${index}`);
-        shareButton.addEventListener('click', () => {
-            copyToClipboard(file.url);
-        });
-
-        // Evento para excluir o arquivo no Firebase Storage
+        // Adicionar evento para excluir o arquivo do Firebase Storage
         const deleteButton = document.getElementById(`delete-button-${index}`);
-        deleteButton.addEventListener('click', () => {
-            deleteFile(file.name);
-        });
-    });
-
-    // Adiciona o evento de exclusão ao ícone de lixeira localmente, removendo o item da lista visualmente
-    document.querySelectorAll('.delete-icon').forEach(icon => {
-        icon.addEventListener('click', function() {
-            const fileItem = this.closest('.file-item');
-            fileItem.remove(); // Opcional: lógica adicional para atualizar a lista de arquivos selecionados
-        });
+        if (deleteButton) {
+            deleteButton.addEventListener('click', () => {
+                deleteFile(file.name);
+            });
+        }
     });
 }
 
