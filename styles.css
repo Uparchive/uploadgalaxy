@@ -1531,21 +1531,19 @@ footer p {
         display: none !important; /* Oculta o ícone de volume no player para dispositivos móveis */
     }
 }
-/* CSS para manter a proporção e centralizar o vídeo vertical */
 #video-player-container {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     max-width: 640px;
-    margin: auto;
-    padding-top: 56.25%; /* Proporção 16:9 */
+    padding-top: 0; /* Remova a proporção fixa */
 }
 
 #video-player {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    width: auto; /* Define a largura como automática */
+    height: 100%; /* Define a altura para ocupar todo o contêiner */
+    max-height: 100%; /* Limita a altura para não ultrapassar o contêiner */
     object-fit: contain;
+    border-radius: 10px; /* Borda arredondada para melhor estética */
 }
-
