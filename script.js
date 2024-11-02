@@ -531,6 +531,17 @@ function playAudio(url) {
     }
 }
 
+function closeAudioModal() {
+    const audioModal = document.getElementById('audio-modal');
+    const audioContainer = document.getElementById('audio-player-container');
+
+    // Esconder o modal
+    audioModal.style.display = 'none';
+
+    // Limpar o conteúdo do container de áudio
+    audioContainer.innerHTML = '';
+}
+
 // Função para renomear o arquivo no Firebase Storage
 async function renameFile(oldName, newName) {
     try {
