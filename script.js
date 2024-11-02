@@ -497,36 +497,28 @@ async function renameFile(oldName, newName) {
 }
 
 function playVideo(url) {
-    const videoPlayerSection = document.getElementById('video-player-section');
+    const videoModal = document.getElementById('video-modal');
     const videoContainer = document.getElementById('video-player-container');
 
-    if (!videoPlayerSection || !videoContainer) {
-        console.error("Elemento de player de vídeo não encontrado no DOM.");
-        return;
+    // Certifique-se de que o modal está visível antes de tentar inicializar o player
+    videoModal.style.display = 'flex';
+
+    // Verifique se o player já foi inicializado, para evitar duplicação
+    if (!videojs.getPlayer('video-player')) {
+        videoContainer.innerHTML = '<video id="video-player" class="video-js vjs-default-skin" controls preload="auto" style="width: 100%; height: 100%;"></video>';
+        
+        // Inicializar o player com URL dinâmico
+        const player = videojs('video-player', {
+            autoplay: true,
+            controls: true,
+            sources: [{ src: url, type: 'video/mp4' }],
+            fluid: true,
+        });
+        
+        addCustomButtons(player);
     }
-
-    // Remova a instância anterior do player se houver
-    if (videoPlayer) {
-        videoPlayer.dispose();
-        videoPlayer = null;
-    }
-
-    // Limpe o container e crie um novo elemento de vídeo
-    videoContainer.innerHTML = '<video id="video-player" class="video-js vjs-default-skin" controls preload="auto"></video>';
-
-    // Configure o modal para ser exibido na tela
-    videoPlayerSection.style.display = 'flex';
-
-    // Inicialize o Video.js player com a URL do vídeo
-    videoPlayer = videojs('video-player', {
-        autoplay: true,
-        controls: true,
-        sources: [{ src: url, type: getMimeType(url) }],
-        fluid: true,
-    }, function() {
-        addCustomButtons(this); // Adicione os botões personalizados após a inicialização
-    });
 }
+
 
 // Função para abrir o modal de vídeo
 function openVideoModal(videoUrl) {
@@ -557,17 +549,6 @@ function openVideoModal(videoUrl) {
 
     videoModal.style.display = 'flex';
 }
-
-// Função para fechar o modal de vídeo
-document.getElementById('close-video-modal').addEventListener('click', () => {
-    const videoModal = document.getElementById('video-modal');
-    videoModal.style.display = 'none';
-
-    // Remove o player quando o modal é fechado
-    if (videojs.getPlayer('video-player')) {
-        videojs.getPlayer('video-player').dispose();
-    }
-});
 
 function closeVideoModal() {
     const videoPlayerSection = document.getElementById('video-player-section');
@@ -786,6 +767,16 @@ async function logout() {
 // Adicionar evento de clique ao botão de logout
 logoutButton.addEventListener('click', () => {
     logout();
+});
+
+document.getElementById('close-video-modal').addEventListener('click', () => {
+    const videoModal = document.getElementById('video-modal');
+    videoModal.style.display = 'none';
+
+    // Certifique-se de que o player é removido do DOM para evitar erros subsequentes
+    if (videojs.getPlayer('video-player')) {
+        videojs.getPlayer('video-player').dispose();
+    }
 });
 
 // Função para impedir o usuário de sair durante o upload
