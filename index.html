@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="styles.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <link href="https://vjs.zencdn.net/7.21.1/video-js.css" rel="stylesheet">
 </head>
 <body>
@@ -17,21 +16,22 @@
         <nav class="navbar">
             <div class="container">
                 <a href="#" class="logo">Upload Galaxy</a>
-                <button id="logout-button" class="upload-button">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
                 <ul class="nav-links">
                     <li><a href="#upload-section">Upload</a></li>
                     <li><a href="#file-list-section">Meus Arquivos</a></li>
                     <li><a href="#">Sobre</a></li>
                     <li><a href="#">Contato</a></li>
                 </ul>
+                <button id="logout-button" class="upload-button">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
                 <div class="menu-toggle">
                     <i class="fas fa-bars"></i>
                 </div>
             </div>
         </nav>
     </header>
+
     <main>
         <section id="hero-section">
             <div class="hero-content">
@@ -59,7 +59,7 @@
                 <button type="submit" class="upload-button"><i class="fas fa-cloud-upload-alt"></i> Fazer Upload</button>
             </form>
             <div id="progress-container" class="progress-container" style="display: none;">
-                </div>
+            </div>
         </section>
 
         <section id="file-list-section" class="container">
@@ -89,13 +89,13 @@
                 </select>
                 
                 <ul id="file-list">
-                    </ul>
+                </ul>
             </div>
         </section>
 
         <section id="video-player-section" class="container" style="display: none;">
             <div id="video-player-container">
-                </div>
+            </div>
         </section>
     </main>
 
@@ -127,7 +127,6 @@
             navLinks.classList.toggle('active');
         });
 
-        // Fecha o menu ao clicar fora ou em um link do menu
         document.addEventListener('click', (event) => {
             if (!menuToggle.contains(event.target) && !navLinks.contains(event.target)) {
                 navLinks.classList.remove('active');
@@ -138,11 +137,6 @@
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
             });
-        });
-
-        // Impede que o menu suma ao clicar no botão menu-toggle
-        menuToggle.addEventListener('mouseenter', () => {
-            menuToggle.style.transform = 'none';
         });
     </script>
 </body>
