@@ -92,7 +92,7 @@
                     <option value="size-desc">Maior Tamanho Primeiro</option>
                 </select>
 
-                <div id="file-list-container">
+                <div class="file-list-content">
                     <ul id="file-list">
                         <!-- Os itens da lista serão inseridos aqui dinamicamente -->
                     </ul>
@@ -105,6 +105,14 @@
             <div class="video-modal-content">
                 <span id="close-video-modal" class="close-button">&times;</span>
                 <div id="video-player-container"></div>
+            </div>
+        </section>
+
+        <!-- Modal para o Player de Áudio -->
+        <section id="audio-modal" class="audio-modal" style="display: none;">
+            <div class="audio-modal-content">
+                <span id="close-audio-modal" class="close-button">&times;</span>
+                <div id="audio-player-container"></div>
             </div>
         </section>
     </main>
