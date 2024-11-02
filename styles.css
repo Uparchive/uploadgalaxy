@@ -1583,3 +1583,72 @@ footer p {
     background: linear-gradient(to right, #e66a00, #e55c00); /* Cor um pouco mais escura no hover */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+/* Estilo do Modal de Áudio */
+.audio-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Fundo escuro mais opaco */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Conteúdo do Modal de Áudio */
+.audio-modal-content {
+    background: #333; /* Fundo do modal escuro */
+    padding: 20px;
+    border-radius: 10px; /* Bordas levemente arredondadas */
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+/* Estilo do Botão de Fechar do Modal */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #fff; /* Cor do "X" para fechar - branco para destaque */
+    background: #000; /* Fundo do botão de fechar */
+    border-radius: 50%; /* Botão de fechar arredondado */
+    border: 2px solid #fff; /* Borda branca */
+    padding: 6px;
+    width: 30px; /* Dimensão fixa para manter o formato de círculo */
+    height: 30px; /* Dimensão fixa para manter o formato de círculo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2100;
+    transition: background-color 0.3s, color 0.3s; /* Transição suave para hover */
+}
+
+.close-button:hover {
+    background-color: #fff; /* Muda para branco ao passar o mouse */
+    color: #000; /* Ícone muda para preto ao passar o mouse */
+}
+
+/* Player de Áudio */
+.audio-player {
+    width: 100%;
+    height: 40px;
+    background: #222; /* Fundo escuro do player */
+    color: #fff; /* Cor dos controles do player */
+    border-radius: 5px;
+}
+
+/* Ajustes nos controles do player */
+.audio-player::-webkit-media-controls-panel {
+    background-color: #333; /* Painel de controle em fundo escuro */
+}
+
+.audio-player::-webkit-media-controls-play-button,
+.audio-player::-webkit-media-controls-volume-slider {
+    color: #fff; /* Cor dos ícones dos controles */
+}
