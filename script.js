@@ -455,11 +455,11 @@ function displayFiles(files) {
                 <span class="file-size">(${fileSizeFormatted})</span>
             </div>
             <div class="file-actions">
-                ${isVideo ? `<button class="play-button" id="play-button-${index}"><i class="fas fa-play"></i></button>` : ''}
-                ${isAudio ? `<button class="audio-play-button" id="audio-play-button-${index}"><i class="fas fa-headphones"></i></button>` : ''}
-                <a href="${file.url}" class="download-button" id="download-button-${index}" download="${file.name}"><i class="fas fa-download"></i></a>
-                <button class="share-button" id="share-button-${index}"><i class="fas fa-link"></i></button>
-                <button class="delete-button delete-icon" id="delete-button-${index}"><i class="fas fa-trash"></i></button>
+                ${isVideo ? `<button class="action-button play-button" id="play-button-${index}"><i class="fas fa-play"></i></button>` : ''}
+                ${isAudio ? `<button class="action-button audio-play-button" id="audio-play-button-${index}"><i class="fas fa-headphones"></i></button>` : ''}
+                <a href="${file.url}" class="action-button download-button" id="download-button-${index}" download="${file.name}"><i class="fas fa-download"></i></a>
+                <button class="action-button share-button" id="share-button-${index}"><i class="fas fa-link"></i></button>
+                <button class="action-button delete-button delete-icon" id="delete-button-${index}"><i class="fas fa-trash"></i></button>
             </div>
         `;
 
