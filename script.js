@@ -217,7 +217,7 @@ toggleButton.addEventListener('click', () => {
 
 // Limite Gratuito para o servidor
 function getMaxStorageBytes() {
-    return 500 * 1024 ** 4; // Limite de 500 GB em bytes
+    return 1024 * 1024 ** 4; // Limite de 1 TB em bytes
 }
 
 // Função para atualizar o uso de armazenamento
@@ -225,20 +225,20 @@ async function updateStorageUsage() {
     // Calcula o total de bytes utilizados somando o tamanho de todos os arquivos
     const totalUsedBytes = allFiles.reduce((sum, file) => sum + Number(file.size || 0), 0);
 
-    // Converte o valor para gigabytes
-    const totalUsedGB = totalUsedBytes / (1024 ** 3);
-    const formattedUsedGB = totalUsedGB.toFixed(2);
+    // Converte o valor para terabytes
+    const totalUsedTB = totalUsedBytes / (1024 ** 4);
+    const formattedUsedTB = totalUsedTB.toFixed(2);
 
     // Atualiza o texto que exibe o total de armazenamento usado
     const storageUsageDisplay = document.querySelector('.storage-text');
-    storageUsageDisplay.textContent = `${formattedUsedGB} GB de 500.00 GB`;
+    storageUsageDisplay.textContent = `${formattedUsedTB} TB de 1.00 TB`;
 
     // Atualiza a largura da barra de progresso para refletir o uso atual
     const progressBar = document.querySelector('.progress-bar');
     const usedPercentage = (totalUsedBytes / getMaxStorageBytes()) * 100;
     progressBar.style.width = `${Math.min(usedPercentage, 100)}%`; // Garante que a barra não ultrapasse 100%
 
-    console.log(`Total Usado: ${formattedUsedGB} GB de 500.00 GB`);
+    console.log(`Total Usado: ${formattedUsedTB} TB de 1.00 TB`);
 }
 
 // Função para iniciar o upload múltiplo
